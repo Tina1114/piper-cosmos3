@@ -1,0 +1,4782 @@
+# Missing Metadata Scan
+
+## Scanned Roots
+
+- `/project/peilab/wam`: exists
+- `/project/peilab/wam/physical_WM/data/pack_3_objects_plus`: exists
+
+## fps_or_timing
+
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:18`: (tmp_path / ".git" / "ignored.py").write_text("fps = 999\n", encoding="utf-8")
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:21`: (tmp_path / "collector.py").write_text("fps = 30\n", encoding="utf-8")
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:40`: dtype=np.float32,
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:50`: data=np.zeros((3, 2, 2, 3), dtype=np.uint8),
+- `/project/peilab/wam/physical_WM_xqh/configs/train.yaml:18`: learning_rate: 1.0e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:38`: rospy_rate: 50
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:55`: bitrate: 1000000
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:66`: - Real data FPS is unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:19`: - Current goal is to finish missing metadata evidence for FPS and gripper unit.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:30`: 2. Inspect `reports/missing_metadata_scan.md` for evidence about FPS, gripper unit/scaling, task instruction source, and success/perfect split.
+- `/project/peilab/wam/physical_WM_xqh/configs/video_branch/egodex_ti2v_lora.yaml:11`: width: 832
+- `/project/peilab/wam/physical_WM_xqh/configs/video_branch/egodex_ti2v_lora.yaml:15`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/video_branch/egodex_ti2v_full.yaml:11`: width: 832
+- `/project/peilab/wam/physical_WM_xqh/configs/video_branch/egodex_ti2v_full.yaml:15`: learning_rate: 1e-5
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:37`: - FPS,
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:45`: - Real dataset FPS is unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:47`: - A linked worktree was created at `/tmp/cosmos3_cy-task0-docs-infra`, but file edits were applied to the provided workspace root because the patch tool operates there. Current dirty status is in `/project/peilab/wam/cosmos3_cy`.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:10`: - image dtype: uint8
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:30`: - likely opening width or driver internal gripper command
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:48`: ### 2. FPS
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:62`: - `policy_hz`
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:10`: - FPS: `UNKNOWN`
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:28`: - Dtype: `uint8`
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:31`: - Width: 640
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:47`: - FPS is unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:65`: dtype: uint8
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:282`: ### 4.2 数据真实 FPS
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:284`: 当前 HDF5 只有 T，没有 timestamp 或 fps。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:290`: grep -R "\"fps\"" -n /project/peilab/wam/physical_WM | head -50
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:291`: grep -R "fps" -n /project/peilab/wam/physical_WM | head -50
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:292`: grep -R "rate" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:293`: grep -R "sleep" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:294`: grep -R "frequency" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:295`: grep -R "dt" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:313`: -show_entries stream=r_frame_rate,avg_frame_rate,duration,nb_frames \
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:332`: 3. policy_hz 应该是多少。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:341`: 10 FPS: 16-step horizon = 1.6 秒
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:342`: 30 FPS: 16-step horizon = 0.53 秒
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:456`: | command 频率        | 控制脚本                    | policy_hz、execute_steps              |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:536`: fps: UNKNOWN
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:553`: dtype: uint8
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:555`: width: 640
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:601`: fps: UNKNOWN
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:653`: - image dtype: uint8
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:668`: - likely opening width or driver internal gripper command
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_aug_egodex40k_uncond_3cam_384_1e-4.yaml:27`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/libero_uncond_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/real_cleaning_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M3_baseline.md:34`: - Out-of-range rate is close to zero.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:9`: # - RelativeUnified28DTransform converts joint/eef pose targets to relative action during training.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:28`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M4_safety.md:38`: - Offline safety pass rate is greater than 99% on validation predictions.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:20`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M6_deployment.md:33`: - `policy_hz = 2` for first low-speed tests.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M6_deployment.md:41`: - Safety violation rate in shadow mode is below 0.5%.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_2cups_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:85`: - Update `MISSING_METADATA_REPORT.md` with evidence for FPS and gripper unit when found.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/libero_egodex40k_uncond_2cam224_1e-4.yaml:29`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M2_dataset.md:33`: - FPS is known or explicitly handled as unknown in sampling decisions.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robotwin_joint_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/libero_joint_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:25`: "Update missing metadata report with evidence for FPS and gripper unit",
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:30`: "Real data FPS is unknown",
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:33`: "next_task": "Run scan_missing_metadata.py over /project/peilab/wam and update docs/MISSING_METADATA_REPORT.md with FPS and gripper evidence. Stop before Dataset Loader.",
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_numbered_blocks_uncond_3cam_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:35`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:35`: learning_rate: 5e-5
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robotwin_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robotwin_idm_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/libero_idm_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/train.yaml:18`: learning_rate: 1.0e-4
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:16`: "fps_or_timing": ["fps", "rate", "frequency", "sleep", "dt", "hz"],
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:122`: for idx, line in enumerate(f, start=1):
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:222`: description="Search repository and data-adjacent files for FPS, gripper, task, success, and camera metadata."
+- `/project/peilab/wam/cosmos3_cy/scripts/check_action_qpos_alignment.py:64`: np.asarray(stats["sum_abs"], dtype=np.float64) + abs_diff.sum(axis=0)
+- `/project/peilab/wam/cosmos3_cy/scripts/check_action_qpos_alignment.py:67`: np.asarray(stats["max_abs"], dtype=np.float64), abs_diff.max(axis=0)
+- `/project/peilab/wam/physical_WM_xqh/configs/model/fastwam_idm.yaml:27`: seperated_timestep: true
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:100`: action = np.asarray(h5[action_key], dtype=np.float64)
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:101`: qpos = np.asarray(h5[qpos_key], dtype=np.float64)
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:102`: qvel = np.asarray(h5[qvel_key], dtype=np.float64)
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:127`: lengths = np.asarray(episode_lengths, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/configs/model/fastwam_joint.yaml:27`: seperated_timestep: true
+- `/project/peilab/wam/physical_WM_xqh/configs/model/fastwam.yaml:27`: seperated_timestep: true
+- `/project/peilab/wam/physical_WM_xqh/pyproject.toml:11`: "accelerate==1.12.0",
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:26`: Read the original plan and keep confirmed facts unchanged: raw HDF5 layout, RGB THWC image format, 14D absolute joint-position action, `action[t]` close to `qpos[t+1]` on `episode_0`, unknown FPS, unknown gripper unit, and mandatory first-stage safety principles.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:56`: Initialize gripper unit, FPS, and all-episode action/qpos alignment sections with sources to inspect and downstream impact.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:88`: Provide a CLI with `--repo-root`, `--data-root`, and `--output`. Search likely files for FPS, gripper, task instruction, success, and camera metadata terms.
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:66`: for idx, value in enumerate(node):
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:125`: for line_idx, line in enumerate(f, start=1):
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:211`: torch_dtype = torch.bfloat16
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:218`: "Preparing text encoder with model_id=%s tokenizer_model_id=%s device=%s dtype=%s context_len=%d overwrite=%s",
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:222`: torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:238`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:279`: count_tensor = torch.tensor([fully_cached_local, len(prompts)], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:296`: count_tensor = torch.tensor([prompts_encoded_local], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:313`: mask = mask.to(device=device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:317`: for i, prompt in enumerate(batch_prompts):
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:319`: context_i = context[i].detach().to(device="cpu", dtype=torch.bfloat16).contiguous()
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:320`: mask_i = mask[i].detach().to(device="cpu", dtype=torch.bool).contiguous()
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:345`: over_tensor = torch.tensor([over_length_prompts], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:355`: dtype=torch.long,
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:359`: for idx, cache_dir in enumerate(cache_dirs):
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:41`: │   ├── trainer.py                    # Wan22Trainer：accelerate+DeepSpeed ZeRO 训练循环
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:139`: （`fastwam.py:824` 等），并给它 timestep=0（`fuse_vae_embedding_in_latents` + `seperated_timestep`）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:321`: → accelerate launch (scripts/accelerate_configs/accelerate_zero1_ds.yaml) scripts/train.py
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:333`: - **accelerate + DeepSpeed ZeRO-1**（`ds_configs/ds_zero1_config.json`，stage 1，无 offload），
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:373`: checkpoints/weights/step_XXXXXX.pt   # {mot, proprio_encoder, step, torch_dtype}（主 rank）
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:374`: checkpoints/state/step_XXXXXX/       # accelerate/DeepSpeed 完整状态（所有 rank，可 resume）
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:394`: height=480, width=832, num_frames=49, lr=1e-5, trainable=dit。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:446`: 每个控制 step 从 buffer 取融合动作 → 安全检查 → `robot.move`。都跑 `rospy.Rate(50)`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:532`: 7. **采集 FPS**：真机数据转换默认 30Hz，采集 Hz ≠ 30 会让整条轨迹时间被压缩/拉伸
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:533`: （`how_to_add_a_task.md:21-34`）。加新任务时务必确认采集 Hz，转换时 `--fps` 设对。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:54`: | 训练 relative transform | `src/fastwam/datasets/lerobot/transforms/relative_action.py` | `RelativeUnified28DTransform` 用 `euler_angles_to_matrix/matrix_to_euler_angles` 对 `xyz + XYZ Euler(rad)` 做 SE(3) relative/absolute 互转 |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:80`: - 训练期 `RelativeUnified28DTransform` 把 joint arm + eef pose 转「相对首帧 state」的 delta；gripper 保持 absolute。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:95`: | 视频/帧对齐 | 正确 | 裁「最长有效连续段」，timestamp=原始帧号/fps，LeRobot 按 timestamp 取帧，与 state 对齐 |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:102`: | 训练入口 / config 组合 | 设计正确，等待 Euler v2 全量数据 | `task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4` 使用 28D processor/`RelativeUnified28DTransform`；当前 data config 已指向 `data/egodex_pnp_15tasks_28d_euler_v2`，全量重转与 stats 重算后再做一张卡 smoke |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:105`: `RelativeUnified28DTransform.backward` 用**当前实时 state** 做几何还原（不靠 stats）。两者正交、不矛盾。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:168`: stats 始终作用在相对表示，训练正向、推理反向同一套；绝对还原靠 `RelativeUnified28DTransform.backward`，不靠 stats。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:382`: - `action`：28D，存绝对未来目标；训练 processor 再用 `RelativeUnified28DTransform` 转成 relative。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:462`: 4. 用训练入口重算 stats；stats 必须在 `RelativeUnified28DTransform` 后的相对 action 表示上计算，不能复用旧 v1 stats。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:147`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:208`: - 最终以真机 success rate 为准。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:227`: - 如果要公平比较 A/B/C，保持 `data.train.processor.image_augmentation`、`learning_rate`、
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:38`: rospy_rate: 50
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:55`: bitrate: 1000000
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:45`: │   ├── trainer.py                    # Wan22Trainer：accelerate+DeepSpeed ZeRO 训练循环
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:143`: （`fastwam.py:824` 等），并给它 timestep=0（`fuse_vae_embedding_in_latents` + `seperated_timestep`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:253`: **统一 32D 异构混训 layout（新，与 28D 并存）**：把多个异构源（纯 eef 人手 / 纯 joint 真机 / joint+eef 都有）通过**一个共享 32D 动作头** co-train。布局 **eef 在前**（与 28D 的 joint-在前相反）：`[0:14]` eef 块（L pose[0:6]+grip[6]、R pose[7:13]+grip[13]）、`[14:30]` joint 块（每臂预留 7 joint 槽 + grip）、`[30:32]` base 预留。**表示：eef 相对首帧（SE(3) 换帧）、joint 绝对/raw**（控制语义不需要 delta 反算；但 32D 部署/eval 仍需接 group-aware 反归一化和 layout backward）。各源在加载时由 `UnifiedSlotLayout` 放进固定槽位 + 生成 per-dim mask（不落盘），`RelativeUnified32DTransform` 只把 eef 两段 pose 变相对；多组由 `MultiEmbodimentDataset` 混采样（权重烘进 index）、每组各自 processor+stats（分组归一化=N 个单源归一化器，核心归一化代码零改动），样本带 `group_id`（配置顺序定义，必须随 run 的 `group_index.json` 使用；训练 forward 不消费它）。当前 `UnifiedSlotLayout` 只实现 `egodex14_eef`（主线 eef14 数据，`[0:14]→[0:14]` 恒等块）和 `aloha14_joint`。设计/落地见 `docs/agent_guidelines/{unified32_design,unified32_execution_plan}.md`；per_embodiment 可切换头（**主线**）见 `agent_guidelines/per_embodiment_plan.md` 与 `usage_guidelines/per_embodiment_usage.md`（含从数据到可部署 ckpt 的完整工作流）。**当前状态：基建 + 异构 2 组训练冒烟已通（infra-only；trainer eval/deploy postprocess、RoboCOIN both-source、长训迁移收益评估延后）。2026-06-12 起 EgoDex 侧数据/配置已切 eef14；per_embodiment 真异构 PoC（egodex eef-14 + pack3 joint-14）配置就绪：`configs/{task,data}/per_embodiment_egodex14_pack3_smoke.yaml`。**
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:341`: → accelerate launch (scripts/accelerate_configs/accelerate_zero1_ds.yaml) scripts/train.py
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:353`: - **accelerate + DeepSpeed ZeRO-1**（`ds_configs/ds_zero1_config.json`，stage 1，无 offload），
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:400`: checkpoints/weights/step_XXXXXX.pt   # {mot, proprio_encoder(per_embodiment 时为 proprio_encoders), step, torch_dtype}（主 rank）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:401`: checkpoints/state/step_XXXXXX/       # accelerate/DeepSpeed 完整状态（所有 rank，可 resume）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:425`: height=480, width=832, num_frames=49, lr=1e-5, trainable=dit。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:477`: 每个控制 step 从 buffer 取融合动作 → 安全检查 → `robot.move`。都跑 `rospy.Rate(50)`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:583`: 7. **采集 FPS**：真机数据转换默认 30Hz，采集 Hz ≠ 30 会让整条轨迹时间被压缩/拉伸
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:584`: （`how_to_add_a_task.md:21-34`）。加新任务时务必确认采集 Hz，转换时 `--fps` 设对。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:212`: WIDTH=832
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:216`: LEARNING_RATE=1e-5
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:236`: NUM_PROCESSES=1 NUM_EPOCHS=1 LEARNING_RATE=1e-5 \
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:20`: > （configs、`RelativeUnified28DTransform`、precompute/smoke/train submit）仍保留，供对照续跑。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:102`: `round(ts[0]*fps)+t`、整段连续、mp4 为完整源视频、单相机 cam_high" 全部继承。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:141`: | `relative_action.py` 文件头注释 + `RelativeUnified28DTransform` docstring | "on the live training path" → "LEGACY：仅 28D 对照线（worstconf/28dpartial）使用，新实验用 `RelativeEef14Transform`"；类保留（legacy 配置在用 + 等价性单测的锚） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:148`: | `RelativeEef14Transform` 单测（并入 `test_unified32_relative_action.py`） | ① 与 `RelativeUnified28DTransform` 等价：对 `[zeros(14), eef14]` 拼成的 28D 输入，28D 类输出的 `[14:28]` 段与 eef14 类对 `eef14` 的输出**逐位一致**；② 与 32D 等价：嵌入 32D eef 块后与 `RelativeUnified32DTransform` pose 段逐位一致；③ forward∘backward 恒等（roundtrip） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:175`: robotwin / migrate_per_emb_to_shared_verify 等在用 untracked 配置。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:196`: `RelativeUnified28DTransform`（legacy 标注 + 等价单测）、
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:283`: 训练时 `RelativeUnified28DTransform`（`transforms/relative_action.py`，留作 legacy + 等价单测锚）
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:30`: 训练时再由 `RelativeUnified28DTransform` 把 action 转成 relative：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:240`: - _target_: fastwam.datasets.lerobot.transforms.relative_action.RelativeUnified28DTransform
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:421`: - 如果要恢复成绝对 target，需要用当前 28D state 走 `RelativeUnified28DTransform.backward` 或 `processor.postprocess` 等价流程。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:50`: （`lam_project/lam/dataset.py:193`）。EgoDex 30fps 取相邻帧（skip=1）在分布内。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:63`: | 4 | EgoDex LeRobot 数据集 = 30fps、单相机 `cam_high` 1080×1920、LeRobot v2.1、15 task 子目录、4494 ep / 617k 帧 | `data/egodex_pnp_15tasks_28d_euler_v2/*/meta/info.json`、`DATASET_SUMMARY.md` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:65`: | 6 | `RelativeUnified28DTransform` 只变换 action 不动 state → latent 方案设 `action_state_transforms: null` 后 **state 路径与 28D 完全一致**（28D 绝对值 + z-score） | `transforms/relative_action.py:169-184` |
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:21`: ### 1.1 FPS
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:23`: **采集 hz != 默认 30 hz 会导致整条任务时间被错误压缩 / 拉长**。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:34`: 如果没记 hz，最稳的办法是问采集者。常见值：30 / 50。本仓库默认 30，**别用错**。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:87`: --fps 30 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:96`: **运行时长**：每集约 20-30 秒 (30 fps × 400 帧 × 3 路视频)，70 集 → 25-40 分钟。**不要在登录节点跑**，跑 cpu SLURM partition 见 `usage_guidelines/deploy_legacy.md` 里的 sbatch 模板。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:105`: assert d['fps'] == 30                                # 跟 --fps 一致
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:143`: - `learning_rate`、`lr_scheduler_type`：通常 1e-4 + cosine 够用
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:49`: > **结论**：唯一硬编码"28"的训练代码是 `relative_action.py`（`RelativeUnified28DTransform`，`:120-121` slice、`:160-163` 断言 `==28`）。其余都是配置/构造参数驱动。真正要**新增**的只有两件：①固定槽位放置 + 32D transform；②多组包装 dataset（含分组 stats/采样/group_id）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:94`: - 因此 `RelativeUnified32DTransform` **只动 eef 两段 pose**：`pose_slices=(slice(0,6),slice(7,13))`，joint/gripper/base 全部 passthrough，断言 `==32`。**纯 joint 组的 eef 槽是 masked 的 0 → SE(3) 换帧对 0 位姿是 no-op**（euler[0,0,0]→单位阵、`inv(I)@I=I`）→ **同一 transform 对纯 eef / 纯 joint / 都有 三类都安全，可逐组统一应用**。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:114`: - 作为该组 `action_state_transforms` 的**第一个** transform，后接 `RelativeUnified32DTransform`（在 32D 上做相对）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:150`: - { _target_: ...RelativeUnified32DTransform, keys: [default] }
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:162`: - { _target_: ...RelativeUnified32DTransform, keys: [default] }  # joint 组可改 null=raw joint
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:180`: 5. `transforms/relative_action.py` — 加 `RelativeUnified32DTransform`（eef-first slice + 断言 32），**保留** 28D 类（旧 run 兼容）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:192`: 1. `RelativeUnified32DTransform`：造 32D 假张量，`forward`→`backward` 还原一致（含纯 eef / 纯 joint / 都有 三类 mask）；masked 槽全程为 0。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:226`: 1. `RelativeUnified32DTransform` + 单测①（不碰任何现有 run）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:246`: | `src/fastwam/datasets/lerobot/transforms/relative_action.py`（加类） | `RelativeUnified32DTransform`：只把 eef 两段 pose（`[0:6]`、`[7:13]`）变相对（SE(3) 换帧），joint/grip/base 绝对 passthrough。另抽出模块级 `pose6_*` helper（28D 类未动，单测守护两者一致） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:54`: | **复用（已建，不改）** | `MultiEmbodimentDataset`（每样本 `group_id` 即 embodiment_id、路由、加权、形状断言）；N 个 per-group `RobotVideoDataset` + per-group `dataset_stats_<group>.json`；`runtime.build_datasets` 的 `embodiment_datasets` 分支 + `RobotVideoDataset.stats_filename`；`embodiment_datasets` 配置 schema + `max_action_dim` resolver；`ConcatLeftAlign`（左 pad 到 max，仅为 collation）；各源**自然** transform（`RelativePoseTransform` / `RelativeJointTransform` / `RelativeUnified26DTransform`）。 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:57`: | **本路径不用** | `UnifiedSlotLayout` / `RelativeUnified32DTransform`（固定 32D 槽 + dim-mask）—— 仅留给 shared 路径 / unified32（保留在仓库，不删）。 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:63`: **决定（用户）**：per-embodiment 头**不用固定 32D 槽、不用 dim-mask**。每个源用**自然维**（egodex eef-14 / 真机 joint-14 / RoboCOIN-26），模型给每个 embodiment 一个**正好该源维度**的头（`Linear(hidden, native_c)`）——**头多大由数据决定**（正如现在单源用 `action_output_dim`，只是 per-embodiment 各一个）。理由：避开固定 32D 的 dim-mask（用户担心"mask 不完全"），每个头权重也不浪费。`UnifiedSlotLayout` / `RelativeUnified32DTransform` 在本路径**不用**（仅留给 shared 路径 / unified32）；各源用**自己的自然 transform**（egodex eef-相对、真机 joint 相对/raw、RoboCOIN `RelativeUnified26DTransform`）。
+- `/project/peilab/wam/physical_WM/configs/video_branch/egodex_ti2v_lora.yaml:11`: width: 832
+- `/project/peilab/wam/physical_WM/configs/video_branch/egodex_ti2v_lora.yaml:15`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/video_branch/egodex_ti2v_full.yaml:11`: width: 832
+- `/project/peilab/wam/physical_WM/configs/video_branch/egodex_ti2v_full.yaml:15`: learning_rate: 1e-5
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:112`: chunk = np.asarray(chunk, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:276`: self.bitrate = 1000000
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:319`: robot="piper", comm="can", channel=self.left_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:330`: robot="piper", comm="can", channel=self.right_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:339`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:359`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:372`: state = np.zeros(14, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:405`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:410`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:413`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:415`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:424`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:433`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:436`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:437`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:454`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:463`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:516`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:526`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:550`: rate=rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:208`: self.bitrate = 1000000
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:251`: robot="piper", comm="can", channel=self.left_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:262`: robot="piper", comm="can", channel=self.right_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:271`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:291`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:304`: state = np.zeros(14, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:337`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:342`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:345`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:347`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:356`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:365`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:368`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:369`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:385`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:394`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:411`: rate=rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:414`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:452`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:461`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:87`: actions = np.asarray(actions, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:212`: WIDTH=832
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:216`: LEARNING_RATE=1e-5
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:236`: NUM_PROCESSES=1 NUM_EPOCHS=1 LEARNING_RATE=1e-5 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:6`: # One-shot scheduler using bash+tmux+sleep (no at/cron required).
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:17`: sleep_until_epoch() {
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:26`: # Sleep in 60s increments for sufficient precision.
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:27`: sleep 60
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:51`: sleep_until_epoch "$t8"
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:63`: sleep 60
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:47`: - **eef pose** `[0:6]`/`[7:13]`：盘上存**绝对**值（在各源自己的坐标系里），训练时 `RelativeUnified32DTransform` 用 **SE(3) 换帧** `T_rel = inv(T0) @ T_t` 转成相对首帧（不是逐分量相减；位置被首帧朝向转过、旋转是相对旋转，再编码回 xyz+XYZ Euler rad）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:66`: - 该源的 config（见 §4）：`shape_meta.action/state` 写 `raw_shape: <原生维>, shape: 32`，`processor.action_state_transforms` 为 `[UnifiedSlotLayout(source_layout=...), RelativeUnified32DTransform]`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:73`: - config 更简单：`raw_shape: 32, shape: 32`，`action_state_transforms: [RelativeUnified32DTransform]`（**不要** `UnifiedSlotLayout`，因为盘上已放好），掩码从盘上读。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:111`: - { _target_: fastwam.datasets.lerobot.transforms.relative_action.RelativeUnified32DTransform, keys: [default] }
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:125`: **born-32D 组**只需把 `shape_meta` 的 `raw_shape` 改成 `32`、`action_state_transforms` 去掉 `UnifiedSlotLayout` 只留 `RelativeUnified32DTransform`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:142`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:185`: 3. **data config 加一个组**：`dataset_dirs` 指向该源，`shape_meta.action/state` 写 `raw_shape: N, shape: 32`，`processor.action_state_transforms` 用 `UnifiedSlotLayout(source_layout="<layout名>")` + `RelativeUnified32DTransform`，相机/尺寸按该源填（注意 §10 同尺寸约束）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:209`: | 部署 / 训练期 eval 的"取 joint 块 + 按 group_id 选组反归一化" | ❌ **未接**。积木齐（`UnifiedSlotLayout.backward`、`RelativeUnified32DTransform.backward`、per-group stats、`group_index.json`），缺接线：trainer eval rollout 按组路由 postprocess、deploy client 选组 stats。**正式接通前 task config 里务必 `eval_every` 设大关掉 eval**，否则会走到未实现路径。 |
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:229`: | 改 32D 布局/相对变换 | `src/fastwam/datasets/lerobot/transforms/relative_action.py`（`RelativeUnified32DTransform`） |
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:77`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:94`: - 最终 ckpt：`runs/<阶段二 shared task>/<run_id>/checkpoints/weights/step_XXXXXX.pt`，内容 `{mot, proprio_encoder, step, torch_dtype}`（**旧单源格式**）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:124`: - **natural layout，不用固定 32D 槽、不用 dim-mask**：各源用**自己的自然 transform**（joint raw / `RelativeUnified28DTransform` 等），**不**走 `UnifiedSlotLayout`/`RelativeUnified32DTransform`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:21`: ### 1.1 FPS
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:23`: **采集 hz != 默认 30 hz 会导致整条任务时间被错误压缩 / 拉长**。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:34`: 如果没记 hz，最稳的办法是问采集者。常见值：30 / 50。本仓库默认 30，**别用错**。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:87`: --fps 30 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:96`: **运行时长**：每集约 20-30 秒 (30 fps × 400 帧 × 3 路视频)，70 集 → 25-40 分钟。**不要在登录节点跑**，跑 cpu SLURM partition 见 `usage_guidelines/deploy_legacy.md` 里的 sbatch 模板。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:105`: assert d['fps'] == 30                                # 跟 --fps 一致
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:143`: - `learning_rate`、`lr_scheduler_type`：通常 1e-4 + cosine 够用
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_aug_egodex40k_uncond_3cam_384_1e-4.yaml:27`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_egodex14_pack3_smoke.yaml:22`: # Collated action/state width = 32 (each group's ConcatLeftAlign target = MultiEmbodimentDataset
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_egodex14_pack3_smoke.yaml:37`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_smoke.yaml:23`: # Collated action/state width = 32 (each group's ConcatLeftAlign target = MultiEmbodimentDataset
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_smoke.yaml:38`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:173`: --fps 10 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:185`: --fps 10 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:512`: rospy_rate: 50
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:524`: - `rospy_rate`：机器人端控制循环频率。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:537`: bitrate: 1000000
+- `/project/peilab/wam/physical_WM/configs/task/migrate_per_emb_to_shared_verify.yaml:28`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:160`: 如果不想使用 cache，可以传 `--use-text-encoder`，但会额外加载 tokenizer 和 text encoder，启动更慢、显存占用更高，也更容易受模型版本和 dtype 影响。
+- `/project/peilab/wam/physical_WM/configs/task/libero_uncond_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/real_cleaning_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:12`: # - RelativeUnified28DTransform converts joint/eef pose targets to relative action during training.
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:31`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:23`: # - RelativeUnified28DTransform converts joint/eef pose targets to relative action during training.
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:50`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:20`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pick_2cups_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:29`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/libero_egodex40k_uncond_2cam224_1e-4.yaml:31`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:48`: def build_pipeline(base_dir: str, ckpt_path: str | None, dtype: torch.dtype) -> WanVideoPipeline:
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:58`: torch_dtype=dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:88`: return Image.open(args.image).convert("RGB").resize((args.width, args.height))
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:94`: return Image.fromarray(frame).convert("RGB").resize((args.width, args.height))
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:112`: p.add_argument("--width", type=int, default=832)
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:119`: p.add_argument("--fps", type=int, default=15, help="Playback fps of the saved mp4.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:126`: pipe = build_pipeline(args.base, ckpt, dtype=torch.bfloat16)
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:134`: width=args.width,
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:144`: with imageio.get_writer(args.out, fps=args.fps, codec="libx264", quality=8) as writer:
+- `/project/peilab/wam/physical_WM/docs/env_setup/fastwam_cn.md:68`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM/docs/env_setup/fastwam_cn.md:178`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_joint_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_full.sh:14`: WIDTH="${WIDTH:-832}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_full.sh:18`: LEARNING_RATE="${LEARNING_RATE:-1e-5}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_full.sh:47`: accelerate launch --num_processes "${NUM_PROCESSES}" examples/wanvideo/model_training/train.py \
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_full.sh:51`: --width "${WIDTH}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_full.sh:57`: --learning_rate "${LEARNING_RATE}" \
+- `/project/peilab/wam/physical_WM/configs/task/libero_joint_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/docs/env_setup/fastwam_en.md:107`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM/configs/task/pick_numbered_blocks_uncond_3cam_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_lora.sh:14`: WIDTH="${WIDTH:-832}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_lora.sh:18`: LEARNING_RATE="${LEARNING_RATE:-1e-4}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_lora.sh:39`: accelerate launch --num_processes "${NUM_PROCESSES}" examples/wanvideo/model_training/train.py \
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_lora.sh:43`: --width "${WIDTH}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/train_video_branch_ti2v_lora.sh:49`: --learning_rate "${LEARNING_RATE}" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/run.sh:5`: --save_strategy no \
+- `/project/peilab/wam/physical_WM/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:35`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:94`: "--learning_rate",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:97`: help="The initial learning rate for AdamW optimizer.",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:121`: "--save_strategy",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:125`: help="The strategy to save model checkpoints. Can be 'epoch' or 'step'.",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:128`: "--save_frequency",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/config.py:131`: help="How often to save model checkpoints. If save_strategy='epoch', save every N epochs. If save_strategy='step', save every N steps.",
+- `/project/peilab/wam/physical_WM/configs/task/unified32_egodex_stack_smoke.yaml:33`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/README.md:3`: This folder keeps the DiffSynth Wan2.2 LoRA/full fine-tuning flow separate from the main
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/README.md:33`: NUM_EPOCHS=1 LEARNING_RATE=1e-5 SAVE_STEPS=1000000 bash scripts/video_branch/train_video_branch_ti2v_full.sh
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:66`: "lr": args.learning_rate,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:79`: "warmup_max_lr": args.learning_rate,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:91`: torch_dtype=torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:181`: for step, batch in enumerate(progress_bar):
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:219`: if args.save_strategy == "step" and global_step % args.save_frequency == 0:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:231`: if args.save_strategy == "epoch":
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:31`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/data.py:7`: from transformers import PreTrainedTokenizer, DataCollatorForLanguageModeling
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/data.py:27`: def get_dataset(data_args: Any, tokenizer: "PreTrainedTokenizer"):
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:195`: ACCELERATE_DISTRIBUTED_ARGS=(
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:204`: ACCELERATE_DISTRIBUTED_ARGS+=(--deepspeed_multinode_launcher "${DEEPSPEED_MULTINODE_LAUNCHER}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:208`: ACCELERATE_DISTRIBUTED_ARGS+=(--same_network)
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:211`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:212`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:213`: "${ACCELERATE_DISTRIBUTED_ARGS[@]}" \
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:29`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:13`: def _parse_dtype(name: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:21`: raise ValueError(f"Unsupported dtype: {name}. Expected one of: float32, float16, bfloat16.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:75`: for dim, new_size in enumerate(target_shape):
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:83`: for i, p in enumerate(perm):
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:96`: return out.to(dtype=src.dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:153`: parser.add_argument("--dtype", default="float32", choices=["float32", "float16", "bfloat16"])
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:167`: torch_dtype = _parse_dtype(args.dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:181`: f"Preprocessing ActionDiT backbone with dtype={torch_dtype} on device={args.device}, "
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:185`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:195`: action_expert = ActionDiT(**action_cfg).to(device=args.device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/preprocess_action_dit_backbone.py:224`: backbone_state_dict[key] = value.detach().to(dtype=target.dtype, device="cpu").contiguous()
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_adjust_bottle_egodex_uncond_3cam_384_1e-4.yaml:30`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:110`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:111`: --config_file scripts/accelerate_configs/accelerate_zero2_ds.yaml \
+- `/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_ft_robocoin40k_aug_uncond_3cam_384_1e-4.yaml:19`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:6`: # Simple one-shot scheduler using bash+tmux+sleep (no at/cron required).
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:14`: sleep_until_epoch() {
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:24`: sleep 60
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:61`: sleep_until_epoch "$t3"
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:73`: sleep 60
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:85`: # sleep_until_epoch "$t6"
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:97`: # sleep 60
+- `/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_base.yaml:20`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_egodex_uncond_3cam_384.yaml:30`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/pyproject.toml:11`: "accelerate==1.12.0",
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384.yaml:26`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:29`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_idm_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_stack_3_cups_ft_robocoin40k_aug_uncond_3cam_384_1e-4.yaml:19`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/libero_egodex28d_partial_uncond_2cam224_1e-4.yaml:35`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_ft_28dpartial_aug_uncond_3cam_384_1e-4.yaml:25`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:29`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/libero_idm_2cam224_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_uncond_3cam_384_1e-4.yaml:17`: learning_rate: 1e-4
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:66`: for idx, value in enumerate(node):
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:125`: for line_idx, line in enumerate(f, start=1):
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:211`: torch_dtype = torch.bfloat16
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:218`: "Preparing text encoder with model_id=%s tokenizer_model_id=%s device=%s dtype=%s context_len=%d overwrite=%s",
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:222`: torch_dtype,
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:238`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:279`: count_tensor = torch.tensor([fully_cached_local, len(prompts)], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:296`: count_tensor = torch.tensor([prompts_encoded_local], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:313`: mask = mask.to(device=device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:317`: for i, prompt in enumerate(batch_prompts):
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:319`: context_i = context[i].detach().to(device="cpu", dtype=torch.bfloat16).contiguous()
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:320`: mask_i = mask[i].detach().to(device="cpu", dtype=torch.bool).contiguous()
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:345`: over_tensor = torch.tensor([over_length_prompts], device=reduce_device, dtype=torch.long)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:355`: dtype=torch.long,
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:359`: for idx, cache_dir in enumerate(cache_dirs):
+- `/project/peilab/wam/physical_WM/configs/model/fastwam_idm.yaml:27`: seperated_timestep: true
+- `/project/peilab/wam/physical_WM/configs/model/fastwam_joint.yaml:27`: seperated_timestep: true
+- `/project/peilab/wam/physical_WM/configs/model/fastwam.yaml:29`: seperated_timestep: true
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:57`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:58`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/deepspeed/train.sh:34`: accelerate launch --config_file configs/deepspeed_zero3.yaml --num_processes $WORLD_SIZE --num_machines $PET_NNODES --machine_rank $PET_NODE_RANK --main_process_ip $PET_MASTER_ADDR --main_process_port $PET_MASTER_PORT main.py \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_preprocess_action_dit_egodex.sh:45`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:47`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:48`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:66`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:52`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:53`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:71`: "learning_rate=${lr}" \
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:112`: chunk = np.asarray(chunk, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:276`: self.bitrate = 1000000
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:319`: robot="piper", comm="can", channel=self.left_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:330`: robot="piper", comm="can", channel=self.right_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:339`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:359`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:372`: state = np.zeros(14, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:405`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:410`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:413`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:415`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:424`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:433`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:436`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:437`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:454`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:463`: rate.sleep()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:516`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:526`: rate.sleep()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:550`: rate=rospy.Rate(50)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_smoke_test.sh:57`: WIDTH=416 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_smoke_test.sh:61`: LEARNING_RATE=1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:208`: self.bitrate = 1000000
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:251`: robot="piper", comm="can", channel=self.left_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:262`: robot="piper", comm="can", channel=self.right_channel, bitrate=self.bitrate
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:271`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:291`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:304`: state = np.zeros(14, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:337`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:342`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:345`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:347`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:356`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:365`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:368`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:369`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:385`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:394`: rate.sleep()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:411`: rate=rospy.Rate(50)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:414`: rate.sleep()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:452`: rate = rospy.Rate(50)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:461`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:185`: def array_col(table: pq.ParquetFile, key: str, dtype: Any) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:186`: return np.asarray(table[key].to_pylist(), dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:210`: euler = np.asarray(euler, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:248`: return np.zeros((0,), dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:410`: for rank, (score, payload) in enumerate(rows, start=1):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:433`: for i, path in enumerate(paths, start=1):
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:87`: actions = np.asarray(actions, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:47`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:48`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:66`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:49`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:50`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:68`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:46`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:47`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:65`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:6`: # One-shot scheduler using bash+tmux+sleep (no at/cron required).
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:17`: sleep_until_epoch() {
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:26`: # Sleep in 60s increments for sufficient precision.
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:27`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:51`: sleep_until_epoch "$t8"
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:63`: sleep 60
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:32`: dt = model.torch_dtype
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:48`: with torch.autocast("cuda", dtype=dt):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_test_aug.py:32`: cands = [(v.numel(), k) for k, v in sample.items() if torch.is_tensor(v) and v.dtype.is_floating_point]
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_test_aug.py:42`: print(f"    {k}: {tuple(v.shape)} {v.dtype}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:15`: # >>> FPS: defaulting to 30 (same Agilex/aloha rig as pick_1_cup / pick_2cups,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:16`: #     both 30Hz). The HDF5 has no fps attribute — CONFIRM with the collector.
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:17`: #     Wrong fps stretches/compresses the whole trajectory. Override with --fps N.
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:38`: --fps 30 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:48`: #     --fps 30 --overwrite
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:50`: echo "[done] verify: python -c \"import json;d=json.load(open('data/pack_3_objects_plus/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:74`: count=np.zeros(dim, dtype=np.float64),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:75`: mean=np.zeros(dim, dtype=np.float64),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:76`: m2=np.zeros(dim, dtype=np.float64),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:126`: def array_col(table, key: str, dtype) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:127`: return np.asarray(table[key].to_pylist(), dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:199`: for i, path in enumerate(paths):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:227`: for i, path in enumerate(paths):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:351`: for rank, (score, payload) in enumerate(rows, start=1):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lr0.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 learning_rate=0 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:57`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:58`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:42`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:43`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:61`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/fsdp/train.sh:33`: accelerate launch --config_file configs/pytorch_fsdp.yaml --num_processes $WORLD_SIZE --num_machines $PET_NNODES --machine_rank $PET_NODE_RANK --main_process_ip $PET_MASTER_ADDR --main_process_port $PET_MASTER_PORT main.py \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero2_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:60`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:42`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:43`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:61`: "learning_rate=0" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:21`: _mixed_precision_to_model_dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:120`: action_mask = torch.zeros_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:127`: action_mask = torch.ones_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:133`: action_mask = torch.ones_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:146`: action_mask = torch.ones_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:162`: action_mask = torch.zeros_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:171`: action_mask = torch.ones_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:179`: action_mask = torch.ones_like(action, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:268`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:298`: dtype=loss_video_per_sample.dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:398`: metric_tensor = torch.tensor(float(value), device=loss.device, dtype=torch.float32).reshape(1)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:555`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/train_unified28_ablation.py:556`: model = instantiate(cfg.model, model_dtype=model_dtype, device=model_device)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:35`: # RelativeUnified28DTransform enabled. Do not use 2026-06-02_00-53-56 here:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:60`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:61`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM/scripts/diag/leak_bisect_phases.py:33`: TS = [i / 30 for i in range(33)]  # 33 frames @ fps 30, as in training
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:120`: return torch.zeros(len(timestamps), 3, 240, 320, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:150`: for i, _batch in enumerate(loader):
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:164`: dt_min = (tail[-1][1] - tail[0][1]) / 60
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:165`: anon_slope = (tail[-1][3] - tail[0][3]) / dt_min if dt_min > 0 else float("nan")
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:166`: vm_slope = (tail[-1][2] - tail[0][2]) / dt_min if dt_min > 0 else float("nan")
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:32`: def array_col(table: pq.Table, key: str, dtype: Any) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:33`: return np.asarray(table[key].to_pylist(), dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:36`: def converted_context(parquet_path: Path, frame: int, radius: int, fps: int) -> tuple[Path, np.ndarray, np.ndarray]:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:39`: timestamp = np.asarray(table["timestamp"].to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:42`: raw_indices = np.rint(timestamp[start:end] * float(fps)).astype(np.int64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:70`: thumb = np.asarray(h5["transforms"][f"{side}ThumbTip"][raw_indices], dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:71`: index = np.asarray(h5["transforms"][f"{side}IndexFingerTip"][raw_indices], dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:78`: for i, raw_idx in enumerate(raw_indices):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:105`: parser.add_argument("--fps", type=int, default=30)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:113`: _, state, raw_indices = converted_context(parquet_path, args.frame, args.radius, args.fps)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:47`: LEARNING_RATE=1e-5 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:41`: accelerate launch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:42`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:60`: "learning_rate=1e-4" \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:51`: DEFAULT_FPS = 24
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:60`: def build_pipeline(base_dir: str, ckpt_path: str | None, dtype: torch.dtype) -> WanVideoPipeline:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:70`: torch_dtype=dtype,
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:120`: width_override: int | None = None,
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:128`: if width_override is not None or height_override is not None:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:129`: if width_override is None or height_override is None:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:130`: raise SystemExit("Provide both --width and --height, or neither.")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:131`: width, height = int(width_override), int(height_override)
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:132`: return image.resize((width, height), Image.LANCZOS), width, height
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:134`: iw, ih = image.width, image.height
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:141`: x1 = (image.width - ow) // 2
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:144`: if image.width != ow or image.height != oh:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:145`: raise RuntimeError(f"Unexpected crop size {(image.width, image.height)} != {(ow, oh)}")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:180`: help="Legacy exact output height override; pass with --width to bypass official aspect-ratio sizing.")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:181`: p.add_argument("--width", type=int, default=None,
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:182`: help="Legacy exact output width override; pass with --height to bypass official aspect-ratio sizing.")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:189`: p.add_argument("--fps", type=int, default=DEFAULT_FPS, help="Playback fps of the saved mp4.")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:196`: pipe = build_pipeline(args.base, ckpt, dtype=torch.bfloat16)
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:198`: preset_width, preset_height = OFFICIAL_SIZE_CONFIGS[args.size]
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:199`: max_area = args.max_area if args.max_area is not None else preset_width * preset_height
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:14`: WIDTH="${WIDTH:-832}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:18`: LEARNING_RATE="${LEARNING_RATE:-1e-5}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:47`: accelerate launch --num_processes "${NUM_PROCESSES}" examples/wanvideo/model_training/train.py \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:51`: --width "${WIDTH}" \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:57`: --learning_rate "${LEARNING_RATE}" \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:14`: WIDTH="${WIDTH:-832}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:18`: LEARNING_RATE="${LEARNING_RATE:-1e-4}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:39`: accelerate launch --num_processes "${NUM_PROCESSES}" examples/wanvideo/model_training/train.py \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:43`: --width "${WIDTH}" \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:49`: --learning_rate "${LEARNING_RATE}" \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/README.md:3`: This folder keeps the DiffSynth Wan2.2 LoRA/full fine-tuning flow separate from the main
+- `/project/peilab/wam/physical_WM/scripts/video_branch/README.md:33`: NUM_EPOCHS=1 LEARNING_RATE=1e-5 SAVE_STEPS=1000000 bash scripts/video_branch/train_video_branch_ti2v_full.sh
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/deepspeed/node_1.sh:6`: accelerate launch --config_file configs/deepspeed_zero3.yaml --num_processes 4 --num_machines 2 --machine_rank 1 --main_process_ip $IPPP --main_process_port 9901 main.py \
+- `/project/peilab/wam/physical_WM/scripts/video_branch/run_infer_video_branch.sh:45`: FPS="${FPS:-24}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/run_infer_video_branch.sh:96`: --fps "${FPS}" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:39`: strategy = tf.distribute.MultiWorkerMirroredStrategy()
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:40`: print(f"{YELLOW}Using {strategy.num_replicas_in_sync} replicas in sync.{END}")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:44`: global_batch_size = per_worker_batch_size * strategy.num_replicas_in_sync
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:46`: with strategy.scope():
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:84`: optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/deepspeed/node_0.sh:5`: accelerate launch --config_file configs/deepspeed_zero3.yaml --num_processes 4 --num_machines 2 --machine_rank 0 --main_process_ip $IPPP --main_process_port 9901 main.py \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:201`: ACCELERATE_DISTRIBUTED_ARGS=(
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:210`: ACCELERATE_DISTRIBUTED_ARGS+=(--deepspeed_multinode_launcher "${DEEPSPEED_MULTINODE_LAUNCHER}")
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:214`: ACCELERATE_DISTRIBUTED_ARGS+=(--same_network)
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:239`: accelerate launch \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:240`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:241`: "${ACCELERATE_DISTRIBUTED_ARGS[@]}" \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:251`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:257`: sleep 30
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/train.sh:65`: # 执行accelerate launch训练命令并将所有输出保存到日志文件
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/train.sh:66`: accelerate launch \
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:13`: def _parse_dtype(name: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:21`: raise ValueError(f"Unsupported dtype: {name}. Expected one of: float32, float16, bfloat16.")
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:75`: for dim, new_size in enumerate(target_shape):
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:83`: for i, p in enumerate(perm):
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:96`: return out.to(dtype=src.dtype)
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:153`: parser.add_argument("--dtype", default="float32", choices=["float32", "float16", "bfloat16"])
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:167`: torch_dtype = _parse_dtype(args.dtype)
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:181`: f"Preprocessing ActionDiT backbone with dtype={torch_dtype} on device={args.device}, "
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:185`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:195`: action_expert = ActionDiT(**action_cfg).to(device=args.device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/scripts/preprocess_action_dit_backbone.py:224`: backbone_state_dict[key] = value.detach().to(dtype=target.dtype, device="cpu").contiguous()
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:110`: accelerate launch \
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:111`: --config_file scripts/accelerate_configs/accelerate_zero2_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:28`: strategy = tf.distribute.MultiWorkerMirroredStrategy()
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:29`: print(f"{YELLOW}Using {strategy.num_replicas_in_sync} replicas in sync.{END}")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:33`: global_batch_size = per_worker_batch_size * strategy.num_replicas_in_sync
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:36`: with strategy.scope():
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:45`: optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:5`: task-success rate is not computable offline. This script instead measures the policy's
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:7`: and derives success-rate-LIKE proxy metrics:
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:11`: - normalized-space action L1 (all dims comparable) -> threshold pass-rates
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:51`: dtype_from_mixed_precision,
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:144`: dtype = dtype_from_mixed_precision(args.mixed_precision)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:164`: for n_done, idx in enumerate(indices):
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:168`: input_image = video[:, 0].unsqueeze(0).to(device=model.device, dtype=dtype)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:245`: return np.array([r[key] for r in per_sample if key in r], dtype=np.float64)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:272`: # success proxy 1: normalized-action-L1 threshold pass-rates
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:274`: summary["passrate_norm_l1"] = {f"<{th}": float((nl1 < th).mean()) for th in thresholds}
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:295`: logger.info("passrate_norm_l1     %s", summary["passrate_norm_l1"])
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/single_tensorflow.py:87`: strategy = tf.distribute.MirroredStrategy()
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/single_tensorflow.py:88`: print(f"{YELLOW}Using {strategy.num_replicas_in_sync} replicas in sync (Single Node Strategy).{END}")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/single_tensorflow.py:92`: global_batch_size = per_device_batch_size * strategy.num_replicas_in_sync
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/single_tensorflow.py:95`: with strategy.scope():
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/single_tensorflow.py:98`: optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/data.py:7`: from transformers import PreTrainedTokenizer, DataCollatorForLanguageModeling
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/data.py:27`: def get_dataset(data_args: Any, tokenizer: "PreTrainedTokenizer"):
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:6`: # Simple one-shot scheduler using bash+tmux+sleep (no at/cron required).
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:14`: sleep_until_epoch() {
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:24`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:61`: sleep_until_epoch "$t3"
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:73`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:85`: # sleep_until_epoch "$t6"
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:97`: # sleep 60
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:127`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:132`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:140`: "dtype": "video",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:142`: "names": ["channels", "height", "width"],
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:201`: episode_buffer["timestamp"].append(np.float32(frame_idx / dataset.fps))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:204`: action_row = np.asarray(action_ds[frame_idx], dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:205`: qpos_row = np.asarray(qpos_ds[frame_idx], dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:213`: frame = np.asarray(cam_datasets[feature_key][frame_idx], dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:241`: parser.add_argument("--fps", type=int, default=30, help="Dataset FPS. Defaults to 30.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:277`: "Accepts slice notation 'start:stop' (e.g. '7:14' for right arm) or comma-separated "
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:333`: fps=args.fps,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:342`: for episode_idx, episode_path in enumerate(episode_files, start=1):
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:101`: save_strategy: str,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:102`: save_frequency: int,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:111`: save_strategy: 保存策略 ("epoch" 或 "step")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:112`: save_frequency: 保存频率
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:113`: total_steps_per_epoch: 每个epoch的总步数（仅在save_strategy='step'时需要）
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:118`: if save_strategy == "epoch":
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:119`: # epoch策略：每save_frequency个epoch保存一次
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:120`: return (current_epoch + 1) % save_frequency == 0
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:122`: elif save_strategy == "step":
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:123`: # step策略：每save_frequency个step保存一次
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:124`: return (current_step + 1) % save_frequency == 0
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:20`: 480x640@30fps, codec preserved as shipped, e.g. AV1);
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:21`: * regenerates ``meta/info.json`` (14-dim features + renamed video keys) and
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:106`: cands = [i for i, n in enumerate(src_names) if n.startswith(f"{side}_gripper")]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:121`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:152`: """Rewrite every episode parquet (slice action/state, drop extras) and regenerate
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:191`: act = np.asarray(table.column("action").to_pylist(), dtype=np.float32)  # [T,26]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:192`: st = np.asarray(table.column("observation.state").to_pylist(), dtype=np.float32)  # [T,26]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/README.md:160`: accelerate launch --config_file configs/pytorch_fsdp.yaml --num_processes $WORLD_SIZE --num_machines $PET_NNODES --machine_rank $PET_NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT main.py \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/README.md:203`: accelerate launch --config_file configs/deepspeed_zero3.yaml --num_processes $WORLD_SIZE --num_machines $PET_NNODES --machine_rank $PET_NODE_RANK --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT main.py \
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/check_lerobot_videos.py:24`: for frame_idx, _frame in enumerate(container.decode(stream), start=1):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:106`: "timestamp": {"dtype": "float32", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:107`: "frame_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:108`: "episode_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:109`: "index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:110`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:116`: width: int
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:118`: fps: int
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:180`: def get_video_info(path: Path, fps_override: int | None = None) -> VideoInfo:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:182`: if fps_override is None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:183`: raise RuntimeError("PyAV is not installed and --fps was not provided.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:184`: return VideoInfo(width=1920, height=1080, fps=fps_override, codec="unknown", pix_fmt="unknown", has_audio=False)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:191`: if fps_override is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:192`: fps = fps_override
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:193`: elif stream.average_rate is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:194`: fps = int(round(float(stream.average_rate)))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:195`: elif stream.base_rate is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:196`: fps = int(round(float(stream.base_rate)))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:198`: fps = 30
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:200`: width=int(stream.codec_context.width),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:202`: fps=fps,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/fsdp/node_1.sh:6`: accelerate launch --config_file configs/pytorch_fsdp.yaml --num_processes 4 --num_machines 2 --machine_rank 1 --main_process_ip $IPPP --main_process_port 9901 main.py \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/bak/tmp/fsdp/node_0.sh:5`: accelerate launch --config_file configs/pytorch_fsdp.yaml --num_processes 4 --num_machines 2 --machine_rank 0 --main_process_ip $IPPP --main_process_port 9901 main.py \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/README_for_train.md:27`: accelerate launch {分布式参数} {训练脚本} {训练脚本参数}
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/README_for_train.md:42`: accelerate launch --config_file configs/pytorch_fsdp.yaml \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/README_for_train.md:65`: accelerate launch --config_file configs/deepspeed_zero3.yaml \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:82`: "--learning_rate",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:85`: help="The initial learning rate for AdamW optimizer.",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:109`: "--save_strategy",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:113`: help="The strategy to save model checkpoints. Can be 'epoch' or 'step'.",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:116`: "--save_frequency",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/config.py:119`: help="How often to save model checkpoints. If save_strategy='epoch', save every N epochs. If save_strategy='step', save every N steps.",
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:10`: from accelerate import Accelerator
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:11`: from accelerate.utils import DeepSpeedPlugin, FullyShardedDataParallelPlugin
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:141`: model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:174`: for step, batch in enumerate(progress_bar):
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:203`: if args.save_strategy == "step" and should_save_checkpoint(
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:204`: global_step, epoch, args.save_strategy, args.save_frequency
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:219`: if args.save_strategy == "epoch" and should_save_checkpoint(
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:220`: global_step, epoch, args.save_strategy, args.save_frequency
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:173`: --fps 10 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:185`: --fps 10 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:512`: rospy_rate: 50
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:524`: - `rospy_rate`：机器人端控制循环频率。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:537`: bitrate: 1000000
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:160`: 如果不想使用 cache，可以传 `--use-text-encoder`，但会额外加载 tokenizer 和 text encoder，启动更慢、显存占用更高，也更容易受模型版本和 dtype 影响。
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:28`: parser.add_argument("--fps", type=int, default=30)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:62`: "--fps",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:63`: str(args.fps),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:47`: joint = np.asarray(joint, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:56`: values = np.zeros((joint.shape[0], UNIFIED_DIM), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:57`: mask = np.zeros((joint.shape[0], UNIFIED_DIM), dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:65`: eef = np.asarray(eef, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:74`: values = np.zeros((eef.shape[0], UNIFIED_DIM), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:75`: mask = np.zeros((eef.shape[0], UNIFIED_DIM), dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:100`: arr = np.asarray(table.column(key).to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:191`: if feat.get("dtype") == "video"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:13`: transform = np.asarray(transform, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:22`: euler = np.asarray(euler, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:34`: transform = np.asarray(transform, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:41`: grip_arr = np.asarray(grip, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:43`: grip_arr = np.full((transform.shape[0],), float(grip_arr), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:50`: transform = np.asarray(transform, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:51`: points = np.asarray(points, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:56`: points_h = np.concatenate([points, np.ones((points.shape[0], 1), dtype=np.float64)], axis=1)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:63`: camera_world = np.asarray(camera_world, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:64`: world_object = np.asarray(world_object, dtype=np.float64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:79`: thumb_pos = np.asarray(thumb_world, dtype=np.float64)[:, :3, 3]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/transforms.py:80`: index_pos = np.asarray(index_world, dtype=np.float64)[:, :3, 3]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:108`: width: int
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:110`: fps: int
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:154`: def get_video_info(path: Path, fps_override: int | None) -> VideoInfo:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:156`: if fps_override is None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:157`: raise RuntimeError("PyAV is not installed and --fps was not provided.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:158`: return VideoInfo(width=1920, height=1080, fps=fps_override, codec="unknown", pix_fmt="unknown", has_audio=False)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:164`: if fps_override is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:165`: fps = int(fps_override)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:166`: elif stream.average_rate is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:167`: fps = int(round(float(stream.average_rate)))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:168`: elif stream.base_rate is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:169`: fps = int(round(float(stream.base_rate)))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:171`: fps = 30
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:173`: width=int(stream.codec_context.width),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:175`: fps=fps,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:184`: "dtype": "video",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:185`: "shape": [3, info.height, info.width],
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:186`: "names": ["channels", "height", "width"],
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:189`: "video.width": info.width,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:192`: "video.fps": info.fps,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:85`: indices = np.arange(global_start_index, global_start_index + length, dtype=np.int64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:86`: frame_indices = np.arange(length, dtype=np.int64)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:96`: "episode_index": pa.array(np.full(length, episode_index, dtype=np.int64), type=pa.int64()),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:98`: "task_index": pa.array(np.full(length, task_index, dtype=np.int64), type=pa.int64()),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:120`: "frame_index": feature_stats(np.arange(length, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:121`: "episode_index": feature_stats(np.full(length, episode_index, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:122`: "index": feature_stats(np.arange(global_start_index, global_start_index + length, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:123`: "task_index": feature_stats(np.full(length, task_index, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:134`: fps: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:147`: "fps": int(fps),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:66`: "timestamp": {"dtype": "float32", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:67`: "frame_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:68`: "episode_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:69`: "index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:70`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:105`: def vector_feature(dtype: str = "float32") -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:106`: return {"dtype": dtype, "shape": [UNIFIED_DIM], "names": list(UNIFIED_NAMES)}
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:110`: return {"dtype": "uint8", "shape": [UNIFIED_DIM], "names": list(UNIFIED_NAMES)}
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:143`: values = np.zeros((length, UNIFIED_DIM), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:144`: mask = np.zeros((length, UNIFIED_DIM), dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:149`: joint = np.asarray(joint, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:159`: eef = np.asarray(eef, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:169`: values = np.asarray(values, dtype=np.float32).copy()
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:170`: mask = np.asarray(mask, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:178`: state = np.asarray(state, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/validate.py:41`: def array_col(table, key: str, path: Path, dtype) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/validate.py:44`: arr = np.asarray(table.column(key).to_pylist(), dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:80`: "Files mode only: repeatedly generate this many chunks. "
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:86`: parser.add_argument("--fps", type=int, default=8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:96`: help="Dataset mode only: condition generated video on GT action. Leave off for true open-loop.",
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:163`: def dtype_from_mixed_precision(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:213`: model_dtype = dtype_from_mixed_precision(args.mixed_precision)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:214`: model = instantiate(cfg.model, model_dtype=model_dtype, device=args.device)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:229`: return np.asarray(image, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:239`: state = np.asarray(payload, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:257`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:301`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:326`: def pil_frame_to_input_image(frame: Image.Image, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:327`: arr = np.asarray(frame.convert("RGB"), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:330`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:336`: out = Image.new("RGB", (image.width, image.height + header_h), color=(18, 18, 18))
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:350`: width = sum(frame.width for frame in labeled)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:352`: canvas = Image.new("RGB", (width, height), color=(0, 0, 0))
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:356`: x += frame.width
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:439`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:472`: state_tensor = torch.as_tensor(state, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:506`: context_mask = torch.ones_like(context_mask, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/docs/env_setup/fastwam_cn.md:68`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM_xqh/docs/env_setup/fastwam_cn.md:178`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM_xqh/docs/env_setup/fastwam_en.md:107`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_migrate_per_emb_to_shared_verify.sh:2`: #SBATCH --job-name=migrate_peremb_to_shared
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_migrate_per_emb_to_shared_verify.sh:26`: task=migrate_per_emb_to_shared_verify \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:40`: # random_states_0..3.pkl), so accelerate load_state requires world_size==4.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:84`: # --- Launch (mirrors scripts/train_zero1.sh's accelerate args, single node) ---
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:85`: accelerate launch \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:86`: --config_file scripts/accelerate_configs/accelerate_zero1_ds.yaml \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/mpi/new_mpi_run.py:117`: for step, (x, y) in enumerate(dataloader):
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:30`: --fps 30 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:39`: #     --fps 30 --overwrite
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:41`: echo "[done] verify: python -c \"import json;d=json.load(open('data/stack_3_cups/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/mpi/train.py:111`: for step, (x, y) in enumerate(dataloader):
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_table_cleaning_v21_30hz.sh:33`: --target-fps 30 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_table_cleaning_v21_30hz.sh:46`: "fps": info["fps"],
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:16`: #   1. data/battery_assemble/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:85`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:86`: raise SystemExit(f"Expected battery_assemble/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:117`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:16`: #   1. data/stack_3_cups/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:87`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:88`: raise SystemExit(f"Expected stack_3_cups/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:113`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:37`: --task-name "$task" --instruction "$PROMPT" --fps 30 --overwrite \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_open_loop_video.sh:6`: # on the previous predicted last frame): frames = 9 + 8*(N-1). Here N=10 @ fps=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_open_loop_video.sh:66`: --fps 8 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:3`: # auto_train once conversion is complete (no longer relies on the separate watcher).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:33`: sleep 600; continue
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:37`: if autotrain_running; then echo "[supervise2] auto_train preparing $(date)"; sleep 600; continue; fi
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:44`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:51`: sleep 600
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:16`: #   1. data/battery_assemble/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:85`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:86`: raise SystemExit(f"Expected battery_assemble/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:117`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:45`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:46`: raise SystemExit(f"Expected {ds} fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:32`: def array_col(table: pq.Table, key: str, dtype: Any) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:33`: return np.asarray(table[key].to_pylist(), dtype=dtype)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:36`: def converted_context(parquet_path: Path, frame: int, radius: int, fps: int) -> tuple[Path, np.ndarray, np.ndarray]:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:39`: timestamp = np.asarray(table["timestamp"].to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:42`: raw_indices = np.rint(timestamp[start:end] * float(fps)).astype(np.int64)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:70`: thumb = np.asarray(h5["transforms"][f"{side}ThumbTip"][raw_indices], dtype=np.float64)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:71`: index = np.asarray(h5["transforms"][f"{side}IndexFingerTip"][raw_indices], dtype=np.float64)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:78`: for i, raw_idx in enumerate(raw_indices):
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:105`: parser.add_argument("--fps", type=int, default=30)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:113`: _, state, raw_indices = converted_context(parquet_path, args.frame, args.radius, args.fps)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_train_worstconf.sh:12`: # job at 400G, raise the cap deliberately — never remove it.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:22`: while squeue -j "$PC" -h 2>/dev/null | grep -q .; do sleep 60; done
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:44`: sleep 60
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:46`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:47`: raise SystemExit(f"Expected 30Hz dataset, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:46`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:47`: raise SystemExit(f"Expected {ds} fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:17`: # >>> FPS: defaulting to 30 (same Agilex/aloha rig as pick_1_cup / pick_2cups,
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:18`: #     both 30Hz). The HDF5 has no fps attribute — CONFIRM with the collector.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:19`: #     Wrong fps stretches/compresses the whole trajectory. Override with --fps N.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:40`: --fps 30 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:50`: #     --fps 30 --overwrite
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:52`: echo "[done] verify: python -c \"import json;d=json.load(open('data/pack_3_objects_plus/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:54`: fps_values = []
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:65`: fps_values.append(info["fps"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:66`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:67`: raise SystemExit(f"{ds}: expected 30Hz dataset, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:74`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:76`: if len(set(fps_values)) != 1:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:78`: "Dataset fps mismatch: "
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:79`: + ", ".join(f"{ds.name}={fps}" for ds, fps in zip(dataset_dirs, fps_values))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:80`: + ". BaseLerobotDataset requires identical fps."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:13`: # The raw HDF5 has no fps attribute; this follows the current real-robot task
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:14`: # convention and writes 30Hz. Confirm with the collector if this assumption
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:40`: --fps 30 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:51`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:52`: raise SystemExit(f"Expected fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:60`: print(f"[verify] fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:58`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:59`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:80`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_smoke_worstconf.sh:7`: # eval-rollout spike; raise deliberately if the cgroup kills the job.
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/script/deepspeed/train.sh:49`: --save_strategy no \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:54`: fps_values = []
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:61`: "for table_cleaning run the v3->v2.1 converter with --target-fps 30."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:64`: fps_values.append(info["fps"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:65`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:66`: raise SystemExit(f"{ds}: expected 30Hz dataset, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:69`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:71`: if len(set(fps_values)) != 1:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:73`: "Dataset fps mismatch: "
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:74`: + ", ".join(f"{ds.name}={fps}" for ds, fps in zip(dataset_dirs, fps_values))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:75`: + ". BaseLerobotDataset requires identical fps. Re-convert one dataset at 30Hz before submitting."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:46`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:47`: raise SystemExit(f"Expected {ds} fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:151`: dtype=np.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:155`: dtype=np.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:163`: bitrate = int(self.robot.get("bitrate", 1000000))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:168`: bitrate=bitrate,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:174`: bitrate=bitrate,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:182`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:206`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:210`: state = np.zeros(ACTION_DIM, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:239`: self.left_gripper.move_gripper(width=left_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:241`: self.right_gripper.move_gripper(width=right_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:242`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:245`: action = np.asarray(action, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:247`: self.left_gripper.move_gripper(width=float(np.clip(action[6], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:249`: self.right_gripper.move_gripper(width=float(np.clip(action[13], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:250`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:338`: rate = ros_operator.rospy.Rate(int(self.runtime.get("rospy_rate", 50)))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:344`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:352`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:362`: action_chunk = np.asarray(policy.infer(obs), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:371`: rate.sleep()
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:89`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:90`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:114`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:45`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:46`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/rtc_buffer.py:53`: chunk = np.asarray(chunk, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/rtc_buffer.py:97`: candidate_actions = np.asarray([action for _, action in sorted_items], dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/rtc_buffer.py:99`: exp_weights = np.exp(self.exp_weight_factor * np.arange(len(candidate_actions), dtype=np.float32))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:63`: # `keep_dims` accepts slice notation "start:stop" or comma-separated indices.
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:137`: model_dtype = dtype_from_mixed_precision(self.config.mixed_precision)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:138`: self.model = instantiate(self.cfg.model, model_dtype=model_dtype, device=self.config.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:178`: state=np.asarray(obs["state"], dtype=np.float32),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:202`: image = preprocess_real_images(self.observation, self.model.device, self.model.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:266`: def dtype_from_mixed_precision(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:301`: context_mask = torch.ones_like(context_mask, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:312`: def preprocess_real_images(observation: FastWAMObservation, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:355`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:359`: state_tensor = torch.as_tensor(state, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:379`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:392`: return np.asarray(image, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:402`: state = np.asarray(payload, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/smoke_test_aug.py:32`: cands = [(v.numel(), k) for k, v in sample.items() if torch.is_tensor(v) and v.dtype.is_floating_point]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/smoke_test_aug.py:42`: print(f"    {k}: {tuple(v.shape)} {v.dtype}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:16`: #   1. data/stack_3_cups/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:87`: if int(info["fps"]) != 30:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:88`: raise SystemExit(f"Expected stack_3_cups/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:113`: print(f"[preflight] dataset={ds} fps={info['fps']} episodes={info['total_episodes']} frames={info['total_frames']}")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:82`: return np.zeros(ROBOT_FULL_DIM, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:83`: pad = np.asarray(list(full_action_pad), dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:94`: state = np.asarray(state_14d, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/script/fsdp/train.sh:49`: --save_strategy no \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:2`: # Parallel version: convert N tasks at once (each task = 5 shards) to saturate the 96-core
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:35`: --fps 30 --overwrite --episode-start "$S" --episode-stop "$E" \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:127`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:132`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:140`: "dtype": "video",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:142`: "names": ["channels", "height", "width"],
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:201`: episode_buffer["timestamp"].append(np.float32(frame_idx / dataset.fps))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:204`: action_row = np.asarray(action_ds[frame_idx], dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:205`: qpos_row = np.asarray(qpos_ds[frame_idx], dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:213`: frame = np.asarray(cam_datasets[feature_key][frame_idx], dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:241`: parser.add_argument("--fps", type=int, default=30, help="Dataset FPS. Defaults to 30.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:277`: "Accepts slice notation 'start:stop' (e.g. '7:14' for right arm) or comma-separated "
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:333`: fps=args.fps,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:342`: for episode_idx, episode_path in enumerate(episode_files, start=1):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:20`: 480x640@30fps, codec preserved as shipped, e.g. AV1);
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:21`: * regenerates ``meta/info.json`` (14-dim features + renamed video keys) and
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:106`: cands = [i for i, n in enumerate(src_names) if n.startswith(f"{side}_gripper")]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:121`: "dtype": "float32",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:152`: """Rewrite every episode parquet (slice action/state, drop extras) and regenerate
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:191`: act = np.asarray(table.column("action").to_pylist(), dtype=np.float32)  # [T,26]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:192`: st = np.asarray(table.column("observation.state").to_pylist(), dtype=np.float32)  # [T,26]
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:2`: """Generate configs/data/robotwin_all_tasks_<split>.yaml listing every converted task's parts.
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:46`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:65`: return np.asarray(pq.read_table(pq_path).column("action").to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:73`: chunks.append(np.asarray(pq.read_table(pq_path).column("action").to_pylist(), dtype=np.float32))
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:82`: degenerate = np.flatnonzero(std < 1e-6)
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:85`: print(f"degenerate dims (std<1e-6): {degenerate.tolist() or 'none'}  "
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:86`: f"{'PASS' if degenerate.size == 0 else 'FAIL'}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:104`: fps = info["fps"]
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:108`: ts = np.asarray(pq.read_table(pq_path).column("timestamp").to_pylist(), dtype=np.float64).reshape(-1)
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:109`: start = int(round(ts[0] * fps))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:37`: --fps 30 --overwrite
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:76`: CAM_WIDTH = 320
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:166`: "action": {"dtype": "float32", "shape": (dim,), "names": kept_names},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:167`: "observation.state": {"dtype": "float32", "shape": (dim,), "names": kept_names},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:171`: "dtype": "video",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:172`: "shape": (3, CAM_HEIGHT, CAM_WIDTH),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:173`: "names": ["channels", "height", "width"],
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:182`: arr = np.asarray(image_module.open(buf).convert("RGB"), dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:262`: episode_buffer["timestamp"].append(np.float32(frame_idx / dataset.fps))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:265`: joint_row = np.asarray(vec_ds[frame_idx], dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:307`: "diversity RoboTwin generated, matching how the official pi0 converter samples one random "
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:317`: parser.add_argument("--fps", type=int, default=30, help="Dataset FPS metadata. Sim fps does not affect FastWAM frame-window sampling; defaults to 30.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:391`: fps=args.fps,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:401`: for episode_idx, episode_path in enumerate(episode_files, start=1):
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_lerobot_videos.py:24`: for frame_idx, _frame in enumerate(container.decode(stream), start=1):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:106`: "timestamp": {"dtype": "float32", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:107`: "frame_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:108`: "episode_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:109`: "index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:110`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:116`: width: int
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:118`: fps: int
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:180`: def get_video_info(path: Path, fps_override: int | None = None) -> VideoInfo:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:182`: if fps_override is None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:183`: raise RuntimeError("PyAV is not installed and --fps was not provided.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:184`: return VideoInfo(width=1920, height=1080, fps=fps_override, codec="unknown", pix_fmt="unknown", has_audio=False)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:191`: if fps_override is not None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:192`: fps = fps_override
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:193`: elif stream.average_rate is not None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:194`: fps = int(round(float(stream.average_rate)))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:195`: elif stream.base_rate is not None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:196`: fps = int(round(float(stream.base_rate)))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:198`: fps = 30
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:200`: width=int(stream.codec_context.width),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:202`: fps=fps,
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:16`: source-video frame ``round(ts[0]*fps) + t``, full untrimmed video, single
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:86`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all task dirs in src-root).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:101`: arr = np.asarray(table.column(name).to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:165`: info["features"][feature] = {"dtype": "float32", "shape": [EEF_DIM], "names": list(EEF_14_NAMES)}
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:178`: """Regenerate meta/ + link videos from the converted episode set (idempotent)."""
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:246`: for i, ep in enumerate(episodes):
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:253`: rate = n_done / (time.time() - t0)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:254`: print(f"[{src_task.name}] {i + 1}/{len(episodes)} episodes ({rate:.1f} ep/s)", flush=True)
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:29`: work = tempfile.mkdtemp(prefix="per_embodiment_dryrun_")
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:57`: for gi, gname in enumerate(train_ds.group_names):
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:64`: check("action last dim == 32 (collated width)", a.shape[-1] == UNIFIED)
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:65`: check("proprio last dim == 32 (collated width)", p.shape[-1] == UNIFIED)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:44`: "timestamp": {"dtype": "float32", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:45`: "frame_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:46`: "episode_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:47`: "index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:48`: "coarse_task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:49`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:50`: "coarse_quality_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:51`: "quality_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:144`: for i, ep_idx in enumerate(data["episode_index"]):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:167`: def _resample_source_offsets(source_length: int, source_fps: int, target_fps: int) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:170`: if source_fps <= 0 or target_fps <= 0:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:171`: raise ValueError(f"fps values must be positive, got source={source_fps} target={target_fps}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:173`: output_length = int(np.floor((source_length - 1) * target_fps / source_fps)) + 1
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:174`: sample_ids = np.arange(output_length, dtype=np.float64)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:175`: offsets = np.floor(sample_ids * source_fps / target_fps + 0.5).astype(np.int64)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:178`: if target_fps <= source_fps:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:183`: f"source_fps={source_fps}, target_fps={target_fps}"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:188`: def _retime_episodes(episodes: list[EpisodeInfo], source_fps: int, target_fps: int) -> list[EpisodeInfo]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:192`: output_length = len(_resample_source_offsets(episode.source_length, source_fps, target_fps))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:269`: global_index = np.arange(episode.from_index, episode.to_index, dtype=np.int64)
+- `/project/peilab/wam/physical_WM/tests/dryrun_unified32_data.py:23`: work = tempfile.mkdtemp(prefix="unified32_dryrun_")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:20`: * parquet row t corresponds to **source-video frame** ``round(ts[0]*fps) + t``;
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:28`: ``meta/info.json`` + ``meta/episodes_stats.jsonl`` regenerated,
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:89`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all task dirs in src-root).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:102`: frames = np.empty((count,), dtype=object)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:107`: for idx, frame in enumerate(container.decode(stream)):
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:156`: fps = info["fps"]
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:159`: ts = np.asarray(table.column("timestamp").to_pylist(), dtype=np.float64).reshape(-1)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:160`: frame_idx = np.round(ts * fps).astype(np.int64)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:201`: info["features"]["action"] = {"dtype": "float32", "shape": [LATENT_DIM], "names": list(LATENT_NAMES)}
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:213`: """Regenerate meta/ + link videos from the converted episode set (idempotent)."""
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:229`: latents = np.asarray(pq.read_table(dst_pq).column("action").to_pylist(), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:267`: for i, ep in enumerate(episodes):
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:274`: rate = n_done / (time.time() - t0)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:275`: print(f"[{src_task.name}] {i + 1}/{len(episodes)} episodes ({rate:.2f} ep/s)", flush=True)
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:38`: s.torch_dtype = torch.float32
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:70`: "context_mask": torch.ones(B, L, dtype=torch.bool),
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:75`: sample["group_id"] = torch.tensor(group_id, dtype=torch.long)
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:102`: sample1 = {**sample0, "group_id": torch.tensor([1], dtype=torch.long)}
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:138`: def test_checkpoint_roundtrips_proprio_encoders():
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:142`: s.torch_dtype = torch.float32
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:158`: print("PASS test_checkpoint_roundtrips_proprio_encoders")
+- `/project/peilab/wam/physical_WM/tests/test_per_embodiment_proprio_and_eval_guard.py:317`: test_checkpoint_roundtrips_proprio_encoders()
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:1`: """CPU unit tests for RelativeUnified32DTransform / RelativeEef14Transform.
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:10`: RelativeUnified28DTransform,
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:11`: RelativeUnified32DTransform,
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:16`: # 32D eef-first layout slot groups (must match RelativeUnified32DTransform / plan §3)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:21`: def _make_batch(B=2, Ta=8, Ts=33, dim=32, dtype=torch.float64, seed=0):
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:23`: # moderate euler range to avoid XYZ gimbal lock at ry=±pi/2
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:24`: action = torch.rand(B, Ta, dim, generator=g, dtype=dtype) * 2 - 1
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:25`: state = torch.rand(B, Ts, dim, generator=g, dtype=dtype) * 2 - 1
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:31`: frozen RelativeUnified28DTransform staticmethods (guards the duplicated math)."""
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:33`: pose = (torch.rand(5, 6, generator=g, dtype=torch.float64) * 2 - 1)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:34`: base = (torch.rand(5, 6, generator=g, dtype=torch.float64) * 2 - 1)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:37`: rel_cls = RelativeUnified28DTransform._pose6_absolute_to_relative(pose, base)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:41`: abs_cls = RelativeUnified28DTransform._pose6_relative_to_absolute(rel_cls, base)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:46`: def test_roundtrip_recovers_action():
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:48`: for dtype, atol in [(torch.float64, 1e-9), (torch.float32, 2e-4)]:
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:49`: batch = _make_batch(dtype=dtype, seed=1)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:51`: t = RelativeUnified32DTransform(keys=["default"])
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:54`: f"roundtrip mismatch (dtype={dtype}, max|d|={(out['action']['default']-original).abs().max()})"
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:55`: print("PASS test_roundtrip_recovers_action")
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:61`: batch = _make_batch(dtype=torch.float64, seed=2)
+- `/project/peilab/wam/physical_WM/tests/dryrun_unified32_config.py:39`: assert ts == ["UnifiedSlotLayout", "RelativeUnified32DTransform"], ts
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:12`: from fastwam.datasets.lerobot.transforms.relative_action import RelativeUnified32DTransform
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:28`: native = torch.arange(14, dtype=torch.float64).reshape(1, 14)  # value == native index
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:32`: assert torch.equal(a[0:14], torch.arange(0, 14, dtype=torch.float64))
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:34`: assert torch.equal(a[14:32], torch.zeros(18, dtype=torch.float64))
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:43`: native = torch.arange(14, dtype=torch.float64).reshape(1, 14)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:46`: assert torch.equal(a[14:20], torch.arange(0, 6, dtype=torch.float64))   # L joint
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:49`: assert torch.equal(a[22:28], torch.arange(7, 13, dtype=torch.float64))  # R joint
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:52`: assert torch.equal(a[0:14], torch.zeros(14, dtype=torch.float64))       # eef block masked
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:61`: def test_forward_backward_roundtrip():
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:68`: native = torch.randn(4, spec["src_dim"], dtype=torch.float64)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:72`: print("PASS test_forward_backward_roundtrip")
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:78`: native = torch.randn(*shape, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:82`: assert out["action_mask"]["default"].dtype == torch.bool
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:97`: """egodex eef-14 -> UnifiedSlotLayout -> RelativeUnified32DTransform:
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:100`: rel = RelativeUnified32DTransform(keys=["default"])
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:101`: native = torch.randn(2, 6, 14, dtype=torch.float64) * 0.3  # small angles
+- `/project/peilab/wam/physical_WM/tests/test_unified32_slot_layout.py:121`: test_forward_backward_roundtrip()
+- `/project/peilab/wam/physical_WM/tests/test_unified32_per_embodiment_head.py:40`: emb = torch.tensor([0, 1, 0], dtype=torch.long)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_per_embodiment_head.py:77`: emb = torch.tensor([0, 1, 0], dtype=torch.long)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_per_embodiment_head.py:110`: emb = torch.zeros(B, dtype=torch.long)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:23`: torch_dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:42`: self.torch_dtype = torch_dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:49`: torch_dtype=torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:64`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:78`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:99`: def _check_resize_height_width(height, width, num_frames):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:102`: if width % 16 != 0:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:103`: width = (width + 15) // 16 * 16
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:106`: return height, width, num_frames
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:111`: mask = mask.to(self.device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:183`: batch_size, _, num_frames, height, width = video.shape
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:188`: if height % 16 != 0 or width % 16 != 0:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:190`: f"Video spatial dims must be multiples of 16, got H={height}, W={width}"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:195`: input_video = video.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:221`: action = action.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:245`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:267`: loss_per_sample.device, dtype=loss_per_sample.dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:299`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:300`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_frames)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan22.py:301`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/mot.py:63`: base_mod = block.modulation.to(dtype=t_mod.dtype, device=t_mod.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/mot.py:66`: # means t_mod has separate modulation for each token, otherwise same modulation for all tokens in the block
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_adjust_bottle_parallel.sh:27`: --instruction "$PROMPT" --fps 30 --overwrite \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:3`: # 'seen' instructions (restores the language diversity RoboTwin generated).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:60`: --instruction "$PROMPT" --fps 30 --overwrite \
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:92`: "Files & dataset modes: repeatedly generate this many chunks for a longer rollout video. "
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:99`: parser.add_argument("--fps", type=int, default=8)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:109`: help="Dataset mode only: condition generated video on GT action. Leave off for true open-loop.",
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:176`: def dtype_from_mixed_precision(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:226`: model_dtype = dtype_from_mixed_precision(args.mixed_precision)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:227`: model = instantiate(cfg.model, model_dtype=model_dtype, device=args.device)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:249`: return np.asarray(image, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:259`: state = np.asarray(payload, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:277`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:321`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:346`: def pil_frame_to_input_image(frame: Image.Image, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:347`: arr = np.asarray(frame.convert("RGB"), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:350`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:356`: out = Image.new("RGB", (image.width, image.height + header_h), color=(18, 18, 18))
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:370`: width = sum(frame.width for frame in labeled)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:372`: canvas = Image.new("RGB", (width, height), color=(0, 0, 0))
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:376`: x += frame.width
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:459`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:492`: state_tensor = torch.as_tensor(state, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:526`: context_mask = torch.ones_like(context_mask, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/environment.full.yml:36`: - accelerate==1.12.0
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:23`: u_grid = torch.linspace(1.0, 0.0, steps + 1, dtype=torch.float64)[:-1]
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:31`: def sample_training_t(self, batch_size: int, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:34`: u = torch.rand((batch_size,), device=device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:37`: return timestep.to(dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:40`: t = timestep.to(dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:51`: original_samples.device, dtype=original_samples.dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:67`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:76`: u_steps = torch.linspace(1.0, 0.0, num_inference_steps + 1, device=device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:80`: return timesteps.to(dtype=dtype), deltas.to(dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:84`: delta = delta.to(sample.device, dtype=sample.dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:38`: mask = torch.zeros((total_seq_len, total_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:74`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:86`: dtype=action.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:94`: timestep_video_cond = torch.zeros_like(timestep_video, dtype=input_latents.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:100`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:132`: "ensure `seperated_timestep=true` and `fuse_vae_embedding_in_latents=true`."
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:205`: loss_video_per_sample.device, dtype=loss_video_per_sample.dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:211`: valid = (~action_is_pad).to(device=action_loss_token.device, dtype=action_loss_token.dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:218`: action_loss_per_sample.device, dtype=action_loss_per_sample.dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:303`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:304`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_video_frames)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:305`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:307`: f"`input_image` must be resized before infer, expected multiples of 16 but got HxW=({height},{width})"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:325`: proprio = proprio.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:329`: latent_w = width // self.vae.upsampling_factor
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:337`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:338`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:343`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:344`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_idm.py:346`: input_image = input_image.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_text_encoder.py:23`: if x.dtype == torch.float16 and torch.isinf(x).any():
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_text_encoder.py:24`: clamp = torch.finfo(x.dtype).max - 1000
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_text_encoder.py:47`: if self.weight.dtype in [torch.float16, torch.bfloat16]:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_text_encoder.py:92`: attn_bias.masked_fill_(mask == 0, torch.finfo(x.dtype).min)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:37`: mask = torch.zeros((total_seq_len, total_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:121`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:122`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_video_frames)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:123`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:125`: f"`input_image` must be resized before infer, expected multiples of 16 but got HxW=({height},{width})"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:143`: proprio = proprio.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:147`: latent_w = width // self.vae.upsampling_factor
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:155`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:156`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:161`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:162`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:164`: input_image = input_image.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:189`: context = context.to(device=self.device, dtype=self.torch_dtype, non_blocking=True)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:190`: context_mask = context_mask.to(device=self.device, dtype=torch.bool, non_blocking=True)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:201`: dtype=latents_video.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:207`: dtype=latents_action.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:216`: timestep_video = step_t_video.unsqueeze(0).to(dtype=latents_video.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:217`: timestep_action = step_t_action.unsqueeze(0).to(dtype=latents_action.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam_joint.py:235`: "action": latents_action[0].detach().to(device="cpu", dtype=torch.float32),
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:13`: from accelerate import PartialState
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:86`: def _mixed_precision_to_model_dtype(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:168`: def _center_crop_resize(image: np.ndarray, width: int, height: int) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:171`: scale = max(width / src_w, height / src_h)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:174`: left = max((rw - width) // 2, 0)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:176`: cropped = resized.crop((left, top, left + width, top + height))
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:177`: return np.asarray(cropped, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:191`: state_batch = {"state": {state_key: torch.as_tensor(proprio, dtype=torch.float32).unsqueeze(0)}}
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:201`: width: int,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:204`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:224`: rgb = _center_crop_resize(imgs["image"], width=primary_w, height=primary_h)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:228`: primary = _center_crop_resize(imgs["image"], width=primary_w, height=primary_h)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:229`: wrist = _center_crop_resize(imgs["wrist_image"], width=wrist_w, height=wrist_h)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:240`: expected_h, expected_w = int(height), int(width)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:249`: x = torch.tensor(rgb).permute(2, 0, 1).unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:286`: action = action.to(dtype=torch.float32, device="cpu")
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:396`: width=input_w,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:399`: dtype=model.torch_dtype,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:691`: def build_model_and_processor(cfg: DictConfig, *, model_device: str, model_dtype: torch.dtype):
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:696`: and then iterate over thousands of single-trial tasks instead of reloading per task.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:4`: #   $RESULT_DIR/summary.csv             (per-suite + overall success rates)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:22`: # Generate a unique run_id
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:497`: sleep 0.5
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:618`: sleep $monitoring_interval
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:148`: sleep 2   # stagger model loads to avoid a disk thundering-herd
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:153`: sleep 15
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:168`: echo "  summary.csv             (per-suite + overall success rate)"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:169`: echo "  task_success_rates.csv  (per-task)"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:20`: # NOTE: deliberately NO --mem / --cpus-per-task. On `normal`, no --mem = unlimited
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:30`: "camera_widths": resolution,
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:63`: video_writer = imageio.get_writer(mp4_path, fps=fps)
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:95`: fps=8,
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:143`: save_mp4(stitched_frames, mp4_path, fps=fps)
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:150`: arr = np.asarray(open_val, dtype=np.float32).reshape(-1)
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:153`: return np.asarray(bin_val, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:92`: torch_dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:116`: state_dict = load_state_dict(path, torch_dtype=torch_dtype, device="cpu")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:121`: model = model.to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:143`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:182`: dit: WanVideoDiT = WanVideoDiT(**validated_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:189`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:202`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/loader.py:217`: vae: WanVideoVAE38 = _load_registered_model(vae_config.path, "wan_video_vae", torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:13`: from accelerate import PartialState
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:86`: def _mixed_precision_to_model_dtype(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:168`: def _center_crop_resize(image: np.ndarray, width: int, height: int) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:171`: scale = max(width / src_w, height / src_h)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:174`: left = max((rw - width) // 2, 0)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:176`: cropped = resized.crop((left, top, left + width, top + height))
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:177`: return np.asarray(cropped, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:191`: state_batch = {"state": {state_key: torch.as_tensor(proprio, dtype=torch.float32).unsqueeze(0)}}
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:201`: width: int,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:204`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:224`: rgb = _center_crop_resize(imgs["image"], width=primary_w, height=primary_h)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:228`: primary = _center_crop_resize(imgs["image"], width=primary_w, height=primary_h)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:229`: wrist = _center_crop_resize(imgs["wrist_image"], width=wrist_w, height=wrist_h)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:240`: expected_h, expected_w = int(height), int(width)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:249`: x = torch.tensor(rgb).permute(2, 0, 1).unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:286`: action = action.to(dtype=torch.float32, device="cpu")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:396`: width=input_w,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:399`: dtype=model.torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:712`: model_dtype = _mixed_precision_to_model_dtype(cfg.get("mixed_precision", "bf16"))
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:713`: model = instantiate(cfg.model, model_dtype=model_dtype, device=model_device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:117`: def load_state_dict(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:121`: state_dict.update(load_state_dict(file_path_, torch_dtype=torch_dtype, device=device))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:124`: return load_state_dict_from_safetensors(file_path, torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:125`: return load_state_dict_from_bin(file_path, torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:128`: def load_state_dict_from_safetensors(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:133`: if torch_dtype is not None:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:134`: value = value.to(torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:139`: def load_state_dict_from_bin(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:148`: if torch_dtype is not None:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/helpers/io.py:151`: state_dict[key] = state_dict[key].to(torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:4`: #   $RESULT_DIR/summary.csv             (per-suite + overall success rates)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:26`: mask = torch.zeros(b, n, s, s, dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:543`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:646`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:767`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:872`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1002`: scale = [s.to(dtype=mu.dtype, device=mu.device) for s in scale]
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1006`: scale = scale.to(dtype=mu.dtype, device=mu.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1014`: scale = [s.to(dtype=z.dtype, device=z.device) for s in scale]
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1018`: scale = scale.to(dtype=z.dtype, device=z.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1081`: def build_1d_mask(self, length, left_bound, right_bound, border_width):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1084`: x[:border_width] = (torch.arange(border_width) + 1) / border_width
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1086`: x[-border_width:] = torch.flip((torch.arange(border_width) + 1) / border_width, dims=(0,))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1090`: def build_mask(self, data, is_bound, border_width):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1092`: h = self.build_1d_mask(H, is_bound[0], is_bound[1], border_width[0])
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1093`: w = self.build_1d_mask(W, is_bound[2], is_bound[3], border_width[1])
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1121`: weight = torch.zeros((1, 1, out_T, H * self.upsampling_factor, W * self.upsampling_factor), dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1122`: values = torch.zeros((1, 3, out_T, H * self.upsampling_factor, W * self.upsampling_factor), dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1131`: border_width=((size_h - stride_h) * self.upsampling_factor, (size_w - stride_w) * self.upsampling_factor)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1132`: ).to(dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1173`: weight = torch.zeros((1, 1, out_T, H // self.upsampling_factor, W // self.upsampling_factor), dtype=video.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:22`: # Generate a unique run_id
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:497`: sleep 0.5
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:618`: sleep $monitoring_interval
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:118`: sleep 3   # stagger model loads (avoid host-RAM peak + disk thundering-herd)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:32`: torch_dtype: torch.dtype = torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:59`: self.proprio_encoder = nn.Linear(self.proprio_dim, self.text_dim).to(torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:84`: self.torch_dtype = torch_dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:94`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:123`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:140`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:164`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:194`: def _check_resize_height_width(height, width, num_frames):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:197`: if width % 16 != 0:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:198`: width = (width + 15) // 16 * 16
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:201`: return height, width, num_frames
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:212`: mask = mask.to(self.device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:216`: for i, v in enumerate(seq_lens):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:236`: proprio.to(device=self.device, dtype=context.dtype).unsqueeze(1)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:237`: ).to(dtype=context.dtype) # [B, 1, D]
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:238`: proprio_mask = torch.ones((context_mask.shape[0], 1), dtype=torch.bool, device=context_mask.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:293`: batch_size, _, num_frames, height, width = video.shape
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:294`: if height % 16 != 0 or width % 16 != 0:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:296`: f"Video spatial dims must be multiples of 16, got H={height}, W={width}"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/fastwam.py:351`: input_video = video.to(device=self.device, dtype=self.torch_dtype, non_blocking=True)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:153`: sleep 2   # stagger model loads to avoid a disk thundering-herd
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:158`: sleep 15
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:173`: echo "  summary.csv             (per-suite + overall success rate)"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:174`: echo "  task_success_rates.csv  (per-task)"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:26`: shift, scale = (self.modulation.to(dtype=t.dtype, device=t.device) + t.unsqueeze(1)).chunk(2, dim=1)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:118`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:127`: return cls(**action_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:130`: return cls(**action_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:142`: action_expert = cls(**action_cfg).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:215`: merged_state[key] = value.to(device=target.device, dtype=target.dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:224`: return action_expert.to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/action_dit.py:264`: (batch_size, context.shape[1]), dtype=torch.bool, device=context.device
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:151`: dtype=np.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:155`: dtype=np.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:163`: bitrate = int(self.robot.get("bitrate", 1000000))
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:168`: bitrate=bitrate,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:174`: bitrate=bitrate,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:182`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:206`: time.sleep(0.5)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:210`: state = np.zeros(ACTION_DIM, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:239`: self.left_gripper.move_gripper(width=left_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:241`: self.right_gripper.move_gripper(width=right_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:242`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:245`: action = np.asarray(action, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:247`: self.left_gripper.move_gripper(width=float(np.clip(action[6], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:249`: self.right_gripper.move_gripper(width=float(np.clip(action[13], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:250`: time.sleep(0.02)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:338`: rate = ros_operator.rospy.Rate(int(self.runtime.get("rospy_rate", 50)))
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:344`: rate.sleep()
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:352`: rate.sleep()
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:362`: action_chunk = np.asarray(policy.infer(obs), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:371`: rate.sleep()
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:20`: # NOTE: deliberately NO --mem / --cpus-per-task. On `normal`, no --mem = unlimited
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:30`: "camera_widths": resolution,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:63`: video_writer = imageio.get_writer(mp4_path, fps=fps)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:95`: fps=8,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:143`: save_mp4(stitched_frames, mp4_path, fps=fps)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:150`: arr = np.asarray(open_val, dtype=np.float32).reshape(-1)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:153`: return np.asarray(bin_val, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:33`: 10000, -torch.arange(dim//2, dtype=torch.float64, device=position.device).div(dim//2)))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:35`: return x.to(position.dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:61`: return x_out.to(x.dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:128`: # Generate time indices for query and key tokens (shape: [L] and [S])
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:157`: dtype = x.dtype
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:158`: return self.norm(x.float()).to(dtype) * self.weight
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:256`: self.modulation.to(dtype=t_mod.dtype, device=t_mod.device) + t_mod).chunk(6, dim=chunk_dim)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:258`: # means t_mod has separate modulation for each token, otherwise same modulation for all tokens in the block
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:287`: x = x + self.emb_pos.to(dtype=x.dtype, device=x.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:302`: shift, scale = (self.modulation.unsqueeze(0).to(dtype=t_mod.dtype, device=t_mod.device) + t_mod.unsqueeze(2)).chunk(2, dim=2)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:305`: shift, scale = (self.modulation.to(dtype=t_mod.dtype, device=t_mod.device) + t_mod).chunk(2, dim=1)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:329`: seperated_timestep: bool = False,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:346`: self.seperated_timestep = seperated_timestep
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:447`: context_mask = torch.ones((context.shape[0], context.shape[1]), dtype=torch.bool, device=context.device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:485`: return torch.ones((video_seq_len, video_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:495`: torch.ones((num_video_frames, num_video_frames), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:502`: video_mask = torch.ones((video_seq_len, video_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:537`: if self.seperated_timestep and fuse_vae_embedding_in_latents:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:543`: dtype=timestep.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_dit.py:552`: raise NotImplementedError("Only support seperated_timestep with fuse_vae_embedding_in_latents for now.")
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:6`: ONCE and iterates over a shard of ``(suite, task_id)`` pairs, so a job pays the load cost
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:38`: _mixed_precision_to_model_dtype,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:102`: my_tasks = [t for i, t in enumerate(all_tasks) if i % num_shards == shard_index]
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:116`: model_dtype = _mixed_precision_to_model_dtype(cfg.get("mixed_precision", "bf16"))
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:118`: cfg, model_device=model_device, model_dtype=model_dtype
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:125`: for k, (suite, task_id) in enumerate(todo):
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:145`: rate = n_done / max(elapsed, 1e-6)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:146`: eta = (len(todo) - (k + 1)) / max(rate, 1e-9)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:150`: f"run_succ={n_success}/{n_done}  {rate * 60:.1f} task/min  eta={eta / 3600:.1f}h",
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/rtc_buffer.py:53`: chunk = np.asarray(chunk, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/rtc_buffer.py:97`: candidate_actions = np.asarray([action for _, action in sorted_items], dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/rtc_buffer.py:99`: exp_weights = np.exp(self.exp_weight_factor * np.arange(len(candidate_actions), dtype=np.float32))
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:5`: ``benchmark/task_classification.json`` to report success rate by:
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:13`: (classification ids are 1-based; benchmark task_ids are 0-based). The match rate + completion
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:81`: def _rate(stats):
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:141`: print(f"\nOVERALL success: {overall['succ']}/{overall['tot']} = {_rate(overall):.2f}%  (n_tasks={overall['n']})")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:150`: rows.append({kind: k, "success_rate(%)": round(_rate(st), 2), "succ": st["succ"], "tot": st["tot"], "n_tasks": st["n"]})
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:164`: # ---- category x difficulty matrix (success rate %) ----
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:170`: row[d] = round(_rate(st), 2) if st and st["tot"] else None
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:174`: print("\n--- category x difficulty (success rate %) ---")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:182`: "overall": {"success_rate": round(_rate(overall), 4), **overall},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:185`: "by_suite": {s: {"success_rate": round(_rate(buckets[("suite", s)]), 4), **buckets[("suite", s)]} for s in suites if ("suite", s) in buckets},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:186`: "by_category": {c: {"success_rate": round(_rate(buckets[("category", c)]), 4), **buckets[("category", c)]} for c in cats_present},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:187`: "by_difficulty": {str(d): {"success_rate": round(_rate(buckets[("difficulty", d)]), 4), **buckets[("difficulty", d)]} for d in diffs_present},
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:63`: # `keep_dims` accepts slice notation "start:stop" or comma-separated indices.
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:137`: model_dtype = dtype_from_mixed_precision(self.config.mixed_precision)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:138`: self.model = instantiate(self.cfg.model, model_dtype=model_dtype, device=self.config.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:178`: state=np.asarray(obs["state"], dtype=np.float32),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:202`: image = preprocess_real_images(self.observation, self.model.device, self.model.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:266`: def dtype_from_mixed_precision(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:301`: context_mask = torch.ones_like(context_mask, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:312`: def preprocess_real_images(observation: FastWAMObservation, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:355`: return image.unsqueeze(0).to(device=device, dtype=dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:359`: state_tensor = torch.as_tensor(state, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:379`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:392`: return np.asarray(image, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:402`: state = np.asarray(payload, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:34`: def _mixed_precision_to_model_dtype(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:53`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:65`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:94`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:141`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:181`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:228`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:268`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:317`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:379`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:380`: model = instantiate(cfg.model, model_dtype=model_dtype, device=model_device)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:395`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:397`: model = instantiate(cfg.model, model_dtype=model_dtype, device=str(inference_cfg.device))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:408`: def center_crop_resize(img: Image, width: int, height: int) -> Image.Image:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:410`: scale = max(width / src_w, height / src_h)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:413`: left = max((rw - width) // 2, 0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:415`: return resized.crop((left, top, left + width, top + height))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:418`: input_image = center_crop_resize(input_image, width=inference_cfg.width, height=inference_cfg.height)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:419`: arr = np.array(input_image, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/runtime.py:421`: x = x.to(device=model.device, dtype=model.torch_dtype)
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:51`: # Iterate over all suite directories
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:86`: 'success_rate': result['successes'] / result['total_episodes'] * 100,
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:104`: total_success_rate = 0
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:113`: 'Success Rate (%)': [],
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:122`: success_rate = stats['total_successes'] / stats['total_trials'] * 100
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:137`: print(f"- Success rate: {success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:149`: df_data['Success Rate (%)'].append(f"{success_rate:.2f}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:157`: total_success_rate += success_rate
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:166`: avg_success_rate = total_success_rate/total_suites
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:173`: print(f"- Average success rate: {avg_success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:185`: df_data['Success Rate (%)'].append(f"{avg_success_rate:.2f}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:208`: # Create the per-task success-rate CSV
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:212`: 'Success Rate (%)': []
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:227`: # Fill per-task success-rate rows
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:235`: task_success_data['Success Rate (%)'].append(f"{result['success_rate']:.2f}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:256`: # Create and save the task success-rate DataFrame
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:258`: task_success_df.to_csv(os.path.join(output_dir, 'task_success_rates.csv'), index=False)
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:263`: 'average_success_rate': total_success_rate/total_suites if total_suites > 0 else 0,
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:287`: print(f"Task success rates CSV: {os.path.join(output_dir, 'task_success_rates.csv')}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:289`: # Print the task success-rate table
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:12`: from accelerate import Accelerator
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:35`: self.learning_rate = float(cfg.learning_rate)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:66`: "Accelerate training: distributed_type=%s zero_stage=%s world_size=%d process_index=%d cfg_mixed_precision=%s accelerator_mixed_precision=%s grad_accum=%d grad_clip=%.4f",
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:153`: "lr": self.learning_rate,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:207`: torch.tensor([local_length], device=self.accelerator.device, dtype=torch.int64)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:214`: for rank, rank_length in enumerate(gathered_lengths.cpu().tolist()):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:247`: eta_min=self.learning_rate * 0.01,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:463`: proprio = sample["proprio"].detach().to(device="cpu", dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:481`: action_btd = action_btd.detach().to(device="cpu", dtype=torch.float32)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:514`: gt_video_batch = video0.unsqueeze(0).to(device=model.device, dtype=model.torch_dtype)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:543`: save_mp4(stitched_frames, video_path, fps=8)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:558`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:657`: logger.info("Loaded accelerate training state from %s at step=%d", state_dir, self.global_step)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:706`: metric_tensor = torch.tensor(float(value), device=loss.device, dtype=torch.float32).reshape(1)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/trainer.py:710`: grad_norm_tensor = torch.tensor(grad_norm, device=loss.device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:82`: return np.zeros(ROBOT_FULL_DIM, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:83`: pad = np.asarray(list(full_action_pad), dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:94`: state = np.asarray(state_14d, dtype=np.float32)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:51`: # Iterate over all suite directories
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:86`: 'success_rate': result['successes'] / result['total_episodes'] * 100,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:104`: total_success_rate = 0
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:113`: 'Success Rate (%)': [],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:122`: success_rate = stats['total_successes'] / stats['total_trials'] * 100
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:137`: print(f"- Success rate: {success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:149`: df_data['Success Rate (%)'].append(f"{success_rate:.2f}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:157`: total_success_rate += success_rate
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:166`: avg_success_rate = total_success_rate/total_suites
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:173`: print(f"- Average success rate: {avg_success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:185`: df_data['Success Rate (%)'].append(f"{avg_success_rate:.2f}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:208`: # Create the per-task success-rate CSV
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:212`: 'Success Rate (%)': []
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:227`: # Fill per-task success-rate rows
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:235`: task_success_data['Success Rate (%)'].append(f"{result['success_rate']:.2f}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:256`: # Create and save the task success-rate DataFrame
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:258`: task_success_df.to_csv(os.path.join(output_dir, 'task_success_rates.csv'), index=False)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:263`: 'average_success_rate': total_success_rate/total_suites if total_suites > 0 else 0,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:287`: print(f"Task success rates CSV: {os.path.join(output_dir, 'task_success_rates.csv')}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:289`: # Print the task success-rate table
+- `/project/peilab/wam/physical_WM_xqh/README.md:74`: Step 2: pre-generate the ActionDiT backbone (interpolated from Wan22 DiT):
+- `/project/peilab/wam/physical_WM_xqh/README.md:82`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM_xqh/README.md:220`: This skips RGB rendering while consecutively executing an action chunk within one replan window, which speeds up evaluation but makes the saved video look very low-FPS.
+- `/project/peilab/wam/physical_WM_xqh/README.md:248`: After one training run, a `dataset_stats.json` file will be generated in the current run directory (for example, `runs/{task_name}/{run_id}/dataset_stats.json`).
+- `/project/peilab/wam/physical_WM_xqh/README.md:259`: For LIBERO, we train on a single node with 8 GPUs. For RoboTwin, we use 64 GPUs to accelerate training. You can try reducing the GPU count or training epochs.
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_metrics.py:15`: arr = np.array(frame.convert("RGB"), dtype=np.float32) / 255.0
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_metrics.py:21`: def _gaussian_kernel_2d(kernel_size: int, sigma: float, channels: int, device: torch.device, dtype: torch.dtype):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_metrics.py:22`: coords = torch.arange(kernel_size, device=device, dtype=dtype) - (kernel_size - 1) / 2.0
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_metrics.py:74`: dtype=pred.dtype,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_io.py:20`: def save_mp4(frames: Iterable[Image.Image], path: str, fps: int = 8):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/video_io.py:24`: fps=max(fps, 1),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/misc.py:30`: from torch.distributed._tensor.api import DTensor
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/logging_config.py:37`: from accelerate import PartialState
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/logging_config.py:120`: Drop-in replacement for accelerate.logging.get_logger:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/pytorch_utils.py:58`: # Use 128 bits (4 x 32-bit words) to represent seed --> generate_state(k) produces a `k` element array!
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/pytorch_utils.py:59`: np.random.seed(seed_seq.generate_state(4))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/pytorch_utils.py:64`: # Torch Manual seed takes 64 bits (so just specify a dtype of uint64
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/pytorch_utils.py:65`: torch.manual_seed(torch_seed_seq.generate_state(1, dtype=np.uint64)[0])
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/utils/pytorch_utils.py:68`: random_seed = (random_seed_seq.generate_state(2, dtype=np.uint64).astype(list) * [1 << 64, 1]).sum()
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:16`: TASKS ["" = all 50; else space-separated subset]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:96`: rec[phase] = d.get("success_rate")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:109`: f.write("task,clean_success_rate,random_success_rate\n")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:146`: time.sleep(3)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:170`: time.sleep(5)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:244`: "success_rate": sr, "return_code": rc, "ok": (rc == 0 and sr is not None),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:249`: f"success_rate={sr} elapsed={rec['elapsed_s']}s ({job['log'].name})")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:256`: time.sleep(5)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:6`: instruction_type=unseen -> RoboTwin-generated sentences the model never saw.
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:100`: time.sleep(5)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:149`: log(f"==== A/B SUMMARY (success_rate, {PHASE}, {EPISODES}ep, seed={SEED}) ====")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:155`: time.sleep(3)
+- `/project/peilab/wam/physical_WM/README.md:74`: Step 2: pre-generate the ActionDiT backbone (interpolated from Wan22 DiT):
+- `/project/peilab/wam/physical_WM/README.md:82`: --dtype bfloat16
+- `/project/peilab/wam/physical_WM/README.md:220`: This skips RGB rendering while consecutively executing an action chunk within one replan window, which speeds up evaluation but makes the saved video look very low-FPS.
+- `/project/peilab/wam/physical_WM/README.md:248`: After one training run, a `dataset_stats.json` file will be generated in the current run directory (for example, `runs/{task_name}/{run_id}/dataset_stats.json`).
+- `/project/peilab/wam/physical_WM/README.md:259`: For LIBERO, we train on a single node with 8 GPUs. For RoboTwin, we use 64 GPUs to accelerate training. You can try reducing the GPU count or training epochs.
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:75`: def _mixed_precision_to_model_dtype(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:135`: return np.asarray(resized, dtype=np.uint8)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:146`: model_dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:162`: self.model = instantiate(model_cfg_copy, model_dtype=model_dtype, device=device)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:201`: state_batch = {"state": {state_key: torch.as_tensor(state, dtype=torch.float32).unsqueeze(0)}}
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:218`: denorm = normalizer.backward(action.to(dtype=torch.float32, device="cpu"))
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:231`: dtype=self.model.torch_dtype,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:238`: state_vector = np.asarray(observation["joint_action"]["vector"], dtype=np.float32)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:271`: self.pending_actions.append(np.asarray(action_chunk[i], dtype=np.float32))
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:287`: logger.warning("No action generated; skip current eval step.")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:338`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:378`: model_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:86`: def _parse_success_rate(result_file: Path) -> float:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:100`: raise ValueError(f"Failed to parse success rate from: {result_file}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:177`: task_rates: dict[str, dict[str, float | None]] = {
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:261`: clean_mean = _mean_or_none([task_rates[t]["clean"] for t in tasks])
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:262`: random_mean = _mean_or_none([task_rates[t]["random"] for t in tasks])
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:266`: writer.writerow(["task_name", "clean_success_rate", "random_success_rate"])
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:271`: task_rates[task]["clean"],
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:272`: task_rates[task]["random"],
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:281`: "clean_success_rate": _to_jsonable(task_rates[task]["clean"]),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:282`: "random_success_rate": _to_jsonable(task_rates[task]["random"]),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:287`: "clean_mean_success_rate": _to_jsonable(clean_mean),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:288`: "random_mean_success_rate": _to_jsonable(random_mean),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:347`: success_rate = _parse_success_rate(result_file)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:368`: task_rates[state.task_name][state.phase] = success_rate
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:371`: f"success_rate={success_rate:.4f}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:387`: time.sleep(POLL_INTERVAL_SEC)
+- `/project/peilab/wam/physical_WM/environment.full.yml:36`: - accelerate==1.12.0
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:12`: from accelerate import Accelerator
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:46`: self.learning_rate = float(cfg.learning_rate)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:78`: "Accelerate training: distributed_type=%s zero_stage=%s world_size=%d process_index=%d cfg_mixed_precision=%s accelerator_mixed_precision=%s grad_accum=%d grad_clip=%.4f",
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:162`: "lr": self.learning_rate,
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:216`: torch.tensor([local_length], device=self.accelerator.device, dtype=torch.int64)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:223`: for rank, rank_length in enumerate(gathered_lengths.cpu().tolist()):
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:256`: eta_min=self.learning_rate * 0.01,
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:497`: vl = torch.tensor([val_loss], device=self.accelerator.device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:559`: proprio = sample["proprio"].detach().to(device="cpu", dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:577`: action_btd = action_btd.detach().to(device="cpu", dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:610`: gt_video_batch = video0.unsqueeze(0).to(device=model.device, dtype=model.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:639`: save_mp4(stitched_frames, video_path, fps=8)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:654`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:753`: logger.info("Loaded accelerate training state from %s at step=%d", state_dir, self.global_step)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:802`: metric_tensor = torch.tensor(float(value), device=loss.device, dtype=torch.float32).reshape(1)
+- `/project/peilab/wam/physical_WM/src/fastwam/trainer.py:806`: grad_norm_tensor = torch.tensor(grad_norm, device=loss.device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:34`: def _mixed_precision_to_model_dtype(mixed_precision: str) -> torch.dtype:
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:53`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:65`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:95`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:145`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:186`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:233`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:273`: model_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:322`: torch_dtype=model_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:427`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:428`: model = instantiate(cfg.model, model_dtype=model_dtype, device=model_device)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:443`: model_dtype = _mixed_precision_to_model_dtype(mixed_precision)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:445`: model = instantiate(cfg.model, model_dtype=model_dtype, device=str(inference_cfg.device))
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:456`: def center_crop_resize(img: Image, width: int, height: int) -> Image.Image:
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:458`: scale = max(width / src_w, height / src_h)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:461`: left = max((rw - width) // 2, 0)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:463`: return resized.crop((left, top, left + width, top + height))
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:466`: input_image = center_crop_resize(input_image, width=inference_cfg.width, height=inference_cfg.height)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:467`: arr = np.array(input_image, dtype=np.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/runtime.py:469`: x = x.to(device=model.device, dtype=model.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/pytorch_utils.py:58`: # Use 128 bits (4 x 32-bit words) to represent seed --> generate_state(k) produces a `k` element array!
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/pytorch_utils.py:59`: np.random.seed(seed_seq.generate_state(4))
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/pytorch_utils.py:64`: # Torch Manual seed takes 64 bits (so just specify a dtype of uint64
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/pytorch_utils.py:65`: torch.manual_seed(torch_seed_seq.generate_state(1, dtype=np.uint64)[0])
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/pytorch_utils.py:68`: random_seed = (random_seed_seq.generate_state(2, dtype=np.uint64).astype(list) * [1 << 64, 1]).sum()
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_metrics.py:15`: arr = np.array(frame.convert("RGB"), dtype=np.float32) / 255.0
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_metrics.py:21`: def _gaussian_kernel_2d(kernel_size: int, sigma: float, channels: int, device: torch.device, dtype: torch.dtype):
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_metrics.py:22`: coords = torch.arange(kernel_size, device=device, dtype=dtype) - (kernel_size - 1) / 2.0
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_metrics.py:74`: dtype=pred.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_io.py:20`: def save_mp4(frames: Iterable[Image.Image], path: str, fps: int = 8):
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/video_io.py:24`: fps=max(fps, 1),
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:23`: torch_dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:42`: self.torch_dtype = torch_dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:49`: torch_dtype=torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:64`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:78`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:99`: def _check_resize_height_width(height, width, num_frames):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:102`: if width % 16 != 0:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:103`: width = (width + 15) // 16 * 16
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:106`: return height, width, num_frames
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:111`: mask = mask.to(self.device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:183`: batch_size, _, num_frames, height, width = video.shape
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:188`: if height % 16 != 0 or width % 16 != 0:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:190`: f"Video spatial dims must be multiples of 16, got H={height}, W={width}"
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:195`: input_video = video.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:221`: action = action.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:245`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:267`: loss_per_sample.device, dtype=loss_per_sample.dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:299`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:300`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_frames)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan22.py:301`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/misc.py:30`: from torch.distributed._tensor.api import DTensor
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/mot.py:63`: base_mod = block.modulation.to(dtype=t_mod.dtype, device=t_mod.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/mot.py:66`: # means t_mod has separate modulation for each token, otherwise same modulation for all tokens in the block
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/logging_config.py:37`: from accelerate import PartialState
+- `/project/peilab/wam/physical_WM/src/fastwam/utils/logging_config.py:120`: Drop-in replacement for accelerate.logging.get_logger:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_text_encoder.py:23`: if x.dtype == torch.float16 and torch.isinf(x).any():
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_text_encoder.py:24`: clamp = torch.finfo(x.dtype).max - 1000
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_text_encoder.py:47`: if self.weight.dtype in [torch.float16, torch.bfloat16]:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_text_encoder.py:92`: attn_bias.masked_fill_(mask == 0, torch.finfo(x.dtype).min)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:27`: shift, scale = (self.modulation.to(dtype=t.dtype, device=t.device) + t.unsqueeze(1)).chunk(2, dim=1)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:77`: # `action_dim` is the collated tensor width (= max native dim) in both modes.
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:155`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:164`: return cls(**action_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:167`: return cls(**action_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:179`: action_expert = cls(**action_cfg).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:252`: merged_state[key] = value.to(device=target.device, dtype=target.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:261`: return action_expert.to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:274`: tokens = tokens.index_copy(0, idx, enc.to(tokens.dtype))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:279`: Linear; outputs are right-padded back to `action_dim` (the collated width) so the
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:292`: out = out.index_copy(0, idx, pred.to(out.dtype))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/action_dit.py:334`: (batch_size, context.shape[1]), dtype=torch.bool, device=context.device
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:48`: mask = torch.zeros((total_seq_len, total_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:132`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:133`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_video_frames)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:134`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:136`: f"`input_image` must be resized before infer, expected multiples of 16 but got HxW=({height},{width})"
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:154`: proprio = proprio.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:158`: latent_w = width // self.vae.upsampling_factor
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:166`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:167`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:172`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:173`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:175`: input_image = input_image.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:200`: context = context.to(device=self.device, dtype=self.torch_dtype, non_blocking=True)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:201`: context_mask = context_mask.to(device=self.device, dtype=torch.bool, non_blocking=True)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:212`: dtype=latents_video.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:218`: dtype=latents_action.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:227`: timestep_video = step_t_video.unsqueeze(0).to(dtype=latents_video.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:228`: timestep_action = step_t_action.unsqueeze(0).to(dtype=latents_action.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_joint.py:246`: "action": latents_action[0].detach().to(device="cpu", dtype=torch.float32),
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:33`: 10000, -torch.arange(dim//2, dtype=torch.float64, device=position.device).div(dim//2)))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:35`: return x.to(position.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:61`: return x_out.to(x.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:128`: # Generate time indices for query and key tokens (shape: [L] and [S])
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:157`: dtype = x.dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:158`: return self.norm(x.float()).to(dtype) * self.weight
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:256`: self.modulation.to(dtype=t_mod.dtype, device=t_mod.device) + t_mod).chunk(6, dim=chunk_dim)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:258`: # means t_mod has separate modulation for each token, otherwise same modulation for all tokens in the block
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:287`: x = x + self.emb_pos.to(dtype=x.dtype, device=x.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:302`: shift, scale = (self.modulation.unsqueeze(0).to(dtype=t_mod.dtype, device=t_mod.device) + t_mod.unsqueeze(2)).chunk(2, dim=2)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:305`: shift, scale = (self.modulation.to(dtype=t_mod.dtype, device=t_mod.device) + t_mod).chunk(2, dim=1)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:329`: seperated_timestep: bool = False,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:346`: self.seperated_timestep = seperated_timestep
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:447`: context_mask = torch.ones((context.shape[0], context.shape[1]), dtype=torch.bool, device=context.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:485`: return torch.ones((video_seq_len, video_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:495`: torch.ones((num_video_frames, num_video_frames), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:502`: video_mask = torch.ones((video_seq_len, video_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:537`: if self.seperated_timestep and fuse_vae_embedding_in_latents:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:543`: dtype=timestep.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_dit.py:552`: raise NotImplementedError("Only support seperated_timestep with fuse_vae_embedding_in_latents for now.")
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:32`: torch_dtype: torch.dtype = torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:60`: # source; `proprio_dim` stays the collated width (= max native dim) used for
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:79`: ).to(torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:82`: self.proprio_encoder = nn.Linear(self.proprio_dim, self.text_dim).to(torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:108`: self.torch_dtype = torch_dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:118`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:148`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:165`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:190`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:220`: def _check_resize_height_width(height, width, num_frames):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:223`: if width % 16 != 0:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:224`: width = (width + 15) // 16 * 16
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:227`: return height, width, num_frames
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:238`: mask = mask.to(self.device, dtype=torch.bool)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:242`: for i, v in enumerate(seq_lens):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:256`: out = out.index_copy(0, idx, enc.to(out.dtype))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:275`: proprio = proprio.to(device=self.device, dtype=context.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:277`: proprio_token = self._encode_proprio_grouped(proprio, embodiment_id).to(dtype=context.dtype)  # [B, 1, D]
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:279`: proprio_token = self.proprio_encoder(proprio.unsqueeze(1)).to(dtype=context.dtype)  # [B, 1, D]
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam.py:280`: proprio_mask = torch.ones((context_mask.shape[0], 1), dtype=torch.bool, device=context_mask.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:38`: mask = torch.zeros((total_seq_len, total_seq_len), dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:74`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:86`: dtype=action.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:94`: timestep_video_cond = torch.zeros_like(timestep_video, dtype=input_latents.dtype, device=self.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:100`: dtype=input_latents.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:132`: "ensure `seperated_timestep=true` and `fuse_vae_embedding_in_latents=true`."
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:205`: loss_video_per_sample.device, dtype=loss_video_per_sample.dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:211`: valid = (~action_is_pad).to(device=action_loss_token.device, dtype=action_loss_token.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:218`: action_loss_per_sample.device, dtype=action_loss_per_sample.dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:303`: _, _, height, width = input_image.shape
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:304`: checked_h, checked_w, checked_t = self._check_resize_height_width(height, width, num_video_frames)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:305`: if (checked_h, checked_w) != (height, width):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:307`: f"`input_image` must be resized before infer, expected multiples of 16 but got HxW=({height},{width})"
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:325`: proprio = proprio.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:329`: latent_w = width // self.vae.upsampling_factor
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:337`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:338`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:343`: dtype=torch.float32,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:344`: ).to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/fastwam_idm.py:346`: input_image = input_image.to(device=self.device, dtype=self.torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:26`: mask = torch.zeros(b, n, s, s, dtype=torch.bool, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:543`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:646`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:767`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:872`: for i, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1002`: scale = [s.to(dtype=mu.dtype, device=mu.device) for s in scale]
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1006`: scale = scale.to(dtype=mu.dtype, device=mu.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1014`: scale = [s.to(dtype=z.dtype, device=z.device) for s in scale]
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1018`: scale = scale.to(dtype=z.dtype, device=z.device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1081`: def build_1d_mask(self, length, left_bound, right_bound, border_width):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1084`: x[:border_width] = (torch.arange(border_width) + 1) / border_width
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1086`: x[-border_width:] = torch.flip((torch.arange(border_width) + 1) / border_width, dims=(0,))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1090`: def build_mask(self, data, is_bound, border_width):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1092`: h = self.build_1d_mask(H, is_bound[0], is_bound[1], border_width[0])
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1093`: w = self.build_1d_mask(W, is_bound[2], is_bound[3], border_width[1])
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1121`: weight = torch.zeros((1, 1, out_T, H * self.upsampling_factor, W * self.upsampling_factor), dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1122`: values = torch.zeros((1, 3, out_T, H * self.upsampling_factor, W * self.upsampling_factor), dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1131`: border_width=((size_h - stride_h) * self.upsampling_factor, (size_w - stride_w) * self.upsampling_factor)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1132`: ).to(dtype=hidden_states.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1173`: weight = torch.zeros((1, 1, out_T, H // self.upsampling_factor, W // self.upsampling_factor), dtype=video.dtype, device=data_device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:23`: u_grid = torch.linspace(1.0, 0.0, steps + 1, dtype=torch.float64)[:-1]
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:31`: def sample_training_t(self, batch_size: int, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:34`: u = torch.rand((batch_size,), device=device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:37`: return timestep.to(dtype=dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:40`: t = timestep.to(dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:51`: original_samples.device, dtype=original_samples.dtype
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:67`: dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:76`: u_steps = torch.linspace(1.0, 0.0, num_inference_steps + 1, device=device, dtype=torch.float32)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:80`: return timesteps.to(dtype=dtype), deltas.to(dtype=dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/schedulers/scheduler_continuous.py:84`: delta = delta.to(sample.device, dtype=sample.dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:92`: torch_dtype: torch.dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:116`: state_dict = load_state_dict(path, torch_dtype=torch_dtype, device="cpu")
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:121`: model = model.to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:143`: torch_dtype: torch.dtype = torch.bfloat16,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:182`: dit: WanVideoDiT = WanVideoDiT(**validated_dit_config).to(device=device, dtype=torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:189`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:202`: torch_dtype=torch_dtype,
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/loader.py:217`: vae: WanVideoVAE38 = _load_registered_model(vae_config.path, "wan_video_vae", torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:117`: def load_state_dict(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:121`: state_dict.update(load_state_dict(file_path_, torch_dtype=torch_dtype, device=device))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:124`: return load_state_dict_from_safetensors(file_path, torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:125`: return load_state_dict_from_bin(file_path, torch_dtype=torch_dtype, device=device)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:128`: def load_state_dict_from_safetensors(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:133`: if torch_dtype is not None:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:134`: value = value.to(torch_dtype)
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:139`: def load_state_dict_from_bin(file_path, torch_dtype=None, device="cpu"):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:148`: if torch_dtype is not None:
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/helpers/io.py:151`: state_dict[key] = state_dict[key].to(torch_dtype)
+
+## gripper
+
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:67`: - Gripper unit and safe range are unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:19`: - Current goal is to finish missing metadata evidence for FPS and gripper unit.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:30`: 2. Inspect `reports/missing_metadata_scan.md` for evidence about FPS, gripper unit/scaling, task instruction source, and success/perfect split.
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:38`: - gripper unit and scaling,
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:46`: - Gripper unit and safe range are unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:21`: ### 1. Gripper Unit
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:25`: - left_gripper: `-0.0050 ~ 0.0668`
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:26`: - right_gripper: `-0.0031 ~ 0.0619`
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:30`: - likely opening width or driver internal gripper command
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:36`: - gripper command publish/service code
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:37`: - `joint_states` handling
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:38`: - any gripper scaling parameter
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:45`: - gripper loss
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:91`: - Non-gripper joint dimensions are exactly aligned at `next` in this scan.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:92`: - Gripper dimensions still need unit and scaling confirmation.
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:48`: - Gripper unit is unknown.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:156`: |   6 | left_gripper       |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:163`: |  13 | right_gripper      |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:175`: |   6 | left_gripper       | -0.005000 |  0.066800 |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:182`: |  13 | right_gripper      | -0.003100 |  0.061900 |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:205`: ### 4.1 Gripper 单位
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:210`: left_gripper:  -0.0050 ~ 0.0668
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:211`: right_gripper: -0.0031 ~ 0.0619
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:224`: grep -R "gripper" -n /project/peilab/wam/physical_WM | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:225`: grep -R "gripper" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:226`: grep -R "gripper_val" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:227`: grep -R "gripper_val_mutiple" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:228`: grep -R "joint_states" -n /project/peilab/wam | head -100
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:235`: 2. gripper 是开口宽度、joint7 position、归一化值，还是 driver 内部单位。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:243`: 1. Piper driver / SDK 的 gripper command 表示。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:245`: 3. 是否通过 ROS joint_states。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:247`: 5. 是否存在 gripper scaling 参数。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:253`: 1. gripper loss 如何计算。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:254`: 2. gripper 是否单独归一化。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:256`: 4. safety filter 的 gripper min/max。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:258`: 6. gripper 是否允许轻微负数。
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M3_baseline.md:33`: - Gripper predictions are not constant.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M4_safety.md:32`: - Gripper range and max delta.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:85`: - Update `MISSING_METADATA_REPORT.md` with evidence for FPS and gripper unit when found.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M2_dataset.md:34`: - Gripper unit or at least safe numeric range is documented.
+- `/project/peilab/wam/cosmos3_cy/docs/ACTION_SCHEMA.md:29`: | 6 | left_gripper |
+- `/project/peilab/wam/cosmos3_cy/docs/ACTION_SCHEMA.md:36`: | 13 | right_gripper |
+- `/project/peilab/wam/cosmos3_cy/docs/ACTION_SCHEMA.md:52`: - Gripper unit is not confirmed.
+- `/project/peilab/wam/cosmos3_cy/docs/ACTION_SCHEMA.md:53`: - Gripper safe min/max are not confirmed.
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:25`: "Update missing metadata report with evidence for FPS and gripper unit",
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:31`: "Gripper unit and safe range are unknown"
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:33`: "next_task": "Run scan_missing_metadata.py over /project/peilab/wam and update docs/MISSING_METADATA_REPORT.md with FPS and gripper evidence. Stop before Dataset Loader.",
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:20`: (tmp_path / "__pycache__" / "ignored.py").write_text("gripper = 1\n", encoding="utf-8")
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:67`: "left_gripper",
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:88`: assert stats["left_gripper_min"] == 4.0
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:89`: assert stats["left_gripper_max"] == 6.0
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:90`: assert stats["right_gripper_min"] is None
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:91`: assert stats["right_gripper_max"] is None
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:17`: "gripper": ["gripper", "gripper_val", "gripper_val_mutiple", "joint_states"],
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:222`: description="Search repository and data-adjacent files for FPS, gripper, task, success, and camera metadata."
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:70`: def gripper_range(actions: np.ndarray, order: list[str], name: str) -> tuple[float | None, float | None]:
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:129`: left_min, left_max = gripper_range(actions, order, "left_gripper")
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:130`: right_min, right_max = gripper_range(actions, order, "right_gripper")
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:143`: "left_gripper_min": left_min,
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:144`: "left_gripper_max": left_max,
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:145`: "right_gripper_min": right_min,
+- `/project/peilab/wam/cosmos3_cy/scripts/compute_dataset_stats.py:146`: "right_gripper_max": right_max,
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:26`: Read the original plan and keep confirmed facts unchanged: raw HDF5 layout, RGB THWC image format, 14D absolute joint-position action, `action[t]` close to `qpos[t+1]` on `episode_0`, unknown FPS, unknown gripper unit, and mandatory first-stage safety principles.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:56`: Initialize gripper unit, FPS, and all-episode action/qpos alignment sections with sources to inspect and downstream impact.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:88`: Provide a CLI with `--repo-root`, `--data-root`, and `--output`. Search likely files for FPS, gripper, task instruction, success, and camera metadata terms.
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:26`: binarize_gripper: true
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:26`: binarize_gripper: true
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:130`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:173`: 9. safety check 通过后，调用 `pyAgxArm.move_js()` 和 `move_gripper()` 执行当前动作。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:216`: | libero | 7 | 8 | 单 Franka，eef_pose(6)+gripper |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:224`: left_wrist_rotate, left_gripper,                          # 0..6  左臂
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:226`: right_wrist_rotate, right_gripper]                        # 7..13 右臂
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:234`: 0:14    joint half = 左 6 joint + 左 gripper + 右 6 joint + 右 gripper
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:476`: - gripper 宽度 clamp 到 `[0, 0.1]`；连接时设速度/加速度上限。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/7dim_deploy_adaptation.md:213`: - 0.0793         # left_gripper
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/7dim_deploy_adaptation.md:220`: - 0              # right_gripper
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:80`: - 训练期 `RelativeUnified28DTransform` 把 joint arm + eef pose 转「相对首帧 state」的 delta；gripper 保持 absolute。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:80`: | `joint.left_gripper` | `6:7` | 左夹爪 | absolute |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:82`: | `joint.right_gripper` | `13:14` | 右夹爪 | absolute |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:84`: | `eef.left_gripper` | `20:21` | 左手 pinch/grip | absolute |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:86`: | `eef.right_gripper` | `27:28` | 右手 pinch/grip | absolute |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:130`: - gripper: 默认保持 absolute target，和 GR00T/OpenPI 的常见做法一致。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:132`: 如果后续明确要求夹爪也使用 delta，只需要把 gripper 的 action config 从 absolute 改成 relative，并重新计算 stats。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:224`: - gripper 默认 absolute。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:296`: - gripper 默认 absolute。
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:286`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:287`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:323`: self.left_gripper = self.left_arm.init_effector(
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:324`: self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:334`: self.right_gripper = self.right_arm.init_effector(
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:335`: self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:385`: if self.left_gripper:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:386`: gs = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:391`: if self.right_gripper:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:392`: gs = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:405`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:406`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:410`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:413`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:424`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:425`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:433`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:436`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:218`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:219`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:255`: self.left_gripper = self.left_arm.init_effector(
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:256`: self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:266`: self.right_gripper = self.right_arm.init_effector(
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:267`: self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:317`: if self.left_gripper:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:318`: gs = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:323`: if self.right_gripper:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:324`: gs = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:337`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:338`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:342`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:345`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:356`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:357`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:365`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:368`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:34`: - gripper dim：仍然是绝对 target。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:47`: 6   left_gripper
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:54`: 13  right_gripper
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:419`: - eef 半边在训练中是 relative pose/gripper 语义。
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:286`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:287`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:323`: self.left_gripper = self.left_arm.init_effector(
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:324`: self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:334`: self.right_gripper = self.right_arm.init_effector(
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:335`: self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:385`: if self.left_gripper:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:386`: gs = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:391`: if self.right_gripper:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:392`: gs = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:405`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:406`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:410`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:413`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:424`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:425`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:433`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:436`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:218`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:219`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:255`: self.left_gripper = self.left_arm.init_effector(
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:256`: self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:266`: self.right_gripper = self.right_arm.init_effector(
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:267`: self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:317`: if self.left_gripper:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:318`: gs = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:323`: if self.right_gripper:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:324`: gs = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:337`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:338`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:342`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:345`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:356`: left_gripper_position = max(0.0, min(position_state[6], 0.1)) # width 0.0-0.1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:357`: right_gripper_position = max(0.0, min(position_state[13], 0.1))
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:365`: self.left_gripper.move_gripper(width=left_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:368`: self.right_gripper.move_gripper(width=right_gripper_position, force=1.0)
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:26`: binarize_gripper: true
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:29`: binarize_gripper: true
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:6`: EEF gripper mapping, adjacent position jumps, and Euler representation jumps.
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:29`: "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:36`: "right_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:448`: print_top("top adjacent gripper steps", audit.top_grip_step)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:10`: overall and per-dimension; arm-joints (12) vs grippers (2) broken out;
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:13`: - gripper open/close TIMING accuracy (binary, the decision most correlated with
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:66`: # 14-dim aloha layout: [L: waist,shoulder,elbow,forearm_roll,wrist_angle,wrist_rotate,gripper |
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:67`: #                        R: waist,shoulder,elbow,forearm_roll,wrist_angle,wrist_rotate,gripper]
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:68`: GRIPPER_IDX = [6, 13]
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:71`: "L_waist", "L_shoulder", "L_elbow", "L_forearm_roll", "L_wrist_angle", "L_wrist_rotate", "L_gripper",
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:72`: "R_waist", "R_shoulder", "R_elbow", "R_forearm_roll", "R_wrist_angle", "R_wrist_rotate", "R_gripper",
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:213`: "gripper_l1": float(l1_per_dim[GRIPPER_IDX].mean()),
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:216`: "gripper_pred": pd[:, GRIPPER_IDX].tolist(),
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:217`: "gripper_gt": gd[:, GRIPPER_IDX].tolist(),
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:230`: if k not in ("gripper_pred", "gripper_gt")}) + "\n")
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:233`: logger.info("[%d/%d] idx=%d action_l1=%.4f gripper_l1=%.4f norm_l1=%.3f",
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:235`: rec["gripper_l1"], rec["norm_action_l1"])
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:261`: "gripper_l1": stats(col("gripper_l1")),
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:276`: # success proxy 2: gripper open/close binary TIMING accuracy
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:277`: # global threshold = median of all GT gripper values across evaluated windows
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:278`: all_gt_grip = np.concatenate([np.array(r["gripper_gt"]).reshape(-1) for r in per_sample])
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:282`: gp = np.array(r["gripper_pred"]); gg = np.array(r["gripper_gt"])
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:284`: summary["gripper_binary_timing_acc"] = stats(np.array(g_acc))
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:285`: summary["gripper_threshold_raw"] = g_thresh
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:130`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:173`: 9. safety check 通过后，调用 `pyAgxArm.move_js()` 和 `move_gripper()` 执行当前动作。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_design.md:31`: - 有的机器人 = (6 eef + 1 gripper) × 2 臂 = 14 维
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_design.md:32`: - 有的机器人 = (6 joint + 1 gripper) × 2 臂 = 14 维
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_design.md:33`: - 有的机器人 = (7 joint + 1 gripper) × 2 臂 = 16 维
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:220`: | libero | 7 | 8 | 单 Franka，eef_pose(6)+gripper |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:229`: left_wrist_rotate, left_gripper,                          # 0..6  左臂
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:231`: right_wrist_rotate, right_gripper]                        # 7..13 右臂
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:239`: 0:14    joint half = 左 6 joint + 左 gripper + 右 6 joint + 右 gripper
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:507`: - gripper 宽度 clamp 到 `[0, 0.1]`；连接时设速度/加速度上限。
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:33`: "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:40`: "right_gripper",
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/7dim_deploy_adaptation.md:213`: - 0.0793         # left_gripper
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/7dim_deploy_adaptation.md:220`: - 0              # right_gripper
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:59`: （人手没有关节数据；gripper 复制值同样存在于 eef 半边）。native 内容 == eef 半边 `[14:28]` == 14 维。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:78`: [6]      L eef gripper                              绝对
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:80`: [13]     R eef gripper                              绝对
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:83`: [21]     L joint gripper                            绝对
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:85`: [29]     R joint gripper                            绝对
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:94`: - 因此 `RelativeUnified32DTransform` **只动 eef 两段 pose**：`pose_slices=(slice(0,6),slice(7,13))`，joint/gripper/base 全部 passthrough，断言 `==32`。**纯 joint 组的 eef 槽是 masked 的 0 → SE(3) 换帧对 0 位姿是 no-op**（euler[0,0,0]→单位阵、`inv(I)@I=I`）→ **同一 transform 对纯 eef / 纯 joint / 都有 三类都安全，可逐组统一应用**。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:32`: [6]      左 eef gripper                              绝对
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:34`: [13]     右 eef gripper                              绝对
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:38`: [21]     左 joint gripper                            绝对
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:41`: [29]     右 joint gripper                            绝对
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:48`: - **joint / gripper / base**：**绝对**，训练不变换。joint 绝对是为了匹配现有真机 recipe，**部署直接下发、不用改部署反算**。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:140`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:552`: [joint_0, joint_1, joint_2, joint_3, joint_4, joint_5, gripper]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:19`: "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:26`: "right_gripper",
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:69`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:72`: 其中左右臂关节来自 `get_joint_angles()`，夹爪来自 `get_gripper_status().msg.value`。这个顺序必须和训练数据里的 state/action 顺序一致。
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:5`: are **26-dim** (per arm: 6 joints + 1 gripper + 6 eef-pose) with cameras named
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:8`: FastWAM's real-robot pipeline expects the **14-dim joint+gripper** layout used by
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:16`: layouts, whose gripper sits at a different column);
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:17`: * drops every extra column (eef pose, gripper_mode/activity, *_annotation, ...);
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:51`: "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:58`: "right_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:94`: Name-based so it is robust to the Agilex (gripper@6/19) vs aloha (gripper@12/25)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:104`: def gripper_idx(side: str) -> int:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:105`: # RoboCOIN names the gripper column '<side>_gripper_open'.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:106`: cands = [i for i, n in enumerate(src_names) if n.startswith(f"{side}_gripper")]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:108`: raise ValueError(f"Expected exactly one '{side}_gripper*' column, got {cands} in {src_names}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:114`: idx.append(gripper_idx(side))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:4`: The common use case is a 14D joint+gripper dataset produced by
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:9`: single-frame EEF/gripper tracking jumps are filtered at conversion time.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:366`: return "bad_eef_gripper_step"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:599`: help="Skip an episode when either mapped EEF gripper changes more than this normalized amount in one frame; <=0 disables.",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:20`: JOINT_LEFT_GRIPPER_SLICE = slice(6, 7)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:22`: JOINT_RIGHT_GRIPPER_SLICE = slice(13, 14)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:25`: EEF_LEFT_GRIPPER_SLICE = slice(20, 21)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:27`: EEF_RIGHT_GRIPPER_SLICE = slice(27, 28)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:36`: "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:43`: "right_gripper",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:95`: ModalitySlice("joint.left_gripper", 6, 7, "absolute", "non_eef", "gripper"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:97`: ModalitySlice("joint.right_gripper", 13, 14, "absolute", "non_eef", "gripper"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:99`: ModalitySlice("eef.left_gripper", 20, 21, "absolute", "eef", "gripper"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:101`: ModalitySlice("eef.right_gripper", 27, 28, "absolute", "eef", "gripper"),
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:140`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:552`: [joint_0, joint_1, joint_2, joint_3, joint_4, joint_5, gripper]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:69`: [left_arm_joint_0..5, left_gripper, right_arm_joint_0..5, right_gripper]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:72`: 其中左右臂关节来自 `get_joint_angles()`，夹爪来自 `get_gripper_status().msg.value`。这个顺序必须和训练数据里的 state/action 顺序一致。
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:147`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:148`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:178`: self.left_gripper = self.left_arm.init_effector(self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:179`: self.right_gripper = self.right_arm.init_effector(self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:218`: if self.left_gripper is not None:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:219`: gs_l = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:222`: if self.right_gripper is not None:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:223`: gs_r = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:235`: left_gripper = float(np.clip(self.left_init_position[6], 0.0, 0.1))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:236`: right_gripper = float(np.clip(self.right_init_position[6], 0.0, 0.1))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:239`: self.left_gripper.move_gripper(width=left_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:241`: self.right_gripper.move_gripper(width=right_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:247`: self.left_gripper.move_gripper(width=float(np.clip(action[6], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:249`: self.right_gripper.move_gripper(width=float(np.clip(action[13], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:34`: "left_wrist_angle", "left_wrist_rotate", "left_gripper",
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:36`: "right_wrist_angle", "right_wrist_rotate", "right_gripper",
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:143`: ``features.action.names`` (e.g. ``["right_waist", ..., "right_gripper"]``).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:19`: "left_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:26`: "right_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:5`: are **26-dim** (per arm: 6 joints + 1 gripper + 6 eef-pose) with cameras named
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:8`: FastWAM's real-robot pipeline expects the **14-dim joint+gripper** layout used by
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:16`: layouts, whose gripper sits at a different column);
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:17`: * drops every extra column (eef pose, gripper_mode/activity, *_annotation, ...);
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:51`: "left_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:58`: "right_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:94`: Name-based so it is robust to the Agilex (gripper@6/19) vs aloha (gripper@12/25)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:104`: def gripper_idx(side: str) -> int:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:105`: # RoboCOIN names the gripper column '<side>_gripper_open'.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:106`: cands = [i for i, n in enumerate(src_names) if n.startswith(f"{side}_gripper")]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:108`: raise ValueError(f"Expected exactly one '{side}_gripper*' column, got {cands} in {src_names}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:114`: idx.append(gripper_idx(side))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:13`: FastWAM's robot pipeline wants 14-dim joint+gripper action/state and cameras
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:58`: "left_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:65`: "right_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:27`: "left_gripper",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:34`: "right_gripper",
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:147`: self.left_gripper = None
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:148`: self.right_gripper = None
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:178`: self.left_gripper = self.left_arm.init_effector(self.left_arm.OPTIONS.EFFECTOR.AGX_GRIPPER)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:179`: self.right_gripper = self.right_arm.init_effector(self.right_arm.OPTIONS.EFFECTOR.AGX_GRIPPER)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:218`: if self.left_gripper is not None:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:219`: gs_l = self.left_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:222`: if self.right_gripper is not None:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:223`: gs_r = self.right_gripper.get_gripper_status()
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:235`: left_gripper = float(np.clip(self.left_init_position[6], 0.0, 0.1))
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:236`: right_gripper = float(np.clip(self.right_init_position[6], 0.0, 0.1))
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:239`: self.left_gripper.move_gripper(width=left_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:241`: self.right_gripper.move_gripper(width=right_gripper, force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:247`: self.left_gripper.move_gripper(width=float(np.clip(action[6], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:249`: self.right_gripper.move_gripper(width=float(np.clip(action[13], 0.0, 0.1)), force=1.0)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:34`: "left_wrist_angle", "left_wrist_rotate", "left_gripper",
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:36`: "right_wrist_angle", "right_wrist_rotate", "right_gripper",
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:143`: ``features.action.names`` (e.g. ``["right_waist", ..., "right_gripper"]``).
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:18`: NON_EEF_POSE = [6, 13] + list(range(14, 32))           # grippers + joint block + base (passthrough)
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:59`: """Forward must leave grippers, joint block and base EXACTLY unchanged, and must
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:153`: """backward(forward(x)) == x; grippers [6]/[13] are bit-exact passthrough."""
+- `/project/peilab/wam/physical_WM/tests/test_unified32_relative_action.py:158`: assert torch.equal(fwd[..., [6, 13]], original[..., [6, 13]]), "grippers not passthrough"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:46`: invert_gripper_action,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:266`: obs["robot0_gripper_qpos"],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:436`: # The dataloader flips the sign of the gripper action to align with other datasets
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:439`: action = invert_gripper_action(action)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:440`: if bool(cfg.EVALUATION.get("binarize_gripper", False)):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:149`: def binarize_gripper_open(open_val: np.ndarray | float) -> np.ndarray:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:182`: def invert_gripper_action(action):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:184`: Flips the sign of the gripper action (last dimension of action vector).
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:186`: the RLDS dataloader aligns gripper actions such that 0 = close, 1 = open.
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:46`: invert_gripper_action,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:266`: obs["robot0_gripper_qpos"],
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:436`: # The dataloader flips the sign of the gripper action to align with other datasets
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:439`: action = invert_gripper_action(action)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:440`: if bool(cfg.EVALUATION.get("binarize_gripper", False)):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:149`: def binarize_gripper_open(open_val: np.ndarray | float) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:182`: def invert_gripper_action(action):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:184`: Flips the sign of the gripper action (last dimension of action vector).
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:186`: the RLDS dataloader aligns gripper actions such that 0 = close, 1 = open.
+
+## task_instruction
+
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:5`: - override /task: robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:19`: task_name: null
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:20`: task_config: demo_randomized
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:21`: instruction_type: unseen
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:23`: output_dir: ./evaluate_results/robotwin/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_robotwin.yaml:44`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM_xqh/configs/train.yaml:7`: - task: null
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:9`: task: "real_cleaning_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:5`: - override /task: robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:19`: task_name: null
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:20`: task_config: demo_randomized
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:21`: instruction_type: unseen
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:23`: output_dir: ./evaluate_results/robotwin/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM/configs/sim_robotwin.yaml:44`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM/configs/train.yaml:7`: - task: null
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam.yaml:15`: task: "robotwin_uncond_3cam_384_1e-4"   # hydra task config matching this ckpt
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam.yaml:21`: # RoboTwin instruction at run time. use_text_encoder=true avoids needing a
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam.yaml:23`: prompt: "Complete the manipulation task."
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:2`: # ckpt: robotwin_all_tasks_ft_28dpartial_uncond_3cam_384 (28D EgoDex base -> 14D
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:3`: # shape-safe partial transfer, all 50 RoboTwin2.0 tasks, step_030000).
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:5`: # task=robotwin_uncond_3cam_384_1e-4 builds the matching 14-dim / 3-cam structure
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:8`: # all-tasks norm (same md5 as the egowan_robotwin run).
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:13`: #   export NUM_GPUS=4 EPISODES=100 TASKS="" PORT_BASE=8765
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:17`: ckpt: "/project/peilab/wam/physical_WM/runs/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384/pretrain_robotwin_451580/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:18`: dataset_stats: "/project/peilab/wam/physical_WM/runs/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384/pretrain_robotwin_451580/dataset_stats.json"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:19`: task: "robotwin_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_pretrain_egowan_robotwin.yaml:24`: prompt: "Complete the manipulation task."
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:9`: task: "real_cleaning_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_aug_egodex40k_uncond_3cam_384_1e-4.yaml:21`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:23`: 3 RGB camera streams + qpos + instruction
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:30`: 20D EEF action conversion is a later research task and must not block the first-stage MVP.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:56`: - Default task instruction from LeRobot metadata: `Put the three objects on the table into the container.`
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:57`: - The raw HDF5 does not contain `language`, `task`, or `success` keys.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:69`: Recently confirmed in Task 0 validation:
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:21`: Next task:
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:30`: 2. Inspect `reports/missing_metadata_scan.md` for evidence about FPS, gripper unit/scaling, task instruction source, and success/perfect split.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:35`: Already completed in Task 0:
+- `/project/peilab/wam/physical_WM_xqh/configs/task/real_cleaning_uncond_3cam_384_1e-4.yaml:4`: - override /data: real_cleaning_2task
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:7`: ## Completed In Task 0
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:11`: - long-term goals, current metadata tasks, dataset work, training, safety, and deployment were mixed in one file;
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:12`: - M1 metadata checks were interleaved with later Dataset Loader and model tasks;
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:39`: - task instruction source,
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:47`: - A linked worktree was created at `/tmp/cosmos3_cy-task0-docs-infra`, but file edits were applied to the provided workspace root because the patch tool operates there. Current dirty status is in `/project/peilab/wam/cosmos3_cy`.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:17`: - raw HDF5 lacks `language`, `task`, and `success` keys
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:68`: Status: confirmed for the `perfect/` split during Task 0 validation.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:103`: No full source-tree metadata scan has been run in this task. Run `scripts/scan_missing_metadata.py` in M1 follow-up work and paste evidence here.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:2`: # EgoDex PnP 15-task unified-28D pretraining.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:12`: - override /data: egodex_pnp_15tasks_28d
+- `/project/peilab/wam/physical_WM_xqh/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:23`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:35`: Raw HDF5 files do not contain language keys. The current default instruction comes from LeRobot metadata:
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:38`: Put the three objects on the table into the container.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:3`: # pick_1_cup_clean_aug。原 task 作为「无增强基线」，本 task 作为「带增强」，
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:4`: # 两者 run 目录/wandb name 按 task 名自动区分，便于 A/B。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:10`: 三路 RGB 图像 + qpos + instruction
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:86`: 原 HDF5 内没有 language/task/success key。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:88`: LeRobot metadata 中有 task instruction:
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:89`: "Put the three objects on the table into the container."
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:115`: instruction
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:421`: | task instruction 来源    | LeRobot metadata / conversion script | language-conditioned policy |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:422`: | 每个 episode 是否同一任务      | metadata / 文件路径                      | 是否需要 task id                |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:592`: default_instruction: Put the three objects on the table into the container.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:804`: Put the three objects
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:814`: 3. 可能包含 task instruction 的文件和行号。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:904`: "instruction": instruction,
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:918`: instruction: str
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:1221`: image history + instruction + qpos[t] → action[t:t+H]
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:1298`: action_chunk = policy(images, qpos, instruction)
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:1370`: 5. task instruction 如何从 LeRobot metadata 映射到 HDF5。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:1390`: images + qpos + instruction → action chunk [H,14]
+- `/project/peilab/wam/physical_WM_xqh/configs/task/libero_egodex40k_uncond_2cam224_1e-4.yaml:23`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:2`: # RoboCOIN multi-task action pretraining (18 Agilex_Cobot_Magic tasks, 14-dim).
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:6`: # checkpoint that our own small real-robot tasks (pack_3 / pick_1_cup / ...) then
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:7`: # finetune from via `resume:` (see configs/task/pack_3_objects_plus_ft_robocoin_*).
+- `/project/peilab/wam/physical_WM_xqh/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:29`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:2`: # Finetune the RoboCOIN pretrain checkpoint on our own pack_3_objects_plus task.
+- `/project/peilab/wam/physical_WM_xqh/configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:30`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M6_deployment.md:42`: - Real-robot tests proceed from hold position to small single-arm motions before any dual-arm task.
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_aug_egodex40k_uncond_3cam_384_1e-4.yaml:21`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:48`: - The default instruction is sourced from LeRobot metadata, not from the raw HDF5 file.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:82`: ## Remaining M1 Work After Task 0
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:87`: Task 0 validation already ran the alignment script against the `perfect/` split and confirmed `best_alignment = next` across 71 files.
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_egodex14_pack3_smoke.yaml:2`: # per_embodiment TRUE-HETEROGENEOUS smoke task: EgoDex human eef-14 + pack3 robot joint-14
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M2_dataset.md:14`: - HDF5 reader and dataset loader for three RGB cameras, `qpos`, instruction, and 14D action chunks.
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M2_dataset.md:41`: - instruction string,
+- `/project/peilab/wam/physical_WM/configs/task/per_embodiment_smoke.yaml:2`: # per_embodiment (switchable head) SMOKE task (per_embodiment_plan.md §8).
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:3`: "completed_tasks": [
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:23`: "remaining_tasks": [
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:33`: "next_task": "Run scan_missing_metadata.py over /project/peilab/wam and update docs/MISSING_METADATA_REPORT.md with FPS and gripper evidence. Stop before Dataset Loader.",
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:50`: "path": "/tmp/cosmos3_cy-task0-docs-infra",
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:51`: "branch": "task0-docs-infra",
+- `/project/peilab/wam/physical_WM/configs/task/real_cleaning_uncond_3cam_384_1e-4.yaml:4`: - override /data: real_cleaning_2task
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:3`: # 主线 EgoDex 数据 = native eef14 (configs/data/egodex_pnp_15tasks_eef14.yaml,
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:5`: # EgoDex PnP 15-task unified-28D pretraining.
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:15`: - override /data: egodex_pnp_15tasks_28d
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml:26`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:3`: # 主线 EgoDex 数据 = native eef14 (configs/data/egodex_pnp_15tasks_eef14.yaml,
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:5`: # EgoDex PnP 15-task unified-28D pretraining -- WORST-CONFIDENCE variant.
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:11`: # (data/egodex_pnp_15tasks_28d_euler_v2_worstconf) instead of euler_v2, with the
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:12`: # SAME per-task episode counts + ratio -- a like-for-like data-quality
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:14`: # NOTE: this intentionally does NOT match the current euler_v2 task FILE (which was
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:26`: - override /data: egodex_pnp_15tasks_28d_worstconf
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:43`: #  euler_v2 task FILE overrides them to egodex_part4, which 434290 did NOT use.)
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:3`: # pick_1_cup_clean_aug。原 task 作为「无增强基线」，本 task 作为「带增强」，
+- `/project/peilab/wam/physical_WM/configs/task/pick_1_cup_clean_aug_uncond_3cam_384_1e-4.yaml:4`: # 两者 run 目录/wandb name 按 task 名自动区分，便于 A/B。
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:5`: - override /task: libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:17`: task_suite_name: libero_spatial
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:18`: task_id: 0
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:20`: output_dir: ./evaluate_results/libero/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:45`: task_file: null
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:46`: task_suite_names:
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero.yaml:52`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:4`: #   (egodex_pnp_15tasks_unified28_worstconf), step_030000.
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:42`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4/2026-06-09_23-39-38/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:5`: - override /task: libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:17`: task_suite_name: libero_spatial
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:18`: task_id: 0
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:20`: output_dir: ./evaluate_results/libero_plus/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:45`: task_file: null
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:48`: task_suite_names:
+- `/project/peilab/wam/physical_WM_xqh/configs/sim_libero_plus.yaml:55`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM/configs/task/libero_egodex40k_uncond_2cam224_1e-4.yaml:25`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:2`: # RoboCOIN multi-task action pretraining (18 Agilex_Cobot_Magic tasks, 14-dim).
+- `/project/peilab/wam/physical_WM/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:6`: # checkpoint that our own small real-robot tasks (pack_3 / pick_1_cup / ...) then
+- `/project/peilab/wam/physical_WM/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:7`: # finetune from via `resume:` (see configs/task/pack_3_objects_plus_ft_robocoin_*).
+- `/project/peilab/wam/physical_WM/configs/task/robocoin_pretrain_egodex_uncond_3cam_384_1e-4.yaml:29`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:18`: "task_instruction": ["Put the three objects", "instruction", "task"],
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:222`: description="Search repository and data-adjacent files for FPS, gripper, task, success, and camera metadata."
+- `/project/peilab/wam/physical_WM/configs/task/unified32_egodex_stack_smoke.yaml:2`: # 32D heterogeneous co-training SMOKE task (unified32_execution_plan.md §7).
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:2`: # EgoDex PnP 15-task latent-action (DreamDojo LAM, 32-dim) pretraining.
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:4`: # Same recipe as egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 except the
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:8`: # then partial_resume into real-robot tasks (plan: latent_action_pretrain_plan.md).
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:14`: - override /data: egodex_pnp_15tasks_latent32
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml:26`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:4`: #   (egodex_pnp_15tasks_unified28), step_030000.
+- `/project/peilab/wam/physical_WM/configs/task/battery_assemble_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:42`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_adjust_bottle_egodex_uncond_3cam_384_1e-4.yaml:24`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:1`: # Task 0 Docs and Metadata Infrastructure Implementation Plan
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:3`: > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:13`: ### Task 1: Reorganize Project Documentation
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:36`: ### Task 2: Initialize Project Management Files
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:60`: Record current milestone as M1 metadata infrastructure, completed Task 0 work, remaining work, blockers, and next task.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:62`: ### Task 3: Create M1 Directories, Config, and Scripts
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:80`: Encode confirmed HDF5 keys, image schema, action schema, default instruction, and unknown metadata fields.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:88`: Provide a CLI with `--repo-root`, `--data-root`, and `--output`. Search likely files for FPS, gripper, task instruction, success, and camera metadata terms.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:90`: ### Task 4: Verify and Stop
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_egodex_uncond_3cam_384.yaml:5`: # 但:(1) data 换成 robotwin_all_tasks(50 任务多 part,由 gen 脚本生成);(2) num_epochs→max_steps;
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_egodex_uncond_3cam_384.yaml:13`: - override /data: robotwin_all_tasks
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_egodex_uncond_3cam_384.yaml:25`: dit_checkpoint_path: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384.yaml:5`: # 配方同 pack_3_objects_plus_ft_28dpartial(已验证),数据换成 robotwin_all_tasks。
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384.yaml:12`: - override /data: robotwin_all_tasks
+- `/project/peilab/wam/physical_WM/configs/task/robotwin_all_tasks_ft_28dpartial_uncond_3cam_384.yaml:37`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:4`: #   (egodex_pnp_15tasks_unified28), step_030000.
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_bestconf_uncond_3cam_384_1e-4.yaml:42`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/configs/task/libero_egodex28d_partial_uncond_2cam224_1e-4.yaml:8`: #   - 源 checkpoint 是 egodex_pnp_15tasks_unified28 的 step_030000.pt（action_dim=28,
+- `/project/peilab/wam/physical_WM/configs/task/libero_egodex28d_partial_uncond_2cam224_1e-4.yaml:52`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_ft_28dpartial_aug_uncond_3cam_384_1e-4.yaml:37`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:4`: #   (egodex_pnp_15tasks_unified28_worstconf), step_030000.
+- `/project/peilab/wam/physical_WM/configs/task/stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4.yaml:42`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4/2026-06-09_23-39-38/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:114`: "prompt": instruction,
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:117`: total_task_rows = 0
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:120`: tasks_path = Path(ds_dir) / "meta" / "tasks.jsonl"
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:121`: if not tasks_path.exists():
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:122`: raise FileNotFoundError(f"Missing tasks file: {tasks_path}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:124`: with tasks_path.open("r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:130`: if "task" not in record:
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:131`: raise KeyError(f"Missing `task` field at {tasks_path}:{line_idx}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:132`: task = str(record["task"])
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:133`: prompt = DEFAULT_PROMPT.format(task=task)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:134`: total_task_rows += 1
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:140`: "Loaded %d task rows from %d datasets, deduplicated to %d prompts.",
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:141`: total_task_rows,
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:148`: def _get_override_prompt(override_instruction: Any) -> str | None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:149`: if override_instruction is None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:151`: task = str(override_instruction).strip()
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:152`: if task == "":
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:154`: return DEFAULT_PROMPT.format(task=task)
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:195`: override_prompt = _get_override_prompt(cfg.get("override_instruction"))
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:198`: logger.info("Using override_instruction; skipping dataset scan and encoding exactly 1 prompt.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/precompute_text_embeds.py:204`: logger.warning("No prompts found from tasks.jsonl; nothing to do.")
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:125`: **不改真实任务 config**（如 `real_cleaning_2task.yaml`）。改动以可复制模板 `configs/data/example_data_config.yaml` 演示——以后新增「需要改 data config 的功能」都往这个示例文件加。其 `train.processor` 在 `train_transforms`/`val_transforms` **一字不动**的前提下，只新增两个字段：
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/state_input_audit_and_plan.md:190`: - 在 `how_to_add_a_task.md` 中强调训练时 action/state 维度必须一致，partial-arm 需要同步 `keep_dims`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:11`: **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:55`: Transform tasks into verifiable goals:
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:60`: For multi-step tasks, state a brief plan:
+- `/project/peilab/wam/physical_WM/configs/model/fastwam.yaml:42`: # native-dim Linear per source (set action_dims + num_embodiments in the task config).
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:12`: > - `usage_guidelines/how_to_add_a_task.md`：从 HDF5 原始数据到可训练+可部署任务的完整流程。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:50`: │   ├── task/*.yaml                   # 每个训练任务一个（= data + model + 超参的组合）
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:82`: → RobotVideoDataset.__getitem__  解码 33 帧 + qpos + action + instruction
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:85`: → T5 cache 查表                    instruction → context [128,4096]
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:219`: | egodex_pnp_15tasks_unified28 | 28 | 28 | 统一 28D：`0:14` 双臂 joint，`14:28` 双侧 EEF；EEF pose = `xyz + XYZ Euler(rad)`，grip absolute |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:239`: 28D EEF rotation 对齐 RoboCOIN raw metadata 中的 `*_eef_rot_euler_{x,y,z}_rad`，不是 rotvec。EgoDex raw 给的是 4x4 hand transform，converter 从 rotation matrix 转 `XYZ` Euler(rad)。当前有效数据目标目录是 `data/egodex_pnp_15tasks_28d_euler_v2`；旧 `data/egodex_pnp_15tasks_28d` 是 v1 `xyz_rotvec`，不要用于当前 28D 训练入口。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:255`: - **uncond** 是部署默认、论文主张的「fast」路径。所有真机/仿真 task config 都用 `override /model: fastwam`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:292`: 之后把它指向那个文件复用（见 README「Training」段和 `how_to_add_a_task.md`）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:308`: - prompt 先套模板：`DEFAULT_PROMPT = "A video recorded from a robot's point of view executing the following instruction: {task}"`（`robot_video_dataset.py:23`）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:320`: scripts/train_zero1.sh <N_GPU> task=<name> [overrides]
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:324`: - `configs/train.yaml` 默认 `data/model/task` 都是 `null`，靠 `task=<name>` 选。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:325`: - `configs/task/<name>.yaml` 用 `override /data: ...` + `override /model: ...` 拉数据和模型配置，
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:328`: - `train_zero1.sh` 还自动注入 `output_dir=./runs/<task>/<run_id>` 和 `wandb.name=<task>`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:338`: - **验证深度有限，勿当“已解决”**：该 trainer.py 改动 **仍未提交**（working tree only）；只在 lr=0 坏样本最小复现 + **8 步** full-loss smoke 上验证过，且那 8 步跑的是 **已被删除的 v1 `egodex_pnp_15tasks_28d`** 数据；从未在 `egodex_pnp_15tasks_28d_euler_v2`（尚未生成）或任何持续训练上验证。结论应为「根因已定位、修复已 smoke 验证、待提交 + 待在 euler_v2 上跑持续训练复核」。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:343`: `fastwam.yaml` 默认 true，但**所有 task config 都覆盖成 false**（关了它第一个 batch 容易 OOM）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:368`: run dir = `runs/<task>/<run_id>/`：
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:489`: `replan_steps`（libero 10 / robotwin 24）、RoboTwin `instruction_type: unseen`（默认，跟 Motus；
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:507`: `configs/task/pick_1_cup_clean_aug*_*.yaml`（含 egodex40k A/B 任务，§9.4）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:509`: **已有的训练产物**：`train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/` 有 step-14000~52000
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:526`: `data/egodex_sample_video_branch/` 已被删/改名（现在是 `data/egodex_part4_10tasks_*`）。
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:5`: - override /task: libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:17`: task_suite_name: libero_spatial
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:18`: task_id: 0
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:20`: output_dir: ./evaluate_results/libero/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:45`: task_file: null
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:46`: task_suite_names:
+- `/project/peilab/wam/physical_WM/configs/sim_libero.yaml:52`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/7dim_deploy_adaptation.md:202`: task: pick_1_cup_clean_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/7dim_deploy_adaptation.md:264`: | 6. **load_checkpoint warning 干净** | log 里**没有** `missing_keys=N` 或 `unexpected_keys=N` 警告（如果有，先排查 ckpt 跟当前 task config 是不是真的同一架构） |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/7dim_deploy_adaptation.md:278`: | `keep_dims` 在哪里 | **deploy yaml** | 从 task config 反查 | 部署 yaml 自包含；如果将来 task config 也加，可以二选一 |
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_adjust_bottle.yaml:6`: # proprio_encoder; VAE/T5 load from the Wan2.2 base. task=robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_adjust_bottle.yaml:11`: #   export SERVER_CONFIG=.../robotwin_deploy_fastwam_adjust_bottle.yaml TASKS=adjust_bottle
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_adjust_bottle.yaml:17`: task: "robotwin_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:19`: > 注意：现有正式目录 `data/egodex_pnp_15tasks_28d` 仍是旧 v1 `xyz_rotvec` 数据；当前 Euler v2 代码已通过小样本转换/CPU 检查，
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:20`: > 全量训练前必须重新生成 `data/egodex_pnp_15tasks_28d_euler_v2` 并重算 stats。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:55`: | 训练配置 | `configs/data/egodex_pnp_15tasks_28d.yaml` | 数据目录改指向 `data/egodex_pnp_15tasks_28d_euler_v2/*`；保留旧 text embedding cache，因为 prompt 不随 action 表示变化 |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:63`: - `data/egodex_pnp_15tasks_28d` 已确认仍是旧 v1：`meta/modality.json` 里 `action_format=xyz_rotvec`，`features.action.names[17:20]` 仍是 `left_eef_rx/ry/rz`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:65`: - 当前 `configs/data/egodex_pnp_15tasks_28d.yaml` 已指向尚待生成的 `data/egodex_pnp_15tasks_28d_euler_v2`，所以全量训练前必须先重转数据。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:67`: 1. 全量重转 EgoDex 到 `data/egodex_pnp_15tasks_28d_euler_v2`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:68`: 2. 对 15 个 task 逐个跑 `validate.py --supervision eef`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:102`: | 训练入口 / config 组合 | 设计正确，等待 Euler v2 全量数据 | `task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4` 使用 28D processor/`RelativeUnified28DTransform`；当前 data config 已指向 `data/egodex_pnp_15tasks_28d_euler_v2`，全量重转与 stats 重算后再做一张卡 smoke |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_audit_and_fix_plan.md:217`: - RoboCOIN task info 中 `end_rotation_dim: radian`，不是 rotvec 标注。
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:46`: task: str = "real_cleaning_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:105`: task=str(get("task", cls.task)),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:244`: overrides = [f"task={self.config.task}", f"mixed_precision={self.config.mixed_precision}"]
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:250`: def _resolve_text_condition(self, task_prompt: str) -> tuple[str | None, torch.Tensor | None, torch.Tensor | None]:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:251`: formatted_prompt = format_prompt(task_prompt)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:276`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:277`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:2`: # ckpt: robotwin_all_tasks_egodex_uncond_3cam_384 (EgoDex-pretrained ActionDiT
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:3`: # base, full from-scratch robotwin train, all 50 RoboTwin2.0 tasks, step_030000).
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:5`: # task=robotwin_uncond_3cam_384_1e-4 builds the matching 14-dim / 3-cam structure
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:8`: # all-tasks norm (same md5 as the pretrain_egowan_robotwin run).
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:14`: #   export NUM_GPUS=4 EPISODES=100 TASKS="" PORT_BASE=8865
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:18`: ckpt: "/project/peilab/wam/physical_WM/runs/robotwin_all_tasks_egodex_uncond_3cam_384/2026-06-12_20-12-11/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:19`: dataset_stats: "/project/peilab/wam/physical_WM/runs/robotwin_all_tasks_egodex_uncond_3cam_384/2026-06-12_20-12-11/dataset_stats.json"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:20`: task: "robotwin_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/configs/robotwin_deploy_fastwam_egowan_robotwin.yaml:25`: prompt: "Complete the manipulation task."
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:5`: **2026-06-02 更新**：28D EEF 目标最终按 RoboCOIN 原始 EEF 标注形式对齐为 `xyz + XYZ Euler(rad) + grip`。旧 `data/egodex_pnp_15tasks_28d` 是 v1 `xyz_rotvec` 数据；当前代码/config 指向待全量生成的 `data/egodex_pnp_15tasks_28d_euler_v2`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:19`: - 输出目录保持 LeRobot v2.1 结构，包含 `data/`、`videos/`、`meta/info.json`、`meta/episodes.jsonl`、`meta/tasks.jsonl`、`meta/episodes_stats.jsonl`、`meta/modality.json`。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:47`: - **2026-06-02 audit 复核结论（重要，勿误判为“已解决”）**：根因方向正确，但 (1) trainer.py 的 FusedAdam 改动**仍未 commit**；(2) 仅在 lr=0 坏样本最小复现 + **8 步** full-loss smoke 上验证，且那批数据是**已删除的 v1 目录**；(3) 从未在 `egodex_pnp_15tasks_28d_euler_v2`（尚未生成）或持续训练上验证。准确表述：**根因已定位、FusedAdam 已在 smoke 级别验证，待提交 + 待在 euler_v2 上做持续训练复核**，才能称 NaN 已解决。另注：`torch.optim.AdamW` 自身数学在 lr=0/有限梯度下不污染参数（CPU 已验证），所以问题在 DeepSpeed 对非 fused 外部优化器的 bf16 集成，而非 AdamW 算法本身；FusedAdam 不可用时的 fallback 正是坏路径，需确保其可用。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:97`: - task info 中 `end_rotation_dim: radian`，说明 rotation 三维是 Euler rad，而不是 rotvec。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:266`: "task": str,
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:339`: --task-name pick_1_cup \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:340`: --instruction "pick up the cup" \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:347`: --tasks add_remove_lid arrange_topple_dominoes assemble_disassemble_legos \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:372`: /project/peilab/wam/physical_WM/data/egodex_pnp_15tasks_28d_euler_v2
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:375`: 注意：现有 `/project/peilab/wam/physical_WM/data/egodex_pnp_15tasks_28d` 是旧 v1 `xyz_rotvec` 数据，不能继续用于当前 `xyz + XYZ Euler(rad) + grip` 的 28D 训练入口。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:383`: - `meta/modality.json` 已写入每个 task 目录。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:391`: tasks=15
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:396`: 15 个 task 均已通过：
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:399`: python scripts/data_process/unified_28d/validate.py <task_dir> --supervision eef
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:405`: configs/data/egodex_pnp_15tasks_28d.yaml
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:408`: 当前该 config 已指向 `data/egodex_pnp_15tasks_28d_euler_v2`，全量重转完成并重新计算 stats 后再启动训练 smoke。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:419`: --dst-root data/egodex_pnp_15tasks_28d_euler_v2 \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:421`: --summary-json data/egodex_pnp_15tasks_28d_euler_v2/summary.json \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:427`: 1. 对 15 个 task 逐个跑：
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:431`: data/egodex_pnp_15tasks_28d_euler_v2/<task> \
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:5`: - override /task: libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:14`: # eval 加载完整 ckpt，必须中和训练用的两个 init 路径，否则 task config（如 egodex40k）
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:20`: task_suite_name: libero_spatial
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:21`: task_id: 0
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:23`: output_dir: ./evaluate_results/libero_plus/${hydra:runtime.choices.task}/${now:%Y%m%d_%H%M%S}
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:48`: task_file: null
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:51`: task_suite_names:
+- `/project/peilab/wam/physical_WM/configs/sim_libero_plus.yaml:58`: max_tasks_per_gpu: 2
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/joint_subset.py:162`: print("[joint_subset] keep_dims cross-check skipped: no dataset_dirs in task config.")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:74`: task
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:86`: 4. 如果这些都没有，再尝试 `task`，并把下划线替换为空格。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:99`: task: arrange_topple_dominoes
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:289`: task=pick_numbered_blocks_uncond_3cam_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/training_video_only.md:318`: task=pick_numbered_blocks_uncond_3cam_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:107`: 当前 EgoDex 15-task 配置：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:110`: configs/data/egodex_pnp_15tasks_28d.yaml
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:111`: configs/task/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4.yaml
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:114`: ## 4. EgoDex 15-task 数据
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:119`: /project/peilab/wam/physical_WM/data/egodex_pnp_15tasks_28d_euler_v2
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:122`: 注意：现有 `/project/peilab/wam/physical_WM/data/egodex_pnp_15tasks_28d` 是旧 v1 数据，`meta/modality.json` 里仍是 `xyz_rotvec`，不能继续用于当前 Euler v2 训练入口。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:148`: tasks    = 15
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:154`: 15 个 task：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:176`: 从 raw EgoDex HDF5 重新生成当前 Euler v2 15-task 数据：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:183`: --dst-root data/egodex_pnp_15tasks_28d_euler_v2 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:185`: --summary-json data/egodex_pnp_15tasks_28d_euler_v2/summary.json \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:207`: --task-name pick_1_cup \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:208`: --instruction "pick up the cup" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:213`: 校验一个 task：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:217`: data/egodex_pnp_15tasks_28d_euler_v2/add_remove_lid \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:226`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:235`: - ./data/egodex_pnp_15tasks_28d_euler_v2/<task>
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:242`: text_embedding_cache_dir: ./data/text_embeds_cache/egodex_pnp_15tasks_28d
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:254`: 训练和推理默认读取 text embedding cache。text embedding 只依赖 prompt 文本，不依赖 action 表示；Euler v2 数据沿用同一批 EgoDex task/prompt 时，可以复用当前已生成的 cache：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:257`: data/text_embeds_cache/egodex_pnp_15tasks_28d
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:12`: - 原始 HDF5 数据已经放在 `data/<task_name>/perfect/episode_*.hdf5`，每个 episode 包含：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:29`: with h5py.File('data/<task>/perfect/episode_0.hdf5') as f:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:43`: paths = sorted(glob.glob('data/<task>/perfect/episode_*.hdf5'))
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:64`: 每个 task 配一句**自然语言 instruction**，会在转换时写进 lerobot meta，并在训练时被 T5 编码成 context。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:83`: --src ./data/<task>/perfect \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:84`: --dst ./data/<task>/perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:85`: --task-name <task> \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:86`: --instruction "..." \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:103`: with open('data/<task>/perfect_lerobot/meta/info.json') as f:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:110`: cat data/<task>/perfect_lerobot/meta/tasks.jsonl    # 看 instruction 写对没
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:119`: 复制最近的同类 task：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:130`: ### 3.2 Task config
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:132`: 抄 `configs/task/pick_1_cup_clean_uncond_3cam_384_1e-4.yaml`，改一处：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:136`: - override /data: <task_name>    # ← 这里
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:150`: #SBATCH --job-name=fastwam_<task>
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:152`: bash /path/to/train_zero1.sh <NGPU> task=<task_full_name>
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:170`: python scripts/precompute_text_embeds.py data=<task_name> model=fastwam
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:182`: sbatch /project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_<task>.sh
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:196`: RUN_DIR=$(ls -1td /project/peilab/wam/physical_WM/runs/<task>/*/ | head -1)
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:220`: 训练结束后，相关 ckpt 在 `runs/<task>/<timestamp>/checkpoints/weights/step_*.pt`。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:55`: --task pick_numbered_blocks_uncond_3cam_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:80`: 注意：不要把 `configs/task/*.yaml` 传给 `--train-config`。那只是 Hydra task override，不是完整配置。一般用 `--task pick_numbered_blocks_uncond_3cam_1e-4` 即可。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:187`: 通常是把 `configs/task/*.yaml` 传给了 `--train-config`。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:192`: --task pick_numbered_blocks_uncond_3cam_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:290`: # task 1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:291`: # self.instruction = "Place the 4 fruits and place them onto the tray, then put the small block and marker into the black cup below the tray, and finally lift the gray cloth and drape it over the fruit tray."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:293`: # # # task 2
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:294`: # self.instruction = "Put the bottle and the can into the container, then place the three cloths onto the tray."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:300`: # task 1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:304`: # task 2
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:573`: parser.add_argument("--task", default="real_cleaning_uncond_3cam_384_1e-4")
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:649`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:784`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:785`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:222`: # task 1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:223`: # self.instruction = "Place the 4 fruits and place them onto the tray, then put the small block and marker into the black cup below the tray, and finally lift the gray cloth and drape it over the fruit tray."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:225`: # # # task 2
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:226`: # self.instruction = "Put the bottle and the can into the container, then place the three cloths onto the tray."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:232`: # task 1
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:236`: # task 2
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:503`: parser.add_argument("--task", default="real_cleaning_uncond_3cam_384_1e-4")
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:579`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:714`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:715`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:28`: parser.add_argument("--task", default=None)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:66`: ("task", "task"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:68`: tmux send-keys -t "$EVAL_SESSION_1" "GPU_ID=3 TASK_SUITE_NAME=libero_goal NUM_TRIALS_PER_TASK=50 bash script/eval_libero/libero_evaluate_multi_checkpoints_serial.sh" C-m
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:74`: tmux send-keys -t "$EVAL_SESSION_2" "GPU_ID=7 TASK_SUITE_NAME=libero_goal NUM_TRIALS_PER_TASK=50 bash script/eval_libero/libero_evaluate_multi_checkpoints_serial-2.sh" C-m
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule_libero_eval.sh:79`: echo "[scheduler] all tasks done, exiting." >&2
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:61`: 当前 C 组 task config 已 pin 到既有 pack_3 run 生成的 stats；如果 pack_3 数据发生变化，再把
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:120`: 新增 task config：
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:123`: configs/task/pack_3_objects_plus_ft_28dpartial_aug_uncond_3cam_384_1e-4.yaml
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:158`: path: /project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:114`: "prompt": instruction,
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:4`: The checkpoints under train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/ are
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/infer_video_branch_ti2v.py:38`: "video_branch_ti2v_egodex_part4_10tasks_full/step-50000.safetensors"
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:125`: **不改真实任务 config**（如 `real_cleaning_2task.yaml`）。改动以可复制模板 `configs/data/example_data_config.yaml` 演示——以后新增「需要改 data config 的功能」都往这个示例文件加。其 `train.processor` 在 `train_transforms`/`val_transforms` **一字不动**的前提下，只新增两个字段：
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:11`: **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:55`: Transform tasks into verifiable goals:
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:60`: For multi-step tasks, state a brief plan:
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/convert_egodex_to_video_branch.py:34`: "task",
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/convert_egodex_to_video_branch.py:128`: def select_task_description(hdf5_fields: dict[str, str]) -> str | None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/convert_egodex_to_video_branch.py:137`: if hdf5_fields.get("task"):
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/convert_egodex_to_video_branch.py:138`: return hdf5_fields["task"].replace("_", " ")
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/convert_egodex_to_video_branch.py:143`: prompt = select_task_description(hdf5_fields) or default_prompt
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:12`: > - `usage_guidelines/how_to_add_a_task.md`：从 HDF5 原始数据到可训练+可部署任务的完整流程。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:54`: │   ├── task/*.yaml                   # 每个训练任务一个（= data + model + 超参的组合）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:86`: → RobotVideoDataset.__getitem__  解码 33 帧 + qpos + action + instruction
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:89`: → T5 cache 查表                    instruction → context [128,4096]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:223`: | egodex_pnp_15tasks_eef14（主线） | 14 | 14 | native eef：`0:7` 左手 EEF pose+grip，`7:14` 右手；pose = `xyz + XYZ Euler(rad)`，grip absolute；训练用 `RelativeEef14Transform` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:224`: | egodex_pnp_15tasks_unified28（LEGACY 对照线） | 28 | 28 | 统一 28D：`0:14` 双臂 joint（EgoDex 下纯零+mask），`14:28` 双侧 EEF；仅 worstconf/28dpartial 对照在用 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:244`: 28D EEF rotation 对齐 RoboCOIN raw metadata 中的 `*_eef_rot_euler_{x,y,z}_rad`，不是 rotvec。EgoDex raw 给的是 4x4 hand transform，converter 从 rotation matrix 转 `XYZ` Euler(rad)。28D 有效数据目录是 `data/egodex_pnp_15tasks_28d_euler_v2`；旧 `data/egodex_pnp_15tasks_28d` 是 v1 `xyz_rotvec`，不要使用。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:246`: **主线 EgoDex 数据 = native eef14（2026-06-12 起）**：`data/egodex_pnp_15tasks_eef14`，由
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:250`: （`0:7` 左手 pose+grip、`7:14` 右手）。单源 config `configs/data/egodex_pnp_15tasks_eef14.yaml`（自然
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:253`: **统一 32D 异构混训 layout（新，与 28D 并存）**：把多个异构源（纯 eef 人手 / 纯 joint 真机 / joint+eef 都有）通过**一个共享 32D 动作头** co-train。布局 **eef 在前**（与 28D 的 joint-在前相反）：`[0:14]` eef 块（L pose[0:6]+grip[6]、R pose[7:13]+grip[13]）、`[14:30]` joint 块（每臂预留 7 joint 槽 + grip）、`[30:32]` base 预留。**表示：eef 相对首帧（SE(3) 换帧）、joint 绝对/raw**（控制语义不需要 delta 反算；但 32D 部署/eval 仍需接 group-aware 反归一化和 layout backward）。各源在加载时由 `UnifiedSlotLayout` 放进固定槽位 + 生成 per-dim mask（不落盘），`RelativeUnified32DTransform` 只把 eef 两段 pose 变相对；多组由 `MultiEmbodimentDataset` 混采样（权重烘进 index）、每组各自 processor+stats（分组归一化=N 个单源归一化器，核心归一化代码零改动），样本带 `group_id`（配置顺序定义，必须随 run 的 `group_index.json` 使用；训练 forward 不消费它）。当前 `UnifiedSlotLayout` 只实现 `egodex14_eef`（主线 eef14 数据，`[0:14]→[0:14]` 恒等块）和 `aloha14_joint`。设计/落地见 `docs/agent_guidelines/{unified32_design,unified32_execution_plan}.md`；per_embodiment 可切换头（**主线**）见 `agent_guidelines/per_embodiment_plan.md` 与 `usage_guidelines/per_embodiment_usage.md`（含从数据到可部署 ckpt 的完整工作流）。**当前状态：基建 + 异构 2 组训练冒烟已通（infra-only；trainer eval/deploy postprocess、RoboCOIN both-source、长训迁移收益评估延后）。2026-06-12 起 EgoDex 侧数据/配置已切 eef14；per_embodiment 真异构 PoC（egodex eef-14 + pack3 joint-14）配置就绪：`configs/{task,data}/per_embodiment_egodex14_pack3_smoke.yaml`。**
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:269`: - **uncond** 是部署默认、论文主张的「fast」路径。所有真机/仿真 task config 都用 `override /model: fastwam`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:308`: 之后把它指向那个文件复用（见 README「Training」段和 `how_to_add_a_task.md`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:328`: - prompt 先套模板：`DEFAULT_PROMPT = "A video recorded from a robot's point of view executing the following instruction: {task}"`（`robot_video_dataset.py:23`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:340`: scripts/train_zero1.sh <N_GPU> task=<name> [overrides]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:344`: - `configs/train.yaml` 默认 `data/model/task` 都是 `null`，靠 `task=<name>` 选。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:345`: - `configs/task/<name>.yaml` 用 `override /data: ...` + `override /model: ...` 拉数据和模型配置，
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:348`: - `train_zero1.sh` 还自动注入 `output_dir=./runs/<task>/<run_id>` 和 `wandb.name=<task>`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:360`: - euler_v2 数据已全量生成：`data/egodex_pnp_15tasks_28d_euler_v2`（15 task / ~4600 episode / ~617k frame），validate.py 15/15 通过。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:367`: `fastwam.yaml` 默认 true，但**所有 task config 都覆盖成 false**（关了它第一个 batch 容易 OOM）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:395`: run dir = `runs/<task>/<run_id>/`：
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/7dim_deploy_adaptation.md:202`: task: pick_1_cup_clean_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/7dim_deploy_adaptation.md:264`: | 6. **load_checkpoint warning 干净** | log 里**没有** `missing_keys=N` 或 `unexpected_keys=N` 警告（如果有，先排查 ckpt 跟当前 task config 是不是真的同一架构） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/7dim_deploy_adaptation.md:278`: | `keep_dims` 在哪里 | **deploy yaml** | 从 task config 反查 | 部署 yaml 自包含；如果将来 task config 也加，可以二选一 |
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:4`: # Flatten 10 EgoDex part4 task subdirectories into a single directory of
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:8`: # Output filenames are prefixed with the task name to avoid 0.mp4 collisions:
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:9`: #   <task>_<id>.mp4 / <task>_<id>.hdf5
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:15`: OUTPUT_DIR="${OUTPUT_DIR:-${ROOT}/data/egodex_part4_10tasks_flat}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:17`: TASKS=(
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:34`: for task in "${TASKS[@]}"; do
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:35`: task_dir="${SOURCE_ROOT}/${task}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:36`: if [[ ! -d "${task_dir}" ]]; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:37`: echo "warning: missing task directory ${task_dir}" >&2
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:42`: for f in "${task_dir}"/*.mp4; do
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:44`: ln -sfn "$f" "${OUTPUT_DIR}/${task}_$(basename "$f")"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:47`: for f in "${task_dir}"/*.hdf5; do
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:49`: ln -sfn "$f" "${OUTPUT_DIR}/${task}_$(basename "$f")"
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:52`: echo "[${task}] mp4=${mp4_count} hdf5=${hdf5_count}"
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:56`: | latent32 | 提取脚本 `--src-root` 指向 28D 数据集；`observation.state`（28D）+ `state_mask` 原样复制；config `proprio_output_dim: 28` | `extract_latent_actions_lerobot.py`；`configs/data/egodex_pnp_15tasks_latent32.yaml:60` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:75`: | EgoDex 主线数据 | 仅 28D（带 mask，主线用不了） | **`data/egodex_pnp_15tasks_eef14`**（native 14D，无 mask，主线规范格式） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:96`: （per-dim 统计相互独立，切片精确；实现时校验 stats schema 无跨维字段）；`tasks.jsonl` 原样。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:112`: `data/text_embeds_cache/egodex_pnp_15tasks/`，**hardlink** 现有
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:113`: `egodex_pnp_15tasks_28d/` 内 215 个 `.pt`。legacy 配置仍指旧目录，互不影响。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:117`: - login node 冒烟：单任务 `--limit-per-task 20`（简单 CPU 测试）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:119`: `scripts/trian_scripts/submit_slice_eef14.sh`（submit 风格：不设 `--cpus-per-task`/`--mem`，
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:161`: | `configs/data/egodex_pnp_15tasks_eef14.yaml` | 从 `egodex_pnp_15tasks_28d.yaml` 派生：dirs → eef14、shape/`action_output_dim`/`proprio_output_dim` 28→14、transform → `RelativeEef14Transform`、cache → `text_embeds_cache/egodex_pnp_15tasks`；**其余训练参数逐项不动**（沿用已验证的 28D recipe） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:162`: | `configs/data/per_embodiment_egodex14_pack3_smoke.yaml` + `configs/task/per_embodiment_egodex14_pack3_smoke.yaml` | **真异构 PoC（本轮里程碑）**：`embodiment_datasets` = egodex14（eef，`RelativeEef14Transform`）+ pack3（joint，transform null），`action_dims=[14,14]`；相机/`video_size` 设置照抄 `unified32_egodex_stack_smoke`（它已验证过 egodex 1 相机 + aloha 3 相机混训的视频统一）；model：`action_head_mode: per_embodiment`、`num_embodiments: 2`、`mot_checkpoint_mixed_attn: true`（28D OOM 教训） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:169`: | `configs/data/egodex_pnp_15tasks_latent32.yaml` | `proprio_output_dim` 28→14、state shape 28→14、注释（源 = eef14）。现有已提取冒烟子集 state 为 28D 与新 config 不符 → **重提**（§7 L2） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:170`: | `configs/data/egodex_pnp_15tasks_28d.yaml`、`_worstconf.yaml`、`configs/task/egodex_pnp_15tasks_unified28*.yaml` | 头部加 LEGACY banner："对照线（worstconf/28dpartial）专用，新实验用 egodex_pnp_15tasks_eef14" |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:174`: 提交：28dpartial 三套 task config + submit、worstconf data/task/submit、robocoin / pick 系列 /
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:197`: `configs/{data,task}/egodex_pnp_15tasks_28d*·unified28*`（legacy banner）、
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:198`: 28dpartial 三套 task config + submit 脚本、worstconf **训练侧** submit 脚本
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:208`: | **L0** | login node（简单 CPU） | ① 改动前 `pytest tests/` baseline；② 切片器单任务冒烟（`--limit-per-task 20`）；③ 改动后全部单测；④ 新旧关键配置 hydra compose 干跑（eef14 / latent32 / 两个 smoke / **legacy worstconf**） | 单测全绿；冒烟 §3.2 校验零失败；所有配置可 resolve |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:242`: （数据产物 `data/egodex_pnp_15tasks_eef14` 与 cache hardlink 不进 git——`data/*` 已 ignore。）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:257`: 7. 全程不动 `data/egodex_pnp_15tasks_28d_euler_v2*`（legacy 对照的数据源 + 切片器的输入）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:279`: > 新实验一律用主线 eef14（`configs/data/egodex_pnp_15tasks_eef14.yaml`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:286`: `data/egodex_pnp_15tasks_28d_euler_v2`（15 任务 4494 ep；也是 eef14 切片器的输入，**勿删**）、
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:287`: `data/egodex_pnp_15tasks_28d_euler_v2_worstconf`（最差置信度对照选集）。
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/run_infer_video_branch.sh:6`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM_xqh/scripts/video_branch/run_infer_video_branch.sh:32`: CKPT="${CKPT:-${ROOT}/train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-10000.safetensors}"
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:9`: > **2026-06-12 更新（eef14 迁移）**：提取源已从 `egodex_pnp_15tasks_28d_euler_v2` 切换为主线
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:10`: > `data/egodex_pnp_15tasks_eef14`（native 14D eef，无 mask；切片自 euler_v2，行集/帧映射不变量
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:63`: | 4 | EgoDex LeRobot 数据集 = 30fps、单相机 `cam_high` 1080×1920、LeRobot v2.1、15 task 子目录、4494 ep / 617k 帧 | `data/egodex_pnp_15tasks_28d_euler_v2/*/meta/info.json`、`DATASET_SUMMARY.md` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:64`: | 5 | 28D 训练管线把图像 Resize 到 **240×320** ——与 LAM 输入分辨率恰好一致；提取时按 DreamDojo 原版预处理（`F.interpolate` 到 240×320 + `/255`）即可 | `configs/data/egodex_pnp_15tasks_28d.yaml:73-74`；DreamDojo `dataset_video.py:94-97` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:69`: | 10 | text prompt 与 28D 数据集完全相同 → **text embedding cache 直接复用** `data/text_embeds_cache/egodex_pnp_15tasks_28d` | `egodex_pnp_15tasks_28d.yaml:80` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:82`: | `scripts/data_process/extract_latent_actions_lerobot.py` | LeRobot→LeRobot 提取转换：逐 task、逐 episode 顺序解码 mp4（pyav）→ resize 240×320 + `/255` → 相邻帧对成 batch → LAM encode 取 `z_mu` → `[T-1,32]` → 末帧复制成 `[T,32]` float32 → 写新数据集：parquet 逐列重写（**action 列替换为 32 维，删 `action_mask`，其余列含 `observation.state`/`state_mask` 原样**）、视频 hardlink、meta 重生成（`info.json` action shape=32 + names `latent_0..31`、`episodes_stats.jsonl` 重算 action 统计、`tasks.jsonl`/`episodes.jsonl` 原样拷贝）。参数：`--src-root --dst-root --lam-ckpt --device --batch-size --tasks --limit-episodes --overwrite`；按 episode 粒度断点续跑 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:84`: | `configs/data/egodex_pnp_15tasks_latent32.yaml` | 抄 28D data config，改：`dataset_dirs` 指向 latent32 数据集、action raw_shape/shape=32、`action_output_dim: 32`、`action_state_transforms: null`；其余（state 28D、240×320 transforms、z-score、text cache 复用 28D 目录）不变 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:85`: | `configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml` | 以现行 28D task config 为模板，改 data 引用；**显式 `mot_checkpoint_mixed_attn: true`**（28D 4 卡训练已踩过 false→optimizer.step OOM 的坑） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:86`: | `scripts/trian_scripts/submit_egodex_latent32.sh` | SLURM submit：不设 `--cpus-per-task`/`--mem`（normal 分区不设=unlimited，避免 eval 峰值 SIGBUS），`mkdir -p logs` + `--output=logs/%x_%j.out` |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:110`: | **P3 全量提取** | 15 task / 4494 ep / 617k 帧全量提取（sbatch 后台，预估单卡数小时）+ 全量质检 | 我，1 卡 sbatch | 4494 ep 全部产出；分布统计无异常维度（z-score 后 clamp(-5,5) 截断率可忽略） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:123`: | 1080p 解码吞吐瓶颈 | 顺序解码（非随机访问）+ 帧对 batch 推理；仍慢则按 task 拆 sbatch array 并行 |
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:10`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:14`: bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4 +data.train.pretrained_norm_stats=/local/yangshuo/fyhong/FastWAM/configs/data/libero_dataset_stats.json
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:19`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:27`: CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4 +data.train.pretrained_norm_stats=/local/yangshuo/fyhong/FastWAM/configs/data/libero_dataset_stats.json wandb.enabled=true wandb.workspace=<your_wandb_workspace> wandb.project=fast-wam wandb.name=libero_uncond_2cam224_run1
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:96`: extract_task_basename() {
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:98`: if [[ "${cfg}" == task/* ]]; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:99`: local name="${cfg#task/}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:107`: TASK_BASENAME="train"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:114`: if parsed="$(extract_task_basename "${next}")"; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:115`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:121`: if parsed="$(extract_task_basename "${cfg}")"; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:122`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:125`: task=*)
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:126`: cfg="${arg#task=}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:128`: TASK_BASENAME="${cfg}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:145`: export RUN_ID_SYNC_TASK_BASENAME="${TASK_BASENAME}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:160`: task_basename = os.environ.get("RUN_ID_SYNC_TASK_BASENAME", "train")
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:169`: key = f"run_id::{task_basename}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:182`: RUN_DIR="./runs/${TASK_BASENAME}/${RUN_ID}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero1.sh:216`: "wandb.name=${TASK_BASENAME}" \
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:9`: > （`data/egodex_pnp_15tasks_eef14`，由 `scripts/data_process/slice_unified28_to_eef14.py`
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:141`: dataset_dirs: [ ./data/egodex_pnp_15tasks_eef14/<...> ]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:176`: 3. `configs/data/unified32_egodex_<joint>_smoke.yaml` + `configs/task/<...>_smoke_*.yaml`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:257`: **配置 / 测试**：`configs/data/unified32_egodex_stack_smoke.yaml` + `configs/task/unified32_egodex_stack_smoke.yaml`（model dims 走 `${max_action_dim:${data.train.embodiment_datasets}}`=32）；`tests/test_unified32_{relative_action,slot_layout,multi_embodiment}.py`（19 CPU 单测）+ `tests/dryrun_unified32_{config,data}.py`；`scripts/trian_scripts/submit_unified32_{data_dryrun,smoke}.sh`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:14`: **4 卡短训已通过**（job 450714，`task=unified32_per_embodiment_smoke`（该 task 现已更名 `per_embodiment_smoke`））：40 步 loss 有限无 NaN、无 OOM、无 unused-param 报错；eval（`eval_every=20`）`val_loss` 1.4583→0.8000 且 `infer_psnr=nan`（rollout 被 guard 跳过）；`sacct State=COMPLETED`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:22`: - **PoC**：`configs/task|data/per_embodiment_smoke.yaml`（pack3 + stack3，都 14D 无 mask，`action_dims=[14,14]`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:30`: 5. **egodex 28D 不进 PoC（已解决,2026-06-12）**：其 unified28 盘上数据自带 `action_mask`(joint 半 off),与无 mask 源混批 `default_collate` 键不一致 → 报错。**已修:native 14D eef 数据落地**——`data/egodex_pnp_15tasks_eef14`（由 `scripts/data_process/slice_unified28_to_eef14.py` 从 euler_v2 无损切片,无 joint 半、无 mask,详见 `agent_guidelines/egodex_eef14_migration_plan.md`）,配套自然 transform `RelativeEef14Transform`。真异构 PoC 配置 `configs/{task,data}/per_embodiment_egodex14_pack3_smoke.yaml`（egodex eef-14 + pack3 joint-14）。原 PoC（两 14D 无 mask joint 源）保留,异构维度的头数学由单测覆盖。**视频形状不是约束**:多相机 concat 进同一 `video_size` 帧,相机数可不同(现有 shared smoke 就混过 egodex 单相机 + aloha 3 相机)。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:110`: **model 配置**：`configs/model/fastwam.yaml` 加 `action_head_mode: shared`（默认）、`num_embodiments: 1`。task config 切 `per_embodiment` + `num_embodiments: <组数>`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/per_embodiment_plan.md:168`: 6. PoC 两套 task config（shared / per_embodiment，同 2 组数据）+ 数据 dry-run⑤。
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:22`: extract_task_basename() {
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:24`: if [[ "${cfg}" == task/* ]]; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:25`: local name="${cfg#task/}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:33`: TASK_BASENAME="train"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:40`: if parsed="$(extract_task_basename "${next}")"; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:41`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:47`: if parsed="$(extract_task_basename "${cfg}")"; then
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:48`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:51`: task=*)
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:52`: cfg="${arg#task=}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:54`: TASK_BASENAME="${cfg}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:71`: export RUN_ID_SYNC_TASK_BASENAME="${TASK_BASENAME}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:86`: task_basename = os.environ.get("RUN_ID_SYNC_TASK_BASENAME", "train")
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:95`: key = f"run_id::{task_basename}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:114`: "output_dir=./runs/${TASK_BASENAME}/${RUN_ID}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/train_zero2.sh:115`: "wandb.name=${TASK_BASENAME}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/schedule.sh:106`: echo "[scheduler] all tasks done, exiting." >&2
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:100`: from peft import LoraConfig, get_peft_model, TaskType
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/deepspeed/main.py:106`: task_type=TaskType.CAUSAL_LM,
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:8`: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:18`: scripts/video_branch/aggregate_egodex_part4_10tasks.sh  # raw EgoDex part4 10 任务 -> 扁平 symlink 目录
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:35`: data/egodex_part4_10tasks_flat/               # aggregate 脚本产出的扁平 symlink 目录
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:36`: data/egodex_part4_10tasks_video_branch/       # 转换后的 DiffSynth 数据 + metadata.csv
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:38`: train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/   # 训练后的 full DiT checkpoint
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:56`: OUTPUT_DIR=data/egodex_part4_10tasks_flat \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:57`: bash scripts/video_branch/aggregate_egodex_part4_10tasks.sh
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:63`: data/egodex_part4_10tasks_flat/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:81`: task
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:93`: 4. 如果这些都没有，再尝试 `task`，并把下划线替换为空格。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:99`: data/egodex_part4_10tasks_flat/pour_0.mp4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:100`: data/egodex_part4_10tasks_flat/pour_0.hdf5
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:106`: task: arrange_topple_dominoes
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:135`: --input-dir data/egodex_part4_10tasks_flat \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:136`: --output-dir data/egodex_part4_10tasks_video_branch \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:144`: data/egodex_part4_10tasks_video_branch/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:172`: --input-dir data/egodex_part4_10tasks_flat \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:173`: --output-dir data/egodex_part4_10tasks_video_branch_debug \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:191`: SOURCE_DIR=data/egodex_part4_10tasks_flat \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/training_video_only.md:192`: DATASET_DIR=data/egodex_part4_10tasks_video_branch \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:6`: > 单源同构 28D：已退役 legacy 对照存量（速览见 `agent_guidelines/egodex_eef14_migration_plan.md` 附录 A）。主线 EgoDex 数据 = native eef14（`configs/data/egodex_pnp_15tasks_eef14.yaml`）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:83`: 可直接抄的模板：`configs/data/unified32_egodex_stack_smoke.yaml` + `configs/task/unified32_egodex_stack_smoke.yaml`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:93`: dataset_dirs: [ ./data/.../<task> ]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:127`: ### 4.2 task config（`configs/task/<name>.yaml`）
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:156`: bash scripts/train_zero1.sh 4 task=<你的 task 名>
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:165`: 产物在 `runs/<task>/<run_id>/`：除常规 `train_node_0.log`、`config.yaml` 外，多组特有：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:209`: | 部署 / 训练期 eval 的"取 joint 块 + 按 group_id 选组反归一化" | ❌ **未接**。积木齐（`UnifiedSlotLayout.backward`、`RelativeUnified32DTransform.backward`、per-group stats、`group_index.json`），缺接线：trainer eval rollout 按组路由 postprocess、deploy client 选组 stats。**正式接通前 task config 里务必 `eval_every` 设大关掉 eval**，否则会走到未实现路径。 |
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:233`: | 抄一个混训 config | `configs/{data,task}/unified32_egodex_stack_smoke.yaml` |
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:66`: 新建一个 **shared 模式**的单源 task（源 = 你的真机数据），加 `partial_resume` 指向阶段一 ckpt：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:84`: path: runs/<阶段一 per_embodiment task>/<run_id>/checkpoints/weights/step_XXXXXX.pt
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:94`: - 最终 ckpt：`runs/<阶段二 shared task>/<run_id>/checkpoints/weights/step_XXXXXX.pt`，内容 `{mot, proprio_encoder, step, torch_dtype}`（**旧单源格式**）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:158`: 和普通单源训练一样（`bash scripts/train_zero1.sh <N> task=...`）。5B 模型注意：1 卡会在 optimizer.step OOM（ZeRO-1 单卡不分片完整优化器态），用 ≥4 卡。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:184`: PoC 见 `configs/{task,data}/per_embodiment_smoke.yaml`。data config 用 `embodiment_datasets`（N 个 per-group `RobotVideoDataset`，每组自己的 processor + 归一化 stats），每组 native `shape_meta` + `action_output_dim: 32` + **不要** `UnifiedSlotLayout`。model 侧：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:205`: # = bash scripts/train_zero1.sh 4 task=per_embodiment_smoke wandb.enabled=false
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:223`: egodex 现有的 `egodex_pnp_15tasks_28d_euler_v2` 是 **28D + action_mask** 格式（`convert_egodex_to_unified28.py` 为塞进 eef+joint 统一布局，joint 半填零 + mask）。它**单源训没问题**，但和无 mask 源**混批**会因 key 不一致崩。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:227`: > ✅ 现状（2026-06-12）：native eef14 数据**已落地**——`data/egodex_pnp_15tasks_eef14`，由
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:230`: > 单源 config：`configs/data/egodex_pnp_15tasks_eef14.yaml`（自然 transform = `RelativeEef14Transform`，
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/per_embodiment_usage.md:231`: > eef pose 相对首帧、grip 绝对）。**真异构 PoC**：`configs/{task,data}/per_embodiment_egodex14_pack3_smoke.yaml`
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:12`: - 原始 HDF5 数据已经放在 `data/<task_name>/perfect/episode_*.hdf5`，每个 episode 包含：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:29`: with h5py.File('data/<task>/perfect/episode_0.hdf5') as f:
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:43`: paths = sorted(glob.glob('data/<task>/perfect/episode_*.hdf5'))
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:64`: 每个 task 配一句**自然语言 instruction**，会在转换时写进 lerobot meta，并在训练时被 T5 编码成 context。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:83`: --src ./data/<task>/perfect \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:84`: --dst ./data/<task>/perfect_lerobot \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:85`: --task-name <task> \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:86`: --instruction "..." \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:103`: with open('data/<task>/perfect_lerobot/meta/info.json') as f:
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:110`: cat data/<task>/perfect_lerobot/meta/tasks.jsonl    # 看 instruction 写对没
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:119`: 复制最近的同类 task：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:130`: ### 3.2 Task config
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:132`: 抄 `configs/task/pick_1_cup_clean_uncond_3cam_384_1e-4.yaml`，改一处：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:136`: - override /data: <task_name>    # ← 这里
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:150`: #SBATCH --job-name=fastwam_<task>
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:152`: bash /path/to/train_zero1.sh <NGPU> task=<task_full_name>
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:170`: python scripts/precompute_text_embeds.py data=<task_name> model=fastwam
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:182`: sbatch /project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_<task>.sh
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:196`: RUN_DIR=$(ls -1td /project/peilab/wam/physical_WM/runs/<task>/*/ | head -1)
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:220`: 训练结束后，相关 ckpt 在 `runs/<task>/<timestamp>/checkpoints/weights/step_*.pt`。
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_warmup.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_warmup.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_warmup.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:33`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:34`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:40`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:49`: local run_dir="./runs/${TASK}/${run_id}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only.sh:67`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:15`: data/egodex_pnp_15tasks_eef14 ──────► data/egodex_pnp_15tasks_latent32
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:19`: configs/task/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4.yaml
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:22`: runs/egodex_pnp_15tasks_latent32_*/<run>/checkpoints/weights/step_XXXXXX.pt
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:40`: sbatch scripts/trian_scripts/submit_extract_latent32.sh            # 全量 15 task
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:42`: TASKS=add_remove_lid,declutter_desk sbatch --time=00:30:00 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:58`: text embedding cache 复用 `data/text_embeds_cache/egodex_pnp_15tasks`（prompt 相同）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:66`: --dataset-root data/egodex_pnp_15tasks_latent32 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:82`: # 正式预训练（4xH800、全量 15 task、50k 步）
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:86`: - 任务配置 `egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4` 与 legacy 28D 预训练
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:90`: - `mot_checkpoint_mixed_attn: true` 已在 task config 里显式打开（不开会在
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:101`: path: runs/egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4/<run_id>/checkpoints/weights/step_XXXXXX.pt
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:122`: > **2026-06-12 更新（eef14 迁移，已复验）**：提取源已切换为 `data/egodex_pnp_15tasks_eef14`
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:137`: 吞吐 0.26-0.36 ep/s（全量约 3-5 h）。本机 `data/egodex_pnp_15tasks_latent32` 现存
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/latent_action_pretrain_usage.md:146`: 训练用 task config 默认 batch_size=8 即可。
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pick_1_cup.sh:26`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 8 task=pick_1_cup_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:55`: --task pick_2cups_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:80`: 注意：不要把 `configs/task/*.yaml` 传给 `--train-config`。那只是 Hydra task override，不是完整配置。一般用 `--task pick_2cups_uncond_3cam_384_1e-4` 即可。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:187`: 通常是把 `configs/task/*.yaml` 传给了 `--train-config`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:192`: --task pick_2cups_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:32`: RUN_DIR="./runs/${TASK}/audit28_foreach_verify_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_foreach_verify.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:92`: 更新 configs/data/real_cleaning_2task.yaml 中的 dataset_dirs
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:117`: └── <task_name>/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:169`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/perfect \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:170`: --dst ./data/real_cleaning/<task_name>_perfect_lerobot \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:171`: --task-name "<task_name> perfect" \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:172`: --instruction "Put the bottle and the can into the container, then place the three cloths onto the tray." \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:181`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/retry \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:182`: --dst ./data/real_cleaning/<task_name>_retry_lerobot \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:183`: --task-name "<task_name> retry" \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:184`: --instruction "Put the bottle and the can into the container, then place the three cloths onto the tray." \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:201`: └── new_task_perfect_lerobot/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:211`: 并且 `meta/tasks.jsonl` 中应该能看到 instruction。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:218`: configs/data/real_cleaning_2task.yaml
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:240`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:244`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:282`: 预计算时的 instruction 必须和推理时完全一致。多一个空格、标点不同，都会导致 hash 不同，从而找不到 cache。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:293`: data=real_cleaning_2task \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:295`: '+override_instruction="Put the bottle and the can into the container, then place the three cloths onto the tray."' \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:322`: task=real_cleaning_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:329`: task=real_cleaning_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:16`: - 用 Hydra 配置重建模型：默认 `task=real_cleaning_uncond_3cam_384_1e-4`
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:55`: 当前默认配置来自 `configs/data/real_cleaning_2task.yaml`：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:84`: 7. `--prompt` 和 text embedding cache 中预计算的 instruction 一致。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:110`: # task 1
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:114`: # task 2
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:125`: 当前代码里 instruction 字段主要是注释和人工记录；真正传给模型的是命令行 `--prompt`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:138`: A video recorded from a robot's point of view executing the following instruction: {task}
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:147`: 如果换了新 instruction，需要先预计算：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:154`: data=real_cleaning_2task \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:156`: '+override_instruction="Put the bottle and the can into the container, then place the three cloths onto the tray."' \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:209`: --task pick_1_cup_clean_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:308`: `--task`：Hydra task，默认 `real_cleaning_uncond_3cam_384_1e-4`。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:316`: `--prompt`：任务 instruction。必须和 text embedding cache 对齐。
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1108`: # Split tasks
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1109`: tasks = []
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1115`: tasks.append((h, h_, w, w_))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1124`: for h, h_, w, w_ in tqdm(tasks, desc="VAE decoding"):
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1160`: # Split tasks
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1161`: tasks = []
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1167`: tasks.append((h, h_, w, w_))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/models/wan22/wan_video_vae.py:1176`: for h, h_, w, w_ in tqdm(tasks, desc="VAE encoding"):
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noxform.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noxform.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noxform.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_preprocess_action_dit_egodex.sh:6`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_preprocess_action_dit_egodex.sh:34`: DIT_CKPT="${DIT_CKPT:-train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-40000.safetensors}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_nockpt.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_nockpt.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_nockpt.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:32`: RUN_DIR="./runs/${TASK}/audit28_fused_adam_verify_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fused_adam_verify.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:34`: mkdir -p "runs/${TASK}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:42`: local run_dir="./runs/${TASK}/audit28_oneidx_${name}_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_single_sample.sh:57`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:32`: RUN_DIR="./runs/${TASK}/audit28_fp32_step_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_fp32_step.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pick_1_cup_clean_aug.sh:32`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pick_1_cup_clean_aug_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:33`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:34`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:35`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:44`: local run_dir="./runs/${TASK}/${run_id}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero_everything.sh:62`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_smoke_test.sh:6`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:189`: def episode_task(path: Path) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:265`: task = episode_task(path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:324`: "task": task,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:344`: "task": task,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:368`: "task": task,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:391`: "task": task,
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_converted_fast.py:416`: parser.add_argument("dataset_roots", nargs="*", type=Path, default=[Path("data/egodex_pnp_15tasks_28d")])
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:32`: RUN_DIR="./runs/${TASK}/audit28_noop_step_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_noop_step.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/run_hypertrain_zero1.sh:24`: TASK=${TASK:-pick_numbered_blocks_uncond_3cam_1e-4}
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/run_hypertrain_zero1.sh:32`: LOG_FILE="${PROJECT_DIR}/${LOG_DIR}/${TASK}_node_${NODE_RANK}_$(date +%Y%m%d_%H%M%S).log"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/run_hypertrain_zero1.sh:63`: export WANDB_NAME=${WANDB_NAME:-${TASK}_$(date +%Y%m%d_%H%M%S)}
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/run_hypertrain_zero1.sh:136`: echo "TASK: ${TASK}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/run_hypertrain_zero1.sh:202`: task="${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:35`: mkdir -p "runs/${TASK}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:44`: local run_dir="./runs/${TASK}/audit28_step_${name}_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_step_source.sh:59`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:17`: STATS="runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/2026-06-01_22-53-57/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:20`: cfg = compose(config_name="train", overrides=["task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"])
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:23`: "./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:24`: "./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/gpu_nan_probe.py:25`: "./data/egodex_pnp_15tasks_28d/charge_uncharge_device",
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_test_aug.py:27`: TASK = "pick_1_cup_clean_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_test_aug.py:51`: cfg = compose(config_name="train", overrides=[f"task={TASK}"])
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:32`: RUN_DIR="./runs/${TASK}/audit28_trace_video_nan_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_trace_video_nan.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lr0.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lr0.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 learning_rate=0 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lr0.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:33`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:34`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:40`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:49`: local run_dir="./runs/${TASK}/${run_id}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_proprio_ablation.sh:67`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:32`: RUN_DIR="./runs/${TASK}/audit28_grad_probe_multi_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe_multi.sh:52`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:32`: RUN_DIR="./runs/${TASK}/audit28_zero2_step_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_zero2_step.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:32`: RUN_DIR="./runs/${TASK}/audit28_grad_probe_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_grad_probe.sh:52`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:16`: #   3. Edit configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:40`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:33`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:37`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:43`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:52`: local run_dir="./runs/${TASK}/${run_id}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_ablation.sh:70`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pick_2cups.sh:26`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pick_2cups_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pick_1_cup_clean.sh:32`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pick_1_cup_clean_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pick_1_cup_clean_aug_egodex40k.sh:32`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pick_1_cup_clean_aug_egodex40k_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:47`: task_dir = parquet_path.parents[2]
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:48`: task_name = task_dir.name
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:50`: episodes = read_jsonl(task_dir / "meta" / "episodes.jsonl")
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/inspect_egodex_raw_episode.py:52`: return raw_root / task_name / row["raw_file_name"]
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:6`: #SBATCH --cpus-per-task=32
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:33`: # Step 1: aggregate 10 EgoDex part4 task subdirectories into one flat
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:35`: bash /project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:42`: SOURCE_DIR=/project/peilab/wam/physical_WM/data/egodex_part4_10tasks_flat \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:43`: DATASET_DIR=/project/peilab/wam/physical_WM/data/egodex_part4_10tasks_video_branch \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_video_branch_egodex_part4_full.sh:44`: OUTPUT_PATH=/project/peilab/wam/physical_WM/train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:32`: RUN_DIR="./runs/${TASK}/audit28_full_loss_fused_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_full_loss_fused.sh:51`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:117`: total_task_rows = 0
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:120`: tasks_path = Path(ds_dir) / "meta" / "tasks.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:121`: if not tasks_path.exists():
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:122`: raise FileNotFoundError(f"Missing tasks file: {tasks_path}")
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:124`: with tasks_path.open("r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:130`: if "task" not in record:
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:131`: raise KeyError(f"Missing `task` field at {tasks_path}:{line_idx}")
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:132`: task = str(record["task"])
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:133`: prompt = DEFAULT_PROMPT.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:134`: total_task_rows += 1
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:140`: "Loaded %d task rows from %d datasets, deduplicated to %d prompts.",
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:141`: total_task_rows,
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:148`: def _get_override_prompt(override_instruction: Any) -> str | None:
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:149`: if override_instruction is None:
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:151`: task = str(override_instruction).strip()
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:152`: if task == "":
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:154`: return DEFAULT_PROMPT.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:195`: override_prompt = _get_override_prompt(cfg.get("override_instruction"))
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:198`: logger.info("Using override_instruction; skipping dataset scan and encoding exactly 1 prompt.")
+- `/project/peilab/wam/physical_WM/scripts/precompute_text_embeds.py:204`: logger.warning("No prompts found from tasks.jsonl; nothing to do.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:39`: local run_dir="./runs/${TASK}/${run_id}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_video_only_lr0.sh:57`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:29`: TASK="egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:30`: STATS="runs/${TASK}/2026-06-02_00-46-00/dataset_stats.json"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:31`: DATASET_DIRS="[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:34`: mkdir -p "runs/${TASK}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:41`: local run_dir="./runs/${TASK}/audit28_pair_${name}_${SLURM_JOB_ID:-local}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_pair_repeat.sh:56`: "task=${TASK}" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:10`: # Convert the 18 Agilex_Cobot_Magic RoboCOIN tasks into FastWAM 14-dim LeRobot
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:11`: # datasets under data/RoboCOIN_lerobot14/<task>. CPU-only and cheap: parquet
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:12`: # slice + mp4 hard-link (no video re-encode). The 2 robot_type=aloha tasks
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:32`: # The 18 Agilex tasks (exclude fold_towel_brown / make_sandwiche which are robot_type=aloha).
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:33`: TASKS=(
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:54`: echo "[batch] converting ${#TASKS[@]} RoboCOIN tasks -> $DST_ROOT"
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_all_robocoin.sh:55`: for t in "${TASKS[@]}"; do
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:11`: # This is a *dual-arm* task (all 14 joints active), so NO --keep-dims: we keep
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:31`: PROMPT="Put the three objects on the table into the bucket."
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:36`: --task-name pack_3_objects_plus \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:37`: --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:46`: #     --task-name pack_3_objects_plus_retry \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:47`: #     --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:189`: def episode_task(path: Path) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:190`: # .../<task>/data/chunk-xxx/episode_x.parquet
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:251`: "task": episode_task(path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:272`: "task": episode_task(path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:300`: "task": episode_task(path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:323`: "task": episode_task(path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/audit_unified28_data_quality.py:361`: default=[Path("data/egodex_pnp_15tasks_28d")],
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:11`: # RoboCOIN multi-task action pretraining (18 Agilex tasks, 14-dim, EgoDex base).
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:12`: # Produces the pretrained checkpoint that our own real-robot tasks finetune from.
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:41`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=robocoin_pretrain_egodex_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_precompute_robocoin.sh:13`: # dir's meta/tasks.jsonl, dedups, and writes the cache to
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_precompute_robocoin.sh:17`: # Run AFTER convert_all_robocoin.sh (the dirs / tasks.jsonl must exist).
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lowres.sh:12`: # Subsets to 3 tasks (fast stats), batch_size=2, a few steps, eval/save disabled
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lowres.sh:34`: task=egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/smoke_egodex_unified28_lowres.sh:35`: 'data.train.dataset_dirs=[./data/egodex_pnp_15tasks_28d/arrange_topple_dominoes,./data/egodex_pnp_15tasks_28d/assemble_disassemble_legos,./data/egodex_pnp_15tasks_28d/charge_uncharge_device]' \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:20`: # LIBERO's get_task_init_states() calls torch.load() on pickled numpy init-state
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:374`: task_description: str,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:390`: prompt = prompt_template.format(task=task_description)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:445`: def _get_max_steps(task_suite_name: str) -> int:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:453`: if task_suite_name not in suite_steps:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:454`: raise ValueError(f"Unknown task suite: {task_suite_name}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:455`: return suite_steps[task_suite_name]
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:461`: task_description: str,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:472`: max_steps = _get_max_steps(cfg.EVALUATION.task_suite_name)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:506`: task_description=task_description,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:597`: def run_single_task(
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:598`: task,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:611`: env, task_description = get_libero_env(task, LIBERO_ENV_RESOLUTION, cfg.get("seed"))
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:617`: "task_description": task_description,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:627`: task_description=task_description,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:648`: f"task{cfg.EVALUATION.task_id}_trial{trial_idx}",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:650`: task_description=task_description,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:655`: "No predicted future frames collected for task %s trial %s.",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:656`: cfg.EVALUATION.task_id,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:669`: f"task{cfg.EVALUATION.task_id}_trial{trial_idx}",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:3`: # $RESULT_DIR/<suite>/gpu*_task*_results.json and writes:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:10`: # e.g. to peek at a partially complete sweep, or after manually re-running tasks.
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:21`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:22`: #SBATCH --cpus-per-task=2
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:3`: # This script runs LIBERO evaluation tasks in parallel.
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:7`: local task_list_file=$1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:8`: echo "task_file: $task_list_file"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:37`: # Copy task_list_file into OUTPUT_DIR
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:38`: cp "$task_list_file" "$OUTPUT_DIR/"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:39`: task_list_file="$OUTPUT_DIR/$(basename $task_list_file)"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:40`: echo "Task list file copied to: $task_list_file"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:58`: require_non_empty "MAX_TASKS_PER_GPU"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:61`: TMUX_GRID_COLS=${TMUX_GRID_COLS:-$((MAX_TASKS_PER_GPU + 1))}
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:72`: TASK_GPU_MAP_FILE="$OUTPUT_DIR/task_gpu_map.txt"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:73`: TASK_STATUS_DIR="$OUTPUT_DIR/task_status"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:74`: TASK_LOG_DIR="$OUTPUT_DIR/task_logs"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:75`: FAILED_TASKS_FILE="$OUTPUT_DIR/failed_tasks.txt"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:77`: mkdir -p "$TASK_STATUS_DIR" "$TASK_LOG_DIR"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:78`: : > "$FAILED_TASKS_FILE"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:82`: # Initialize the current task count of each GPU to 0
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:84`: > "$TASK_GPU_MAP_FILE"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:143`: if [ $load -lt $min_load ] && [ $load -lt $MAX_TASKS_PER_GPU ]; then
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:156`: local percentage=$((load * 100 / MAX_TASKS_PER_GPU))
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:157`: printf "GPU %s: %d/%d tasks (%d%%)\n" "$gpu" "$load" "$MAX_TASKS_PER_GPU" "$percentage"
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:290`: # task 1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:291`: # self.instruction = "Place the 4 fruits and place them onto the tray, then put the small block and marker into the black cup below the tray, and finally lift the gray cloth and drape it over the fruit tray."
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:293`: # # # task 2
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:294`: # self.instruction = "Put the bottle and the can into the container, then place the three cloths onto the tray."
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:300`: # task 1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:304`: # task 2
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:573`: parser.add_argument("--task", default="real_cleaning_uncond_3cam_384_1e-4")
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:649`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:784`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:785`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:5`: # Runs ALL five suites in one job, dispatching the 130 tasks across the job's
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:7`: # every worker `python` inherits it. A single task crashing does NOT abort the
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:11`: #   libero_spatial(10) libero_object(10) libero_goal(10) libero_10(10) libero_90(90) = 130 tasks
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:14`: # MaxSubmitPU=10 / MaxJobsPU=8, so a per-task array is rejected
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:21`: #     sbatch --export=ALL,TRIALS=20,MAX_TASKS_PER_GPU=2 experiments/libero/submit_libero_full_eval.sh
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:24`: # Re-submitting with the SAME RESULT_DIR only re-runs missing/failed tasks
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:30`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:32`: #SBATCH --cpus-per-task=96
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:38`: # CRITICAL host-RAM math. This cluster grants RAM as DefMemPerCPU(=8GB) x cpus-per-task
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:41`: # ~31GB host RAM; N concurrent procs (= GPUS x MAX_TASKS_PER_GPU) peak ~31*N GB. So you need
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:44`: # procs (8 GPUs x 2). If you push past 16 concurrent procs, raise --cpus-per-task too.
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:71`: TRIALS="${TRIALS:-50}"                         # episodes per task
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:72`: MAX_TASKS_PER_GPU="${MAX_TASKS_PER_GPU:-1}"    # 2 ~= 16-wide on 8 GPUs (more VRAM)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:78`: mkdir -p "$RESULT_DIR" "$RESULT_DIR/task_logs"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:89`: # --- build the 130-line task list: "<suite>,<task_id>" ---
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:90`: TASK_LIST="$RESULT_DIR/tasks_full.txt"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:91`: : > "$TASK_LIST"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:94`: for ((i = 0; i < n; i++)); do echo "$suite,$i" >> "$TASK_LIST"; done
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:96`: mapfile -t TASKS < "$TASK_LIST"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:97`: TOTAL=${#TASKS[@]}
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:222`: # task 1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:223`: # self.instruction = "Place the 4 fruits and place them onto the tray, then put the small block and marker into the black cup below the tray, and finally lift the gray cloth and drape it over the fruit tray."
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:225`: # # # task 2
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:226`: # self.instruction = "Put the bottle and the can into the container, then place the three cloths onto the tray."
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:232`: # task 1
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:236`: # task 2
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:503`: parser.add_argument("--task", default="real_cleaning_uncond_3cam_384_1e-4")
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:579`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:714`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:715`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:20`: # NOTE: deliberately NO --mem / --cpus-per-task. On `normal`, no --mem = unlimited
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:41`: TASK=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:50`: python scripts/precompute_text_embeds.py task=$TASK
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:53`: bash scripts/train_zero1.sh $NGPU task=$TASK +data.train.pretrained_norm_stats=$STATS
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_train.sh:55`: echo "DONE. checkpoints -> runs/$TASK/<run_id>/checkpoints/weights/step_XXXXXX.pt"
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:28`: parser.add_argument("--task", default=None)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:66`: ("task", "task"),
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:19`: def get_libero_env(task, resolution, seed, env_num=1):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:20`: """Initializes and returns the LIBERO environment, along with the task description."""
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:21`: task_description = task.language
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:22`: task_bddl_file = (
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:24`: / task.problem_folder
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:25`: / task.bddl_file
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:28`: "bddl_file_name": task_bddl_file,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:39`: return env, task_description
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:61`: processed_task_description = task_description.lower().replace(" ", "_").replace("\n", "_").replace(".", "_")[:50]
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:62`: mp4_path = f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}--task={processed_task_description}.mp4"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:93`: task_description,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:134`: processed_task_description = task_description.lower().replace(" ", "_").replace("\n", "_").replace(".", "_")[:50]
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:141`: f"--task={processed_task_description}--replan={replan_tag}--gt-pred.mp4"
+- `/project/peilab/wam/physical_WM/scripts/submit_per_embodiment_egodex14_smoke.sh:11`: # own native-dim head (configs/task/per_embodiment_egodex14_pack3_smoke.yaml). 40 steps,
+- `/project/peilab/wam/physical_WM/scripts/submit_per_embodiment_egodex14_smoke.sh:31`: task=per_embodiment_egodex14_pack3_smoke \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:2`: # Multi-task LIBERO eval as a SLURM array: one array index = one task_id, 1 GPU each,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:6`: # Default: all 10 tasks of libero_spatial, 20 trials each, release ckpt.
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:15`: # Task counts per suite (set --array accordingly): libero_spatial/object/goal/10 = 10 tasks
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:16`: # (0-9); libero_90 = 90 tasks (0-89).
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:43`: echo "suite=$SUITE task_id=$SLURM_ARRAY_TASK_ID trials=$TRIALS ckpt=$CKPT"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:46`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:49`: EVALUATION.task_suite_name="$SUITE" \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:50`: EVALUATION.task_id=$SLURM_ARRAY_TASK_ID \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval_array.sh:54`: echo "task $SLURM_ARRAY_TASK_ID done."
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:13`: def create_task_file(output_file: Path, task_suite_names: list[str]) -> Path:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:17`: total_tasks = 0
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:19`: for suite_name in task_suite_names:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:20`: task_suite = benchmark_dict[suite_name]()
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:21`: n_tasks = int(task_suite.n_tasks)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:23`: print(f"- Number of tasks: {n_tasks}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:24`: for task_id in range(n_tasks):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:25`: f.write(f"{suite_name},{task_id}\n")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:26`: total_tasks += 1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:28`: print(f"\nTask list created: {output_file}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:29`: print(f"Total tasks: {total_tasks}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:36`: "task",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:39`: "EVALUATION.task_suite_name",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:40`: "EVALUATION.task_id",
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:48`: hydra_overrides = list(HydraConfig.get().overrides.task)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:52`: def _resolve_worker_task_choice() -> str:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:53`: task_choice = HydraConfig.get().runtime.choices.get("task")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:54`: if task_choice is None or str(task_choice).strip() == "":
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:56`: "Hydra task choice is empty. Please pass task=... (e.g., task=world_action_model_forward_224)."
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_manager.py:58`: return str(task_choice)
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:68`: tmux send-keys -t "$EVAL_SESSION_1" "GPU_ID=3 TASK_SUITE_NAME=libero_goal NUM_TRIALS_PER_TASK=50 bash script/eval_libero/libero_evaluate_multi_checkpoints_serial.sh" C-m
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:74`: tmux send-keys -t "$EVAL_SESSION_2" "GPU_ID=7 TASK_SUITE_NAME=libero_goal NUM_TRIALS_PER_TASK=50 bash script/eval_libero/libero_evaluate_multi_checkpoints_serial-2.sh" C-m
+- `/project/peilab/wam/physical_WM/scripts/schedule_libero_eval.sh:79`: echo "[scheduler] all tasks done, exiting." >&2
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:2`: # Single-task LIBERO smoke test for FastWAM (get the basic pipeline running).
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:4`: # on ONE task (libero_spatial, task 0) with a few trials, on ONE GPU.
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:52`: # --- single-task smoke: libero_spatial / task 0 / 5 trials / 1 GPU ---
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:54`: task="$CONFIG" \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:57`: EVALUATION.task_suite_name=libero_spatial \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_eval.sh:58`: EVALUATION.task_id=0 \
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:166`: instruction: str,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:197`: per_frame_task = [instruction, instruction, instruction, instruction]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:202`: episode_buffer["task"].append(per_frame_task)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:239`: parser.add_argument("--task-name", required=True, help="Human-readable dataset/task label for logs.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:240`: parser.add_argument("--instruction", required=True, help="Instruction string used for every episode in this source.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:324`: print(f"[convert] task_name={args.task_name}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:349`: instruction=args.instruction,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:362`: f"| total_frames={total_frames} | total_tasks={dataset.meta.total_tasks}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:2`: """Convert a RoboCOIN LeRobot task into a FastWAM-compatible 14-dim LeRobot dataset.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:4`: RoboCOIN ships each task as a LeRobot v2.1 dataset whose ``action`` / ``observation.state``
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:23`: image stats under renamed keys). ``tasks.jsonl`` / ``episodes.jsonl`` copied verbatim.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:70`: # loader machinery (indexing, task lookup, delta-timestamps) keeps working.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:76`: "task_index",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:151`: def convert_parquet_and_stats(src_task: Path, dst_task: Path, idx_map: list[int]):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:153`: episodes_stats.jsonl. Returns nothing; writes files under dst_task."""
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:159`: src_stats_path = src_task / "meta" / "episodes_stats.jsonl"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:177`: src_parquets = sorted((src_task / "data").rglob("episode_*.parquet"))
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:179`: raise FileNotFoundError(f"No data/*.parquet under {src_task}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:184`: rel = pq_path.relative_to(src_task)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:185`: dst_pq = dst_task / rel
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:228`: with open(dst_task / "meta" / "episodes_stats.jsonl", "w") as f:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:233`: def link_videos(src_task: Path, dst_task: Path, link_mode: str):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:238`: for src_dir in (src_task / "videos").rglob(f"*.images.{old_cam}"):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:239`: rel_parent = src_dir.parent.relative_to(src_task)  # videos/chunk-000
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:240`: dst_dir = dst_task / rel_parent / f"observation.images.{new_cam}"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:259`: def convert_task(src_task: Path, dst_task: Path, link_mode: str, overwrite: bool):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:260`: if not (src_task / "meta" / "info.json").exists():
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:261`: raise FileNotFoundError(f"Not a LeRobot task dir (no meta/info.json): {src_task}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:38`: 'total_tasks': 0,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:47`: # Store detailed per-task results
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:48`: task_results = {}
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:65`: # Extract task ID from the filename
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:67`: task_id = int(parts[1].replace('task', ''))
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:69`: # Create the task identifier (suite_taskid)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:70`: task_key = f"{suite}_{task_id}"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:73`: stats['total_tasks'] += 1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:84`: # Store detailed task results
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:85`: task_result = {
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:90`: 'task_description': result['task_description'] if 'task_description' in result else ''
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:93`: task_result['future_video_psnr_mean'] = (
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:98`: task_results[task_key] = task_result
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:102`: print("\nStatistics for each task suite:")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:112`: 'Task Suite': [],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:123`: avg_time = stats['total_time'] / stats['total_tasks']
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:134`: print(f"- Tasks completed: {stats['total_tasks']}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:139`: print(f"- Average time per task: {format_time(avg_time)}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:140`: print(f"- Longest task time: {format_time(max_time)}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:148`: df_data['Task Suite'].append(suite)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:2`: """Convert selected EgoDex tasks into FastWAM-compatible pseudo-action LeRobot datasets.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:48`: SELECTED_TASKS = [
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:110`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:128`: task_index: int
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:160`: def select_prompt(attrs: dict[str, str], fallback_task: str) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:170`: return fallback_task.replace("_", " ")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:393`: task_index: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:407`: "task_index": pa.array(np.full(length, task_index, dtype=np.int64), type=pa.int64()),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:418`: task_index: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:428`: "task_index": feature_stats(np.full(length, task_index, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:449`: def build_info(total_episodes: int, total_frames: int, total_tasks: int, video_info_obj: VideoInfo) -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:456`: "total_tasks": total_tasks,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:476`: task_name: str,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:513`: prompt = select_prompt(attrs, task_name)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:525`: def convert_task(task_name: str, args: argparse.Namespace) -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:526`: src_task = args.src_root / task_name
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:527`: dst_task = args.dst_root / task_name
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:528`: if not src_task.is_dir():
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:529`: raise FileNotFoundError(f"Missing source task dir: {src_task}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:530`: if dst_task.exists():
+- `/project/peilab/wam/physical_WM_xqh/README.md:35`: │   └── task/                 # Task-level configs (training task names)
+- `/project/peilab/wam/physical_WM_xqh/README.md:187`: You still need to follow the official RoboTwin instructions from the
+- `/project/peilab/wam/physical_WM_xqh/README.md:203`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/README.md:213`: task=robotwin_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/README.md:223`: **Note:** We evaluate with **unseen** instructions, following Motus. [Lingbot-VA](https://github.com/Robbyant/lingbot-va/blob/661d52a59dc634a650efcd10a79d06bbb17ea81f/evaluation/robotwin/eval_polict_client_openpi.py#L308) uses **seen** instructions instead. You can try `EVALUATION.instruction_type=seen` to use **seen** instructions, which should theoretically improve performance by one or two points.
+- `/project/peilab/wam/physical_WM_xqh/README.md:229`: Use `scripts/precompute_text_embeds.py` to precompute embeddings for each training task:
+- `/project/peilab/wam/physical_WM_xqh/README.md:233`: python scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/README.md:236`: python scripts/precompute_text_embeds.py task=robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/README.md:242`: torchrun --standalone --nproc_per_node=8 scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/README.md:247`: When running a new task for the first time, set `pretrained_norm_stats` in the corresponding `configs/data/*.yaml` to `null` first.
+- `/project/peilab/wam/physical_WM_xqh/README.md:248`: After one training run, a `dataset_stats.json` file will be generated in the current run directory (for example, `runs/{task_name}/{run_id}/dataset_stats.json`).
+- `/project/peilab/wam/physical_WM_xqh/README.md:253`: bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM_xqh/README.md:256`: bash scripts/train_zero1.sh 8 task=robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/README.md:267`: python experiments/libero/run_libero_manager.py task={task_name} ckpt={ckpt_path}
+- `/project/peilab/wam/physical_WM_xqh/README.md:271`: You still need to follow the official RoboTwin instructions from the
+- `/project/peilab/wam/physical_WM_xqh/README.md:282`: python experiments/robotwin/run_robotwin_manager.py task={task_name} ckpt={ckpt_path}
+- `/project/peilab/wam/physical_WM_xqh/README.md:285`: Common `task_name` examples:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:87`: from peft import LoraConfig, get_peft_model, TaskType
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:91`: task_type=TaskType.CAUSAL_LM,
+- `/project/peilab/wam/physical_WM/scripts/diag/leak_bisect_phases.py:115`: one_file = ("data/robotwin2.0/all_tasks_lerobot/adjust_bottle/part0/videos/"
+- `/project/peilab/wam/physical_WM/scripts/diag/leak_bisect_phases.py:118`: "data/robotwin2.0/all_tasks_lerobot/*/part0/videos/chunk-000/*/episode_00000*.mp4"))[:240]
+- `/project/peilab/wam/physical_WM/scripts/diag/leak_bisect_phases.py:152`: data_cfg = OmegaConf.load("configs/data/robotwin_all_tasks.yaml")
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:1`: """Controlled host-memory probe for the robotwin_all_tasks training dataloader.
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:16`: --data-config configs/data/robotwin_all_tasks.yaml \
+- `/project/peilab/wam/physical_WM/scripts/diag/mem_probe_robotwin_dataloader.py:96`: parser.add_argument("--data-config", default="configs/data/robotwin_all_tasks.yaml")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:26`: parser.add_argument("--task-name", required=True)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:27`: parser.add_argument("--instruction", required=True)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:58`: "--task-name",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:59`: args.task_name,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:60`: "--instruction",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_real_hdf5_to_unified28.py:61`: args.instruction,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:82`: task_index: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:98`: "task_index": pa.array(np.full(length, task_index, dtype=np.int64), type=pa.int64()),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:111`: task_index: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:123`: "task_index": feature_stats(np.full(length, task_index, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:132`: total_tasks: int,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/writer.py:143`: "total_tasks": total_tasks,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:29`: BOOKKEEPING_COLUMNS = ["timestamp", "frame_index", "episode_index", "index", "task_index"]
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:205`: for fname in ("tasks.jsonl", "episodes.jsonl"):
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:217`: tasks = _read_jsonl(dst / "meta" / "tasks.jsonl")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:220`: f"[done] {src} -> {dst} episodes={len(episodes)} tasks={len(tasks)} "
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_lerobot_joint_to_unified28.py:227`: parser.add_argument("--src", required=True, type=Path, help="Source LeRobot task directory.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/schema.py:70`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:57`: parser.add_argument("--task", default="pick_numbered_blocks_uncond_3cam_1e-4")
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:115`: "--override-instruction",
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:117`: help="Dataset mode: replace sample instruction before looking up cached text embedding.",
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:180`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:197`: if args.override_instruction is not None:
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:198`: cfg.data[split].override_instruction = args.override_instruction
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:677`: formatted_prompt = DEFAULT_PROMPT.format(task=args.prompt)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:2`: """Convert EgoDex HDF5 tasks into unified 28D FastWAM LeRobot datasets.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:61`: SELECTED_TASKS = [
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:137`: def select_prompt(attrs: dict[str, str], fallback_task: str) -> str:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:144`: return fallback_task.replace("_", " ")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:374`: task_name: str,
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:414`: prompt = select_prompt(read_attrs(h5), task_name)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:426`: def convert_task(task_name: str, args: argparse.Namespace) -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:427`: src_task = args.src_root / task_name
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:428`: dst_task = args.dst_root / task_name
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:429`: if not src_task.is_dir():
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:430`: raise FileNotFoundError(f"Missing source task dir: {src_task}")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:431`: if dst_task.exists():
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:433`: raise FileExistsError(f"Destination exists: {dst_task} (pass --overwrite)")
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:434`: shutil.rmtree(dst_task)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:436`: (dst_task / "meta").mkdir(parents=True, exist_ok=True)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:437`: (dst_task / "data").mkdir(parents=True, exist_ok=True)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:438`: (dst_task / "videos").mkdir(parents=True, exist_ok=True)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:440`: h5_files = sorted(src_task.glob("*.hdf5"), key=numeric_sample_key)
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:441`: task_to_index: OrderedDict[str, int] = OrderedDict()
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:449`: if args.limit_per_task is not None and len(episodes) >= args.limit_per_task:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:4`: The checkpoints under train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/ are
+- `/project/peilab/wam/physical_WM/scripts/video_branch/infer_video_branch_ti2v.py:40`: "video_branch_ti2v_egodex_part4_10tasks_full/step-50000.safetensors"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:7`: SOURCE_DIR="${SOURCE_DIR:-${ROOT}/data/egodex_part4_10tasks_flat}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:8`: DATASET_DIR="${DATASET_DIR:-${ROOT}/data/egodex_part4_10tasks_video_branch}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_full.sh:11`: OUTPUT_PATH="${OUTPUT_PATH:-${ROOT}/train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:25`: DEFAULT_INPUT_DIR = PROJECT_ROOT / "data/egodex_part4_10tasks_flat"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:26`: DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data/egodex_part4_10tasks_video_branch"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:34`: "task",
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:128`: def select_task_description(hdf5_fields: dict[str, str]) -> str | None:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:137`: if hdf5_fields.get("task"):
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:138`: return hdf5_fields["task"].replace("_", " ")
+- `/project/peilab/wam/physical_WM/scripts/video_branch/convert_egodex_to_video_branch.py:143`: prompt = select_task_description(hdf5_fields) or default_prompt
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:7`: SOURCE_DIR="${SOURCE_DIR:-${ROOT}/data/egodex_part4_10tasks_flat}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:8`: DATASET_DIR="${DATASET_DIR:-${ROOT}/data/egodex_part4_10tasks_video_branch}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/train_video_branch_ti2v_lora.sh:11`: OUTPUT_PATH="${OUTPUT_PATH:-${ROOT}/train_ckpt/video_branch_ti2v_egodex_part4_10tasks_lora}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:4`: # Flatten 10 EgoDex part4 task subdirectories into a single directory of
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:8`: # Output filenames are prefixed with the task name to avoid 0.mp4 collisions:
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:9`: #   <task>_<id>.mp4 / <task>_<id>.hdf5
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:15`: OUTPUT_DIR="${OUTPUT_DIR:-${ROOT}/data/egodex_part4_10tasks_flat}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:17`: TASKS=(
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:34`: for task in "${TASKS[@]}"; do
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:35`: task_dir="${SOURCE_ROOT}/${task}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:36`: if [[ ! -d "${task_dir}" ]]; then
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:37`: echo "warning: missing task directory ${task_dir}" >&2
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:42`: for f in "${task_dir}"/*.mp4; do
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:44`: ln -sfn "$f" "${OUTPUT_DIR}/${task}_$(basename "$f")"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:47`: for f in "${task_dir}"/*.hdf5; do
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:49`: ln -sfn "$f" "${OUTPUT_DIR}/${task}_$(basename "$f")"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/aggregate_egodex_part4_10tasks.sh:52`: echo "[${task}] mp4=${mp4_count} hdf5=${hdf5_count}"
+- `/project/peilab/wam/physical_WM/scripts/video_branch/run_infer_video_branch.sh:6`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/video_branch/run_infer_video_branch.sh:32`: CKPT="${CKPT:-${ROOT}/train_ckpt/video_branch_ti2v_egodex_part4_10tasks_full/step-10000.safetensors}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:10`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:14`: bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4 +data.train.pretrained_norm_stats=/local/yangshuo/fyhong/FastWAM/configs/data/libero_dataset_stats.json
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:19`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:27`: CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4 +data.train.pretrained_norm_stats=/local/yangshuo/fyhong/FastWAM/configs/data/libero_dataset_stats.json wandb.enabled=true wandb.workspace=<your_wandb_workspace> wandb.project=fast-wam wandb.name=libero_uncond_2cam224_run1
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:40`: # (~19GB/min observed on robotwin all-tasks training, eventually killing the node).
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:102`: extract_task_basename() {
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:104`: if [[ "${cfg}" == task/* ]]; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:105`: local name="${cfg#task/}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:113`: TASK_BASENAME="train"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:120`: if parsed="$(extract_task_basename "${next}")"; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:121`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:127`: if parsed="$(extract_task_basename "${cfg}")"; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:128`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:131`: task=*)
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:132`: cfg="${arg#task=}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:134`: TASK_BASENAME="${cfg}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:151`: export RUN_ID_SYNC_TASK_BASENAME="${TASK_BASENAME}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:166`: task_basename = os.environ.get("RUN_ID_SYNC_TASK_BASENAME", "train")
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:175`: key = f"run_id::{task_basename}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero1.sh:188`: RUN_DIR="./runs/${TASK_BASENAME}/${RUN_ID}"
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:92`: 更新 configs/data/real_cleaning_2task.yaml 中的 dataset_dirs
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:117`: └── <task_name>/
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:169`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/perfect \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:170`: --dst ./data/real_cleaning/<task_name>_perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:171`: --task-name "<task_name> perfect" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:172`: --instruction "Put the bottle and the can into the container, then place the three cloths onto the tray." \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:181`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/retry \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:182`: --dst ./data/real_cleaning/<task_name>_retry_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:183`: --task-name "<task_name> retry" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:184`: --instruction "Put the bottle and the can into the container, then place the three cloths onto the tray." \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:201`: └── new_task_perfect_lerobot/
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:211`: 并且 `meta/tasks.jsonl` 中应该能看到 instruction。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:218`: configs/data/real_cleaning_2task.yaml
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:240`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:244`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:282`: 预计算时的 instruction 必须和推理时完全一致。多一个空格、标点不同，都会导致 hash 不同，从而找不到 cache。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:293`: data=real_cleaning_2task \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:295`: '+override_instruction="Put the bottle and the can into the container, then place the three cloths onto the tray."' \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:322`: task=real_cleaning_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:329`: task=real_cleaning_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:16`: - 用 Hydra 配置重建模型：默认 `task=real_cleaning_uncond_3cam_384_1e-4`
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:55`: 当前默认配置来自 `configs/data/real_cleaning_2task.yaml`：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:84`: 7. `--prompt` 和 text embedding cache 中预计算的 instruction 一致。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:110`: # task 1
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:114`: # task 2
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:125`: 当前代码里 instruction 字段主要是注释和人工记录；真正传给模型的是命令行 `--prompt`。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:138`: A video recorded from a robot's point of view executing the following instruction: {task}
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:147`: 如果换了新 instruction，需要先预计算：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:154`: data=real_cleaning_2task \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:156`: '+override_instruction="Put the bottle and the can into the container, then place the three cloths onto the tray."' \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:209`: --task pick_1_cup_clean_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:308`: `--task`：Hydra task，默认 `real_cleaning_uncond_3cam_384_1e-4`。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:316`: `--prompt`：任务 instruction。必须和 text embedding cache 对齐。
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:22`: extract_task_basename() {
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:24`: if [[ "${cfg}" == task/* ]]; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:25`: local name="${cfg#task/}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:33`: TASK_BASENAME="train"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:40`: if parsed="$(extract_task_basename "${next}")"; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:41`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:47`: if parsed="$(extract_task_basename "${cfg}")"; then
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:48`: TASK_BASENAME="${parsed}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:51`: task=*)
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:52`: cfg="${arg#task=}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:54`: TASK_BASENAME="${cfg}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:71`: export RUN_ID_SYNC_TASK_BASENAME="${TASK_BASENAME}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:86`: task_basename = os.environ.get("RUN_ID_SYNC_TASK_BASENAME", "train")
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:95`: key = f"run_id::{task_basename}"
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:114`: "output_dir=./runs/${TASK_BASENAME}/${RUN_ID}" \
+- `/project/peilab/wam/physical_WM/scripts/train_zero2.sh:115`: "wandb.name=${TASK_BASENAME}" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:94`: task_type = tf_config.get('task', {}).get('type')
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:95`: task_index = tf_config.get('task', {}).get('index')
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:98`: if task_type == 'worker' and task_index == 0:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run.py:117`: if task_type == 'worker' and task_index == 0:
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:2`: """Batch open-loop evaluation for FastWAM action-policy checkpoints on a LeRobot task.
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:5`: task-success rate is not computable offline. This script instead measures the policy's
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:18`: proprio + instruction, predict the whole action chunk and future video once (no env
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:28`: --task stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:80`: p.add_argument("--task", required=True, help="task config name under configs/task/")
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:84`: "val = held-out (unbiased but tiny for this task)")
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:105`: p.add_argument("--override-instruction", default=None)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:251`: "task": args.task,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/demo_run.sh:13`: "task": {"type": "worker", "index": 0}
+- `/project/peilab/wam/physical_WM/scripts/submit_per_embodiment_smoke.sh:28`: task=per_embodiment_smoke \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/run_tensorflow.sh:17`: task = cfg.get("task", {})
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/run_tensorflow.sh:18`: print(task.get("type"), task.get("index"))
+- `/project/peilab/wam/physical_WM/scripts/schedule.sh:106`: echo "[scheduler] all tasks done, exiting." >&2
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/README.md:46`: task = cfg.get("task", {})
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/README.md:47`: print(task.get("type"), task.get("index"))
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/README.md:75`: "task": {
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/README.md:111`: "task": {
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:57`: task_type = tf_config.get('task', {}).get('type')
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:58`: task_index = tf_config.get('task', {}).get('index')
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:60`: if task_type == 'worker' and task_index == 0:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/tensorflow/tensorflow_run_bak.py:76`: if task_type == 'worker' and task_index == 0:
+- `/project/peilab/wam/physical_WM/scripts/test/submit_libero_plus_test.sh:10`: #SBATCH --cpus-per-task=48
+- `/project/peilab/wam/physical_WM/scripts/test/submit_libero_plus_test.sh:34`: [ -f "configs/task/$CONFIG.yaml" ] || { echo "ERROR: config 不存在: configs/task/$CONFIG.yaml" >&2; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_smoke_2gpu.sh:12`: # 2-GPU smoke for pretrain_robotwin (robotwin_all_tasks_ft_28dpartial_uncond_3cam_384)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_smoke_2gpu.sh:43`: task=robotwin_all_tasks_ft_28dpartial_uncond_3cam_384 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_8gpu.sh:12`: # Formal 8-GPU: RoboTwin 2.0 all-50-tasks FT from unified-28D EgoDex step_030000 via
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_8gpu.sh:13`: # partial_resume (task config robotwin_all_tasks_ft_28dpartial_uncond_3cam_384).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_8gpu.sh:15`: # (submit_fastwam_robotwin_all_tasks.sh); grad checkpoint off on 8 GPUs (the config
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_pretrain_robotwin_8gpu.sh:41`: task=robotwin_all_tasks_ft_28dpartial_uncond_3cam_384 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_adjust_bottle.sh:13`: # (aloha-agilex, randomized_500). 4-GPU, batch_size 8 — see task config header.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_adjust_bottle.sh:21`: #   bash scripts/train_zero1.sh 4 task=robotwin_adjust_bottle_egodex_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_adjust_bottle.sh:45`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=robotwin_adjust_bottle_egodex_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:1`: """End-to-end DATA pipeline dry-run for a per_embodiment smoke task (real data, no model, no GPU).
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:8`: Run on a compute/cpu node (DRYRUN_TASK selects the task config; native dims derived from it):
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:10`: DRYRUN_TASK=per_embodiment_egodex14_pack3_smoke conda run -n fastwam \\
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:26`: TASK = os.environ.get("DRYRUN_TASK", "per_embodiment_smoke")
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:31`: print("task:", TASK)
+- `/project/peilab/wam/physical_WM/tests/dryrun_per_embodiment_data.py:35`: cfg = compose(config_name="train", overrides=[f"task={TASK}"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_leak_bisect.sh:7`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/tests/dryrun_unified32_data.py:28`: cfg = compose(config_name="train", overrides=["task=unified32_egodex_stack_smoke"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_base_pack_3.sh:17`: #   3. Edit configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_base_pack_3.sh:41`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pack_3_objects_plus_base
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_libero_egodex28d_partial.sh:13`: # (runs/egodex_pnp_15tasks_unified28_.../step_030000.pt) via partial_resume.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_libero_egodex28d_partial.sh:15`: # LIBERO's 7D action / 8D proprio (see configs/task/libero_egodex28d_partial_uncond_2cam224_1e-4.yaml).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_libero_egodex28d_partial.sh:46`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=libero_egodex28d_partial_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav_syspool.sh:2`: # Host-memory probe for the robotwin_all_tasks dataloader after the 2026-06-12
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav_syspool.sh:9`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav_syspool.sh:31`: --data-config configs/data/robotwin_all_tasks.yaml \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_migrate_per_emb_to_shared_verify.sh:26`: task=migrate_per_emb_to_shared_verify \
+- `/project/peilab/wam/physical_WM/tests/dryrun_unified32_config.py:17`: cfg = compose(config_name="train", overrides=["task=unified32_egodex_stack_smoke"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:28`: # WHY WE RELOAD THE RUN DIR's SAVED config.yaml (not `task=...`):
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:29`: #   The task config configs/task/libero_egodex40k_uncond_2cam224_1e-4.yaml is
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_libero_egodex40k_resume.sh:31`: #   and a `mot_checkpoint_mixed_attn: trues` typo). Composing via `task=` would
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:28`: --task-name stack_3_cups \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:29`: --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:37`: #     --task-name stack_3_cups_retry \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:38`: #     --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_eval_open_loop.sh:55`: TASK="stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_eval_open_loop.sh:59`: TASK="stack_3_cups_ft_28dpartial_bestconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_eval_open_loop.sh:77`: --ckpt "$CKPT" --dataset-stats "$STATS" --task "$TASK" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_all_tasks.sh:12`: # PREFERRED: 8-GPU training over all 50 RoboTwin tasks.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_all_tasks.sh:36`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 8 task=robotwin_all_tasks_egodex_uncond_3cam_384
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:10`: # Convert the 18 Agilex_Cobot_Magic RoboCOIN tasks into FastWAM 14-dim LeRobot
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:11`: # datasets under data/RoboCOIN_lerobot14/<task>. CPU-only and cheap: parquet
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:12`: # slice + mp4 hard-link (no video re-encode). The 2 robot_type=aloha tasks
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:32`: # The 18 Agilex tasks (exclude fold_towel_brown / make_sandwiche which are robot_type=aloha).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:33`: TASKS=(
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:54`: echo "[batch] converting ${#TASKS[@]} RoboCOIN tasks -> $DST_ROOT"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_all_robocoin.sh:55`: for t in "${TASKS[@]}"; do
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_table_cleaning_v21_30hz.sh:6`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_table_cleaning_v21_30hz.sh:43`: tasks = (dst / "meta/tasks.jsonl").read_text(encoding="utf-8").strip()
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_table_cleaning_v21_30hz.sh:51`: print("[tasks]", tasks)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:20`: # LIBERO's get_task_init_states() calls torch.load() on pickled numpy init-state
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:374`: task_description: str,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:390`: prompt = prompt_template.format(task=task_description)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:445`: def _get_max_steps(task_suite_name: str) -> int:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:453`: if task_suite_name not in suite_steps:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:454`: raise ValueError(f"Unknown task suite: {task_suite_name}")
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:455`: return suite_steps[task_suite_name]
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:461`: task_description: str,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:472`: max_steps = _get_max_steps(cfg.EVALUATION.task_suite_name)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:506`: task_description=task_description,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:597`: def run_single_task(
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:598`: task,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:611`: env, task_description = get_libero_env(task, LIBERO_ENV_RESOLUTION, cfg.get("seed"))
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:617`: "task_description": task_description,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:627`: task_description=task_description,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:648`: f"task{cfg.EVALUATION.task_id}_trial{trial_idx}",
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:650`: task_description=task_description,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:655`: "No predicted future frames collected for task %s trial %s.",
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:656`: cfg.EVALUATION.task_id,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:669`: f"task{cfg.EVALUATION.task_id}_trial{trial_idx}",
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_smoke.sh:3`: # Uses only the 3 small already-extracted tasks (9 episodes), 120 steps with
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_smoke.sh:11`: # job 451213). The real 4-GPU run uses the task-config batch_size=8.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_smoke.sh:38`: task=egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_smoke.sh:39`: "data.train.dataset_dirs=[./data/egodex_pnp_15tasks_latent32/add_remove_lid,./data/egodex_pnp_15tasks_latent32/declutter_desk,./data/egodex_pnp_15tasks_latent32/crumple_flatten_paper]" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_all_tasks_smoke_2gpu.sh:12`: # 2-GPU SMOKE for the all-50-tasks run while robotwin_train (8gpu) queues.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_all_tasks_smoke_2gpu.sh:41`: task=robotwin_all_tasks_egodex_uncond_3cam_384 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:5`: #SBATCH --cpus-per-task=32
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:23`: echo "[4/5] compute + pin stats (50 tasks) $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:24`: python scripts/data_process/precompute_dataset_stats.py --data robotwin_all_tasks \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:25`: --out data/robotwin2.0/all_tasks_lerobot/dataset_stats.json || exit 1
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:28`: PC=$(sbatch --parsable scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh) || exit 1
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin_resume.sh:30`: TR=$(sbatch --parsable --dependency=afterok:"$PC" scripts/trian_scripts/submit_fastwam_robotwin_all_tasks.sh) || exit 1
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:17`: #   3. Edit configs/task/pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4.yaml:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:41`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=pack_3_objects_plus_ft_robocoin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:4`: #SBATCH --cpus-per-task=64
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:12`: # Persistent (SLURM, session-independent) fix for the 7 incomplete tasks, then the full
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:22`: OUT=data/robotwin2.0/all_tasks_lerobot
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:23`: TASKS="place_can_basket put_bottles_dustbin stack_blocks_three stack_blocks_two stack_bowls_three stack_bowls_two turn_switch"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:25`: echo "[1/5] reconvert 7 incomplete tasks (serial, clean) $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:26`: for task in $TASKS; do
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:27`: echo "  reconvert $task $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:28`: rm -rf "$OUT/$task"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:29`: UNZ="data/robotwin2.0/_raw_all/_unz_reconv/$task"; rm -rf "$UNZ"; mkdir -p "$UNZ"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:30`: unzip -o -q "$RAW/$task/aloha-agilex_randomized_500.zip" -d "$UNZ"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:32`: PROMPT="Complete the manipulation task: ${task//_/ }."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:36`: python scripts/data_process/convert_robotwin_hdf5_to_lerobot.py --src "$SRC" --dst "$OUT/$task/part$i" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:37`: --task-name "$task" --instruction "$PROMPT" --fps 30 --overwrite \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:38`: --episode-start "$S" --episode-stop "$E" > "logs/reconv_${task}_part$i.log" 2>&1 &
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:43`: tot=$(python -c "import json;print(sum(json.load(open(f'$OUT/$task/part{i}/meta/info.json'))['total_episodes'] for i in range(5)))" 2>/dev/null)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:44`: echo "  [done] $task: ${tot}ep ok=$ok $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:50`: base='data/robotwin2.0/all_tasks_lerobot'; raw='data/robotwin2.0/_raw_all/dataset'
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:59`: print(f"OK: all 50 tasks verified conv==src, 5/5 parts")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:62`: echo "[3/5] gen data config (50 tasks) $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/reconvert_prep_robotwin.sh:63`: python scripts/data_process/gen_robotwin_all_tasks_data_config.py || exit 1
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:13`: # This is a *dual-arm* task (all 14 joints active), so NO --keep-dims: we keep
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:33`: PROMPT="Put the three objects on the table into the container."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:38`: --task-name pack_3_objects_plus \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:39`: --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:48`: #     --task-name pack_3_objects_plus_retry \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:49`: #     --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:12`: # *WORST*-confidence EgoDex backbone (egodex_pnp_15tasks_unified28_worstconf,
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:18`: #   2. text-embedding cache for the battery_assemble instruction exists
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:52`: TASK="battery_assemble_ft_28dpartial_worstconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:54`: TASK_CONFIG="/project/peilab/wam/physical_WM/configs/task/${TASK}.yaml"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:55`: PARTIAL_CKPT="/project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4/2026-06-09_23-39-38/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:58`: export TASK_CONFIG PARTIAL_CKPT DATA_DIR TEXT_CACHE
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:67`: task_config = Path(os.environ["TASK_CONFIG"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:72`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:74`: if not task_config.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:75`: raise SystemExit(f"Missing task config: {task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:99`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:103`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:104`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:116`: print(f"[preflight] task_config={task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:122`: echo "[train] task=${TASK} nproc_per_node=${NPROC_PER_NODE} extra_overrides=$*"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:123`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh "${NPROC_PER_NODE}" "task=${TASK}" "$@"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_ft_28dpartial_4gpu.sh:12`: # RoboTwin 2.0 50-task multitask FT from unified-28D EgoDex step_030000 via partial_resume.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_ft_28dpartial_4gpu.sh:14`: # passed as CLI overrides — the task config was reverted to accum=1 for the 8-GPU run
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_ft_28dpartial_4gpu.sh:40`: task=robotwin_all_tasks_ft_28dpartial_uncond_3cam_384 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_unified32_smoke.sh:4`: # eval/save disabled in the task config). Verifies the full data+model path:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_unified32_smoke.sh:7`: # the task config (else OOM at optimizer.step). No --mem on purpose (CR_CORE).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_unified32_smoke.sh:29`: bash scripts/train_zero1.sh 4 task=unified32_egodex_stack_smoke
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:12`: # *BEST* EgoDex backbone (egodex_pnp_15tasks_unified28, step_030000).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:18`: #   2. text-embedding cache for the stack_3_cups instruction exists
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:56`: TASK="stack_3_cups_ft_28dpartial_bestconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:58`: TASK_CONFIG="/project/peilab/wam/physical_WM/configs/task/${TASK}.yaml"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:59`: PARTIAL_CKPT="/project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:62`: export TASK_CONFIG PARTIAL_CKPT DATA_DIR TEXT_CACHE
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:70`: task_config = Path(os.environ["TASK_CONFIG"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:74`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:76`: if not task_config.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:77`: raise SystemExit(f"Missing task config: {task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:95`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:99`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:100`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:112`: print(f"[preflight] task_config={task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:118`: echo "[train] task=${TASK} nproc_per_node=${NPROC_PER_NODE} extra_overrides=$*"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:119`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh "${NPROC_PER_NODE}" "task=${TASK}" "$@"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:3`: # $RESULT_DIR/<suite>/gpu*_task*_results.json and writes:
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:10`: # e.g. to peek at a partially complete sweep, or after manually re-running tasks.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:21`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:22`: #SBATCH --cpus-per-task=2
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:13`: # The raw HDF5 has no fps attribute; this follows the current real-robot task
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:38`: --task-name battery_assemble \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:39`: --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:61`: print((root / "data/battery_assemble/perfect_lerobot/meta/tasks.jsonl").read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_worstconf.sh:5`: # data/text_embeds_cache/egodex_pnp_15tasks_28d.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_worstconf.sh:28`: task=egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_adjust_bottle_smoke.sh:37`: task=robotwin_adjust_bottle_egodex_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:3`: # This script runs LIBERO evaluation tasks in parallel.
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:7`: local task_list_file=$1
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:8`: echo "task_file: $task_list_file"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:37`: # Copy task_list_file into OUTPUT_DIR
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:38`: cp "$task_list_file" "$OUTPUT_DIR/"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:39`: task_list_file="$OUTPUT_DIR/$(basename $task_list_file)"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:40`: echo "Task list file copied to: $task_list_file"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:58`: require_non_empty "MAX_TASKS_PER_GPU"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:61`: TMUX_GRID_COLS=${TMUX_GRID_COLS:-$((MAX_TASKS_PER_GPU + 1))}
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:72`: TASK_GPU_MAP_FILE="$OUTPUT_DIR/task_gpu_map.txt"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:73`: TASK_STATUS_DIR="$OUTPUT_DIR/task_status"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:74`: TASK_LOG_DIR="$OUTPUT_DIR/task_logs"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:75`: FAILED_TASKS_FILE="$OUTPUT_DIR/failed_tasks.txt"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:77`: mkdir -p "$TASK_STATUS_DIR" "$TASK_LOG_DIR"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:78`: : > "$FAILED_TASKS_FILE"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:82`: # Initialize the current task count of each GPU to 0
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:84`: > "$TASK_GPU_MAP_FILE"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:143`: if [ $load -lt $min_load ] && [ $load -lt $MAX_TASKS_PER_GPU ]; then
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:156`: local percentage=$((load * 100 / MAX_TASKS_PER_GPU))
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:157`: printf "GPU %s: %d/%d tasks (%d%%)\n" "$gpu" "$load" "$MAX_TASKS_PER_GPU" "$percentage"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_per_emb_smoke_proprio_verify.sh:29`: task=per_embodiment_smoke \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_robotwin.sh:2`: # Host-memory probe for the robotwin_all_tasks dataloader after the 2026-06-12
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_robotwin.sh:9`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_robotwin.sh:29`: --data-config configs/data/robotwin_all_tasks.yaml \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_all_tasks_4gpu.sh:37`: task=robotwin_all_tasks_egodex_uncond_3cam_384 \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:5`: # Runs ALL five suites in one job, dispatching the 130 tasks across the job's
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:7`: # every worker `python` inherits it. A single task crashing does NOT abort the
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:11`: #   libero_spatial(10) libero_object(10) libero_goal(10) libero_10(10) libero_90(90) = 130 tasks
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:14`: # MaxSubmitPU=10 / MaxJobsPU=8, so a per-task array is rejected
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:21`: #     sbatch --export=ALL,TRIALS=20,MAX_TASKS_PER_GPU=2 experiments/libero/submit_libero_full_eval.sh
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:24`: # Re-submitting with the SAME RESULT_DIR only re-runs missing/failed tasks
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:30`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:32`: #SBATCH --cpus-per-task=96
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:38`: # CRITICAL host-RAM math. This cluster grants RAM as DefMemPerCPU(=8GB) x cpus-per-task
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:41`: # ~31GB host RAM; N concurrent procs (= GPUS x MAX_TASKS_PER_GPU) peak ~31*N GB. So you need
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:44`: # procs (8 GPUs x 2). If you push past 16 concurrent procs, raise --cpus-per-task too.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:66`: TRIALS="${TRIALS:-50}"                         # episodes per task
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:67`: MAX_TASKS_PER_GPU="${MAX_TASKS_PER_GPU:-1}"    # 2 ~= 16-wide on 8 GPUs (more VRAM)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:73`: mkdir -p "$RESULT_DIR" "$RESULT_DIR/task_logs"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:84`: # --- build the 130-line task list: "<suite>,<task_id>" ---
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:85`: TASK_LIST="$RESULT_DIR/tasks_full.txt"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:86`: : > "$TASK_LIST"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:89`: for ((i = 0; i < n; i++)); do echo "$suite,$i" >> "$TASK_LIST"; done
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:91`: mapfile -t TASKS < "$TASK_LIST"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:92`: TOTAL=${#TASKS[@]}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_4gpu.sh:12`: # EgoDex 15-task latent-action (DreamDojo LAM 32D) pretraining, full dataset.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_4gpu.sh:13`: # Requires data/egodex_pnp_15tasks_latent32 (extract_latent_actions_lerobot.py)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_4gpu.sh:14`: # to be fully extracted + QA-passed first. Grad checkpointing is ON in the task
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_egodex_latent32_4gpu.sh:34`: task=egodex_pnp_15tasks_latent32_uncond_1cam_384_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav.sh:2`: # Host-memory probe for the robotwin_all_tasks dataloader after the 2026-06-12
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav.sh:9`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_pyav.sh:30`: --data-config configs/data/robotwin_all_tasks.yaml \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:20`: # NOTE: deliberately NO --mem / --cpus-per-task. On `normal`, no --mem = unlimited
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:41`: TASK=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:50`: python scripts/precompute_text_embeds.py task=$TASK
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:53`: bash scripts/train_zero1.sh $NGPU task=$TASK +data.train.pretrained_norm_stats=$STATS
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_train.sh:55`: echo "DONE. checkpoints -> runs/$TASK/<run_id>/checkpoints/weights/step_XXXXXX.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:2`: #SBATCH --job-name=precompute_robotwin_all_tasks
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:12`: # Cache T5 text embeddings for all 50 RoboTwin tasks' prompts (one per task).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:13`: # Prereq: gen_robotwin_all_tasks_data_config.py (needs configs/data/robotwin_all_tasks.yaml).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:43`: if not Path("configs/data/robotwin_all_tasks.yaml").is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:44`: raise SystemExit("Missing configs/data/robotwin_all_tasks.yaml — run gen_robotwin_all_tasks_data_config.py first")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:45`: print(f"[preflight] env ok (python={sys.executable}); robotwin_all_tasks data config present")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh:48`: python scripts/precompute_text_embeds.py data=robotwin_all_tasks model=fastwam +overwrite=false
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:12`: # RoboCOIN multi-task action pretraining (18 Agilex tasks, 14-dim, EgoDex base).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:13`: # Produces the pretrained checkpoint that our own real-robot tasks finetune from.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robocoin_pretrain.sh:42`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 task=robocoin_pretrain_egodex_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:12`: # *BEST* EgoDex backbone (egodex_pnp_15tasks_unified28, step_030000).
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:18`: #   2. text-embedding cache for the battery_assemble instruction exists
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:52`: TASK="battery_assemble_ft_28dpartial_bestconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:54`: TASK_CONFIG="/project/peilab/wam/physical_WM/configs/task/${TASK}.yaml"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:55`: PARTIAL_CKPT="/project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:58`: export TASK_CONFIG PARTIAL_CKPT DATA_DIR TEXT_CACHE
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:67`: task_config = Path(os.environ["TASK_CONFIG"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:72`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:74`: if not task_config.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:75`: raise SystemExit(f"Missing task config: {task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:99`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:103`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:104`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:116`: print(f"[preflight] task_config={task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:122`: echo "[train] task=${TASK} nproc_per_node=${NPROC_PER_NODE} extra_overrides=$*"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:123`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh "${NPROC_PER_NODE}" "task=${TASK}" "$@"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:2`: # Supervise robotwin all-tasks pipeline end-to-end. Polls every 10 min. Self-launches
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:7`: FINAL="runs/robotwin_all_tasks_egodex_uncond_3cam_384/*/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:9`: OUT=data/robotwin2.0/all_tasks_lerobot
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:13`: convert_running() { ps aux | grep "convert_robotwin_hdf5_to_lerobot.py" | grep -q "[p]ython" && return 0; pgrep -f "convert_all_robotwin_tasks" >/dev/null 2>&1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:14`: autotrain_running() { pgrep -f "auto_train_robotwin_all|precompute_dataset_stats|gen_robotwin_all_tasks|precompute_text_embeds" >/dev/null 2>&1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/supervise_robotwin_all.sh:43`: nohup bash scripts/trian_scripts/auto_train_robotwin_all_tasks.sh > "logs/auto_train_$(date +%Y%m%d_%H%M%S).log" 2>&1 &
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:19`: def get_libero_env(task, resolution, seed, env_num=1):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:20`: """Initializes and returns the LIBERO environment, along with the task description."""
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:21`: task_description = task.language
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:22`: task_bddl_file = (
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:24`: / task.problem_folder
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:25`: / task.bddl_file
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:28`: "bddl_file_name": task_bddl_file,
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:39`: return env, task_description
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:61`: processed_task_description = task_description.lower().replace(" ", "_").replace("\n", "_").replace(".", "_")[:50]
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:62`: mp4_path = f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}--task={processed_task_description}.mp4"
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:93`: task_description,
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:134`: processed_task_description = task_description.lower().replace(" ", "_").replace("\n", "_").replace(".", "_")[:50]
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:141`: f"--task={processed_task_description}--replan={replan_tag}--gt-pred.mp4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:14`: # (needs part0..part4/meta/tasks.jsonl). Then: sbatch this script.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:41`: tasks = ds / "meta/tasks.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:42`: if not tasks.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:43`: raise SystemExit(f"Missing {tasks}. Run convert_robotwin_adjust_bottle_parallel.sh first.")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:47`: print("[preflight] robotwin_adjust_bottle tasks (part0):")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_robotwin_adjust_bottle.sh:48`: print((parts[0] / "meta/tasks.jsonl").read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:2`: # Multi-task LIBERO eval as a SLURM array: one array index = one task_id, 1 GPU each,
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:6`: # Default: all 10 tasks of libero_spatial, 20 trials each, release ckpt.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:15`: # Task counts per suite (set --array accordingly): libero_spatial/object/goal/10 = 10 tasks
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:16`: # (0-9); libero_90 = 90 tasks (0-89).
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:43`: echo "suite=$SUITE task_id=$SLURM_ARRAY_TASK_ID trials=$TRIALS ckpt=$CKPT"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:46`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:49`: EVALUATION.task_suite_name="$SUITE" \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:50`: EVALUATION.task_id=$SLURM_ARRAY_TASK_ID \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval_array.sh:54`: echo "task $SLURM_ARRAY_TASK_ID done."
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_slice_eef14.sh:3`: # 14D eef dataset (data/egodex_pnp_15tasks_eef14). Pure CPU/IO; bit-exact
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_slice_eef14.sh:4`: # per-task validation is built into the slicer and runs as part of the job.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_slice_eef14.sh:26`: --src-root data/egodex_pnp_15tasks_28d_euler_v2 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_slice_eef14.sh:27`: --dst-root data/egodex_pnp_15tasks_eef14 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_final.sh:2`: # Host-memory probe for the robotwin_all_tasks dataloader after the 2026-06-12
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_final.sh:9`: #SBATCH --cpus-per-task=8
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_mem_probe_final.sh:29`: --data-config configs/data/robotwin_all_tasks.yaml \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:47`: task_dir = parquet_path.parents[2]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:48`: task_name = task_dir.name
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:50`: episodes = read_jsonl(task_dir / "meta" / "episodes.jsonl")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/inspect_egodex_raw_episode.py:52`: return raw_root / task_name / row["raw_file_name"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:2`: # Auto-continuation after the 50-task conversion finishes:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:12`: python scripts/data_process/gen_robotwin_all_tasks_data_config.py || { echo "GEN FAILED"; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:14`: echo "[auto 2/4] compute + pin all-tasks stats (CPU ~1h) $(date)"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:16`: --data robotwin_all_tasks \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:17`: --out data/robotwin2.0/all_tasks_lerobot/dataset_stats.json || { echo "STATS FAILED"; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:20`: PC=$(sbatch --parsable scripts/trian_scripts/submit_precompute_robotwin_all_tasks.sh) || { echo "PRECOMPUTE SUBMIT FAILED"; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:28`: T8=$(sbatch --parsable scripts/trian_scripts/submit_fastwam_robotwin_all_tasks.sh) || { echo "8GPU SUBMIT FAILED"; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/auto_train_robotwin_all_tasks.sh:52`: T4=$(sbatch --parsable scripts/trian_scripts/submit_fastwam_robotwin_all_tasks_4gpu.sh)
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:13`: def create_task_file(output_file: Path, task_suite_names: list[str]) -> Path:
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:17`: total_tasks = 0
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:19`: for suite_name in task_suite_names:
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:20`: task_suite = benchmark_dict[suite_name]()
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:21`: n_tasks = int(task_suite.n_tasks)
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:23`: print(f"- Number of tasks: {n_tasks}")
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:24`: for task_id in range(n_tasks):
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:25`: f.write(f"{suite_name},{task_id}\n")
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:26`: total_tasks += 1
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:28`: print(f"\nTask list created: {output_file}")
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:29`: print(f"Total tasks: {total_tasks}")
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:36`: "task",
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:39`: "EVALUATION.task_suite_name",
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:40`: "EVALUATION.task_id",
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:48`: hydra_overrides = list(HydraConfig.get().overrides.task)
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:52`: def _resolve_worker_task_choice() -> str:
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:53`: task_choice = HydraConfig.get().runtime.choices.get("task")
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:54`: if task_choice is None or str(task_choice).strip() == "":
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:56`: "Hydra task choice is empty. Please pass task=... (e.g., task=world_action_model_forward_224)."
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_manager.py:58`: return str(task_choice)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_train_worstconf.sh:3`: # identical to the euler_v2 (best) run egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_train_worstconf.sh:4`: # except the data group (worst-confidence clips, same per-task counts). 4-GPU
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_train_worstconf.sh:34`: bash scripts/train_zero1.sh 4 task=egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:59`: print((ds / "meta/tasks.jsonl").read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:2`: # Single-task LIBERO smoke test for FastWAM (get the basic pipeline running).
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:4`: # on ONE task (libero_spatial, task 0) with a few trials, on ONE GPU.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:42`: # --- single-task smoke: libero_spatial / task 0 / 5 trials / 1 GPU ---
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:44`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:47`: EVALUATION.task_suite_name=libero_spatial \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_eval.sh:48`: EVALUATION.task_id=0 \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:35`: TASK="pack_3_objects_plus_table_cleaning_v21_ft_robocoin40k_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:49`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:80`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:84`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:85`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:99`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 "task=${TASK}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:2`: # Extract DreamDojo LAM latent actions for the EgoDex 15-task dataset
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:4`: # produced tasks. Resumable: re-submitting skips already-extracted episodes.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:6`: # Full run (all 15 tasks, single GPU, ~3-5 h):
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:10`: #   TASKS=add_remove_lid,declutter_desk,crumple_flatten_paper \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:32`: SRC=${SRC:-data/egodex_pnp_15tasks_eef14}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:33`: DST=${DST:-data/egodex_pnp_15tasks_latent32}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:35`: TASKS=${TASKS:-}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:37`: TASK_ARGS=()
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:38`: if [ -n "${TASKS}" ]; then
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:39`: TASK_ARGS=(--tasks "${TASKS}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:42`: echo "[extract_latent32] src=${SRC} dst=${DST} tasks=${TASKS:-ALL}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:49`: "${TASK_ARGS[@]}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_extract_latent32.sh:61`: "${TASK_ARGS[@]}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:41`: tasks = ds / "meta/tasks.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:43`: if not tasks.is_file() or not info_path.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:44`: raise SystemExit(f"Missing LeRobot dataset or instruction metadata: {ds}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:48`: print(f"[preflight] {ds} tasks:")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:49`: print(tasks.read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:41`: tasks = ds / "meta/tasks.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:43`: if not tasks.is_file() or not info_path.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:44`: raise SystemExit(f"Missing LeRobot dataset or instruction metadata: {ds}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:54`: print(f"[preflight] {ds} tasks:")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:55`: print(tasks.read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:54`: TASK="pack_3_objects_plus_ft_28dpartial_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:56`: TASK_CONFIG="/project/peilab/wam/physical_WM/configs/task/pack_3_objects_plus_ft_28dpartial_aug_uncond_3cam_384_1e-4.yaml"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:57`: PARTIAL_CKPT="/project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_uncond_1cam_384_1e-4/formal_basewan_4gpu_434290/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:61`: export TASK_CONFIG PARTIAL_CKPT PACK3_STATS PACK3_DATA PACK3_TEXT_CACHE
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:69`: task_config = Path(os.environ["TASK_CONFIG"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:74`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:76`: if not task_config.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:77`: raise SystemExit(f"Missing task config: {task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:97`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:101`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:102`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:113`: print(f"[preflight] task_config={task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:119`: echo "[train] task=${TASK} nproc_per_node=${NPROC_PER_NODE} extra_overrides=$*"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:120`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh "${NPROC_PER_NODE}" "task=${TASK}" "$@"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:35`: TASK="pack_3_objects_plus_stack_3_cups_ft_robocoin40k_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:49`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:85`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:89`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:90`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:104`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 "task=${TASK}"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:6`: # 10,030 perturbed tasks total, each run with num_trials=1:
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:9`: # Unlike submit_libero_full_eval.sh (one process per task -> would reload the 12GB
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:10`: # ckpt ~10,030 times), this launches NSLOTS = GPUS x MAX_TASKS_PER_GPU *long-lived*
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:12`: # round-robin shard of the task list. A task is skipped iff its result JSON already
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:17`: # Resume an interrupted run (same RESULT_DIR re-runs only missing tasks):
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:20`: # Other knobs: CKPT, STATS, CONFIG, MAX_TASKS_PER_GPU, FORCE=1 (recompute all).
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:25`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:27`: #SBATCH --cpus-per-task=24
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:35`: # Host-RAM math (this cluster grants RAM as DefMemPerCPU 8GB x cpus-per-task; do NOT
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:37`: # -> ~248GB; 48 cpus -> 384GB, safe. Raise --cpus-per-task if you raise MAX_TASKS_PER_GPU.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:61`: MAX_TASKS_PER_GPU="${MAX_TASKS_PER_GPU:-1}"   # 1 per GPU: multi-GPU EGL render breaks at >1/GPU (EGL idx != CUDA idx, native crash). See memory libero-plus-multigpu-egl-render-crash.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:64`: CLASSIFICATION="${CLASSIFICATION:-/project/peilab/wam/cy/LIBERO-plus/libero/libero/benchmark/task_classification.json}"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:77`: # --- slot pool: NUM_GPUS x MAX_TASKS_PER_GPU long-lived shard procs, each bound to a GPU ---
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:80`: for ((k = 0; k < MAX_TASKS_PER_GPU; k++)); do SLOT_GPU+=("$g"); done
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:86`: echo "gpus:        $NUM_GPUS  (${GPUS[*]})   max_tasks_per_gpu: $MAX_TASKS_PER_GPU   nslots: $NSLOTS"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:93`: # --- self-healing retry loop: re-run missing tasks until done or no progress ---
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:94`: # Each round relaunches all NSLOTS shards (each resumes, skipping tasks whose result JSON
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:97`: # the only tasks left are permanently failing, so the job can never spin forever.
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:111`: task="$CONFIG" ckpt="$CKPT" \
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_plus_full_eval.sh:123`: done_cnt=$(find "$RESULT_DIR" -name 'gpu*_task*_results.json' 2>/dev/null | wc -l)
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:7`: # Runs ~16 hand-picked tasks spanning all 4 suites x several perturbation categories
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:8`: # (picked from task_classification.json), via the same sharded driver the full job uses.
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:29`: CLASSIFICATION="${CLASSIFICATION:-/project/peilab/wam/cy/LIBERO-plus/libero/libero/benchmark/task_classification.json}"
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:35`: # Pick up to 4 distinct-category tasks per suite (id is 1-based in the json -> task_id = id-1).
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:36`: SMOKE_TASKS=$(python - "$CLASSIFICATION" <<'PY'
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:53`: echo "SMOKE_TASKS=$SMOKE_TASKS"
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:57`: SMOKE_TASKS="$SMOKE_TASKS" FORCE=1 \
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:59`: task="$CONFIG" ckpt="$CKPT" \
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:70`: find "$RESULT_DIR" -name "gpu*_task*_results.json" 2>/dev/null | head -1 | xargs -r cat
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:38`: tasks = ds / "meta/tasks.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:39`: if not tasks.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:41`: "Missing pack_3_objects_plus instruction/tasks.jsonl. "
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:47`: print("[preflight] pack_3_objects_plus tasks:")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:48`: print(tasks.read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:35`: TASK="pack_3_objects_plus_ft_robocoin40k_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:47`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:64`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:68`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:69`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:84`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh 4 "task=${TASK}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/run_hypertrain_zero1.sh:24`: TASK=${TASK:-pick_numbered_blocks_uncond_3cam_1e-4}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/run_hypertrain_zero1.sh:32`: LOG_FILE="${PROJECT_DIR}/${LOG_DIR}/${TASK}_node_${NODE_RANK}_$(date +%Y%m%d_%H%M%S).log"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/run_hypertrain_zero1.sh:63`: export WANDB_NAME=${WANDB_NAME:-${TASK}_$(date +%Y%m%d_%H%M%S)}
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/run_hypertrain_zero1.sh:136`: echo "TASK: ${TASK}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/run_hypertrain_zero1.sh:202`: task="${TASK}" \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/smoke_test_aug.py:27`: TASK = "pick_1_cup_clean_aug_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/smoke_test_aug.py:51`: cfg = compose(config_name="train", overrides=[f"task={TASK}"])
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:3`: LIBERO-plus turns the 4 LIBERO suites into ~10,030 perturbed tasks, each run with
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:4`: ``num_trials=1``. Spawning one process per task (as ``submit_libero_full_eval.sh`` does)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:6`: ONCE and iterates over a shard of ``(suite, task_id)`` pairs, so a job pays the load cost
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:9`: Task -> shard assignment is round-robin over the flattened ``(suite, task_id)`` list, so the
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:10`: shard count can change between (re)submissions without breaking idempotent resume: a task is
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:18`: task=libero_uncond_2cam224_1e-4 ckpt=/path/to.pt \
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:42`: eval_one_task,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:53`: def _build_full_task_list(suite_names: list[str]) -> list[tuple[str, int]]:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:54`: """Flatten every (suite, task_id) across the requested suites, in a deterministic order."""
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:56`: tasks: list[tuple[str, int]] = []
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:58`: task_suite = benchmark_dict[suite]()
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:59`: n_tasks = int(task_suite.n_tasks)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:60`: for task_id in range(n_tasks):
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:61`: tasks.append((suite, task_id))
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:62`: return tasks
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:65`: def _result_exists(out_root: Path, suite: str, task_id: int) -> bool:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:66`: """A task is done iff a result JSON exists, under any gpu* prefix (resume-robust)."""
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:67`: return any((out_root / suite).glob(f"gpu*_task{task_id}_results.json"))
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:94`: # SMOKE_TASKS="suite:tid,suite:tid,..." overrides the round-robin shard (used by the
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:96`: smoke = os.environ.get("SMOKE_TASKS", "").strip()
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:12`: # *WORST*-confidence EgoDex backbone (egodex_pnp_15tasks_unified28_worstconf,
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:18`: #   2. text-embedding cache for the stack_3_cups instruction exists
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:56`: TASK="stack_3_cups_ft_28dpartial_worstconf_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:58`: TASK_CONFIG="/project/peilab/wam/physical_WM/configs/task/${TASK}.yaml"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:59`: PARTIAL_CKPT="/project/peilab/wam/physical_WM/runs/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4/2026-06-09_23-39-38/checkpoints/weights/step_030000.pt"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:62`: export TASK_CONFIG PARTIAL_CKPT DATA_DIR TEXT_CACHE
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:70`: task_config = Path(os.environ["TASK_CONFIG"])
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:74`: prompt_tpl = "A video recorded from a robot's point of view executing the following instruction: {task}"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:76`: if not task_config.is_file():
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:77`: raise SystemExit(f"Missing task config: {task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:95`: with open(ds / "meta/tasks.jsonl", "r", encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:99`: task = json.loads(line)["task"]
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:100`: prompt = prompt_tpl.format(task=task)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:112`: print(f"[preflight] task_config={task_config}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:118`: echo "[train] task=${TASK} nproc_per_node=${NPROC_PER_NODE} extra_overrides=$*"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:119`: bash /project/peilab/wam/physical_WM/scripts/train_zero1.sh "${NPROC_PER_NODE}" "task=${TASK}" "$@"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_smoke_worstconf.sh:30`: task=egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:3`: Reuses the per-task result JSONs written by eval_libero_plus_shard.py / eval_one_task
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:4`: (``<output_dir>/<suite>/gpu*_task<id>_results.json``) and joins each task with LIBERO-plus's
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:5`: ``benchmark/task_classification.json`` to report success rate by:
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:12`: The join is by ``task_name`` (robust) with a fallback to classification ``id == task_id + 1``
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:13`: (classification ids are 1-based; benchmark task_ids are 0-based). The match rate + completion
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:20`: --classification /project/peilab/wam/cy/LIBERO-plus/libero/libero/benchmark/task_classification.json
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:34`: "Language Instructions",
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:51`: results[(suite, int(r["task_id"]))] = r
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:67`: name = r.get("task_name")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:70`: e = by_id.get((suite, int(r["task_id"]) + 1))  # classification id is 1-based
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:111`: unmatched.append((suite, tid, r.get("task_name")))
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:131`: print(f"[WARN] {match_modes.get('none', 0)} unmatched tasks; e.g. {unmatched[:5]}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:141`: print(f"\nOVERALL success: {overall['succ']}/{overall['tot']} = {_rate(overall):.2f}%  (n_tasks={overall['n']})")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:150`: rows.append({kind: k, "success_rate(%)": round(_rate(st), 2), "succ": st["succ"], "tot": st["tot"], "n_tasks": st["n"]})
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:205`: ap.add_argument("--output_dir", required=True, help="result dir containing <suite>/gpu*_task*_results.json")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:209`: help="path to LIBERO-plus benchmark/task_classification.json",
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:214`: raise SystemExit("--classification must point to task_classification.json (or set $CLASSIFICATION_JSON)")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_unified32_data_dryrun.sh:31`: DRYRUN_TASK=per_embodiment_egodex14_pack3_smoke python tests/dryrun_per_embodiment_data.py || RC=1
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:38`: 'total_tasks': 0,
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:47`: # Store detailed per-task results
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:48`: task_results = {}
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:65`: # Extract task ID from the filename
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:67`: task_id = int(parts[1].replace('task', ''))
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:69`: # Create the task identifier (suite_taskid)
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:70`: task_key = f"{suite}_{task_id}"
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:73`: stats['total_tasks'] += 1
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:84`: # Store detailed task results
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:85`: task_result = {
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:90`: 'task_description': result['task_description'] if 'task_description' in result else ''
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:93`: task_result['future_video_psnr_mean'] = (
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:98`: task_results[task_key] = task_result
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:102`: print("\nStatistics for each task suite:")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:112`: 'Task Suite': [],
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:123`: avg_time = stats['total_time'] / stats['total_tasks']
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:134`: print(f"- Tasks completed: {stats['total_tasks']}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:139`: print(f"- Average time per task: {format_time(avg_time)}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:140`: print(f"- Longest task time: {format_time(max_time)}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:148`: df_data['Task Suite'].append(suite)
+- `/project/peilab/wam/physical_WM/README.md:35`: │   └── task/                 # Task-level configs (training task names)
+- `/project/peilab/wam/physical_WM/README.md:187`: You still need to follow the official RoboTwin instructions from the
+- `/project/peilab/wam/physical_WM/README.md:203`: task=libero_uncond_2cam224_1e-4 \
+- `/project/peilab/wam/physical_WM/README.md:213`: task=robotwin_uncond_3cam_384_1e-4 \
+- `/project/peilab/wam/physical_WM/README.md:223`: **Note:** We evaluate with **unseen** instructions, following Motus. [Lingbot-VA](https://github.com/Robbyant/lingbot-va/blob/661d52a59dc634a650efcd10a79d06bbb17ea81f/evaluation/robotwin/eval_polict_client_openpi.py#L308) uses **seen** instructions instead. You can try `EVALUATION.instruction_type=seen` to use **seen** instructions, which should theoretically improve performance by one or two points.
+- `/project/peilab/wam/physical_WM/README.md:229`: Use `scripts/precompute_text_embeds.py` to precompute embeddings for each training task:
+- `/project/peilab/wam/physical_WM/README.md:233`: python scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/README.md:236`: python scripts/precompute_text_embeds.py task=robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/README.md:242`: torchrun --standalone --nproc_per_node=8 scripts/precompute_text_embeds.py task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/README.md:247`: When running a new task for the first time, set `pretrained_norm_stats` in the corresponding `configs/data/*.yaml` to `null` first.
+- `/project/peilab/wam/physical_WM/README.md:248`: After one training run, a `dataset_stats.json` file will be generated in the current run directory (for example, `runs/{task_name}/{run_id}/dataset_stats.json`).
+- `/project/peilab/wam/physical_WM/README.md:253`: bash scripts/train_zero1.sh 8 task=libero_uncond_2cam224_1e-4
+- `/project/peilab/wam/physical_WM/README.md:256`: bash scripts/train_zero1.sh 8 task=robotwin_uncond_3cam_384_1e-4
+- `/project/peilab/wam/physical_WM/README.md:267`: python experiments/libero/run_libero_manager.py task={task_name} ckpt={ckpt_path}
+- `/project/peilab/wam/physical_WM/README.md:271`: You still need to follow the official RoboTwin instructions from the
+- `/project/peilab/wam/physical_WM/README.md:282`: python experiments/robotwin/run_robotwin_manager.py task={task_name} ckpt={ckpt_path}
+- `/project/peilab/wam/physical_WM/README.md:285`: Common `task_name` examples:
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:69`: parser.add_argument("--task", default="pick_numbered_blocks_uncond_3cam_1e-4")
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:128`: "--override-instruction",
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:130`: help="Dataset mode: replace sample instruction before looking up cached text embedding.",
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:193`: overrides = [f"task={args.task}", f"mixed_precision={args.mixed_precision}"]
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:210`: if args.override_instruction is not None:
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:211`: cfg.data[split].override_instruction = args.override_instruction
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:803`: formatted_prompt = DEFAULT_PROMPT.format(task=args.prompt)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:2`: # Parallel version: convert N tasks at once (each task = 5 shards) to saturate the 96-core
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:3`: # login node, instead of one-task-at-a-time. Resumable: skips tasks already converted.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:4`: #   N_PARALLEL=5 bash scripts/data_process/convert_all_robotwin_tasks_parallel.sh
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:5`: # N_PARALLEL tasks x 5 shards = 5*N python procs (N=5 -> 25 procs, ~75 threads, fits 96 cores).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:13`: OUT=data/robotwin2.0/all_tasks_lerobot
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:19`: local task=$1
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:20`: local ZIP="$RAW/$task/aloha-agilex_randomized_500.zip"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:21`: [ -f "$ZIP" ] || { echo "[skip-nozip] $task"; return; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:22`: local DST="$OUT/$task"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:23`: [ -f "$DST/part4/meta/info.json" ] && { echo "[skip-done] $task"; return; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:24`: local UNZ="$UNZ_ROOT/$task"; rm -rf "$UNZ"; mkdir -p "$UNZ"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:25`: unzip -o -q "$ZIP" -d "$UNZ" || { echo "[unzip-fail] $task"; return; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:27`: [ -z "$H5" ] && { echo "[no-hdf5] $task"; rm -rf "$UNZ"; return; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:29`: local PROMPT="Complete the manipulation task: ${task//_/ }."
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:34`: --src "$SRC" --dst "$DST/part$i" --task-name "$task" --instruction "$PROMPT" \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:36`: > "logs/convert_${task}_part$i.log" 2>&1 &
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:41`: [ "$ok" -eq 1 ] && echo "[done] $task" || echo "[FAIL] $task (see logs/convert_${task}_part*.log)"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:48`: for task in $(ls "$RAW"); do
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:49`: [ -f "$OUT/$task/part4/meta/info.json" ] && { echo "[skip-done] $task"; continue; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks_parallel.sh:50`: convert_one "$task" &
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:2`: """Convert selected EgoDex tasks into FastWAM-compatible pseudo-action LeRobot datasets.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:48`: SELECTED_TASKS = [
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:110`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:128`: task_index: int
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:160`: def select_prompt(attrs: dict[str, str], fallback_task: str) -> str:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:170`: return fallback_task.replace("_", " ")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:393`: task_index: int,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:407`: "task_index": pa.array(np.full(length, task_index, dtype=np.int64), type=pa.int64()),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:418`: task_index: int,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:428`: "task_index": feature_stats(np.full(length, task_index, dtype=np.int64)),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:449`: def build_info(total_episodes: int, total_frames: int, total_tasks: int, video_info_obj: VideoInfo) -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:456`: "total_tasks": total_tasks,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:476`: task_name: str,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:513`: prompt = select_prompt(attrs, task_name)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:525`: def convert_task(task_name: str, args: argparse.Namespace) -> dict[str, Any]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:526`: src_task = args.src_root / task_name
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:527`: dst_task = args.dst_root / task_name
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:528`: if not src_task.is_dir():
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:529`: raise FileNotFoundError(f"Missing source task dir: {src_task}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:530`: if dst_task.exists():
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:166`: instruction: str,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:197`: per_frame_task = [instruction, instruction, instruction, instruction]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:202`: episode_buffer["task"].append(per_frame_task)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:239`: parser.add_argument("--task-name", required=True, help="Human-readable dataset/task label for logs.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:240`: parser.add_argument("--instruction", required=True, help="Instruction string used for every episode in this source.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:324`: print(f"[convert] task_name={args.task_name}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:349`: instruction=args.instruction,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:362`: f"| total_frames={total_frames} | total_tasks={dataset.meta.total_tasks}"
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:8`: already-quality-filtered ``data/egodex_pnp_15tasks_28d_euler_v2`` WITHOUT
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:21`: ``episodes.jsonl`` filtered to the converted set, ``tasks.jsonl`` copied
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:25`: Every converted task is validated in-place afterwards: sliced columns must be
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:35`: --src-root data/egodex_pnp_15tasks_28d_euler_v2 \\
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:36`: --dst-root data/egodex_pnp_15tasks_eef14
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:84`: p.add_argument("--src-root", type=Path, required=True, help="Root with one unified-28D LeRobot task dir per child.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:85`: p.add_argument("--dst-root", type=Path, required=True, help="Output root (same task-dir layout, native 14D eef).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:86`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all task dirs in src-root).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:87`: p.add_argument("--limit-episodes", type=int, default=None, help="Convert only the first N episodes per task (smoke).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:93`: def episode_paths(task_dir: Path, info: dict, ep: int) -> tuple[Path, Path]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:97`: return task_dir / pq_rel, task_dir / mp4_rel
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:107`: def slice_episode(src_task: Path, dst_task: Path, info: dict, ep: int) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:108`: src_pq, _ = episode_paths(src_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:109`: dst_pq, _ = episode_paths(dst_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:123`: def link_episode_video(src_task: Path, dst_task: Path, info: dict, ep: int, link_mode: str) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:124`: _, src_mp4 = episode_paths(src_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:125`: _, dst_mp4 = episode_paths(dst_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:177`: def finalize_task(src_task: Path, dst_task: Path, info: dict, converted: list[int], link_mode: str) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:179`: (dst_task / "meta").mkdir(parents=True, exist_ok=True)
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:182`: with open(src_task / "meta" / "episodes_stats.jsonl") as f_in, \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:2`: """Convert a RoboCOIN LeRobot task into a FastWAM-compatible 14-dim LeRobot dataset.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:4`: RoboCOIN ships each task as a LeRobot v2.1 dataset whose ``action`` / ``observation.state``
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:23`: image stats under renamed keys). ``tasks.jsonl`` / ``episodes.jsonl`` copied verbatim.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:70`: # loader machinery (indexing, task lookup, delta-timestamps) keeps working.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:76`: "task_index",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:151`: def convert_parquet_and_stats(src_task: Path, dst_task: Path, idx_map: list[int]):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:153`: episodes_stats.jsonl. Returns nothing; writes files under dst_task."""
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:159`: src_stats_path = src_task / "meta" / "episodes_stats.jsonl"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:177`: src_parquets = sorted((src_task / "data").rglob("episode_*.parquet"))
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:179`: raise FileNotFoundError(f"No data/*.parquet under {src_task}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:184`: rel = pq_path.relative_to(src_task)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:185`: dst_pq = dst_task / rel
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:228`: with open(dst_task / "meta" / "episodes_stats.jsonl", "w") as f:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:233`: def link_videos(src_task: Path, dst_task: Path, link_mode: str):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:238`: for src_dir in (src_task / "videos").rglob(f"*.images.{old_cam}"):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:239`: rel_parent = src_dir.parent.relative_to(src_task)  # videos/chunk-000
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:240`: dst_dir = dst_task / rel_parent / f"observation.images.{new_cam}"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:259`: def convert_task(src_task: Path, dst_task: Path, link_mode: str, overwrite: bool):
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:260`: if not (src_task / "meta" / "info.json").exists():
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:261`: raise FileNotFoundError(f"Not a LeRobot task dir (no meta/info.json): {src_task}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:48`: "coarse_task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:49`: "task_index": {"dtype": "int64", "shape": [1], "names": None},
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:65`: tasks: list[str]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:121`: def _load_tasks(src: Path) -> dict[int, str]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:122`: task_path = src / "meta" / "tasks.parquet"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:123`: table = pq.read_table(task_path)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:126`: if "task" in data:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:127`: task_values = data["task"]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:129`: task_values = data["__index_level_0__"]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:131`: raise ValueError(f"{task_path} does not contain a task text column")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:133`: return {int(idx): str(task) for idx, task in zip(data["task_index"], task_values, strict=True)}
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:158`: tasks=[str(task) for task in data["tasks"][i]],
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:199`: tasks=episode.tasks,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:220`: "task_index",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:243`: task_index: np.ndarray,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:252`: "coarse_task_index": _stats(task_index),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:253`: "task_index": _stats(task_index),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:254`: "coarse_quality_index": _stats(task_index),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:255`: "quality_index": _stats(task_index),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:266`: task_index: np.ndarray,
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:2`: """Generate configs/data/robotwin_all_tasks_<split>.yaml listing every converted task's parts.
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:5`: swaps dataset_dirs (all <task>/part*), pretrained_norm_stats, and text cache dir.
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:6`: Run AFTER convert_all_robotwin_tasks.sh finishes (for the same SPLIT).
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:8`: SPLIT=clean      python scripts/data_process/gen_robotwin_all_tasks_data_config.py
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:9`: SPLIT=randomized python scripts/data_process/gen_robotwin_all_tasks_data_config.py
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:23`: SUB = f"all_tasks_lerobot_{SPLIT}"
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:26`: tasks = sorted(d.name for d in OUT.iterdir() if (d / "part0/meta/info.json").is_file())
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:28`: for t in tasks:
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:32`: print(f"SPLIT={SPLIT}: {len(tasks)} tasks, {len(dirs)} part dirs")
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:34`: raise SystemExit(f"no converted tasks found under {OUT}; run SPLIT={SPLIT} convert_all_robotwin_tasks.sh first")
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:38`: cache = f"./data/text_embeds_cache/robotwin_all_tasks_{SPLIT}"
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:44`: dst = ROOT / f"configs/data/robotwin_all_tasks_{SPLIT}.yaml"
+- `/project/peilab/wam/physical_WM/scripts/data_process/gen_robotwin_all_tasks_data_config.py:47`: print(f"next: SPLIT={SPLIT} precompute_dataset_stats.py --data robotwin_all_tasks_{SPLIT} --out {stats}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:20`: --dataset-root data/egodex_pnp_15tasks_latent32 \\
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:43`: p.add_argument("--dataset-root", type=Path, required=True, help="Latent-action dataset root (task dirs inside).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:46`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:47`: p.add_argument("--num-episodes", type=int, default=4, help="Sampled episodes per task for checks (b)/(c).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:53`: def iter_task_dirs(root: Path, tasks: str | None) -> list[Path]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:54`: if tasks:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:55`: dirs = [root / t.strip() for t in tasks.split(",") if t.strip()]
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:59`: raise FileNotFoundError(f"No LeRobot task dirs under {root}")
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:63`: def load_episode_latents(task_dir: Path, info: dict, ep: int) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:64`: pq_path, _ = episode_paths(task_dir, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:68`: def check_stats(task_dirs: list[Path]) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:71`: for task_dir in task_dirs:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:72`: for pq_path in sorted((task_dir / "data").rglob("episode_*.parquet")):
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:89`: def sample_episode_ids(task_dir: Path, num: int, rng: np.random.Generator) -> list[int]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:90`: eps = sorted(int(p.stem.split("_")[-1]) for p in (task_dir / "data").rglob("episode_*.parquet"))
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:97`: def check_recon_and_match(task_dirs: list[Path], args: argparse.Namespace) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:102`: for task_dir in task_dirs:
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:103`: info = json.loads((task_dir / "meta" / "info.json").read_text())
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:105`: for ep in sample_episode_ids(task_dir, args.num_episodes, rng):
+- `/project/peilab/wam/physical_WM/scripts/data_process/check_latent_actions.py:106`: stored = load_episode_latents(task_dir, info, ep)  # (T, 32)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:4`: Takes the mainline EgoDex eef14 LeRobot datasets (one task dir per sub-dataset,
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:5`: e.g. ``data/egodex_pnp_15tasks_eef14/<task>``) and produces parallel datasets
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:29`: ``meta/tasks.jsonl`` copied verbatim.
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:38`: --src-root data/egodex_pnp_15tasks_eef14 \\
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:39`: --dst-root data/egodex_pnp_15tasks_latent32 \\
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:78`: "task_index",
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:84`: p.add_argument("--src-root", type=Path, required=True, help="Root with one LeRobot task dir per child.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:85`: p.add_argument("--dst-root", type=Path, required=True, help="Output root (same task-dir layout).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:89`: p.add_argument("--tasks", default=None, help="Comma-separated task names (default: all task dirs in src-root).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:90`: p.add_argument("--limit-episodes", type=int, default=None, help="Convert only the first N episodes per task (smoke).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:144`: def episode_paths(task_dir: Path, info: dict, ep: int) -> tuple[Path, Path]:
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:148`: return task_dir / pq_rel, task_dir / mp4_rel
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:152`: model, src_task: Path, dst_task: Path, info: dict, ep: int, device: str, batch_size: int
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:154`: src_pq, src_mp4 = episode_paths(src_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:155`: dst_pq, _ = episode_paths(dst_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:181`: def link_episode_video(src_task: Path, dst_task: Path, info: dict, ep: int, link_mode: str) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:182`: _, src_mp4 = episode_paths(src_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:183`: _, dst_mp4 = episode_paths(dst_task, info, ep)
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:212`: def finalize_task(src_task: Path, dst_task: Path, info: dict, converted: list[int], link_mode: str) -> None:
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:214`: (dst_task / "meta").mkdir(parents=True, exist_ok=True)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:4`: RoboTwin 2.0 (HF TianxingChen/RoboTwin2.0) ships each task/embodiment/split as a zip
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:27`: NOTE: adjust_bottle is a right-arm task, so the left 7 dims are constant across an
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:35`: --task-name adjust_bottle \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:36`: --instruction "Use the right arm to pick the plastic bottle up and keep it head-up." \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:197`: def _resolve_episode_instruction(args, episode_path: Path, np) -> str:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:198`: """Return this episode's instruction string.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:200`: If --instructions-dir is given, sample ONE instruction from that episode's
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:202`: --instruction. Sampling is seeded by the episode index so it is reproducible
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:206`: if not args.instructions_dir:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:207`: return args.instruction
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:210`: return args.instruction
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:212`: pool_path = Path(args.instructions_dir).expanduser() / f"episode{ep_idx}.json"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:214`: return args.instruction
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:215`: pool = json.loads(pool_path.read_text(encoding="utf-8")).get(args.instruction_split) or []
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:217`: return args.instruction
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:227`: instruction: str,
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:258`: per_frame_task = [instruction, instruction, instruction, instruction]
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:263`: episode_buffer["task"].append(per_frame_task)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:292`: parser.add_argument("--src", required=True, help="Dir containing RoboTwin episode*.hdf5 (the unpacked <task>/data dir).")
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:294`: parser.add_argument("--task-name", required=True, help="Human-readable dataset/task label for logs.")
+- `/project/peilab/wam/physical_WM/scripts/data_process/precompute_dataset_stats.py:6`: dataset_stats.json (how_to_add_a_task.md §5.3) that has crashed 4-GPU launches
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_verify_prompt_ab.sh:4`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_verify_prompt_ab.sh:6`: #SBATCH --cpus-per-task=16
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_verify_prompt_ab.sh:14`: # A-test for the text-OOD hypothesis (1 GPU, ~1h). One FastWAM server + per-task
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_verify_prompt_ab.sh:16`: #   SERVER_CONFIG  RESULT_DIR  EPISODES[25]  PORT[8965]  SEED[0]  PHASE[demo_clean]  TASKS
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_verify_prompt_ab.sh:21`: echo "SERVER_CONFIG=${SERVER_CONFIG:-default} RESULT_DIR=${RESULT_DIR:-default} EPISODES=${EPISODES:-25} PORT=${PORT:-8965} TASKS=[${TASKS:-default}]"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.yml:3`: task_name: null
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.yml:4`: task_config: null
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.yml:7`: instruction_type: unseen
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.yml:12`: sim_task: null
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:7`: / torch2.4) per (task, phase), connecting to that GPU's server over a socket.
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:16`: TASKS ["" = all 50; else space-separated subset]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:37`: TASKS_ENV = os.environ.get("TASKS", "").strip()
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:46`: PER_TASK = RESULT_DIR / "per_task"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:49`: for d in (RESULT_DIR, PER_TASK, LOGS, SRV_LOGS):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:69`: def result_path(task: str, phase: str) -> Path:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:70`: return PER_TASK / f"{task}__{phase}.json"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:73`: def parse_success(task: str, cfg: str):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:74`: base = ROBOTWIN / "eval_result" / task / "fastwam_policy" / cfg
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:90`: for task in TASKS:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:91`: rec = {"task": task, "clean": None, "random": None}
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:93`: p = result_path(task, phase)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:105`: json.dumps({"episodes": EPISODES, "per_task": rows, "overall": overall}, indent=2),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:109`: f.write("task,clean_success_rate,random_success_rate\n")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:111`: f.write(f"{r['task']},{r['clean']},{r['random']}\n")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:115`: # ---------------- task list ----------------
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:116`: with (ROBOTWIN / "task_config" / "_eval_step_limit.yml").open(encoding="utf-8") as f:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:117`: ALL_TASKS = list(yaml.safe_load(f).keys())
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:118`: if TASKS_ENV:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:119`: TASKS = [t for t in TASKS_ENV.split() if t in ALL_TASKS]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_robotwin_bench.sh:4`: #SBATCH --ntasks=1
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_robotwin_bench.sh:6`: #SBATCH --cpus-per-task=48
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_robotwin_bench.sh:15`: # Resumable: re-submitting skips task-phases whose result JSON already exists.
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_robotwin_bench.sh:17`: #   NUM_GPUS [4]  EPISODES [100]  TASKS [""=all 50]  RESULT_DIR [<phys>/result]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/submit_robotwin_bench.sh:22`: echo "NUM_GPUS=${NUM_GPUS:-4} EPISODES=${EPISODES:-100} TASKS=[${TASKS:-ALL}] RESULT_DIR=${RESULT_DIR:-default}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:104`: sim_task: Optional[str],
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:109`: if not _is_none_like(sim_task):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:110`: overrides.append(f"task={str(sim_task)}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:236`: def _infer_action_chunk(self, observation: Dict[str, Any], instruction: str) -> np.ndarray:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:241`: prompt = DEFAULT_PROMPT.format(task=instruction)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:267`: def _fill_action_queue(self, observation: Dict[str, Any], instruction: str) -> None:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:268`: action_chunk = self._infer_action_chunk(observation=observation, instruction=instruction)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:276`: def step(self, task_env, observation: Optional[Dict[str, Any]]) -> None:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:283`: instruction = task_env.get_instruction()
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:284`: self._fill_action_queue(observation=observation, instruction=instruction)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:292`: task_env.take_action(action, action_type="qpos")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:321`: sim_task = usr_args.get("sim_task")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:325`: sim_task=sim_task,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:394`: def eval(TASK_ENV, model, observation: Optional[Dict[str, Any]]):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/fastwam_policy/deploy_policy.py:396`: model.step(TASK_ENV, obs)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:20`: EVAL_STEP_LIMIT_FILE = PROJECT_ROOT / "third_party" / "RoboTwin" / "task_config" / "_eval_step_limit.yml"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:38`: f"`ckpt` under runs must follow .../runs/<task>/<date_dir>/..., got: {ckpt_path}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:40`: task_name = parts[runs_idx + 1]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:42`: if task_name == "" or date_dir == "":
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:44`: f"`ckpt` under runs must follow .../runs/<task>/<date_dir>/..., got: {ckpt_path}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:46`: return f"{task_name}_{date_dir}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:55`: "EVALUATION.task_name",
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:56`: "EVALUATION.task_config",
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:64`: return [ov for ov in HydraConfig.get().overrides.task if not _is_blocked_override(ov)]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:67`: def _load_all_tasks() -> list[str]:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:69`: raise FileNotFoundError(f"Task list file not found: {EVAL_STEP_LIMIT_FILE}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:71`: task_map = yaml.safe_load(f)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:72`: if not isinstance(task_map, dict) or len(task_map) == 0:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:73`: raise ValueError(f"Invalid task map in: {EVAL_STEP_LIMIT_FILE}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:74`: tasks = list(task_map.keys())
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:77`: dedup_tasks: list[str] = []
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:78`: for task in tasks:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:79`: if task in seen:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:81`: seen.add(task)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:82`: dedup_tasks.append(task)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:4`: Training fed each task exactly ONE language string (meta/tasks.jsonl), the literal
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:5`: "Complete the manipulation task: <name>." But the full benchmark evals with
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:6`: instruction_type=unseen -> RoboTwin-generated sentences the model never saw.
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:8`: For each task this runs RoboTwin closed-loop eval TWICE against the SAME FastWAM
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:10`: (A) forced = the exact training prompt  (via FASTWAM_FORCE_INSTRUCTION)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:11`: (B) unseen = RoboTwin's default unseen instruction (same as the full run)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:19`: TASKS ["blocks_ranking_rgb blocks_ranking_size place_can_basket put_bottles_dustbin"]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:39`: TASKS = os.environ.get(
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:40`: "TASKS", "blocks_ranking_rgb blocks_ranking_size place_can_basket put_bottles_dustbin"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:70`: def parse_success(task: str, cfg: str):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:71`: base = ROBOTWIN / "eval_result" / task / "fastwam_policy" / cfg
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:108`: def run(task: str, mode: str):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:109`: train_prompt = f"Complete the manipulation task: {task.replace('_', ' ')}."
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:110`: extra = {"FASTWAM_FORCE_INSTRUCTION": train_prompt} if mode == "forced" else {}
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:112`: clog = LOGS / f"{task}__{mode}__{ts}.log"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:124`: "--task_name", task,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:125`: "--task_config", PHASE,
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:129`: "--instruction_type", "unseen",
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:134`: sr = parse_success(task, PHASE)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:136`: log(f"  {task} [{mode}] prompt={shown} -> success={sr} rc={rc} ({clog.name})")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:2`: RobotWin single-task evaluation entrypoint (Hydra).
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:13`: - `EVALUATION.task_name`: task name to evaluate (required).
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:20`: EVALUATION.task_name=click_alarmclock
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:25`: EVALUATION.task_name=click_alarmclock \
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:26`: EVALUATION.task_config=demo_randomized \
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:94`: f"`ckpt` under runs must follow .../runs/<task>/<date_dir>/..., got: {ckpt_path}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:96`: task_name = parts[runs_idx + 1]
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:98`: if task_name == "" or date_dir == "":
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:100`: f"`ckpt` under runs must follow .../runs/<task>/<date_dir>/..., got: {ckpt_path}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:102`: return f"{task_name}_{date_dir}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:153`: if cfg.EVALUATION.task_name is None:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:154`: raise ValueError("`EVALUATION.task_name` must not be None.")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:184`: f"eval_{str(cfg.EVALUATION.task_name)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:192`: / str(cfg.EVALUATION.task_name)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:196`: sim_task = HydraConfig.get().runtime.choices.get("task")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:201`: _append_override(overrides, "task_name", cfg.EVALUATION.task_name)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:202`: _append_override(overrides, "task_config", cfg.EVALUATION.task_config)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:206`: _append_override(overrides, "instruction_type", cfg.EVALUATION.instruction_type)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:210`: _append_override(overrides, "sim_task", sim_task)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:268`: f=str(run_output_dir / f"eval_config_{str(cfg.EVALUATION.task_name)}.yaml"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_adjust_bottle_parallel.sh:26`: --src "$SRC" --dst "$OUT/part$i" --task-name adjust_bottle \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_adjust_bottle_parallel.sh:27`: --instruction "$PROMPT" --fps 30 --overwrite \
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:2`: # Batch-convert RoboTwin 2.0 aloha-agilex tasks -> LeRobot, WITH per-episode diverse
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:3`: # 'seen' instructions (restores the language diversity RoboTwin generated).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:6`: #   SPLIT=clean      -> aloha-agilex_clean_50.zip      (50 ep/task)  -> all_tasks_lerobot_clean
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:7`: #   SPLIT=randomized -> aloha-agilex_randomized_500.zip (500 ep/task) -> all_tasks_lerobot_randomized
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:9`: # Resumable: skips tasks already converted. Each task -> <OUT>/<task>/part0-4 (5 shards).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:10`: # Deletes the unzip scratch after each task to save space (keeps the .zip).
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:12`: #   SPLIT=clean      bash scripts/data_process/convert_all_robotwin_tasks.sh
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:13`: #   SPLIT=randomized bash scripts/data_process/convert_all_robotwin_tasks.sh
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:22`: clean)      ZIP_NAME="aloha-agilex_clean_50.zip";       EP=50;  OUT=data/robotwin2.0/all_tasks_lerobot_clean ;;
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:23`: randomized) ZIP_NAME="aloha-agilex_randomized_500.zip"; EP=500; OUT=data/robotwin2.0/all_tasks_lerobot_randomized ;;
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:32`: tasks=$(ls "$RAW" 2>/dev/null)
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:33`: [ -z "$tasks" ] && { echo "no downloaded tasks under $RAW"; exit 1; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:35`: for task in $tasks; do
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:36`: ZIP="$RAW/$task/$ZIP_NAME"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:37`: [ -f "$ZIP" ] || { echo "[skip-nozip] $task ($ZIP_NAME)"; continue; }
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:38`: DST="$OUT/$task"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:39`: if [ -f "$DST/part4/meta/info.json" ]; then echo "[skip-done] $task"; continue; fi
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:41`: echo "=== [$task] unzip + convert $(date) ==="
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:42`: UNZ="$UNZ_ROOT/$task"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_all_robotwin_tasks.sh:44`: unzip -o -q "$ZIP" -d "$UNZ" || { echo "[unzip-fail] $task"; continue; }
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:46`: task: str = "real_cleaning_uncond_3cam_384_1e-4"
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:105`: task=str(get("task", cls.task)),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:244`: overrides = [f"task={self.config.task}", f"mixed_precision={self.config.mixed_precision}"]
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:250`: def _resolve_text_condition(self, task_prompt: str) -> tuple[str | None, torch.Tensor | None, torch.Tensor | None]:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:251`: formatted_prompt = format_prompt(task_prompt)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:276`: def format_prompt(task_prompt: str) -> str:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:277`: return DEFAULT_PROMPT.format(task=task_prompt)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/joint_subset.py:162`: print("[joint_subset] keep_dims cross-check skipped: no dataset_dirs in task config.")
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1108`: # Split tasks
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1109`: tasks = []
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1115`: tasks.append((h, h_, w, w_))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1124`: for h, h_, w, w_ in tqdm(tasks, desc="VAE decoding"):
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1160`: # Split tasks
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1161`: tasks = []
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1167`: tasks.append((h, h_, w, w_))
+- `/project/peilab/wam/physical_WM/src/fastwam/models/wan22/wan_video_vae.py:1176`: for h, h_, w, w_ in tqdm(tasks, desc="VAE encoding"):
+
+## success_split
+
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:614`: "successes": 0,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:616`: "success_episodes": [],
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:624`: success, replay_images, predicted_future_video_clips, episode_mean_psnr = run_single_episode(
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:637`: if success:
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:638`: results["successes"] += 1
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:639`: results["success_episodes"].append(trial_idx)
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:649`: success=success,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:671`: success=success,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:680`: success=success,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:770`: "successes": 0,
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:773`: "success_episodes": [],
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_single.py:847`: f"{results['successes']}/{cfg.EVALUATION.num_trials} successes"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:4`: #   $RESULT_DIR/summary.csv             (per-suite + overall success rates)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:346`: echo \"SUCCESS|$gpu_id|\$rc|\$(date +%s)|\$LOG_FILE\" > \"\$STATUS_FILE\"; \
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:406`: if [ "$status" = "SUCCESS" ]; then
+- `/project/peilab/wam/physical_WM/experiments/libero/run_libero_parallel_test.sh:625`: echo "All tasks completed successfully!"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:168`: echo "  summary.csv             (per-suite + overall success rate)"
+- `/project/peilab/wam/physical_WM/experiments/libero/submit_libero_full_eval.sh:169`: echo "  task_success_rates.csv  (per-task)"
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:47`: # prompt for a success label and write a LeRobot-compatible HDF5 episode to
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:48`: # <output_dir>/{success,fail}/episode_N.hdf5 (re-convertible into a dataset).
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:47`: # prompt for a success label and write a LeRobot-compatible HDF5 episode to
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:48`: # <output_dir>/{success,fail}/episode_N.hdf5 (re-convertible into a dataset).
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:62`: mp4_path = f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}--task={processed_task_description}.mp4"
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:92`: success,
+- `/project/peilab/wam/physical_WM/experiments/libero/libero_utils.py:140`: f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}"
+- `/project/peilab/wam/physical_WM/experiments/libero/smoke_libero_plus.sh:4`: # env builds, perturbation assets resolve, the FastWAM policy infers, success is
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:124`: n_success = 0
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:143`: n_success += int(results["successes"])
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:149`: f"{results['successes']}/{results['total_episodes']}  "
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:150`: f"run_succ={n_success}/{n_done}  {rate * 60:.1f} task/min  eta={eta / 3600:.1f}h",
+- `/project/peilab/wam/physical_WM/experiments/libero/eval_libero_plus_shard.py:159`: f"(succ {n_success}) in {(time.time() - t_start) / 3600:.2f}h",
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:5`: ``benchmark/task_classification.json`` to report success rate by:
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:104`: succ, tot = int(r["successes"]), int(r["total_episodes"])
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:141`: print(f"\nOVERALL success: {overall['succ']}/{overall['tot']} = {_rate(overall):.2f}%  (n_tasks={overall['n']})")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:150`: rows.append({kind: k, "success_rate(%)": round(_rate(st), 2), "succ": st["succ"], "tot": st["tot"], "n_tasks": st["n"]})
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:164`: # ---- category x difficulty matrix (success rate %) ----
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:174`: print("\n--- category x difficulty (success rate %) ---")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:182`: "overall": {"success_rate": round(_rate(overall), 4), **overall},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:185`: "by_suite": {s: {"success_rate": round(_rate(buckets[("suite", s)]), 4), **buckets[("suite", s)]} for s in suites if ("suite", s) in buckets},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:186`: "by_category": {c: {"success_rate": round(_rate(buckets[("category", c)]), 4), **buckets[("category", c)]} for c in cats_present},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results_plus.py:187`: "by_difficulty": {str(d): {"success_rate": round(_rate(buckets[("difficulty", d)]), 4), **buckets[("difficulty", d)]} for d in diffs_present},
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:40`: 'total_successes': 0,
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:75`: stats['total_successes'] += result['successes']
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:86`: 'success_rate': result['successes'] / result['total_episodes'] * 100,
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:89`: 'successes': result['successes'],
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:104`: total_success_rate = 0
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:113`: 'Success Rate (%)': [],
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:122`: success_rate = stats['total_successes'] / stats['total_trials'] * 100
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:136`: print(f"- Successful attempts: {stats['total_successes']}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:137`: print(f"- Success rate: {success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:149`: df_data['Success Rate (%)'].append(f"{success_rate:.2f}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:157`: total_success_rate += success_rate
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:166`: avg_success_rate = total_success_rate/total_suites
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:173`: print(f"- Average success rate: {avg_success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:185`: df_data['Success Rate (%)'].append(f"{avg_success_rate:.2f}")
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:208`: # Create the per-task success-rate CSV
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:209`: task_success_data = {
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:212`: 'Success Rate (%)': []
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:215`: task_success_data['Future Video PSNR (dB)'] = []
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:227`: # Fill per-task success-rate rows
+- `/project/peilab/wam/physical_WM/experiments/libero/summarize_results.py:231`: task_success_data['Task'].append(task)
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/28d_to_14d_partial_transfer_plan.md:208`: - 最终以真机 success rate 为准。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:45`: - episode 管理：回车开始、空格停止、记录 success/fail、可选保存 HDF5 rollout。
+- `/project/peilab/wam/physical_WM/configs/task/egodex_pnp_15tasks_unified28_worstconf_uncond_1cam_384_1e-4.yaml:7`: # Matched to the SUCCESSFUL best run formal_basewan_4gpu_434290 (its saved
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:86`: def _parse_success_rate(result_file: Path) -> float:
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:100`: raise ValueError(f"Failed to parse success rate from: {result_file}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:266`: writer.writerow(["task_name", "clean_success_rate", "random_success_rate"])
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:281`: "clean_success_rate": _to_jsonable(task_rates[task]["clean"]),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:282`: "random_success_rate": _to_jsonable(task_rates[task]["random"]),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:287`: "clean_mean_success_rate": _to_jsonable(clean_mean),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:288`: "random_mean_success_rate": _to_jsonable(random_mean),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:347`: success_rate = _parse_success_rate(result_file)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:368`: task_rates[state.task_name][state.phase] = success_rate
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:371`: f"success_rate={success_rate:.4f}"
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_robotwin_manager.py:408`: log("manager finished successfully")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:2`: """A-test: does eval-time text OOD explain the low RoboTwin closed-loop success?
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:70`: def parse_success(task: str, cfg: str):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:134`: sr = parse_success(task, PHASE)
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:136`: log(f"  {task} [{mode}] prompt={shown} -> success={sr} rc={rc} ({clog.name})")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/verify_prompt_ab.py:149`: log(f"==== A/B SUMMARY (success_rate, {PHASE}, {EPISODES}ep, seed={SEED}) ====")
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:3`: description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:53`: **Define success criteria. Loop until verified.**
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/Karpathy_guidelines.md:67`: Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:513`: success/fail，写一个 **LeRobot 兼容的 HDF5**（layout 跟 `convert_real_hdf5_to_lerobot.py` 输入对齐：
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:514`: `/observations/{qpos,qvel,effort,images/<cam>}`、`/action`、`/isSuccess`），可再转成训练数据集。
+- `/project/peilab/wam/physical_WM/experiments/robotwin/eval_robotwin_single.py:265`: print(f"Evaluation finished successfully. Log saved to: {log_file}")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:73`: def parse_success(task: str, cfg: str):
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:96`: rec[phase] = d.get("success_rate")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:109`: f.write("task,clean_success_rate,random_success_rate\n")
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:241`: sr = parse_success(job["task"], job["cfg"])
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:244`: "success_rate": sr, "return_code": rc, "ok": (rc == 0 and sr is not None),
+- `/project/peilab/wam/physical_WM/experiments/robotwin/run_fastwam_robotwin_4gpu.py:249`: f"success_rate={sr} elapsed={rec['elapsed_s']}s ({job['log'].name})")
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:154`: dataset_dirs: [ ./data/stack_3_cups/perfect_lerobot ]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/unified32_execution_plan.md:302`: - ✅ **冒烟 joint 组** = `stack_3_cups/perfect_lerobot`（14D,71ep；`pick_2cups` 不在盘，故用它）。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:12`: - 原始 HDF5 数据已经放在 `data/<task_name>/perfect/episode_*.hdf5`，每个 episode 包含：
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:29`: with h5py.File('data/<task>/perfect/episode_0.hdf5') as f:
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:43`: paths = sorted(glob.glob('data/<task>/perfect/episode_*.hdf5'))
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:83`: --src ./data/<task>/perfect \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:84`: --dst ./data/<task>/perfect_lerobot \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:103`: with open('data/<task>/perfect_lerobot/meta/info.json') as f:
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:110`: cat data/<task>/perfect_lerobot/meta/tasks.jsonl    # 看 instruction 写对没
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:243`: data/<task>/perfect_lerobot/                    # lerobot 数据集
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:118`: ├── perfect/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:169`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/perfect \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:170`: --dst ./data/real_cleaning/<task_name>_perfect_lerobot \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:171`: --task-name "<task_name> perfect" \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:201`: └── new_task_perfect_lerobot/
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:240`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:244`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:527`: - `save_rollout`：是否记录完整 rollout。打开后，每个执行 step 缓冲三路图像 + 14 维 state + 14 维已执行 action；运行结束时提示输入 success 标签（`y`/`n`），并写出一个 LeRobot 兼容的 HDF5 episode 到 `<output_dir>/{success,fail}/episode_N.hdf5`。该 HDF5 布局与 `convert_real_hdf5_to_lerobot.py` 的输入一致，可直接再转成训练集。也可命令行传 `--save-rollout`。注意：图像在内存里缓冲，长 episode 占用较大，建议先配合 `max_steps` 使用。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:529`: - `output_dir`：保存 `rtc_selected_actions.npy` 的目录；`save_rollout` 打开时，rollout HDF5 也存在这里的 `success/`、`fail/` 子目录下。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:924`: - 可选 HDF5 rollout 保存（`save_rollout`），含单条 episode 的 success/fail 标签和落盘目录路由。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:45`: - episode 管理：回车开始、空格停止、记录 success/fail、可选保存 HDF5 rollout。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:3`: description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:53`: **Define success criteria. Loop until verified.**
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/Karpathy_guidelines.md:67`: Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:482`: success/fail，写一个 **LeRobot 兼容的 HDF5**（layout 跟 `convert_real_hdf5_to_lerobot.py` 输入对齐：
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:483`: `/observations/{qpos,qvel,effort,images/<cam>}`、`/action`、`/isSuccess`），可再转成训练数据集。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:331`: --src data/pick_1_cup/perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/unified_28d_gr00t_style_conversion_plan.md:361`: - 14D 真机样例 `/project/peilab/wam/physical_WM/data/pick_1_cup/perfect_lerobot` 已成功转换到 `/tmp/fastwam_unified28_pick`，并通过 joint mask 校验。
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:614`: "successes": 0,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:616`: "success_episodes": [],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:624`: success, replay_images, predicted_future_video_clips, episode_mean_psnr = run_single_episode(
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:637`: if success:
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:638`: results["successes"] += 1
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:639`: results["success_episodes"].append(trial_idx)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:649`: success=success,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:671`: success=success,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:680`: success=success,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:759`: "successes": 0,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:762`: "success_episodes": [],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/eval_libero_single.py:794`: f"{results['successes']}/{cfg.EVALUATION.num_trials} successes"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:4`: #   $RESULT_DIR/summary.csv             (per-suite + overall success rates)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:6`: #   $RESULT_DIR/task_success_rates.csv  (per-task success rate + description)
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_summarize.sh:45`: echo "Wrote: $RESULT_DIR/summary.csv  $RESULT_DIR/summary.json  $RESULT_DIR/task_success_rates.csv"
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:193`: --src data/pick_1_cup/perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:346`: echo \"SUCCESS|$gpu_id|\$rc|\$(date +%s)|\$LOG_FILE\" > \"\$STATUS_FILE\"; \
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:406`: if [ "$status" = "SUCCESS" ]; then
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/run_libero_parallel_test.sh:625`: echo "All tasks completed successfully!"
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:12`: - 原始 HDF5 数据已经放在 `data/<task_name>/perfect/episode_*.hdf5`，每个 episode 包含：
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:29`: with h5py.File('data/<task>/perfect/episode_0.hdf5') as f:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:43`: paths = sorted(glob.glob('data/<task>/perfect/episode_*.hdf5'))
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:83`: --src ./data/<task>/perfect \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:84`: --dst ./data/<task>/perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:103`: with open('data/<task>/perfect_lerobot/meta/info.json') as f:
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:110`: cat data/<task>/perfect_lerobot/meta/tasks.jsonl    # 看 instruction 写对没
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:243`: data/<task>/perfect_lerobot/                    # lerobot 数据集
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:173`: echo "  summary.csv             (per-suite + overall success rate)"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/submit_libero_full_eval.sh:174`: echo "  task_success_rates.csv  (per-task)"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:59`: def save_rollout_video(rollout_dir, rollout_images, idx, success, task_description, log_file=None, fps=24):
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:62`: mp4_path = f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}--task={processed_task_description}.mp4"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:92`: success,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/libero_utils.py:140`: f"{rollout_dir}/{DATE_TIME}--episode={idx}--success={success}"
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:40`: 'total_successes': 0,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:75`: stats['total_successes'] += result['successes']
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:86`: 'success_rate': result['successes'] / result['total_episodes'] * 100,
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:89`: 'successes': result['successes'],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:104`: total_success_rate = 0
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:113`: 'Success Rate (%)': [],
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:122`: success_rate = stats['total_successes'] / stats['total_trials'] * 100
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:136`: print(f"- Successful attempts: {stats['total_successes']}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:137`: print(f"- Success rate: {success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:149`: df_data['Success Rate (%)'].append(f"{success_rate:.2f}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:157`: total_success_rate += success_rate
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:166`: avg_success_rate = total_success_rate/total_suites
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:173`: print(f"- Average success rate: {avg_success_rate:.2f}%")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:185`: df_data['Success Rate (%)'].append(f"{avg_success_rate:.2f}")
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:208`: # Create the per-task success-rate CSV
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:209`: task_success_data = {
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:212`: 'Success Rate (%)': []
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:215`: task_success_data['Future Video PSNR (dB)'] = []
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:227`: # Fill per-task success-rate rows
+- `/project/peilab/wam/physical_WM_xqh/experiments/libero/summarize_results.py:231`: task_success_data['Task'].append(task)
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:5`: task-success rate is not computable offline. This script instead measures the policy's
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:7`: and derives success-rate-LIKE proxy metrics:
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:14`: pick/stack success);
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:241`: raise SystemExit("No samples evaluated successfully.")
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:272`: # success proxy 1: normalized-action-L1 threshold pass-rates
+- `/project/peilab/wam/physical_WM/scripts/eval_open_loop_batch.py:276`: # success proxy 2: gripper open/close binary TIMING accuracy
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_base_pack_3.sh:15`: #   1. sbatch convert_pack_3_objects_plus.sh          # data/pack_3_objects_plus/perfect_lerobot
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:26`: --src ./data/stack_3_cups/perfect \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:27`: --dst ./data/stack_3_cups/perfect_lerobot \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_stack_3_cups.sh:41`: echo "[done] verify: python -c \"import json;d=json.load(open('data/stack_3_cups/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:16`: #   1. data/battery_assemble/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:56`: DATA_DIR="/project/peilab/wam/physical_WM/data/battery_assemble/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:71`: raw_count = len(list((root / "data/battery_assemble/perfect").glob("episode_*.hdf5")))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_best.sh:86`: raise SystemExit(f"Expected battery_assemble/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:38`: ds = root / "data/battery_assemble/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:39`: raw_count = len(list((root / "data/battery_assemble/perfect").glob("episode_*.hdf5")))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_battery_assemble.sh:42`: "Missing data/battery_assemble/perfect_lerobot. "
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:46`: - Example source: `/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect/episode_0.hdf5`
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:57`: - The raw HDF5 does not contain `language`, `task`, or `success` keys.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:58`: - The `perfect/` directory can be treated as success demonstrations at dataset level until better labels are found.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:71`: - Full `perfect/` split action/qpos alignment check covered 71 files and 65,917 steps.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:30`: 2. Inspect `reports/missing_metadata_scan.md` for evidence about FPS, gripper unit/scaling, task instruction source, and success/perfect split.
+- `/project/peilab/wam/cosmos3_cy/docs/next_prompt.md:37`: - action/qpos alignment check over `/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect`
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:38`: Path("data/pack_3_objects_plus/perfect_lerobot"),
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_stack_3_cups.sh:39`: Path("data/stack_3_cups/perfect_lerobot"),
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:29`: - Ran alignment validation on the real `perfect/` split with output written to `/tmp`.
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:40`: - success/perfect split source.
+- `/project/peilab/wam/cosmos3_cy/docs/progress.md:60`: python scripts/check_action_qpos_alignment.py --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect --config configs/data/piper_dual_hdf5.yaml --output /tmp/cosmos3_action_qpos_alignment_smoke.json
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:45`: root / "data/pack_3_objects_plus/perfect_lerobot",
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_stack_3_cups_aug_ft_robocoin40k.sh:46`: root / "data/stack_3_cups/perfect_lerobot",
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:17`: - raw HDF5 lacks `language`, `task`, and `success` keys
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:68`: Status: confirmed for the `perfect/` split during Task 0 validation.
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:74`: --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:90`: - `action[t]` is closest to `qpos[t+1]` across the inspected `perfect/` split.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:45`: ds = root / "data/pack_3_objects_plus/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_robocoin40k.sh:59`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:7`: - Default split: `perfect`
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:41`: ## Success Schema
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:43`: Raw HDF5 files do not contain a `success` key. Until better labels are found, the directory name `perfect` is treated as dataset-level success metadata.
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:38`: /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect/episode_0.hdf5
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:86`: 原 HDF5 内没有 language/task/success key。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:95`: 原 HDF5 内没有 success key。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:96`: 路径包含 perfect/，可在 dataset level 视作 success demo。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:420`: | 是否只有 perfect           | `find data -type d`                  | 是否有失败数据                     |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:423`: | 是否有 success label      | 路径 / metadata                        | 评估、筛选、失败学习                  |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:533`: default_split: perfect
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:594`: success:
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:596`: success_dirs:
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:597`: - perfect
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:721`: --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:723`: --output reports/action_qpos_alignment_perfect.json
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:805`: success
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:806`: perfect
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:815`: 4. 可能包含 success/perfect split 的文件和行号。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:833`: --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:835`: --output reports/dataset_stats_perfect.json
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:878`: 1. 当前 perfect 全量统计只用于数据理解。
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:961`: --input /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect/episode_0.hdf5 \
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:998`: --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_table_cleaning_aug_ft_robocoin40k.sh:45`: root / "data/pack_3_objects_plus/perfect_lerobot",
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_table_cleaning.sh:38`: Path("data/pack_3_objects_plus/perfect_lerobot"),
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:59`: PACK3_DATA="/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_aug_ft_28dpartial.sh:90`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:37`: ds = Path("data/pack_3_objects_plus/perfect_lerobot")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_precompute_pack_3_objects_plus.sh:46`: raise SystemExit(f"Expected pack_3_objects_plus/perfect_lerobot fps=30, got {info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:16`: #   1. data/stack_3_cups/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:60`: DATA_DIR="/project/peilab/wam/physical_WM/data/stack_3_cups/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_worst.sh:88`: raise SystemExit(f"Expected stack_3_cups/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:15`: #   1. sbatch convert_pack_3_objects_plus.sh          # data/pack_3_objects_plus/perfect_lerobot
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:62`: --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:64`: --output reports/action_qpos_alignment_perfect.json
+- `/project/peilab/wam/cosmos3_cy/docs/milestones/M1_metadata.md:87`: Task 0 validation already ran the alignment script against the `perfect/` split and confirmed `best_alignment = next` across 71 files.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:16`: #   1. data/battery_assemble/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:56`: DATA_DIR="/project/peilab/wam/physical_WM/data/battery_assemble/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:71`: raw_count = len(list((root / "data/battery_assemble/perfect").glob("episode_*.hdf5")))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_battery_assemble_28dpartial_worst.sh:86`: raise SystemExit(f"Expected battery_assemble/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:16`: #   1. data/stack_3_cups/perfect_lerobot exists (30Hz, 14D, 3-cam)
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:60`: DATA_DIR="/project/peilab/wam/physical_WM/data/stack_3_cups/perfect_lerobot"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_stack_3_cups_28dpartial_best.sh:88`: raise SystemExit(f"Expected stack_3_cups/perfect_lerobot to be 30Hz, got fps={info['fps']}")
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/submit_fastwam_robotwin_adjust_bottle_smoke.sh:13`: # without OOM/NaN, loss drops, and an eval video is produced. On success, launch the
+- `/project/peilab/wam/cosmos3_cy/docs/project_state.json:20`: "Ran check_action_qpos_alignment.py on perfect split with output in /tmp",
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:36`: --src ./data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:37`: --dst ./data/pack_3_objects_plus/perfect_lerobot \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh:52`: echo "[done] verify: python -c \"import json;d=json.load(open('data/pack_3_objects_plus/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:36`: --src ./data/battery_assemble/perfect \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:37`: --dst ./data/battery_assemble/perfect_lerobot \
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:48`: raw_count = len(list((root / "data/battery_assemble/perfect").glob("episode_*.hdf5")))
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:49`: info_path = root / "data/battery_assemble/perfect_lerobot/meta/info.json"
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_battery_assemble.sh:61`: print((root / "data/battery_assemble/perfect_lerobot/meta/tasks.jsonl").read_text(encoding="utf-8").strip())
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:52`: Document HDF5 keys, image layout, observation keys, language source, success source, and unknown metadata.
+- `/project/peilab/wam/cosmos3_cy/docs/superpowers/plans/2026-06-25-task0-docs-infra.md:88`: Provide a CLI with `--repo-root`, `--data-root`, and `--output`. Search likely files for FPS, gripper, task instruction, success, and camera metadata terms.
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:19`: "success_split": ["success", "perfect"],
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:222`: description="Search repository and data-adjacent files for FPS, gripper, task, success, and camera metadata."
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/main.py:253`: accelerator.print("✅ Process group destroyed successfully.")
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/submit_fastwam_pack_3_ft_robocoin.sh:14`: #   1. sbatch convert_pack_3_objects_plus.sh          # data/pack_3_objects_plus/perfect_lerobot
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:34`: --src ./data/pack_3_objects_plus/perfect \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:35`: --dst ./data/pack_3_objects_plus/perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/scripts/trian_scripts/convert_pack_3_objects_plus.sh:50`: echo "[done] verify: python -c \"import json;d=json.load(open('data/pack_3_objects_plus/perfect_lerobot/meta/info.json'));print(d['fps'],d['features']['action']['shape'],d['total_episodes'])\""
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:31`: data_root = tmp_path / "perfect"
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:434`: """Prompt for a success label and write an HDF5 rollout when enabled.
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:445`: answer = input("Episode success? 'y'=success, 'n'=fail, anything else=skip saving: ").strip().lower()
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:449`: print("[rollout] no success label given; skipped saving.")
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:452`: self._write_rollout_hdf5(success=(answer == "y"))
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:465`: def _write_rollout_hdf5(self, success: bool) -> None:
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:476`: /isSuccess                  [T]          success label, broadcast per step
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:482`: folder_type = "success" if success else "fail"
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:510`: root.create_dataset("isSuccess", (data_size,), dtype="float32")[...] = float(success)
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:511`: print(f"[rollout] saved {data_size} steps to {dataset_path} ({time.time() - start:.1f}s, success={success}).")
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:118`: ├── perfect/
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:169`: --src /home/agilex/cobot_magic/collect_data/data/<task_name>/perfect \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:170`: --dst ./data/real_cleaning/<task_name>_perfect_lerobot \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:171`: --task-name "<task_name> perfect" \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:201`: └── new_task_perfect_lerobot/
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:240`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:244`: - ./data/real_cleaning/new_task_perfect_lerobot
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:527`: - `save_rollout`：是否记录完整 rollout。打开后，每个执行 step 缓冲三路图像 + 14 维 state + 14 维已执行 action；运行结束时提示输入 success 标签（`y`/`n`），并写出一个 LeRobot 兼容的 HDF5 episode 到 `<output_dir>/{success,fail}/episode_N.hdf5`。该 HDF5 布局与 `convert_real_hdf5_to_lerobot.py` 的输入一致，可直接再转成训练集。也可命令行传 `--save-rollout`。注意：图像在内存里缓冲，长 episode 占用较大，建议先配合 `max_steps` 使用。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:529`: - `output_dir`：保存 `rtc_selected_actions.npy` 的目录；`save_rollout` 打开时，rollout HDF5 也存在这里的 `success/`、`fail/` 子目录下。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:924`: - 可选 HDF5 rollout 保存（`save_rollout`），含单条 episode 的 success/fail 标签和落盘目录路由。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/hypertrain/multi-node-training-main/ckpt.py:54`: accelerator.print(f"✅ Checkpoint saved successfully to {checkpoint_dir}")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:434`: """Prompt for a success label and write an HDF5 rollout when enabled.
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:445`: answer = input("Episode success? 'y'=success, 'n'=fail, anything else=skip saving: ").strip().lower()
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:449`: print("[rollout] no success label given; skipped saving.")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:452`: self._write_rollout_hdf5(success=(answer == "y"))
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:465`: def _write_rollout_hdf5(self, success: bool) -> None:
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:476`: /isSuccess                  [T]          success label, broadcast per step
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:482`: folder_type = "success" if success else "fail"
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:510`: root.create_dataset("isSuccess", (data_size,), dtype="float32")[...] = float(success)
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:511`: print(f"[rollout] saved {data_size} steps to {dataset_path} ({time.time() - start:.1f}s, success={success}).")
+
+## cameras
+
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:72`: front_camera_name: "cam_high"
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:73`: left_wrist_camera_name: "cam_left_wrist"
+- `/project/peilab/wam/physical_WM_xqh/configs/real_deploy_rtc_fastwam.yaml:74`: right_wrist_camera_name: "cam_right_wrist"
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN.md:49`: - Cameras: `cam_high`, `cam_left_wrist`, `cam_right_wrist`
+- `/project/peilab/wam/cosmos3_cy/docs/MISSING_METADATA_REPORT.md:13`: - cameras: `cam_high`, `cam_left_wrist`, `cam_right_wrist`
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:72`: front_camera_name: "cam_high"
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:73`: left_wrist_camera_name: "cam_left_wrist"
+- `/project/peilab/wam/physical_WM/configs/real_deploy_rtc_fastwam.yaml:74`: right_wrist_camera_name: "cam_right_wrist"
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:21`: | cam_high | `/observations/images/cam_high` | `[T, 480, 640, 3]` | RGB |
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:22`: | cam_left_wrist | `/observations/images/cam_left_wrist` | `[T, 480, 640, 3]` | RGB |
+- `/project/peilab/wam/cosmos3_cy/docs/DATA_SCHEMA.md:23`: | cam_right_wrist | `/observations/images/cam_right_wrist` | `[T, 480, 640, 3]` | RGB |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:56`: /observations/images/cam_high                uint8   (894, 480, 640, 3)
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:57`: /observations/images/cam_left_wrist          uint8   (894, 480, 640, 3)
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:58`: /observations/images/cam_right_wrist         uint8   (894, 480, 640, 3)
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:69`: - cam_high
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:70`: - cam_left_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:71`: - cam_right_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:110`: cam_high[t]
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:111`: cam_left_wrist[t]
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:112`: cam_right_wrist[t]
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:432`: | cam_high 位置           | 实验记录 / 外参        | 部署时相机必须复现           |
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:540`: cam_high: /observations/images/cam_high
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:541`: cam_left_wrist: /observations/images/cam_left_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:542`: cam_right_wrist: /observations/images/cam_right_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:801`: cam_high
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:802`: cam_left_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:803`: cam_right_wrist
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:898`: "cam_high": image_high,
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:899`: "cam_left_wrist": image_left,
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:900`: "cam_right_wrist": image_right,
+- `/project/peilab/wam/cosmos3_cy/docs/PLAN_COSMOS3_PIPER_UPDATED.md:913`: cam_high: [history_frames, 3, H, W]
+- `/project/peilab/wam/cosmos3_cy/tests/test_m1_metadata_scripts.py:49`: "/observations/images/cam_high",
+- `/project/peilab/wam/cosmos3_cy/scripts/scan_missing_metadata.py:20`: "cameras": ["cam_high", "cam_left_wrist", "cam_right_wrist"],
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:446`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:447`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:448`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:471`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:472`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:473`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:486`: cam_high_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:487`: cam_left_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:488`: cam_right_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:491`: self.cam_high_path = Path(cam_high_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:492`: self.cam_left_wrist_path = Path(cam_left_wrist_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:493`: self.cam_right_wrist_path = Path(cam_right_wrist_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:498`: cam_high=load_rgb_image(self.cam_high_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:499`: cam_left_wrist=load_rgb_image(self.cam_left_wrist_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:500`: cam_right_wrist=load_rgb_image(self.cam_right_wrist_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:536`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:537`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:538`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:543`: #     "Connect your camera/robot SDK here and return cam_high, "
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:544`: #     "cam_left_wrist, cam_right_wrist, and a 14-dim state vector."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:377`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:378`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:379`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:402`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:403`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:404`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:425`: cam_high_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:426`: cam_left_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:427`: cam_right_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:430`: self.cam_high_path = Path(cam_high_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:431`: self.cam_left_wrist_path = Path(cam_left_wrist_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:432`: self.cam_right_wrist_path = Path(cam_right_wrist_path)
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:437`: cam_high=load_rgb_image(self.cam_high_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:438`: cam_left_wrist=load_rgb_image(self.cam_left_wrist_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:439`: cam_right_wrist=load_rgb_image(self.cam_right_wrist_path),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:469`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:470`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:471`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:476`: #     "Connect your camera/robot SDK here and return cam_high, "
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/deploy_real_ckpt.py:477`: #     "cam_left_wrist, cam_right_wrist, and a 14-dim state vector."
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:102`: "cam_high": load_rgb_image(args.cam_high),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:103`: "cam_left_wrist": load_rgb_image(args.cam_left_wrist),
+- `/project/peilab/wam/physical_WM_xqh/scripts/deploy_real_bot/fastwam_policy_dry_run.py:104`: "cam_right_wrist": load_rgb_image(args.cam_right_wrist),
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:109`: "cam_high": image_high,
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:110`: "cam_left_wrist": image_left,
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/rtc_design_plan.md:111`: "cam_right_wrist": image_right,
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:24`: cam_high→[256,320] / 双 wrist→[128,160] → 拼成 [384,320]
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:46`: `current_transforms = transforms[key] if isinstance(transforms, dict) else transforms`（`fastwam_processor.py:223`）。这个 `isinstance(dict)` 模式在 §5 里被原样复用到新的 `train_aug_transforms` 上，给 cam_high 和两路 wrist 配不同增强——逐相机区分本身不需新代码，新代码只用于"开关"那一层。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:71`: - 假设本任务三路相机角色为 `cam_high`（外部/俯视）+ `cam_left_wrist` + `cam_right_wrist`，几何增强只给 `cam_high`。**其它任务（libero/robotwin）相机角色不同，需各自在其 data config 里决定哪路是"非 wrist"。**
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:84`: - 新增 `train_aug_transforms`：按相机 keyed 的 dict，**只含增强**（cam_high 给几何+色彩，双 wrist 仅色彩）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:134`: cam_high:
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:145`: cam_left_wrist:
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:150`: cam_right_wrist:
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:162`: - dict 的 key 必须与 `shape_meta.images[*].key` 一致（`cam_high`/`cam_left_wrist`/`cam_right_wrist`）。
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:174`: | 3 | 验证开关 ON 是随机的 | 同输入连跑两次，cam_high 输出**不相等**（`not torch.allclose`） |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:175`: | 4 | 验证**时序一致性** | 取一次增强后的 cam_high `[33,3,240,320]`，确认 33 帧用了**同一**几何变换（如对纯色 dummy 检查 33 帧裁剪框/旋转角一致，或所有帧非零区域一致） |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/train_image_augmentation.md:180`: | 9 | 训练冒烟 | 短训（几十 step），从一个 batch 反 Normalize 存几张拼接图肉眼检查：cam_high 有轻微裁剪/旋转/色彩变化，双 wrist 仅色彩变化，无明显畸变 |
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:273`: - `cam_high → [256,320]`（上半）
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:274`: - `cam_left_wrist → [128,160]`、`cam_right_wrist → [128,160]`，左右拼成 `[128,320]`（下半）
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:429`: - 推荐配置：`cam_high` 给几何（RandomCrop 95% + Resize 回 + Rotate±5°）+ 色彩（ColorJitter）；
+- `/project/peilab/wam/physical_WM_xqh/docs/agent_guidelines/project_overview.md:447`: - observation dict：`{"images": {cam_high, cam_left_wrist, cam_right_wrist}, "state": 14维, "prompt": str}`。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:384`: --cam-high /path/to/cam_high.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:385`: --cam-left-wrist /path/to/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/28d_action_pipeline.md:386`: --cam-right-wrist /path/to/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/how_to_add_a_task.md:15`: - `observations/images/{cam_high,cam_left_wrist,cam_right_wrist}` shape `[T, 480, 640, 3]`
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:90`: --cam-high /path/to/cam_high.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:91`: --cam-left-wrist /path/to/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:92`: --cam-right-wrist /path/to/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:131`: --cam-high ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_high.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:132`: --cam-left-wrist ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_open_loop.md:133`: --cam-right-wrist ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:109`: "cam_high": image_high,
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:110`: "cam_left_wrist": image_left,
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/rtc_design_plan.md:111`: "cam_right_wrist": image_right,
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:24`: cam_high→[256,320] / 双 wrist→[128,160] → 拼成 [384,320]
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:46`: `current_transforms = transforms[key] if isinstance(transforms, dict) else transforms`（`fastwam_processor.py:223`）。这个 `isinstance(dict)` 模式在 §5 里被原样复用到新的 `train_aug_transforms` 上，给 cam_high 和两路 wrist 配不同增强——逐相机区分本身不需新代码，新代码只用于"开关"那一层。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:71`: - 假设本任务三路相机角色为 `cam_high`（外部/俯视）+ `cam_left_wrist` + `cam_right_wrist`，几何增强只给 `cam_high`。**其它任务（libero/robotwin）相机角色不同，需各自在其 data config 里决定哪路是"非 wrist"。**
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:84`: - 新增 `train_aug_transforms`：按相机 keyed 的 dict，**只含增强**（cam_high 给几何+色彩，双 wrist 仅色彩）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:134`: cam_high:
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:145`: cam_left_wrist:
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:150`: cam_right_wrist:
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:162`: - dict 的 key 必须与 `shape_meta.images[*].key` 一致（`cam_high`/`cam_left_wrist`/`cam_right_wrist`）。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:174`: | 3 | 验证开关 ON 是随机的 | 同输入连跑两次，cam_high 输出**不相等**（`not torch.allclose`） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:175`: | 4 | 验证**时序一致性** | 取一次增强后的 cam_high `[33,3,240,320]`，确认 33 帧用了**同一**几何变换（如对纯色 dummy 检查 33 帧裁剪框/旋转角一致，或所有帧非零区域一致） |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/train_image_augmentation.md:180`: | 9 | 训练冒烟 | 短训（几十 step），从一个 batch 反 Normalize 存几张拼接图肉眼检查：cam_high 有轻微裁剪/旋转/色彩变化，双 wrist 仅色彩变化，无明显畸变 |
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:289`: - `cam_high → [256,320]`（上半）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:290`: - `cam_left_wrist → [128,160]`、`cam_right_wrist → [128,160]`，左右拼成 `[128,320]`（下半）
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:460`: - 推荐配置：`cam_high` 给几何（RandomCrop 95% + Resize 回 + Rotate±5°）+ 色彩（ColorJitter）；
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/project_overview.md:478`: - observation dict：`{"images": {cam_high, cam_left_wrist, cam_right_wrist}, "state": 14维, "prompt": str}`。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/egodex_eef14_migration_plan.md:102`: `round(ts[0]*fps)+t`、整段连续、mp4 为完整源视频、单相机 cam_high" 全部继承。
+- `/project/peilab/wam/physical_WM/docs/agent_guidelines/latent_action_pretrain_plan.md:63`: | 4 | EgoDex LeRobot 数据集 = 30fps、单相机 `cam_high` 1080×1920、LeRobot v2.1、15 task 子目录、4494 ep / 617k 帧 | `data/egodex_pnp_15tasks_28d_euler_v2/*/meta/info.json`、`DATASET_SUMMARY.md` |
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/unified32_usage.md:95`: images: [ {key: cam_high, raw_shape: [3,1080,1920], shape: [3,240,320]} ]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/how_to_add_a_task.md:15`: - `observations/images/{cam_high,cam_left_wrist,cam_right_wrist}` shape `[T, 480, 640, 3]`
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:90`: --cam-high /path/to/cam_high.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:91`: --cam-left-wrist /path/to/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:92`: --cam-right-wrist /path/to/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:131`: --cam-high ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_high.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:132`: --cam-left-wrist ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_open_loop.md:133`: --cam-right-wrist ./open_loop_video_dry_run/video_frame_rollout_test_inputs/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:132`: /observations/images/cam_high       shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:133`: /observations/images/cam_left_wrist shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:134`: /observations/images/cam_right_wrist shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:252`: - key: cam_high
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:253`: - key: cam_left_wrist
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:254`: - key: cam_right_wrist
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:680`: "cam_high": ...,
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:681`: "cam_left_wrist": ...,
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:682`: "cam_right_wrist": ...,
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:813`: --cam-high /path/to/cam_high.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:814`: --cam-left-wrist /path/to/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_rtc.md:815`: --cam-right-wrist /path/to/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:30`: ("cam_high", "observation.images.cam_high"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:31`: ("cam_left_wrist", "observation.images.cam_left_wrist"),
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_real_hdf5_to_lerobot.py:32`: ("cam_right_wrist", "observation.images.cam_right_wrist"),
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:57`: - 相机 key：`cam_high`、`cam_left_wrist`、`cam_right_wrist`
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:168`: 3. `cam_high` resize 到 `[256, 320]`，放上半部分。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:169`: 4. `cam_left_wrist` resize 到 `[128, 160]`，放左下。
+- `/project/peilab/wam/physical_WM/docs/usage_guidelines/deploy_legacy.md:170`: 5. `cam_right_wrist` resize 到 `[128, 160]`，放右下。
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:6`: ``cam_head_rgb`` / ``cam_left_wrist_rgb`` / ``cam_right_wrist_rgb``.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:10`: ``cam_high`` / ``cam_left_wrist`` / ``cam_right_wrist``.
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:64`: "observation.images.cam_head_rgb": "observation.images.cam_high",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:65`: "observation.images.cam_left_wrist_rgb": "observation.images.cam_left_wrist",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:66`: "observation.images.cam_right_wrist_rgb": "observation.images.cam_right_wrist",
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_robocoin_to_lerobot.py:237`: new_cam = new_key.split(".")[-1]  # cam_high
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:66`: VIDEO_KEY = "observation.images.cam_high"
+- `/project/peilab/wam/physical_WM_xqh/scripts/data_process/unified_28d/convert_egodex_to_unified28.py:79`: VIDEO_KEY = "observation.images.cam_high"
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:253`: cam_high: np.ndarray,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:254`: cam_left_wrist: np.ndarray,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:255`: cam_right_wrist: np.ndarray,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:259`: cam_high_t = transforms_F.resize(
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:260`: rgb_to_float_chw(cam_high),
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:266`: rgb_to_float_chw(cam_left_wrist),
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:272`: rgb_to_float_chw(cam_right_wrist),
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:277`: cam_high_t = transforms_F.resize(
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:278`: cam_high_t,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:296`: image = torch.cat([cam_high_t, bottom], dim=-2)
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:646`: "--cam-high": args.cam_high,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:647`: "--cam-left-wrist": args.cam_left_wrist,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:648`: "--cam-right-wrist": args.cam_right_wrist,
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:657`: cam_high=load_rgb_image(args.cam_high),
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:658`: cam_left_wrist=load_rgb_image(args.cam_left_wrist),
+- `/project/peilab/wam/physical_WM_xqh/scripts/open_loop_video.py:659`: cam_right_wrist=load_rgb_image(args.cam_right_wrist),
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:132`: /observations/images/cam_high       shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:133`: /observations/images/cam_left_wrist shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:134`: /observations/images/cam_right_wrist shape [T, 480, 640, 3]
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:252`: - key: cam_high
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:253`: - key: cam_left_wrist
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:254`: - key: cam_right_wrist
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:680`: "cam_high": ...,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:681`: "cam_left_wrist": ...,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:682`: "cam_right_wrist": ...,
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:813`: --cam-high /path/to/cam_high.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:814`: --cam-left-wrist /path/to/cam_left_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_rtc.md:815`: --cam-right-wrist /path/to/cam_right_wrist.png \
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:57`: - 相机 key：`cam_high`、`cam_left_wrist`、`cam_right_wrist`
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:168`: 3. `cam_high` resize 到 `[256, 320]`，放上半部分。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:169`: 4. `cam_left_wrist` resize 到 `[128, 160]`，放左下。
+- `/project/peilab/wam/physical_WM_xqh/docs/usage_guidelines/deploy_legacy.md:170`: 5. `cam_right_wrist` resize 到 `[128, 160]`，放右下。
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:58`: "front": self.cameras.get("front_camera_name", "cam_high"),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:59`: "left_wrist": self.cameras.get("left_wrist_camera_name", "cam_left_wrist"),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/robot_runtime.py:60`: "right_wrist": self.cameras.get("right_wrist_camera_name", "cam_right_wrist"),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:446`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:447`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:448`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:471`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:472`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:473`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:486`: cam_high_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:487`: cam_left_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:488`: cam_right_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:491`: self.cam_high_path = Path(cam_high_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:492`: self.cam_left_wrist_path = Path(cam_left_wrist_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:493`: self.cam_right_wrist_path = Path(cam_right_wrist_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:498`: cam_high=load_rgb_image(self.cam_high_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:499`: cam_left_wrist=load_rgb_image(self.cam_left_wrist_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:500`: cam_right_wrist=load_rgb_image(self.cam_right_wrist_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:536`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:537`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:538`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:543`: #     "Connect your camera/robot SDK here and return cam_high, "
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py:544`: #     "cam_left_wrist, cam_right_wrist, and a 14-dim state vector."
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:377`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:378`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:379`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:402`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:403`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:404`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:425`: cam_high_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:426`: cam_left_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:427`: cam_right_wrist_path: str | Path,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:430`: self.cam_high_path = Path(cam_high_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:431`: self.cam_left_wrist_path = Path(cam_left_wrist_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:432`: self.cam_right_wrist_path = Path(cam_right_wrist_path)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:437`: cam_high=load_rgb_image(self.cam_high_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:438`: cam_left_wrist=load_rgb_image(self.cam_left_wrist_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:439`: cam_right_wrist=load_rgb_image(self.cam_right_wrist_path),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:469`: cam_high=img_h,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:470`: cam_left_wrist=img_l,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:471`: cam_right_wrist=img_r,
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:476`: #     "Connect your camera/robot SDK here and return cam_high, "
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py:477`: #     "cam_left_wrist, cam_right_wrist, and a 14-dim state vector."
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:37`: IMAGE_KEYS = ("cam_high", "cam_left_wrist", "cam_right_wrist")
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:124`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:125`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:126`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:175`: cam_high=np.asarray(images["cam_high"]),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:176`: cam_left_wrist=np.asarray(images["cam_left_wrist"]),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:177`: cam_right_wrist=np.asarray(images["cam_right_wrist"]),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:313`: cam_high = transforms_F.resize(
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:314`: rgb_to_float_chw(observation.cam_high),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:320`: rgb_to_float_chw(observation.cam_left_wrist),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:326`: rgb_to_float_chw(observation.cam_right_wrist),
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:331`: cam_high = transforms_F.resize(
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:332`: cam_high,
+- `/project/peilab/wam/physical_WM_xqh/src/fastwam/deployment/fastwam_policy_client.py:350`: image = torch.cat([cam_high, bottom], dim=-2)
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:102`: "cam_high": load_rgb_image(args.cam_high),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:103`: "cam_left_wrist": load_rgb_image(args.cam_left_wrist),
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/fastwam_policy_dry_run.py:104`: "cam_right_wrist": load_rgb_image(args.cam_right_wrist),
+- `/project/peilab/wam/physical_WM/scripts/diag/leak_bisect_phases.py:116`: "chunk-000/observation.images.cam_left_wrist/episode_000003.mp4")
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:273`: cam_high: np.ndarray,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:274`: cam_left_wrist: np.ndarray,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:275`: cam_right_wrist: np.ndarray,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:279`: cam_high_t = transforms_F.resize(
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:280`: rgb_to_float_chw(cam_high),
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:286`: rgb_to_float_chw(cam_left_wrist),
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:292`: rgb_to_float_chw(cam_right_wrist),
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:297`: cam_high_t = transforms_F.resize(
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:298`: cam_high_t,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:316`: image = torch.cat([cam_high_t, bottom], dim=-2)
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:772`: "--cam-high": args.cam_high,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:773`: "--cam-left-wrist": args.cam_left_wrist,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:774`: "--cam-right-wrist": args.cam_right_wrist,
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:783`: cam_high=load_rgb_image(args.cam_high),
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:784`: cam_left_wrist=load_rgb_image(args.cam_left_wrist),
+- `/project/peilab/wam/physical_WM/scripts/open_loop_video.py:785`: cam_right_wrist=load_rgb_image(args.cam_right_wrist),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:30`: ("cam_high", "observation.images.cam_high"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:31`: ("cam_left_wrist", "observation.images.cam_left_wrist"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_real_hdf5_to_lerobot.py:32`: ("cam_right_wrist", "observation.images.cam_right_wrist"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:6`: ``cam_head_rgb`` / ``cam_left_wrist_rgb`` / ``cam_right_wrist_rgb``.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:10`: ``cam_high`` / ``cam_left_wrist`` / ``cam_right_wrist``.
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:64`: "observation.images.cam_head_rgb": "observation.images.cam_high",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:65`: "observation.images.cam_left_wrist_rgb": "observation.images.cam_left_wrist",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:66`: "observation.images.cam_right_wrist_rgb": "observation.images.cam_right_wrist",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robocoin_to_lerobot.py:237`: new_cam = new_key.split(".")[-1]  # cam_high
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:14`: cam_high / cam_left_wrist / cam_right_wrist (concat_multi_camera="robotwin"), so we map:
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:20`: head_camera  -> cam_high
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:21`: left_camera  -> cam_left_wrist
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:22`: right_camera -> cam_right_wrist
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:70`: ("head_camera", "cam_high", "observation.images.cam_high"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:71`: ("left_camera", "cam_left_wrist", "observation.images.cam_left_wrist"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_robotwin_hdf5_to_lerobot.py:72`: ("right_camera", "cam_right_wrist", "observation.images.cam_right_wrist"),
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_egodex_pseudo_action_to_lerobot.py:66`: VIDEO_KEY = "observation.images.cam_high"
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:17`: camera ``observation.images.cam_high``);
+- `/project/peilab/wam/physical_WM/scripts/data_process/slice_unified28_to_eef14.py:77`: VIDEO_KEY = "observation.images.cam_high"
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:38`: "observation.images.cam_high",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:39`: "observation.images.cam_left_wrist",
+- `/project/peilab/wam/physical_WM/scripts/data_process/convert_lerobot_v3_to_v21.py:40`: "observation.images.cam_right_wrist",
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:23`: * single camera ``observation.images.cam_high``.
+- `/project/peilab/wam/physical_WM/scripts/data_process/extract_latent_actions_lerobot.py:65`: VIDEO_KEY = "observation.images.cam_high"
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:58`: "front": self.cameras.get("front_camera_name", "cam_high"),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:59`: "left_wrist": self.cameras.get("left_wrist_camera_name", "cam_left_wrist"),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/robot_runtime.py:60`: "right_wrist": self.cameras.get("right_wrist_camera_name", "cam_right_wrist"),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:37`: IMAGE_KEYS = ("cam_high", "cam_left_wrist", "cam_right_wrist")
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:124`: cam_high: np.ndarray
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:125`: cam_left_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:126`: cam_right_wrist: np.ndarray
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:175`: cam_high=np.asarray(images["cam_high"]),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:176`: cam_left_wrist=np.asarray(images["cam_left_wrist"]),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:177`: cam_right_wrist=np.asarray(images["cam_right_wrist"]),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:313`: cam_high = transforms_F.resize(
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:314`: rgb_to_float_chw(observation.cam_high),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:320`: rgb_to_float_chw(observation.cam_left_wrist),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:326`: rgb_to_float_chw(observation.cam_right_wrist),
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:331`: cam_high = transforms_F.resize(
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:332`: cam_high,
+- `/project/peilab/wam/physical_WM/src/fastwam/deployment/fastwam_policy_client.py:350`: image = torch.cat([cam_high, bottom], dim=-2)

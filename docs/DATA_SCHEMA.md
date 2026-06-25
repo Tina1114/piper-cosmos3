@@ -7,7 +7,7 @@
 - Default split: `perfect`
 - Sim data: `false`
 - Compression: `false`
-- FPS: `UNKNOWN`
+- FPS: `30` from converted LeRobot metadata; raw HDF5 has no fps attribute
 
 ## HDF5 Keys
 
@@ -44,8 +44,11 @@ Raw HDF5 files do not contain a `success` key. Until better labels are found, th
 
 ## Metadata Gaps
 
-- FPS is unknown.
-- Gripper unit is unknown.
-- Full-dataset action/qpos alignment is unknown.
 - Timestamp availability is unknown.
 - Camera intrinsics and extrinsics are unknown.
+
+## Confirmed M1 Metadata
+
+- Full `perfect/` split action/qpos alignment: `action[t]` is closest to `qpos[t+1]`.
+- Gripper command semantic: opening `width`.
+- Gripper deployment command range: `[0.0, 0.1]`.

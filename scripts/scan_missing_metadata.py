@@ -4,12 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import os
+import re
+import shutil
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
 
 TERMS = {
-    "fps_or_timing": ["fps", "rate", "frequency", "sleep", "dt"],
+    "fps_or_timing": ["fps", "rate", "frequency", "sleep", "dt", "hz"],
     "gripper": ["gripper", "gripper_val", "gripper_val_mutiple", "joint_states"],
     "task_instruction": ["Put the three objects", "instruction", "task"],
     "success_split": ["success", "perfect"],
@@ -29,6 +33,48 @@ TEXT_SUFFIXES = {
     ".sh",
     ".cfg",
     ".ini",
+}
+
+SKIP_DIR_NAMES = {
+    ".git",
+    ".hg",
+    ".svn",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "__pycache__",
+    "node_modules",
+    "site-packages",
+    "dist",
+    "build",
+    ".venv",
+    "venv",
+    "env",
+    "cache",
+    ".cache",
+    "logs",
+    "runs",
+    "result",
+    "results",
+    "train_ckpt",
+    "checkpoints",
+    "assets",
+    "media",
+    "videos",
+    "data",
+    "datasets",
+    "third_party",
+    "external",
+    "external_dependencies",
+    "conda_pkgs",
+    "DreamDojo",
+    "Isaac-GR00T",
+    "RTC-Anything",
+    "Wan2.2",
+    "Xqh_data",
+    "cy",
+    "ego_data",
+    "openpi",
 }
 
 
@@ -52,7 +98,14 @@ def iter_files(roots: list[Path]) -> list[Path]:
         if root.is_file():
             candidates = [root]
         else:
-            candidates = [p for p in root.rglob("*") if is_text_candidate(p)]
+            candidates = []
+            for dirpath, dirnames, filenames in os.walk(root):
+                dirnames[:] = [name for name in dirnames if name not in SKIP_DIR_NAMES]
+                current = Path(dirpath)
+                for filename in filenames:
+                    path = current / filename
+                    if is_text_candidate(path):
+                        candidates.append(path)
         for path in candidates:
             resolved = path.resolve()
             if resolved not in seen and is_text_candidate(path):
@@ -78,12 +131,67 @@ def scan_file(path: Path, terms: list[str], max_matches: int) -> list[Match]:
 
 
 def scan(roots: list[Path], max_matches_per_file: int) -> dict[str, list[Match]]:
+    if shutil.which("rg"):
+        return scan_with_rg(roots, max_matches_per_file)
+
     files = iter_files(roots)
     results: dict[str, list[Match]] = {category: [] for category in TERMS}
     for path in files:
         for category, terms in TERMS.items():
             results[category].extend(scan_file(path, terms, max_matches_per_file))
     return results
+
+
+def scan_with_rg(roots: list[Path], max_matches_per_file: int) -> dict[str, list[Match]]:
+    results: dict[str, list[Match]] = {category: [] for category in TERMS}
+    existing_roots = [str(root) for root in roots if root.exists()]
+    if not existing_roots:
+        return results
+
+    include_globs = [f"*{suffix}" for suffix in sorted(TEXT_SUFFIXES)]
+    exclude_globs = [f"!**/{name}/**" for name in sorted(SKIP_DIR_NAMES)]
+
+    for category, terms in TERMS.items():
+        pattern = "|".join(re.escape(term) for term in terms)
+        command = [
+            "rg",
+            "--no-heading",
+            "--line-number",
+            "--with-filename",
+            "--ignore-case",
+            "--max-count",
+            str(max_matches_per_file),
+            "--max-filesize",
+            "2M",
+        ]
+        for glob in include_globs + exclude_globs:
+            command.extend(["--glob", glob])
+        command.extend([pattern, *existing_roots])
+
+        completed = subprocess.run(
+            command,
+            check=False,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        if completed.returncode not in (0, 1):
+            continue
+        results[category].extend(parse_rg_output(completed.stdout))
+
+    return results
+
+
+def parse_rg_output(output: str) -> list[Match]:
+    matches: list[Match] = []
+    for line in output.splitlines():
+        path_text, line_no_text, text = line.split(":", 2)
+        try:
+            line_no = int(line_no_text)
+        except ValueError:
+            continue
+        matches.append(Match(path=Path(path_text), line_no=line_no, line=text.strip()))
+    return matches
 
 
 def format_report(results: dict[str, list[Match]], roots: list[Path]) -> str:

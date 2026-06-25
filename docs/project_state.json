@@ -1,54 +1,55 @@
 {
   "current_milestone": "M1_metadata",
   "completed_tasks": [
-    "Read docs/PLAN_COSMOS3_PIPER_UPDATED.md",
-    "Reviewed original plan for redundancy, conflicts, milestone boundaries, and modularization opportunities",
-    "Created compact docs/PLAN.md",
-    "Created docs/milestones/M1_metadata.md",
-    "Created docs/milestones/M2_dataset.md",
-    "Created docs/milestones/M3_baseline.md",
-    "Created docs/milestones/M4_safety.md",
-    "Created docs/milestones/M5_cosmos3.md",
-    "Created docs/milestones/M6_deployment.md",
-    "Created docs/ACTION_SCHEMA.md",
-    "Created docs/DATA_SCHEMA.md",
-    "Created docs/MISSING_METADATA_REPORT.md",
-    "Created configs/data/piper_dual_hdf5.yaml",
-    "Created scripts/check_action_qpos_alignment.py",
-    "Created scripts/scan_missing_metadata.py",
-    "Created requested directory structure",
-    "Ran check_action_qpos_alignment.py on perfect split with output in /tmp",
-    "Confirmed best_alignment=next across 71 files and 65917 steps"
+    "Task 0: reorganized project plan and milestone docs",
+    "Task 0: initialized ACTION_SCHEMA, DATA_SCHEMA, MISSING_METADATA_REPORT, progress, next_prompt, and project_state",
+    "Task 0: created configs/data/piper_dual_hdf5.yaml",
+    "Task 0: created scripts/check_action_qpos_alignment.py",
+    "Task 0: created scripts/scan_missing_metadata.py",
+    "Task 0: ran initial action/qpos alignment on perfect split with output in /tmp",
+    "Task 1: ran formal action/qpos alignment report to reports/action_qpos_alignment_perfect.json",
+    "Task 2: ran metadata scan to reports/missing_metadata_scan.md",
+    "Task 2: confirmed converted dataset fps=30 from LeRobot metadata and conversion script",
+    "Task 2: confirmed gripper command semantic as width and deployment command range [0.0, 0.1]",
+    "Task 3: created scripts/compute_dataset_stats.py",
+    "Task 3: ran dataset stats to reports/dataset_stats_perfect.json",
+    "Task 4: updated M1 docs, config, and project state"
   ],
-  "remaining_tasks": [
-    "Run missing metadata scan over /project/peilab/wam and dataset root",
-    "Update missing metadata report with evidence for FPS and gripper unit",
-    "Record how confirmed next alignment affects downstream dataset sampling",
-    "Only after M1 evidence is complete, plan M2 dataset infrastructure"
-  ],
-  "blockers": [
-    "Real data FPS is unknown",
-    "Gripper unit and safe range are unknown"
-  ],
-  "next_task": "Run scan_missing_metadata.py over /project/peilab/wam and update docs/MISSING_METADATA_REPORT.md with FPS and gripper evidence. Stop before Dataset Loader.",
-  "validation": {
-    "script_help": "passed",
-    "py_compile": "passed",
-    "h5py_import": "passed",
-    "yaml_import": "passed",
-    "alignment_smoke_output": "/tmp/cosmos3_action_qpos_alignment_smoke.json",
-    "alignment_result": {
+  "remaining_tasks": [],
+  "blockers": [],
+  "next_task": "Start M2 Dataset Infrastructure planning from docs/milestones/M2_dataset.md. Do not start Baseline, Cosmos3, Safety Filter, or Deployment.",
+  "metadata": {
+    "fps": 30,
+    "fps_source": "/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect_lerobot/meta/info.json",
+    "raw_hdf5_fps_attr": "absent",
+    "gripper_unit": "width",
+    "gripper_command_min": 0.0,
+    "gripper_command_max": 0.1,
+    "gripper_source": "/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py",
+    "action_qpos_alignment": {
+      "split": "perfect",
       "num_files": 71,
       "num_steps": 65917,
       "best_alignment": "next",
       "next_global_mean_abs_diff": 0.0009006630583410013,
-      "bad_files": 0
+      "bad_files": 0,
+      "report": "reports/action_qpos_alignment_perfect.json"
     },
-    "metadata_scan_smoke_output": "/tmp/cosmos3_missing_metadata_smoke.md"
+    "dataset_stats": {
+      "report": "reports/dataset_stats_perfect.json",
+      "episode_length_min": 738,
+      "episode_length_max": 1244,
+      "episode_length_mean": 928.4084507042254,
+      "left_gripper_min": -0.005799999926239252,
+      "left_gripper_max": 0.08070000261068344,
+      "right_gripper_min": -0.0035000001080334187,
+      "right_gripper_max": 0.0737999975681305
+    },
+    "metadata_scan_report": "reports/missing_metadata_scan.md"
   },
-  "worktree_note": {
-    "path": "/tmp/cosmos3_cy-task0-docs-infra",
-    "branch": "task0-docs-infra",
-    "note": "Linked worktree was created, but file edits were applied to /project/peilab/wam/cosmos3_cy because the patch tool writes in the provided workspace root."
-  }
+  "caveats": [
+    "Raw HDF5 files do not embed fps as an attribute; fps=30 is confirmed from converted LeRobot metadata and conversion scripts.",
+    "Raw HDF5 files do not contain per-step success labels; perfect/ remains dataset-level success metadata.",
+    "Observed gripper action values include slight negatives; deployment scripts clip width commands to [0.0, 0.1]."
+  ]
 }

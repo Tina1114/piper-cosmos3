@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Track metadata gaps that affect labels, sampling, normalization, safety, and real-robot deployment. This file should be updated with evidence, not guesses.
+Track metadata gaps that affect labels, sampling, normalization, safety, and real-robot deployment. This file is evidence-based; do not fill unknown fields by guessing.
 
 ## Confirmed
 
@@ -12,68 +12,24 @@ Track metadata gaps that affect labels, sampling, normalization, safety, and rea
 - image resolution: 480 x 640
 - cameras: `cam_high`, `cam_left_wrist`, `cam_right_wrist`
 - action shape: `[T, 14]`
-- action type on `episode_0`: absolute joint-position command
-- `action[t]` close to `qpos[t+1]` on `episode_0`
+- action type: absolute joint-position command
+- action alignment: `action[t]` is closest to `qpos[t+1]` on the full `perfect/` split
+- dataset FPS for the converted LeRobot metadata: `30`
+- gripper command semantic: opening `width`
+- gripper deployment command range: `[0.0, 0.1]`
+- default task instruction: `Put the three objects on the table into the container.`
 - raw HDF5 lacks `language`, `task`, and `success` keys
+- `perfect/` directory is treated as dataset-level success metadata
 
-## Need to Confirm
+## Evidence From Task 1
 
-### 1. Gripper Unit
-
-Current range from inspected episode:
-
-- left_gripper: `-0.0050 ~ 0.0668`
-- right_gripper: `-0.0031 ~ 0.0619`
-
-Current hypothesis:
-
-- likely opening width or driver internal gripper command
-
-Sources to check:
-
-- data collection script
-- Piper SDK or ROS wrapper
-- gripper command publish/service code
-- `joint_states` handling
-- any gripper scaling parameter
-
-Impact:
-
-- normalization
-- safety limit
-- deployment scaling
-- gripper loss
-- open/close threshold
-
-### 2. FPS
-
-Sources to check:
-
-- LeRobot metadata
-- data collection loop
-- camera config
-- robot control loop
-- converted video metadata
-- logs
-
-Impact:
-
-- action horizon duration
-- `policy_hz`
-- control timing
-- latency interpretation
-
-### 3. Action-Qpos Alignment Over All Episodes
-
-Status: confirmed for the `perfect/` split during Task 0 validation.
-
-Command run:
+Formal alignment report:
 
 ```bash
 python scripts/check_action_qpos_alignment.py \
   --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
   --config configs/data/piper_dual_hdf5.yaml \
-  --output /tmp/cosmos3_action_qpos_alignment_smoke.json
+  --output reports/action_qpos_alignment_perfect.json
 ```
 
 Result:
@@ -87,17 +43,69 @@ Result:
 
 Interpretation:
 
-- `action[t]` is closest to `qpos[t+1]` across the inspected `perfect/` split.
+- `action[t]` is closest to `qpos[t+1]` across the `perfect/` split.
 - Non-gripper joint dimensions are exactly aligned at `next` in this scan.
-- Gripper dimensions still need unit and scaling confirmation.
+- Gripper dimensions differ slightly from next-step `qpos`, consistent with gripper command/state handling.
 
-Impact now resolved:
+## Evidence From Task 2
 
-- `target_action_index`
-- whether `obs[t] -> action[t]` is valid
-- whether action is next-step joint target
-- whether a one-frame next-target interpretation is valid
+Metadata scan report:
 
-## Current Status
+```bash
+python scripts/scan_missing_metadata.py \
+  --repo-root /project/peilab/wam \
+  --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus \
+  --output reports/missing_metadata_scan.md
+```
 
-No full source-tree metadata scan has been run in this task. Run `scripts/scan_missing_metadata.py` in M1 follow-up work and paste evidence here.
+FPS evidence:
+
+- `/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect_lerobot/meta/info.json` has `fps: 30`.
+- The same `info.json` records `video.fps: 30` for `cam_high`, `cam_left_wrist`, and `cam_right_wrist`.
+- `/project/peilab/wam/physical_WM/scripts/trian_scripts/convert_pack_3_objects_plus.sh` converts `perfect/` to `perfect_lerobot/` with `--fps 30`.
+- The conversion script comments state that raw HDF5 has no fps attribute and that 30 is the conversion setting used for this dataset.
+
+Gripper evidence:
+
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py` clips dim 6 and dim 13 to `[0.0, 0.1]`.
+- The same script calls `move_gripper(width=left_gripper_position, force=1.0)` and `move_gripper(width=right_gripper_position, force=1.0)`.
+- `/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt_temporal_ensembling.py` uses the same clipping and `width=` command path.
+
+Task/source evidence:
+
+- `/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect_lerobot/meta/tasks.jsonl` stores `Put the three objects on the table into the container.`
+- Raw HDF5 files still do not embed task text or success labels.
+
+## Evidence From Task 3
+
+Dataset stats report:
+
+```bash
+python scripts/compute_dataset_stats.py \
+  --data-root /project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect \
+  --config configs/data/piper_dual_hdf5.yaml \
+  --output reports/dataset_stats_perfect.json
+```
+
+Result:
+
+- `num_files`: 71
+- `num_steps`: 65917
+- `episode_length_min`: 738
+- `episode_length_max`: 1244
+- `episode_length_mean`: `928.4084507042254`
+- `left_gripper_min`: `-0.005799999926239252`
+- `left_gripper_max`: `0.08070000261068344`
+- `right_gripper_min`: `-0.0035000001080334187`
+- `right_gripper_max`: `0.0737999975681305`
+- `bad_files`: `[]`
+
+Interpretation:
+
+- Observed gripper actions mostly sit inside the deployment command range, with slight negative values that should be clipped before robot command.
+- Dataset stats are for metadata/schema understanding only and are not a Dataset Loader or training normalization implementation.
+
+## Remaining Caveats
+
+- Raw HDF5 files do not contain an fps attribute; `30` is confirmed from the converted LeRobot metadata and conversion script.
+- Raw HDF5 files do not contain per-step `success` labels; `perfect/` remains dataset-level success metadata.

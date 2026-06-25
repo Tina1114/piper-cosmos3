@@ -13,7 +13,7 @@ Piper dual-arm real data
 -> real-robot inference
 ```
 
-The current phase is not model training. The current phase is metadata and dataset infrastructure.
+The current phase is not model training. M1 metadata infrastructure is complete; the next phase is M2 dataset infrastructure.
 
 ## Current Route
 
@@ -59,19 +59,26 @@ First-stage MVP uses the confirmed raw 14D joint-position interface:
 
 ## Current Status
 
-Current milestone: [M1 Metadata Infrastructure](milestones/M1_metadata.md)
+Current milestone: [M1 Metadata Infrastructure](milestones/M1_metadata.md) complete.
 
-Current blockers:
+Resolved M1 metadata:
 
-- Real data FPS is unknown.
-- Gripper unit and safe range are unknown.
+- Converted LeRobot metadata records `fps = 30`; raw HDF5 has no fps attribute.
+- Gripper command semantic is opening `width`.
+- Existing deploy scripts clip gripper width commands to `[0.0, 0.1]`.
 
-Recently confirmed in Task 0 validation:
+Confirmed alignment:
 
 - Full `perfect/` split action/qpos alignment check covered 71 files and 65,917 steps.
 - Best alignment is `next`: `action[t]` is closest to `qpos[t+1]`.
 - `next.global_mean_abs_diff = 0.0009006630583410013`.
 - No bad files were reported by the alignment script.
+
+Generated M1 reports:
+
+- `reports/action_qpos_alignment_perfect.json`
+- `reports/missing_metadata_scan.md`
+- `reports/dataset_stats_perfect.json`
 
 ## Milestone Index
 

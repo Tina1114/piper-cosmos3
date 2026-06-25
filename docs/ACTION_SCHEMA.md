@@ -4,7 +4,7 @@
 
 First-stage policy target is raw 14D absolute joint-position command.
 
-The `/action` dataset must be interpreted as the next absolute joint target for the dual-Piper robot. On the inspected `episode_0`, `action[t]` is close to `qpos[t+1]`.
+The `/action` dataset must be interpreted as the next absolute joint target for the dual-Piper robot. Across the `perfect/` split, `action[t]` is closest to `qpos[t+1]`.
 
 Do not interpret `/action` as:
 
@@ -49,6 +49,12 @@ predicted absolute joint target
 
 ## Known Unknowns
 
-- Gripper unit is not confirmed.
-- Gripper safe min/max are not confirmed.
-- Full-dataset action/qpos alignment is not confirmed yet.
+- Raw HDF5 files do not embed FPS as an attribute.
+
+## Confirmed Gripper Interpretation
+
+- Gripper dimensions: left dim 6, right dim 13.
+- Unit/command semantic: gripper opening `width`.
+- Deployment command range from existing robot scripts: clip to `[0.0, 0.1]` before `move_gripper(width=...)`.
+- Dataset observed action range on `perfect/`: left `-0.0058 ~ 0.0807`, right `-0.0035 ~ 0.0738`.
+- Values slightly below zero appear in recorded actions; deployment code clips commands to the non-negative width range.

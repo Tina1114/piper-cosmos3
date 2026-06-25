@@ -76,12 +76,20 @@ python scripts/scan_missing_metadata.py \
 - Documentation is split into compact planning and milestone files.
 - Project state can be restored from `PLAN.md`, this milestone file, `progress.md`, and `project_state.json`.
 - The M1 config exists and encodes confirmed data schema plus unknown metadata fields.
-- The two M1 scripts have working `--help` output and pass Python syntax checks.
+- The M1 scripts have working `--help` output and pass Python syntax checks.
+- Formal action/qpos alignment report exists under `reports/`.
+- Metadata scan report exists under `reports/`.
+- Dataset stats report exists under `reports/`.
 - No Dataset Loader, training code, Cosmos3 code, or deployment code has been added.
 
-## Remaining M1 Work After Task 0
+## M1 Completion Status
 
-- Run metadata scan over the broader `/project/peilab/wam` source tree.
-- Update `MISSING_METADATA_REPORT.md` with evidence for FPS and gripper unit when found.
+- Status: complete.
+- Formal `perfect/` split action/qpos alignment report: `reports/action_qpos_alignment_perfect.json`.
+- Metadata scan report: `reports/missing_metadata_scan.md`.
+- Dataset stats report: `reports/dataset_stats_perfect.json`.
+- Converted dataset FPS: `30`.
+- Gripper command semantic: opening `width`.
+- Gripper deployment command range: `[0.0, 0.1]`.
 
-Task 0 validation already ran the alignment script against the `perfect/` split and confirmed `best_alignment = next` across 71 files.
+Raw HDF5 caveat: raw episodes do not embed fps, task text, or per-step success labels.
