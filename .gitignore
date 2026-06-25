@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# environments
+.env
+.venv/
+venv/
+conda-meta/
+
+# large data
+data/
+datasets/
+*.hdf5
+*.h5
+*.mp4
+*.avi
+*.mov
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# outputs
+outputs/
+checkpoints/
+logs/
+wandb/
+runs/
+
+# reports: keep json/md, ignore heavy videos/images if needed
+reports/*.mp4
+reports/*.avi
+reports/*.png
+reports/*.jpg
+
+# system
+.DS_Store
