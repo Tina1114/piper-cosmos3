@@ -13,7 +13,7 @@ Piper dual-arm real data
 -> real-robot inference
 ```
 
-The current phase is not model training. M1 metadata infrastructure is complete; the next phase is M2 dataset infrastructure.
+The current phase is offline baseline validation. M1 metadata infrastructure and M2 dataset infrastructure are complete; M3 baseline code is present but forward/backward smoke still needs a PyTorch environment.
 
 ## Current Route
 
@@ -59,7 +59,7 @@ First-stage MVP uses the confirmed raw 14D joint-position interface:
 
 ## Current Status
 
-Current milestone: [M1 Metadata Infrastructure](milestones/M1_metadata.md) complete.
+Current milestone: [M3 Baseline Policy](milestones/M3_baseline.md).
 
 Resolved M1 metadata:
 
@@ -79,6 +79,19 @@ Generated M1 reports:
 - `reports/action_qpos_alignment_perfect.json`
 - `reports/missing_metadata_scan.md`
 - `reports/dataset_stats_perfect.json`
+
+Generated M2 reports:
+
+- `reports/pack_3_objects_plus_split.json`
+- `reports/episode_preview.png`
+
+M3 baseline status:
+
+- Baseline model: `piper_cosmos/models/baseline_policy.py`
+- Training script: `training/train_baseline_piper14.py`
+- Config: `configs/train/baseline_piper14.yaml`
+- Offline eval: `piper_cosmos/eval/offline_action_eval.py`
+- Local smoke reports were skipped because the current Python environment has no `torch`.
 
 ## Milestone Index
 

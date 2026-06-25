@@ -32,3 +32,10 @@ Out of scope:
 - Predicted action curves are close to ground truth.
 - Gripper predictions are not constant.
 - Out-of-range rate is close to zero.
+
+## Current Status
+
+- Baseline code and CLI scaffolding have been created.
+- Local `--help` and Python syntax checks pass.
+- Local forward/backward smoke is blocked because the current Python environment does not have `torch`.
+- GPU training must run through SLURM, not on the login node.

@@ -1,31 +1,33 @@
 {
-  "current_milestone": "M1_metadata",
+  "current_milestone": "M3_baseline",
   "completed_tasks": [
-    "Task 0: reorganized project plan and milestone docs",
-    "Task 0: initialized ACTION_SCHEMA, DATA_SCHEMA, MISSING_METADATA_REPORT, progress, next_prompt, and project_state",
-    "Task 0: created configs/data/piper_dual_hdf5.yaml",
-    "Task 0: created scripts/check_action_qpos_alignment.py",
-    "Task 0: created scripts/scan_missing_metadata.py",
-    "Task 0: ran initial action/qpos alignment on perfect split with output in /tmp",
-    "Task 1: ran formal action/qpos alignment report to reports/action_qpos_alignment_perfect.json",
-    "Task 2: ran metadata scan to reports/missing_metadata_scan.md",
-    "Task 2: confirmed converted dataset fps=30 from LeRobot metadata and conversion script",
-    "Task 2: confirmed gripper command semantic as width and deployment command range [0.0, 0.1]",
-    "Task 3: created scripts/compute_dataset_stats.py",
-    "Task 3: ran dataset stats to reports/dataset_stats_perfect.json",
-    "Task 4: updated M1 docs, config, and project state"
+    "M1: metadata infrastructure and reports",
+    "M2: HDF5 reader, PiperDualDataset, visualization CLI, split CLI, and dataset smoke tests",
+    "M3: created docs/superpowers/plans/2026-06-26-m3-baseline-policy.md",
+    "M3: created piper_cosmos/models/baseline_policy.py",
+    "M3: created training/train_baseline_piper14.py",
+    "M3: created configs/train/baseline_piper14.yaml",
+    "M3: created piper_cosmos/eval/offline_action_eval.py",
+    "M3: added tests/test_m3_baseline.py",
+    "M3: verified train/eval --help",
+    "M3: verified py_compile for baseline model, train script, and eval script",
+    "M3: wrote skipped smoke report because torch is not available in the current Python environment"
   ],
-  "remaining_tasks": [],
-  "blockers": [],
-  "next_task": "Start M2 Dataset Infrastructure planning from docs/milestones/M2_dataset.md. Do not start Baseline, Cosmos3, Safety Filter, or Deployment.",
+  "remaining_tasks": [
+    "Run 1-2 batch forward/backward smoke in a PyTorch environment, preferably via SLURM if GPU is needed",
+    "Record passed forward/backward loss metrics once torch is available",
+    "Only after M3 smoke passes, evaluate whether M4 Safety Infrastructure should start"
+  ],
+  "blockers": [
+    "Current Python environment has no torch module; local forward/backward smoke cannot run"
+  ],
+  "next_task": "Run M3 baseline smoke in a PyTorch environment using training/train_baseline_piper14.py --config configs/train/baseline_piper14.yaml --max-steps 1 --limit-samples 2 --smoke-report reports/baseline_piper14_smoke.json. Do not start M4 until this is verified.",
   "metadata": {
     "fps": 30,
-    "fps_source": "/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect_lerobot/meta/info.json",
     "raw_hdf5_fps_attr": "absent",
     "gripper_unit": "width",
     "gripper_command_min": 0.0,
     "gripper_command_max": 0.1,
-    "gripper_source": "/project/peilab/wam/physical_WM/scripts/deploy_real_bot/deploy_real_ckpt.py",
     "action_qpos_alignment": {
       "split": "perfect",
       "num_files": 71,
@@ -35,21 +37,38 @@
       "bad_files": 0,
       "report": "reports/action_qpos_alignment_perfect.json"
     },
-    "dataset_stats": {
-      "report": "reports/dataset_stats_perfect.json",
-      "episode_length_min": 738,
-      "episode_length_max": 1244,
-      "episode_length_mean": 928.4084507042254,
-      "left_gripper_min": -0.005799999926239252,
-      "left_gripper_max": 0.08070000261068344,
-      "right_gripper_min": -0.0035000001080334187,
-      "right_gripper_max": 0.0737999975681305
+    "dataset": {
+      "data_root": "/project/peilab/wam/physical_WM/data/pack_3_objects_plus/perfect",
+      "history_frames": 2,
+      "action_horizon": 16,
+      "image_size": 224,
+      "stride": 1,
+      "num_samples": 64781,
+      "split_report": "reports/pack_3_objects_plus_split.json"
     },
-    "metadata_scan_report": "reports/missing_metadata_scan.md"
+    "baseline": {
+      "model": "SimpleMultiViewCNNPolicy",
+      "input_cameras": [
+        "cam_high",
+        "cam_left_wrist",
+        "cam_right_wrist"
+      ],
+      "qpos_dim": 14,
+      "action_horizon": 16,
+      "action_dim": 14,
+      "loss": "action_mse + 2.0 * gripper_mse + 0.1 * smoothness_loss",
+      "config": "configs/train/baseline_piper14.yaml",
+      "train_script": "training/train_baseline_piper14.py",
+      "eval_script": "piper_cosmos/eval/offline_action_eval.py",
+      "smoke_report": "reports/baseline_piper14_smoke.json",
+      "eval_report": "reports/baseline_piper14_eval.json",
+      "local_smoke_status": "skipped",
+      "local_smoke_skip_reason": "torch_not_available"
+    }
   },
   "caveats": [
-    "Raw HDF5 files do not embed fps as an attribute; fps=30 is confirmed from converted LeRobot metadata and conversion scripts.",
-    "Raw HDF5 files do not contain per-step success labels; perfect/ remains dataset-level success metadata.",
-    "Observed gripper action values include slight negatives; deployment scripts clip width commands to [0.0, 0.1]."
+    "M3 did not run forward/backward locally because torch is unavailable.",
+    "CUDA training is guarded to require a SLURM environment.",
+    "M3 does not include Cosmos3 adapter, Safety Filter, deployment code, or real-robot code."
   ]
 }

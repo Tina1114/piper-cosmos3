@@ -13,6 +13,8 @@ conda-meta/
 
 # large data
 data/
+!piper_cosmos/data/
+!piper_cosmos/data/*.py
 datasets/
 *.hdf5
 *.h5
