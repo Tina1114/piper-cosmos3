@@ -1,0 +1,52 @@
+dataset:
+  name: battery_assemble_piper14
+  data_root: /project/peilab/wam/physical_WM/data/battery_assemble/perfect
+  lerobot_root: /project/peilab/wam/physical_WM/data/battery_assemble/perfect_lerobot
+  config_path: configs/dataset_configs/battery_assemble_hdf5.yaml
+  history_frames: 2
+  action_horizon: 16
+  image_size: 224
+  stride: 1
+  limit_samples: 0
+  split_path: reports/battery_assemble_dataset_split.json
+  stats_path: reports/battery_assemble_dataset_stats_perfect.json
+
+model:
+  name: SimpleMultiViewCNNPolicy
+  history_frames: 2
+  qpos_dim: 14
+  action_horizon: 16
+  action_dim: 14
+  image_feature_dim: 128
+  hidden_dim: 256
+  predict_residual: true
+  zero_init_output: true
+
+training:
+  batch_size: 8
+  num_workers: 4
+  max_steps: 500
+  learning_rate: 0.0001
+  device: cuda
+  output_dir: reports/battery_piper14
+  checkpoint_name: latest.pt
+  gripper_weight: 2.0
+  smoothness_weight: 0.1
+  small_batch_overfit_steps: 500
+  small_batch_overfit_threshold: 0.001
+
+validation:
+  split: episode
+  train_ratio: 0.9
+  seed: 42
+  max_batches: 64
+  metric: val_loss
+  best_checkpoint_name: best_val_loss.pt
+  min_optimizer_steps: 500
+  min_image_size: 224
+
+eval:
+  max_batches: 64
+  report: reports/battery_piper14/eval.json
+  prediction_npz: reports/battery_piper14/validation_predictions.npz
+  acceptance_report: reports/battery_piper14/acceptance_report.json

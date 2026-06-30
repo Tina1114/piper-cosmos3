@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "path": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/Cosmos3-Nano-DCP",
+  "model_dir": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/Cosmos3-Nano-DCP/model",
+  "has_metadata": true,
+  "distcp_files": 6,
+  "checkpoint_json": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/Cosmos3-Nano-DCP/checkpoint.json",
+  "has_checkpoint_json": true,
+  "model_config": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/Cosmos3-Nano-DCP/model/config.json",
+  "has_model_config": true,
+  "missing": []
+}

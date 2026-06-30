@@ -1,0 +1,10 @@
+cmd: /project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py
+  --sft-toml=reports/cosmos3_piper14/action_policy_piper14_nano_100step_4gpu.toml
+  job.name=battery_piper14_cosmos3_nano_100step_4gpu_b8 job.wandb_mode=disabled dataloader_train.max_samples_per_batch=8
+  trainer.grad_accum_iter=1
+args_cfg_path: reports/cosmos3_piper14/action_policy_piper14_nano_100step_4gpu.toml
+args_override:
+- job.name=battery_piper14_cosmos3_nano_100step_4gpu_b8
+- job.wandb_mode=disabled
+- dataloader_train.max_samples_per_batch=8
+- trainer.grad_accum_iter=1

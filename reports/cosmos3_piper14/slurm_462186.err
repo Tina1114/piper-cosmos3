@@ -1,0 +1,246 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 20, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/piper_cosmos/cosmos3/train_action_policy_piper14.py", line 16, in main
+    runpy.run_module("cosmos_framework.scripts.train", run_name="__main__")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/scripts/train.py", line 281, in <module>
+    config = load_experiment_from_toml(args.sft_toml, extra_overrides=args.opts)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/sft_config.py", line 735, in load_experiment_from_toml
+    overrides = build_hydra_overrides(raw)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/cosmos_framework/configs/toml_config/toml_config_helper.py", line 129, in build_hydra_overrides
+    raise ValueError("[job].experiment is required in the TOML")
+ValueError: [job].experiment is required in the TOML
+W0630 19:05:13.603000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552784 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552785 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552786 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552787 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552788 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552789 closing signal SIGTERM
+W0630 19:05:13.606000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 1552790 closing signal SIGTERM
+E0630 19:05:13.773000 1551941 external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/api.py:984] failed (exitcode: 1) local_rank: 7 (pid: 1552791) of binary: /project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/run.py", line 995, in <module>
+    main()
+    ~~~~^^
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 362, in wrapper
+    return f(*args, **kwargs)
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/run.py", line 991, in main
+    run(args)
+    ~~~^^^^^^
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/run.py", line 982, in run
+    elastic_launch(
+    ~~~~~~~~~~~~~~~
+        config=config,
+        ~~~~~~~~~~~~~~
+        entrypoint=cmd,
+        ~~~~~~~~~~~~~~~
+    )(*cmd_args)
+    ~^^^^^^^^^^^
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/launcher/api.py", line 170, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/launcher/api.py", line 317, in launch_agent
+    raise ChildFailedError(
+    ...<2 lines>...
+    )
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+piper_cosmos.cosmos3.train_action_policy_piper14 FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1552784)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 1552785)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 1552786)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[4]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 1552787)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[5]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 4 (local_rank: 4)
+  exitcode  : 1 (pid: 1552788)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[6]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 5 (local_rank: 5)
+  exitcode  : 1 (pid: 1552789)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[7]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 1552790)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-06-30_19:05:13
+  host      : dgx-54.cm.cluster
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 1552791)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

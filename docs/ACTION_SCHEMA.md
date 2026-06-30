@@ -1,24 +1,24 @@
-# Action Schema
+# 动作 Schema
 
-## First-Stage Target
+## 第一阶段目标
 
-First-stage policy target is raw 14D absolute joint-position command.
+第一阶段 policy goal 是原始 `14D` 绝对关节位置指令。
 
-The `/action` dataset must be interpreted as the next absolute joint target for the dual-Piper robot. Across the `perfect/` split, `action[t]` is closest to `qpos[t+1]`.
+双臂 `/action` 应解释为下一时刻的绝对关节目标。`perfect/` split 全量检查支持：`action[t]` 最接近 `qpos[t+1]`。
 
-Do not interpret `/action` as:
+不应将 `/action` 解释为：
 
-- joint delta,
-- current `qpos[t]`,
-- EEF pose,
-- EEF delta,
-- Cosmos3 dual-arm 20D action.
+- joint delta
+- 当前 `qpos[t]`
+- EEF 位姿
+- EEF delta
+- Cosmos3 dual-arm 20D action
 
-Do not pad the 14D action to 20D in the first stage.
+第一阶段不允许将 14D action 填充为 20D。
 
-## Dimension Order
+## 维度顺序
 
-| Dim | Name |
+| 维度 | 名称 |
 | --: | ---- |
 | 0 | left_waist |
 | 1 | left_shoulder |
@@ -35,26 +35,28 @@ Do not pad the 14D action to 20D in the first stage.
 | 12 | right_wrist_rotate |
 | 13 | right_gripper |
 
-## Deployment Interpretation
+## 部署解释
 
-The policy output is interpreted as an absolute 14D joint target. Deployment should use:
+policy output 应按绝对 14D 目标使用：
 
 ```text
 current_qpos
-predicted absolute joint target
--> safety filter
--> safe joint target
--> joint-position command
+预测的绝对关节目标
+→ safety filter
+→ safe target
+→ 关节位姿指令
 ```
 
-## Known Unknowns
+## 已知缺口
 
-- Raw HDF5 files do not embed FPS as an attribute.
+- 原始 HDF5 未内嵌 FPS 属性。
 
-## Confirmed Gripper Interpretation
+## 已确认的夹爪理解
 
-- Gripper dimensions: left dim 6, right dim 13.
-- Unit/command semantic: gripper opening `width`.
-- Deployment command range from existing robot scripts: clip to `[0.0, 0.1]` before `move_gripper(width=...)`.
-- Dataset observed action range on `perfect/`: left `-0.0058 ~ 0.0807`, right `-0.0035 ~ 0.0738`.
-- Values slightly below zero appear in recorded actions; deployment code clips commands to the non-negative width range.
+- 左右夹爪维度：6、13。
+- 单位/语义：夹爪开口 `width`。
+- 部署脚本约束：`move_gripper(width=...)` 前裁剪到 `[0.0, 0.1]`。
+- `perfect/` 数据实测范围：
+  - 左：`-0.0058 ~ 0.0807`
+  - 右：`-0.0035 ~ 0.0738`
+- `perfect/` 存在轻微负值；部署端已做非负裁剪。

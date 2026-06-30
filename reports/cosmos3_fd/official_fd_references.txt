@@ -1,0 +1,27 @@
+# Official Cosmos3 DROID Forward Dynamics References
+
+official_cosmos_root: /project/peilab/wam/cosmos3_cy/external/cosmos
+official_cosmos_commit: 60b94f685cbe8f5e0ef4209be79514d07db1566f
+official_fd_cookbook: /project/peilab/wam/cosmos3_cy/external/cosmos/cookbooks/cosmos3/generator/action/run_fd_with_cosmos_framework.ipynb
+
+## Keyword Evidence
+
+- `domain_name`: `README.md:353`
+  Action modes use Cosmos 3 as a world model: they condition on an embodiment (`domain_name`) and exchange video and action sequences. Policy and inverse dynamics return a predicted action chunk, so send those through the asynchronous `POST /v1/videos` job and read the action data from the completed r
+- `forward_dynamics`: `README.md:359`
+  | Forward dynamics | `forward_dynamics` | Image + action chunk | Video |
+- `action_chunk_size`: `README.md:361`
+  Pass embodiment settings through `extra_params`: `action_mode`, `domain_name` (for example `bridge_orig_lerobot`, `av`, or `camera_pose`), `raw_action_dim`, and `action_chunk_size`. Forward dynamics also takes an `action_path` pointing at an action file the server can read, so start the server with 
+- `action_path`: `README.md:361`
+  Pass embodiment settings through `extra_params`: `action_mode`, `domain_name` (for example `bridge_orig_lerobot`, `av`, or `camera_pose`), `raw_action_dim`, and `action_chunk_size`. Forward dynamics also takes an `action_path` pointing at an action file the server can read, so start the server with 
+- `vision_path`: `cookbooks/cosmos3/generator/action/run_fd_with_cosmos_framework.ipynb:434`
+  "AV forward-dynamics inference is driven by a JSONL spec, one line per run. Each line shares the same start frame (`vision_path`) but uses a different ego trajectory (`action_path`), so we get one generated video per trajectory.\n",
+- `model_mode`: `cookbooks/cosmos3/generator/action/run_fd_with_cosmos_framework.ipynb:483`
+  "        \"model_mode\": \"forward_dynamics\",\n",
+- `droid_lerobot`: `cookbooks/cosmos3/generator/action/run_fd_with_cosmos_framework.ipynb:752`
+  "robotics_dataset_root = resolve_input(\"cookbooks/cosmos3/generator/action/assets/droid_lerobot_example\")\n",
+
+## Notes
+
+- This inspection is CPU-only and does not load checkpoints.
+- Heavy FD inference must be submitted through SLURM on a compute node.

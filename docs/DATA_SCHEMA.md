@@ -1,54 +1,54 @@
-# Data Schema
+# 数据 Schema
 
-## Dataset
+## 数据集信息
 
-- Name: `piper_dual_pack_3_objects_plus`
-- Root: `/project/peilab/wam/physical_WM/data/pack_3_objects_plus`
-- Default split: `perfect`
-- Sim data: `false`
-- Compression: `false`
-- FPS: `30` from converted LeRobot metadata; raw HDF5 has no fps attribute
+- 名称：`piper_dual_pack_3_objects_plus`
+- 根目录：`/project/peilab/wam/physical_WM/data/pack_3_objects_plus`
+- 默认 split：`perfect`
+- sim 标记：`false`
+- 压缩标记：`false`
+- FPS：`30`（来自转换后的 LeRobot 元数据，原始 HDF5 无 fps 属性）
 
-## HDF5 Keys
+## HDF5 字段
 
-| Field | HDF5 Key | Shape | Notes |
+| 字段 | HDF5 键 | 形状 | 说明 |
 | ----- | -------- | ----- | ----- |
-| action | `/action` | `[T, 14]` | absolute joint-position command |
-| base_action | `/base_action` | `[T, 2]` | all zero in inspected example; ignored for M1 |
-| qpos | `/observations/qpos` | `[T, 14]` | required policy input |
-| qvel | `/observations/qvel` | `[T, 14]` | optional later input |
-| effort | `/observations/effort` | `[T, 14]` | optional later analysis |
+| action | `/action` | `[T, 14]` | 绝对关节位置指令 |
+| base_action | `/base_action` | `[T, 2]` | 示例中全为 0，第一阶段忽略 |
+| qpos | `/observations/qpos` | `[T, 14]` | policy 输入 |
+| qvel | `/observations/qvel` | `[T, 14]` | 后续版本可选输入 |
+| effort | `/observations/effort` | `[T, 14]` | 后续分析用途 |
 | cam_high | `/observations/images/cam_high` | `[T, 480, 640, 3]` | RGB |
 | cam_left_wrist | `/observations/images/cam_left_wrist` | `[T, 480, 640, 3]` | RGB |
 | cam_right_wrist | `/observations/images/cam_right_wrist` | `[T, 480, 640, 3]` | RGB |
 
-## Image Schema
+## 图像 Schema
 
-- Layout: THWC
-- Dtype: `uint8`
-- Color: RGB
-- Height: 480
-- Width: 640
+- 布局：THWC
+- 数据类型：`uint8`
+- 颜色：RGB
+- 高度：480
+- 宽度：640
 
-## Language Schema
+## 语言 Schema
 
-Raw HDF5 files do not contain language keys. The current default instruction comes from LeRobot metadata:
+原始 HDF5 无语言字段。当前默认指令来自 LeRobot 元数据（英文原文）：
 
 ```text
 Put the three objects on the table into the container.
 ```
 
-## Success Schema
+## 成功标签 Schema
 
-Raw HDF5 files do not contain a `success` key. Until better labels are found, the directory name `perfect` is treated as dataset-level success metadata.
+原始 HDF5 无 `success` 字段。暂时以目录名 `perfect` 作为数据集级成功标签。
 
-## Metadata Gaps
+## 元数据缺口
 
-- Timestamp availability is unknown.
-- Camera intrinsics and extrinsics are unknown.
+- 时间戳是否存在：未知
+- 摄像头内参/外参：未知
 
-## Confirmed M1 Metadata
+## 已确认元数据（M1）
 
-- Full `perfect/` split action/qpos alignment: `action[t]` is closest to `qpos[t+1]`.
-- Gripper command semantic: opening `width`.
-- Gripper deployment command range: `[0.0, 0.1]`.
+- 全量 `perfect/` split 行为对齐确认：`action[t]` 与 `qpos[t+1]` 最匹配。
+- 夹爪语义：开口 `width`。
+- 夹爪命令部署约束：`[0.0, 0.1]`。
