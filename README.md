@@ -123,6 +123,9 @@ bash scripts/cosmos3_fd/prepare_cosmos3_fd_env.sh
 
 - `docs/repo_guide.md`：仓库总览和主流程。
 - `docs/cosmos3_battery_assemble_training_plan.md`：Piper14 SFT 专题说明。
+- `docs/cosmos3_piper14_policy_deployment.md`：Cosmos3 Piper14 policy server 推理部署说明。
+- `docs/cosmos3_piper14_inference_environment.md`：推理环境和运行依赖说明。
+- `docs/inference_assets_manifest.md`：推理所需外部模型/缓存资产清单。
 - `docs/cosmos3_fd_routeA.md`：官方 FD Route A 说明。
 - `docs/ACTION_SCHEMA.md`：14D 动作定义。
 - `docs/DATA_SCHEMA.md`：数据字段说明。
