@@ -215,7 +215,6 @@ python scripts/cosmos3_piper14_offline_eval.py \
 
 - [cosmos3_piper14_offline_eval.py](/project/peilab/wam/cosmos3_cy/scripts/cosmos3_piper14_offline_eval.py)
 - [battery_piper14_safety.yaml](/project/peilab/wam/cosmos3_cy/configs/safety/battery_piper14_safety.yaml)
-- [safety_filter.py](/project/peilab/wam/cosmos3_cy/piper_cosmos/safety/safety_filter.py)
 
 ## 6. Forward Dynamics 支线
 
@@ -286,11 +285,9 @@ COSMOS3_SLURM_ACCOUNT=<account> bash scripts/cosmos3_fd/submit_official_droid_fd
 
 它主要用于分析、验收和部署前约束，不是训练主入口。
 
-### `piper_cosmos/models/`
+### 旧 `piper_cosmos/models/`
 
-这里当前没有承载真实 Cosmos3 SFT 主链路。
-
-尤其是 [cosmos3_piper14_adapter.py](/project/peilab/wam/cosmos3_cy/piper_cosmos/models/cosmos3_piper14_adapter.py) 明确写着它是 `M5 dry-run adapter` 和 `engineering skeleton only`。它适合做 I/O 契约或 shape 验证，不应当误认为正式训练 backbone。
+旧的 placeholder/dry-run model adapter 已移除。当前真实 Cosmos3 SFT 主链路不经过单独的 `piper_cosmos/models/`，而是走 `piper_cosmos/cosmos3/` 下的 experiment 注册、domain 注册和 HDF5 action dataset。
 
 ## 8. 常用文件索引
 
@@ -320,7 +317,7 @@ COSMOS3_SLURM_ACCOUNT=<account> bash scripts/cosmos3_fd/submit_official_droid_fd
 - 不要把短期 smoke 结论写回长期总览文档。
 - 不要把临时日志、缓存和一次性产物当成源码保存位置。
 - 不要把 FastWAM 环境当成 Cosmos3 训练环境直接改。
-- 不要把 `piper_cosmos/models/cosmos3_piper14_adapter.py` 当成当前正式训练主入口。
+- 不要重新引入旧 placeholder model adapter 作为正式训练主入口；当前正式入口在 `piper_cosmos/cosmos3/`。
 - 不要在 login 节点直接跑正式训练或重型推理。
 
 ## 10. 进一步阅读

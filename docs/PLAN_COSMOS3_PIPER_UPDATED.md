@@ -151,7 +151,6 @@ python scripts/cosmos3_piper14_offline_eval.py \
 
 - [scripts/cosmos3_piper14_offline_eval.py](/project/peilab/wam/cosmos3_cy/scripts/cosmos3_piper14_offline_eval.py)
 - [configs/safety/battery_piper14_safety.yaml](/project/peilab/wam/cosmos3_cy/configs/safety/battery_piper14_safety.yaml)
-- [piper_cosmos/safety/safety_filter.py](/project/peilab/wam/cosmos3_cy/piper_cosmos/safety/safety_filter.py)
 
 ## 6. 当前正式 adapter 是什么
 
@@ -170,25 +169,9 @@ python scripts/cosmos3_piper14_offline_eval.py \
 
 也就是说，当前正式接入层是“Cosmos experiment 注册 + dataset + domain +  bootstrap”的组合，而不是单个 `nn.Module adapter` 文件。
 
-## 7. `piper_cosmos/models/cosmos3_piper14_adapter.py` 现在有什么用
-train
-这个文件当前仍有用途，但用途很有限。
+## 7. 旧 placeholder adapter 已移除
 
-它的定位是：
-
-- `M5 dry-run adapter`
-- `engineering skeleton only`
-- 用于 `Piper14` I/O 形状、约束和占位接口验证
-
-它不是当前正式训练主入口，也不是 Cosmos3 真实 backbone 的接入实现。
-
-保留它的价值在于：
-
-- 明确 `Piper14` 的输入输出契约
-- 在脱离正式 Cosmos3 训练链路时做轻量 shape 验证
-- 保留一个独立于官方框架的最小占位模型骨架
-
-如果未来没有任何测试、脚本或调研再依赖它，可以考虑迁移到 `experimental/` 或后续删除；但当前不应把它误判为“正式 adapter”。
+旧的 `piper_cosmos/models/cosmos3_piper14_adapter.py` 是 M5 阶段的 dry-run/placeholder adapter，不在当前 Cosmos3-Nano Piper14 后训练主线上。当前正式接入层只保留 `piper_cosmos/cosmos3/` 下的 experiment 注册、domain 注册、HDF5 action dataset 和训练 bootstrap。
 
 ## 8. 对 `pack_3_objects_plus` 的处理原则
 
