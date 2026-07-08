@@ -34,12 +34,19 @@ checkpoints/
 logs/
 wandb/
 runs/
+slurm_logs/
+cosmos_battery/
+cosmos_battery_DCP/
+cosmos_battery_DCP_upload.log
+external/physical_WM_deployment_reference/
 
 # reports: keep json/md, ignore heavy videos/images if needed
 reports/*.mp4
 reports/*.avi
 reports/*.png
 reports/*.jpg
+reports/**/*.err
+reports/**/*.out
 
 # system
 .DS_Store

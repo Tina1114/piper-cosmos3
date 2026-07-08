@@ -60,3 +60,215 @@ wandb: Run data is saved locally in /project/peilab/wam/cosmos3_cy/reports/cosmo
   return func(*args, **kwargs)
 /project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
   return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/lib/python3.13/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+wandb: 
+wandb: Run history:
+wandb:                    DeviceMonitor/avg_clock ▅▂█▅▄▃▅▅▄▅█▅▅▅▄▅▅▅▅▄█▅▅▅▄▄█▅▅▅██▁▄▅█▅█▅█
+wandb:               DeviceMonitor/avg_cpu_mem_gb ▁███████████████████████████████████████
+wandb:     DeviceMonitor/avg_nvml_free_gpu_mem_gb █▇▇▇▇▇▇▇▇▇▇▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:     DeviceMonitor/avg_nvml_used_gpu_mem_gb ▁▂▂▂▂▂▂▂▂▂▂▂▂▂▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆█
+wandb:          DeviceMonitor/avg_peak_gpu_mem_gb ▁▁▁▁▁▁▁▁▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: DeviceMonitor/avg_peak_gpu_mem_reserved_gb ▁▁▁▁▁▁▁▁▁▁██████████████████████████████
+wandb:                    DeviceMonitor/avg_power ██▁██▁████████▁███▁█████▁█▁█████▁███████
+wandb:                     DeviceMonitor/avg_temp █▇▇█▇▇▇▂▇█▇▁▇▇▇▇▇▇███▇██████▇▇▇█▁▇▇▁▇▂█▁
+wandb:                     DeviceMonitor/avg_util ▆█▇▄▆▆▆▆▇▅█▄▅▆▂█▇▁▅▇▄▆▅▆▅▄▆▃▅▆▆▇▆▆▃▇▆██▆
+wandb:                    DeviceMonitor/max_clock ▁█▁█▁█▁▁▁▁█▁▁▁▁█▁▁▁▁▁▁▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█
+wandb:                                     +1,924 ...
+wandb: 
+wandb: Run summary:
+wandb:                    DeviceMonitor/avg_clock 1980
+wandb:               DeviceMonitor/avg_cpu_mem_gb 42.97166
+wandb:     DeviceMonitor/avg_nvml_free_gpu_mem_gb 1.32935
+wandb:     DeviceMonitor/avg_nvml_used_gpu_mem_gb 78.31812
+wandb:          DeviceMonitor/avg_peak_gpu_mem_gb 67.11019
+wandb: DeviceMonitor/avg_peak_gpu_mem_reserved_gb 75.66162
+wandb:                    DeviceMonitor/avg_power 120343.75
+wandb:                     DeviceMonitor/avg_temp 29.25
+wandb:                     DeviceMonitor/avg_util 75
+wandb:                    DeviceMonitor/max_clock 1980
+wandb:                                     +1,924 ...
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /project/peilab/wam/cosmos3_cy/reports/cosmos3_piper14/cosmos3_action/battery_piper14/battery_piper14_cosmos3_nano_20000step_4gpu_b8_acc1_offline/wandb/offline-run-20260630_201716-sln7b3al
+wandb: Find logs at: ./reports/cosmos3_piper14/cosmos3_action/battery_piper14/battery_piper14_cosmos3_nano_20000step_4gpu_b8_acc1_offline/wandb/offline-run-20260630_201716-sln7b3al/logs
