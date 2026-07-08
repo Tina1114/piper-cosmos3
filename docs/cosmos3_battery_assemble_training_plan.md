@@ -254,12 +254,6 @@ python scripts/validate_training_acceptance.py \
 - `run_scope`：正式验收必须是 `battery_piper14_full`，至少完成 `500` 个 optimizer step，使用 `224` 图像尺寸，不启用 `limit_samples`，且 train/val 样本、Piper14 `14D` action 和 action horizon 记录完整。CPU/64px/2-step smoke 即使其它 gate 通过，也不能作为正式验收通过。
 - `model_backend`：正式验收必须声明真实 `cosmos3` backend，base model 是 `nvidia/Cosmos3-Nano` 或 `nvidia/Cosmos3-Nano-Policy-DROID`，`real_cosmos3_backbone=true`，`placeholder_backbone=false`，action head 为 `piper14` 且 `action_dim=14`。`SimpleMultiViewCNNPolicy` baseline 和 `PlaceholderCosmos3Backbone` adapter 只能用于管线验证，不能满足最终 SFT 验收。
 
-完整验收流水线由 `scripts/run_battery_piper14_acceptance_slurm.sh` 执行：
-
-```shell
-BATTERY_SLURM_ACCOUNT=<account> bash scripts/submit_battery_piper14_acceptance.sh
-```
-
 真实 Cosmos3 SFT 入口为 `scripts/run_cosmos3_piper14_sft_slurm.sh`，它使用本仓库注册的 `action_policy_piper14_nano` experiment，而不是 baseline trainer：
 
 ```shell
@@ -414,29 +408,7 @@ python scripts/cosmos3_piper14_acceptance_pipeline.py \
 - 使用 `chunk_length=32`，`use_state=true`，action 序列为 `[initial qpos] + 32` 个 Piper14 绝对关节目标。
 - 从 `BASE_CHECKPOINT_PATH` 加载 Cosmos3-Nano DCP，并跳过 action head/action embedding 相关权重。
 
-`scripts/run_battery_piper14_acceptance_slurm.sh` 目前仍是 baseline/pipeline 验收辅助脚本；它可以验证 split/stats/eval/safety/acceptance 机制，但不能满足最终 `model_backend` gate。最终正式验收必须由真实 Cosmos3 SFT 产物生成 `reports/battery_piper14/acceptance_report.json`。
-
-提交前可以先跑 preflight，检查 Cosmos3 Python、配置、Battery 数据、split/stats、SLURM account 和正式验收报告状态：
-
-```shell
-python scripts/preflight_battery_piper14_acceptance.py \
-  --require-slurm-account \
-  --report reports/battery_piper14/preflight.json
-```
-
-`scripts/submit_battery_piper14_acceptance.sh` 会自动执行同一 preflight；preflight 不通过时不会调用 `sbatch`。如果要审计正式训练是否已经通过，再加 `--require-acceptance-report`，此时 `reports/battery_piper14/acceptance_report.json` 必须存在且所有 gate 为 passed。
-
-默认输出目录为 `reports/battery_piper14/`，其中 `acceptance_report.json` 是正式验收依据。可以用环境变量调整试运行规模，例如：
-
-```shell
-BATTERY_SLURM_ACCOUNT=<account> \
-MAX_STEPS=50 \
-MAX_VAL_BATCHES=8 \
-EVAL_BATCHES=8 \
-bash scripts/submit_battery_piper14_acceptance.sh
-```
-
-当前本地 CPU smoke 只能证明 pipeline、acceptance gates、checkpoint/eval/export/safety 报告路径能跑通；它不能替代 GPU 节点上的正式 `reports/battery_piper14/acceptance_report.json`。
+旧的 baseline/pipeline acceptance submit 入口已经移除，避免和真实 Cosmos3 SFT 验收混淆。正式验收应基于真实 Cosmos3 SFT 产物和 `scripts/cosmos3_piper14_offline_eval.py` 导出的预测结果；本地 CPU smoke 或 baseline pipeline 不能替代 GPU 节点上的正式 Cosmos3 验证。
 
 ### 环境测试
 
