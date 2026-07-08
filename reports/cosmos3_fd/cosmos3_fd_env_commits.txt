@@ -1,7 +1,0 @@
-prepared_at: 2026-06-27T15:18:12+08:00
-cosmos_root: /project/peilab/wam/cosmos3_cy/external/cosmos
-cosmos_commit: 60b94f685cbe8f5e0ef4209be79514d07db1566f
-framework_root: /project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3
-framework_commit: 90cd348877c37b888942c988b631eb1611bf2950
-uv_group: cu128-train
-conda_env_prefix: /project/peilab/wam/cosmos3_cy/external/cosmos/conda_envs/cosmos3
