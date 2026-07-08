@@ -88,7 +88,7 @@ class LiberoActionServiceBackend:
     def __init__(self, config: CosmosPiper14PolicyConfig) -> None:
         from cosmos_framework.inference.common.args import CheckpointOverrides
         from cosmos_framework.scripts.action_policy_server_libero import ActionModelService, ActionServerArgs
-        from cosmos_framework.data.vfm.action.transforms import ActionTransformPipeline
+        from cosmos_framework.data.generator.action.transforms import ActionTransformPipeline
 
         from piper_cosmos.cosmos3.domain import register_piper14_domain
 
@@ -129,7 +129,7 @@ class LiberoActionServiceBackend:
     def predict_policy(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         import torch
 
-        from cosmos_framework.data.vfm.action.domain_utils import get_domain_id
+        from cosmos_framework.data.generator.action.domain_utils import get_domain_id
 
         concat_view = request.get("concat_view")
         if concat_view is None:
@@ -359,7 +359,7 @@ def encode_rgb_png_base64(image: np.ndarray) -> str:
 
 
 def build_data_batch_from_sample(sample: Mapping[str, Any]) -> dict[str, Any]:
-    from cosmos_framework.data.vfm.joint_dataloader import IterativeJointDataLoader
+    from cosmos_framework.data.generator.joint_dataloader import IterativeJointDataLoader
 
     data_batch: dict[str, Any] = {}
     for key, value in sample.items():

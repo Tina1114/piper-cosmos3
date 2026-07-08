@@ -11,8 +11,7 @@ PIPER14_RAW_ACTION_DIM = 14
 def register_piper14_domain() -> None:
     """Register Piper14 in Cosmos3's action-domain lookup tables."""
 
-    from cosmos_framework.data.vfm.action import domain_utils
+    from cosmos_framework.data.generator.action import domain_utils
 
     domain_utils.EMBODIMENT_TO_DOMAIN_ID[PIPER14_DOMAIN_NAME] = PIPER14_DOMAIN_ID
     domain_utils.EMBODIMENT_TO_RAW_ACTION_DIM[PIPER14_DOMAIN_NAME] = PIPER14_RAW_ACTION_DIM
-
