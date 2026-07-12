@@ -21,4 +21,10 @@ COSMOS3_FRAMEWORK_ROOT="${COSMOS3_FRAMEWORK_ROOT:-${REPO_ROOT}/external/cosmos}"
 export COSMOS3_FRAMEWORK_ROOT
 export PYTHONPATH="${REPO_ROOT}:${COSMOS3_FRAMEWORK_ROOT}"
 
-export COSMOS_PIPER14_PYTHON="${COSMOS_PIPER14_PYTHON:-/home/agilex/miniconda3/envs/comos/bin/python}"
+export COSMOS_PIPER14_PYTHON="${COSMOS_PIPER14_PYTHON:-/home/agilex/miniconda3/envs/cosmos/bin/python}"
+
+if [[ ! -x "${COSMOS_PIPER14_PYTHON}" ]]; then
+  printf '[error] COSMOS_PIPER14_PYTHON is not executable: %s\n' "${COSMOS_PIPER14_PYTHON}" >&2
+  printf '[hint] Set COSMOS_PIPER14_PYTHON to the Python binary for the active Cosmos environment.\n' >&2
+  return 1 2>/dev/null || exit 1
+fi

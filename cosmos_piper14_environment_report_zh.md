@@ -32,7 +32,7 @@
 按要求没有复用或 clone `fastwam`，而是新建了独立环境：
 
 ```text
-/home/agilex/miniconda3/envs/comos
+/home/agilex/miniconda3/envs/cosmos
 ```
 
 核心版本：
@@ -178,7 +178,7 @@ scripts/env_cosmos_piper14_20k.sh
 - 设置 Qwen/Wan 本地路径
 - 设置 runtime cache 和 `TMPDIR`
 - 设置 `PYTHONPATH`
-- 指定 `comos` 环境 Python
+- 指定 `cosmos` 环境 Python
 
 新增检查脚本：
 
