@@ -12,11 +12,9 @@ exports three arrays for downstream safety/acceptance checks:
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import sys
 from dataclasses import dataclass
-from io import BytesIO
 from pathlib import Path
 from typing import Any
 
@@ -40,9 +38,11 @@ DEFAULT_PREDICTION_REPORT = DEFAULT_OUT_DIR / "validation_prediction_export.json
 DEFAULT_ACTION_HORIZON = 32
 DEFAULT_BATCH_SIZE = 2
 DEFAULT_MAX_BATCHES = 64
-DEFAULT_INFERENCE_STEPS = 32
+DEFAULT_INFERENCE_STEPS = 4
+DEFAULT_INFERENCE_GUIDANCE = 3.0
+DEFAULT_INFERENCE_SHIFT = 5.0
 DEFAULT_INFERENCE_SEED = 0
-DEFAULT_MAX_ACTION_DIM = 14
+DEFAULT_MAX_ACTION_DIM = 64
 DEFAULT_DEVICE = "cuda"
 
 
@@ -79,21 +79,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--action-horizon", type=int, default=DEFAULT_ACTION_HORIZON)
     parser.add_argument("--max-action-dim", type=int, default=DEFAULT_MAX_ACTION_DIM)
     parser.add_argument("--inference-steps", type=int, default=DEFAULT_INFERENCE_STEPS)
+    parser.add_argument("--inference-guidance", type=float, default=DEFAULT_INFERENCE_GUIDANCE)
+    parser.add_argument("--inference-shift", type=float, default=DEFAULT_INFERENCE_SHIFT)
     parser.add_argument("--inference-seed", type=int, default=DEFAULT_INFERENCE_SEED)
     parser.add_argument("--device", default=DEFAULT_DEVICE)
     return parser.parse_args()
-
-
-def _to_png_b64(image_chw: np.ndarray) -> str:
-    from PIL import Image
-
-    frame = np.asarray(image_chw, dtype=np.uint8)
-    if frame.ndim != 3 or frame.shape[0] != 3:
-        raise ValueError(f"Expected CHW RGB frame, got shape {frame.shape}")
-    rgb = np.transpose(frame, (1, 2, 0))
-    png = BytesIO()
-    Image.fromarray(rgb, mode="RGB").save(png, format="PNG")
-    return base64.b64encode(png.getvalue()).decode("ascii")
 
 
 def _safe_flatten(arr: np.ndarray) -> list[float]:
@@ -125,30 +115,28 @@ def _build_service(
     action_horizon: int,
     seed: int,
     steps: int,
+    guidance: float,
+    shift: float,
     args: argparse.Namespace,
 ) -> Any:
-    from cosmos_framework.inference.args import CheckpointOverrides
-    from cosmos_framework.scripts.action_policy_server_libero import ActionServerArgs, ActionModelService
+    from piper_cosmos.deployment.cosmos_piper14_policy import (
+        CosmosPiper14PolicyConfig,
+        LiberoActionServiceBackend,
+    )
 
-    checkpoint_overrides = CheckpointOverrides(
-        checkpoint_path=str(checkpoint),
+    config = CosmosPiper14PolicyConfig(
+        checkpoint=str(checkpoint),
         config_file=str(run_config),
-    )
-
-    inference_args = ActionServerArgs(
-        checkpoint=checkpoint_overrides,
-        output_dir=run_config.parent,
-        run_validation=False,
-        seed=int(seed),
-        guidance=1.0,
-        num_steps=int(steps),
-        fps=30,
-        action_chunk_size=action_horizon,
-        raw_action_dim=int(args.max_action_dim),
+        action_horizon=int(action_horizon),
+        raw_action_dim=14,
         max_action_dim=int(args.max_action_dim),
+        seed=int(seed),
+        num_steps=int(steps),
+        guidance=float(guidance),
+        shift=float(shift),
+        fps=30,
     )
-
-    return ActionModelService(inference_args)
+    return LiberoActionServiceBackend(config)
 
 
 def run_eval(args: argparse.Namespace) -> dict[str, Any]:
@@ -191,6 +179,8 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         action_horizon=args.action_horizon,
         seed=args.inference_seed,
         steps=args.inference_steps,
+        guidance=args.inference_guidance,
+        shift=args.inference_shift,
         args=args,
     )
 
@@ -209,16 +199,17 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         if not hasattr(video, "shape") or len(video.shape) != 4:
             continue
         action_seq = np.asarray(sample["action"], dtype=np.float32)
-        if action_seq.ndim != 2 or action_seq.shape[-1] != 14:
+        if action_seq.ndim != 2 or action_seq.shape[-1] < 14:
             continue
         if action_seq.shape[0] < args.action_horizon + 1:
             continue
 
+        concat_view = np.asarray(video[:, 0], dtype=np.uint8).transpose(1, 2, 0)
         request = {
-            "image": _to_png_b64(np.asarray(video[:, 0], dtype=np.uint8)),
+            "concat_view": np.ascontiguousarray(concat_view),
+            "state": action_seq[0, :14].astype(np.float32, copy=True),
             "prompt": str(sample.get("ai_caption", "Assemble the mouse's battery.")),
             "domain_name": "piper14",
-            "image_size": int(video.shape[3]),
         }
         response = service.predict_policy(request)
         raw = np.asarray(response.get("action", []), dtype=np.float32)
@@ -276,6 +267,14 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         "num_batches": int(processed),
         "action_dim": 14,
         "action_horizon": int(args.action_horizon),
+        "sampling": {
+            "num_steps": int(args.inference_steps),
+            "guidance": float(args.inference_guidance),
+            "shift": float(args.inference_shift),
+            "negative_prompt": "",
+            "full_range_cfg": True,
+            "decode_video": False,
+        },
         "num_targets": int(frame_losses.size),
         "initial_val_loss": float(frame_losses.reshape(-1)[0]) if frame_losses.size else 0.0,
         "best_val_loss": float(frame_losses.min()) if frame_losses.size else 0.0,
@@ -331,6 +330,7 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         "num_samples": int(pred_arr.shape[0]),
         "action_horizon": int(pred_arr.shape[1]),
         "action_dim": int(pred_arr.shape[2]),
+        "sampling": eval_payload["sampling"],
         "num_frames": int(pred_arr.shape[0] * pred_arr.shape[1]),
         "per_dim_action_mae": eval_payload["per_dim_action_mae"],
         "per_dim_action_mse": eval_payload["per_dim_action_mse"],

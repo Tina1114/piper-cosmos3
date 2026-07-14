@@ -9,6 +9,13 @@ from piper_cosmos.deployment.cosmos_piper14_policy import (
 
 
 class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
+    def test_uses_cosmos3_policy_sampling_defaults(self) -> None:
+        config = CosmosPiper14PolicyConfig(mock_backend=True)
+
+        self.assertEqual(config.num_steps, 4)
+        self.assertEqual(config.guidance, 3.0)
+        self.assertEqual(config.shift, 5.0)
+
     def test_composes_training_style_concat_view(self) -> None:
         policy = CosmosPiper14PolicyClient(
             CosmosPiper14PolicyConfig(

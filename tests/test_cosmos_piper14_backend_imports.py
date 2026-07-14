@@ -107,6 +107,7 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
                 calls["transform_kwargs"] = kwargs
 
             def __call__(self, sample, resolution):
+                calls["resolution"] = resolution
                 calls["sample"] = sample
                 sample = dict(sample)
                 sample["action_processing_record"] = "record"
@@ -238,9 +239,14 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
             )
 
         self.assertEqual(calls["transform_kwargs"]["max_action_dim"], 64)
+        self.assertEqual(calls["resolution"], "480")
         self.assertEqual(calls["sample"]["action"].shape, (5, 14))
         self.assertIn("action_processing_record", calls["batch"])
         self.assertEqual(calls["batch"]["action_processing_record"], ["record"])
+        self.assertEqual(calls["generate_kwargs"]["num_steps"], 4)
+        self.assertEqual(calls["generate_kwargs"]["guidance"], 3.0)
+        self.assertEqual(calls["generate_kwargs"]["shift"], 5.0)
+        self.assertFalse(calls["generate_kwargs"]["has_negative_prompt"])
         self.assertEqual(np.asarray(out["action"], dtype=np.float32).shape, (4, 14))
 
 
