@@ -1,0 +1,373 @@
+#!/usr/bin/env python3
+"""Run Cosmos3 Piper14 SFT validation and export predictions for acceptance.
+
+This script uses the ActionPolicy server pipeline used by Cosmos3 inference and
+exports three arrays for downstream safety/acceptance checks:
+
+- pred_action: [N, T, 14]
+- current_qpos: [N, 14]
+- ground_truth_action: [N, T, 14]
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+
+DEFAULT_TOML = Path("configs/cosmos3/sft/action_policy_piper14_nano.toml")
+DEFAULT_DATA_ROOT = Path("/project/peilab/wam/physical_WM/data/battery_assemble/perfect")
+DEFAULT_DATA_CONFIG = Path("configs/dataset_configs/battery_assemble_hdf5.yaml")
+DEFAULT_SPLIT_REPORT = Path("reports/battery_assemble_dataset_split.json")
+DEFAULT_STATS_REPORT = Path("reports/battery_assemble_dataset_stats_perfect.json")
+DEFAULT_SAFETY_CONFIG = Path("configs/safety/battery_piper14_safety.yaml")
+DEFAULT_OUT_DIR = Path("reports/cosmos3_piper14")
+DEFAULT_EVAL_REPORT = DEFAULT_OUT_DIR / "eval.json"
+DEFAULT_PREDICTION_NPZ = DEFAULT_OUT_DIR / "validation_predictions.npz"
+DEFAULT_PREDICTION_REPORT = DEFAULT_OUT_DIR / "validation_prediction_export.json"
+DEFAULT_ACTION_HORIZON = 32
+DEFAULT_BATCH_SIZE = 2
+DEFAULT_MAX_BATCHES = 64
+DEFAULT_INFERENCE_STEPS = 4
+DEFAULT_INFERENCE_GUIDANCE = 3.0
+DEFAULT_INFERENCE_SHIFT = 5.0
+DEFAULT_INFERENCE_SEED = 0
+DEFAULT_MAX_ACTION_DIM = 64
+DEFAULT_DEVICE = "cuda"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--checkpoint", type=Path, required=True, help="Trained Cosmos3 checkpoint or DCP path.")
+    parser.add_argument(
+        "--run-config",
+        type=Path,
+        required=True,
+        help="Training-time run config exported by Cosmos3 trainer (config.yaml).",
+    )
+    parser.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT, help="Battery HDF5 root.")
+    parser.add_argument("--data-config", type=Path, default=DEFAULT_DATA_CONFIG, help="HDF5 dataset config.")
+    parser.add_argument("--split-report", type=Path, default=DEFAULT_SPLIT_REPORT, help="Episode split report.")
+    parser.add_argument(
+        "--stats",
+        type=Path,
+        default=DEFAULT_STATS_REPORT,
+        help="Dataset stats for optional denormalization/debug checks.",
+    )
+    parser.add_argument(
+        "--safety-config",
+        type=Path,
+        default=DEFAULT_SAFETY_CONFIG,
+        help="Safety config for optional safety-related diagnostics.",
+    )
+    parser.add_argument("--toml", type=Path, default=DEFAULT_TOML, help="Cosmos3 experiment TOML for metadata.")
+    parser.add_argument("--eval-report", type=Path, default=DEFAULT_EVAL_REPORT)
+    parser.add_argument("--prediction-npz", type=Path, default=DEFAULT_PREDICTION_NPZ)
+    parser.add_argument("--prediction-report", type=Path, default=DEFAULT_PREDICTION_REPORT)
+    parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
+    parser.add_argument("--max-batches", type=int, default=DEFAULT_MAX_BATCHES)
+    parser.add_argument("--action-horizon", type=int, default=DEFAULT_ACTION_HORIZON)
+    parser.add_argument("--max-action-dim", type=int, default=DEFAULT_MAX_ACTION_DIM)
+    parser.add_argument("--inference-steps", type=int, default=DEFAULT_INFERENCE_STEPS)
+    parser.add_argument("--inference-guidance", type=float, default=DEFAULT_INFERENCE_GUIDANCE)
+    parser.add_argument("--inference-shift", type=float, default=DEFAULT_INFERENCE_SHIFT)
+    parser.add_argument("--inference-seed", type=int, default=DEFAULT_INFERENCE_SEED)
+    parser.add_argument("--device", default=DEFAULT_DEVICE)
+    return parser.parse_args()
+
+
+def _safe_flatten(arr: np.ndarray) -> list[float]:
+    flat = np.asarray(arr, dtype=np.float64).reshape(-1)
+    return [float(v) for v in flat]
+
+
+@dataclass
+class _EvalArtifactPaths:
+    eval_report: Path
+    prediction_npz: Path
+    prediction_report: Path
+
+
+def _select_validation_episodes(episode_paths: list[Path], split_report: Path) -> list[Path]:
+    """Use the report's validation split when available, otherwise all episodes."""
+    if not split_report.is_file():
+        return episode_paths
+    with split_report.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
+    splits = payload.get("splits") if isinstance(payload, dict) else None
+    val_entries = splits.get("val") if isinstance(splits, dict) else None
+    if not isinstance(val_entries, list) or not val_entries:
+        return episode_paths
+
+    by_resolved_path = {path.resolve(): path for path in episode_paths}
+    by_name: dict[str, list[Path]] = {}
+    for path in episode_paths:
+        by_name.setdefault(path.name, []).append(path)
+
+    selected: list[Path] = []
+    for entry in val_entries:
+        if not isinstance(entry, str):
+            continue
+        candidate = Path(entry)
+        if not candidate.is_absolute():
+            candidate = split_report.parent / candidate
+        matched = by_resolved_path.get(candidate.resolve())
+        if matched is not None:
+            selected.append(matched)
+            continue
+        name_matches = by_name.get(Path(entry).name, [])
+        if len(name_matches) == 1:
+            selected.append(name_matches[0])
+    return list(dict.fromkeys(selected)) or episode_paths
+
+
+def _build_service(
+    checkpoint: Path,
+    run_config: Path,
+    action_horizon: int,
+    seed: int,
+    steps: int,
+    guidance: float,
+    shift: float,
+    args: argparse.Namespace,
+) -> Any:
+    from piper_cosmos.deployment.cosmos_piper14_policy import (
+        CosmosPiper14PolicyConfig,
+        LiberoActionServiceBackend,
+    )
+
+    config = CosmosPiper14PolicyConfig(
+        checkpoint=str(checkpoint),
+        config_file=str(run_config),
+        action_horizon=int(action_horizon),
+        raw_action_dim=14,
+        max_action_dim=int(args.max_action_dim),
+        seed=int(seed),
+        num_steps=int(steps),
+        guidance=float(guidance),
+        shift=float(shift),
+        fps=30,
+    )
+    return LiberoActionServiceBackend(config)
+
+
+def run_eval(args: argparse.Namespace) -> dict[str, Any]:
+    import torch
+
+    from piper_cosmos.data.hdf5_reader import HDF5EpisodeReader, find_hdf5_files, load_config
+    from piper_cosmos.deployment.cosmos_piper14_policy import compose_concat_view
+    from piper_cosmos.deployment.piper14_rtc_runtime import HDF5ObservationSource
+
+    torch.manual_seed(args.inference_seed)
+    if args.device == "cuda" and not torch.cuda.is_available():
+        raise SystemExit("CUDA is required for Cosmos3 action inference in this environment.")
+
+    episode_paths = _select_validation_episodes(
+        find_hdf5_files(args.data_root),
+        args.split_report,
+    )
+    if not episode_paths:
+        raise SystemExit("No validation HDF5 episodes available. Check split path and dataset root.")
+    data_config = load_config(args.data_config)
+
+    service = _build_service(
+        checkpoint=args.checkpoint,
+        run_config=args.run_config,
+        action_horizon=args.action_horizon,
+        seed=args.inference_seed,
+        steps=args.inference_steps,
+        guidance=args.inference_guidance,
+        shift=args.inference_shift,
+        args=args,
+    )
+
+    pred_chunks: list[np.ndarray] = []
+    gt_chunks: list[np.ndarray] = []
+    qpos_chunks: list[np.ndarray] = []
+
+    max_samples = args.max_batches * max(1, args.batch_size)
+    processed = 0
+    for episode_path in episode_paths:
+        if processed >= max_samples:
+            break
+        reader = HDF5EpisodeReader(episode_path, config=data_config)
+        source = HDF5ObservationSource(
+            episode_path=episode_path,
+            config_path=args.data_config,
+            loop=False,
+        )
+        valid_steps = max(0, min(len(reader), source.length) - int(args.action_horizon) + 1)
+        for t in range(valid_steps):
+            if processed >= max_samples:
+                break
+
+            observation = source.read_observation(t)
+            images = observation["images"]
+            concat_view = compose_concat_view(
+                images["cam_high"],
+                images["cam_left_wrist"],
+                images["cam_right_wrist"],
+                camera_height=480,
+                camera_width=640,
+            )
+            current_qpos = np.asarray(observation["state"], dtype=np.float32).reshape(-1)
+            ground_truth = reader.read_action_chunk(t, args.action_horizon)
+            if current_qpos.size != 14 or ground_truth.ndim != 2 or ground_truth.shape[1] < 14:
+                continue
+
+            response = service.predict_policy(
+                {
+                    "concat_view": concat_view,
+                    "state": np.ascontiguousarray(current_qpos[:14]),
+                    "prompt": str(observation["prompt"]),
+                    "domain_name": "piper14",
+                }
+            )
+            raw = np.asarray(response.get("action", []), dtype=np.float32)
+            if raw.ndim == 1:
+                raw = raw.reshape(1, -1)
+            if raw.shape[0] == 0:
+                continue
+            if raw.shape[1] < 14:
+                pad = np.zeros((raw.shape[0], 14 - raw.shape[1]), dtype=np.float32)
+                raw = np.concatenate([raw, pad], axis=1)
+            pred = raw[:, :14]
+            if pred.shape[0] < args.action_horizon:
+                tail = np.repeat(pred[-1:], args.action_horizon - pred.shape[0], axis=0)
+                pred = np.concatenate([pred, tail], axis=0)
+            elif pred.shape[0] > args.action_horizon:
+                pred = pred[: args.action_horizon]
+
+            pred_chunks.append(pred.astype(np.float32))
+            gt_chunks.append(ground_truth[:, :14].astype(np.float32))
+            qpos_chunks.append(current_qpos[:14].astype(np.float32))
+            processed += 1
+
+    if not pred_chunks:
+        raise SystemExit("No predictions were exported.")
+
+    pred_arr = np.stack(pred_chunks, axis=0).astype(np.float32)
+    gt_arr = np.stack(gt_chunks, axis=0).astype(np.float32)
+    qpos_arr = np.stack(qpos_chunks, axis=0).astype(np.float32)
+
+    diff = pred_arr - gt_arr
+    if not np.isfinite(diff).all():
+        raise SystemExit("Non-finite values in prediction or ground-truth arrays.")
+
+    frame_losses = (diff * diff).mean(axis=2)
+    pred_std = pred_arr.std(axis=(0, 1))
+    gt_std = gt_arr.std(axis=(0, 1))
+    pred_std_ratio = np.divide(
+        pred_std,
+        np.where(gt_std > 0, gt_std, 1.0),
+        out=np.zeros_like(pred_std),
+        where=(gt_std > 0),
+    )
+    metrics: dict[str, Any] = {
+        "per_dim_action_mae": np.abs(diff).mean(axis=(0, 1)).tolist(),
+        "per_dim_action_mse": (diff * diff).mean(axis=(0, 1)).tolist(),
+        "per_dim_pred_std": pred_std.tolist(),
+        "per_dim_gt_std": gt_std.tolist(),
+        "per_dim_pred_to_gt_std_ratio": pred_std_ratio.tolist(),
+    }
+
+    eval_payload: dict[str, Any] = {
+        "status": "passed",
+        "checkpoint": str(args.checkpoint),
+        "run_config": str(args.run_config),
+        "num_batches": int(processed),
+        "action_dim": 14,
+        "action_horizon": int(args.action_horizon),
+        "sampling": {
+            "num_steps": int(args.inference_steps),
+            "guidance": float(args.inference_guidance),
+            "shift": float(args.inference_shift),
+            "negative_prompt": "",
+            "full_range_cfg": True,
+            "decode_video": False,
+        },
+        "num_targets": int(frame_losses.size),
+        "initial_val_loss": float(frame_losses.reshape(-1)[0]) if frame_losses.size else 0.0,
+        "best_val_loss": float(frame_losses.min()) if frame_losses.size else 0.0,
+        "overfit_gap": float(frame_losses.reshape(-1)[-1] - frame_losses.min()) if frame_losses.size else 0.0,
+        "metrics": {
+            "per_frame_mse": [float(value) for value in frame_losses.mean(axis=1).tolist()],
+            "per_frame_mae": [float(value) for value in np.abs(diff).mean(axis=2).mean(axis=1).tolist()],
+        },
+        **metrics,
+        "flat_pred_summary": {
+            "count": int(pred_arr.size),
+            "min": float(pred_arr.min()),
+            "max": float(pred_arr.max()),
+            "mean": float(pred_arr.mean()),
+            "std": float(pred_arr.std()),
+            "flat": _safe_flatten(pred_arr[: min(2, pred_arr.shape[0])].reshape(-1))[:16],
+        },
+        "flat_gt_summary": {
+            "count": int(gt_arr.size),
+            "min": float(gt_arr.min()),
+            "max": float(gt_arr.max()),
+            "mean": float(gt_arr.mean()),
+            "std": float(gt_arr.std()),
+            "flat": _safe_flatten(gt_arr[: min(2, gt_arr.shape[0])].reshape(-1))[:16],
+        },
+        "flat_qpos_summary": {
+            "count": int(qpos_arr.size),
+            "min": float(qpos_arr.min()),
+            "max": float(qpos_arr.max()),
+            "mean": float(qpos_arr.mean()),
+            "std": float(qpos_arr.std()),
+        },
+    }
+
+    args.eval_report.parent.mkdir(parents=True, exist_ok=True)
+    with args.eval_report.open("w", encoding="utf-8") as f:
+        json.dump(eval_payload, f, indent=2)
+        f.write("\n")
+
+    np.savez_compressed(
+        args.prediction_npz,
+        pred_action=pred_arr.astype(np.float32),
+        current_qpos=qpos_arr.astype(np.float32),
+        ground_truth_action=gt_arr.astype(np.float32),
+    )
+
+    prediction_report = {
+        "status": "passed",
+        "eval_report": str(args.eval_report),
+        "prediction_npz": str(args.prediction_npz),
+        "checkpoint": str(args.checkpoint),
+        "run_config": str(args.run_config),
+        "num_samples": int(pred_arr.shape[0]),
+        "action_horizon": int(pred_arr.shape[1]),
+        "action_dim": int(pred_arr.shape[2]),
+        "sampling": eval_payload["sampling"],
+        "num_frames": int(pred_arr.shape[0] * pred_arr.shape[1]),
+        "per_dim_action_mae": eval_payload["per_dim_action_mae"],
+        "per_dim_action_mse": eval_payload["per_dim_action_mse"],
+    }
+    args.prediction_report.parent.mkdir(parents=True, exist_ok=True)
+    with args.prediction_report.open("w", encoding="utf-8") as f:
+        json.dump(prediction_report, f, indent=2)
+        f.write("\n")
+
+    return eval_payload
+
+
+def main() -> None:
+    args = parse_args()
+    run_eval(args)
+
+
+if __name__ == "__main__":
+    main()

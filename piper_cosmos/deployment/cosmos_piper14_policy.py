@@ -35,8 +35,10 @@ class CosmosPiper14PolicyConfig:
     max_action_dim: int = 64
     camera_height: int = 480
     camera_width: int = 640
-    num_steps: int = 30
-    guidance: float = 1.0
+    resolution: str = "480"
+    num_steps: int = 4
+    guidance: float = 3.0
+    shift: float = 5.0
     fps: int = 30
     seed: int = 0
     host: str = "127.0.0.1"
@@ -161,15 +163,16 @@ class LiberoActionServiceBackend:
             "domain_id": torch.tensor(get_domain_id(domain_name), dtype=torch.long),
             "viewpoint": "concat_view",
         }
-        batch = build_data_batch_from_sample(self.transform(sample, resolution=None))
+        batch = build_data_batch_from_sample(self.transform(sample, resolution=self.config.resolution))
 
         with self.service._lock:
             with torch.inference_mode():
                 samples = self.service.model.generate_samples_from_batch(
                     batch,
-                    guidance=self.service.cfg.guidance,
-                    seed=[self.service.cfg.seed],
-                    num_steps=self.service.cfg.num_steps,
+                    guidance=float(self.config.guidance),
+                    seed=[int(self.config.seed)],
+                    num_steps=int(self.config.num_steps),
+                    shift=float(self.config.shift),
                     has_negative_prompt=False,
                 )
         pred_action = samples["action"][0].float().squeeze(0)
@@ -230,6 +233,10 @@ class CosmosPiper14PolicyClient:
             "mock_backend": bool(self.config.mock_backend),
             "camera_height": int(self.config.camera_height),
             "camera_width": int(self.config.camera_width),
+            "resolution": str(self.config.resolution),
+            "num_steps": int(self.config.num_steps),
+            "guidance": float(self.config.guidance),
+            "shift": float(self.config.shift),
         }
 
     def build_policy_request(self, obs: Mapping[str, Any]) -> dict[str, Any]:

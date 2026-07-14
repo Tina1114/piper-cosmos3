@@ -25,12 +25,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt", default="Assemble the mouse's battery.")
     parser.add_argument("--action-horizon", type=int, default=32)
     parser.add_argument("--max-action-dim", type=int, default=64)
-    parser.add_argument("--num-steps", type=int, default=30)
-    parser.add_argument("--guidance", type=float, default=1.0)
+    parser.add_argument("--num-steps", type=int, default=4)
+    parser.add_argument("--guidance", type=float, default=3.0)
+    parser.add_argument("--shift", type=float, default=5.0)
     parser.add_argument("--fps", type=int, default=30)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--camera-height", type=int, default=480)
     parser.add_argument("--camera-width", type=int, default=640)
+    parser.add_argument("--resolution", default="480")
     parser.add_argument("--mock-backend", action="store_true")
     return parser.parse_args()
 
@@ -45,8 +47,10 @@ def main() -> None:
         max_action_dim=args.max_action_dim,
         camera_height=args.camera_height,
         camera_width=args.camera_width,
+        resolution=args.resolution,
         num_steps=args.num_steps,
         guidance=args.guidance,
+        shift=args.shift,
         fps=args.fps,
         seed=args.seed,
         host=args.host,
