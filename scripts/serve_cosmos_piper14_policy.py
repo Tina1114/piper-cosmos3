@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 
 from piper_cosmos.deployment.cosmos_piper14_policy import CosmosPiper14PolicyConfig
 from piper_cosmos.deployment.cosmos_piper14_policy_server import serve_cosmos_piper14_policy
+from piper_cosmos.cosmos3.local_hf_assets import bootstrap_local_hf_assets
 
 
 def parse_args() -> argparse.Namespace:
@@ -57,6 +58,7 @@ def main() -> None:
         port=args.port,
         mock_backend=args.mock_backend,
     )
+    bootstrap_local_hf_assets()
     serve_cosmos_piper14_policy(config, host=args.host, port=args.port, authkey=args.authkey)
 
 

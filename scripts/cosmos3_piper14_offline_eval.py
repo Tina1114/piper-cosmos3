@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -74,6 +75,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-report", type=Path, default=DEFAULT_EVAL_REPORT)
     parser.add_argument("--prediction-npz", type=Path, default=DEFAULT_PREDICTION_NPZ)
     parser.add_argument("--prediction-report", type=Path, default=DEFAULT_PREDICTION_REPORT)
+    parser.add_argument(
+        "--config-file",
+        type=Path,
+        default=None,
+        help="Optional Cosmos model config override. By default the checkpoint's config.json is used.",
+    )
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     parser.add_argument("--max-batches", type=int, default=DEFAULT_MAX_BATCHES)
     parser.add_argument("--action-horizon", type=int, default=DEFAULT_ACTION_HORIZON)
@@ -89,6 +96,10 @@ def parse_args() -> argparse.Namespace:
 def _safe_flatten(arr: np.ndarray) -> list[float]:
     flat = np.asarray(arr, dtype=np.float64).reshape(-1)
     return [float(v) for v in flat]
+
+
+def _env_enabled(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
 @dataclass
@@ -133,7 +144,7 @@ def _select_validation_episodes(episode_paths: list[Path], split_report: Path) -
 
 def _build_service(
     checkpoint: Path,
-    run_config: Path,
+    config_file: Path | None,
     action_horizon: int,
     seed: int,
     steps: int,
@@ -146,9 +157,14 @@ def _build_service(
         LiberoActionServiceBackend,
     )
 
+    # Offload is implemented inside the patched cosmos-framework and enabled
+    # through COSMOS3_LAYER_OFFLOAD/COSMOS3_VAE_CPU_OFFLOAD. Keep offline eval
+    # on the deployment backend so it shares the same Piper14 batching path as
+    # serve_cosmos_piper14_policy.py, while defaulting to the checkpoint's own
+    # config.json to avoid stale training-run module paths.
     config = CosmosPiper14PolicyConfig(
         checkpoint=str(checkpoint),
-        config_file=str(run_config),
+        config_file=str(config_file) if config_file is not None else None,
         action_horizon=int(action_horizon),
         raw_action_dim=14,
         max_action_dim=int(args.max_action_dim),
@@ -180,9 +196,16 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         raise SystemExit("No validation HDF5 episodes available. Check split path and dataset root.")
     data_config = load_config(args.data_config)
 
+    # Bootstrap local HF assets (Qwen tokenizer + Wan VAE) and patch the Qwen
+    # tokenizer loader, mirroring serve_cosmos_piper14_policy.py. Without this
+    # the Qwen tokenizer download fails offline -> vocab_file=None -> TypeError.
+    from piper_cosmos.cosmos3.local_hf_assets import bootstrap_local_hf_assets
+
+    bootstrap_local_hf_assets()
+
     service = _build_service(
         checkpoint=args.checkpoint,
-        run_config=args.run_config,
+        config_file=args.config_file,
         action_horizon=args.action_horizon,
         seed=args.inference_seed,
         steps=args.inference_steps,
@@ -285,6 +308,11 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         "status": "passed",
         "checkpoint": str(args.checkpoint),
         "run_config": str(args.run_config),
+        "model_config": str(args.config_file) if args.config_file is not None else None,
+        "offload": {
+            "layer": _env_enabled("COSMOS3_LAYER_OFFLOAD"),
+            "vae_cpu": _env_enabled("COSMOS3_VAE_CPU_OFFLOAD"),
+        },
         "num_batches": int(processed),
         "action_dim": 14,
         "action_horizon": int(args.action_horizon),
@@ -348,6 +376,8 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
         "prediction_npz": str(args.prediction_npz),
         "checkpoint": str(args.checkpoint),
         "run_config": str(args.run_config),
+        "model_config": eval_payload["model_config"],
+        "offload": eval_payload["offload"],
         "num_samples": int(pred_arr.shape[0]),
         "action_horizon": int(pred_arr.shape[1]),
         "action_dim": int(pred_arr.shape[2]),

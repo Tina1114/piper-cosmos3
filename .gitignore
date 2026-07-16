@@ -13,6 +13,7 @@ conda-meta/
 
 # large data
 data/
+hdf_data/
 !piper_cosmos/data/
 !piper_cosmos/data/*.py
 datasets/
@@ -32,6 +33,7 @@ datasets/
 outputs/
 checkpoints/
 logs/
+*.log
 wandb/
 runs/
 slurm_logs/
@@ -47,6 +49,8 @@ reports/*.png
 reports/*.jpg
 reports/**/*.err
 reports/**/*.out
+reports/**/*.log
+reports/**/validation_prediction_export.json
 
 # system
 .DS_Store
