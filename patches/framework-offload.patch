@@ -706,7 +706,7 @@ index 0000000..26ea769
 +        elif placement == "cpu":
 +            assert parameter.device.type == "cuda", name
 diff --git a/cosmos_framework/model/generator/mot/unified_mot.py b/cosmos_framework/model/generator/mot/unified_mot.py
-index 2bdebfd..417e137 100644
+index 2bdebfd..9b4421a 100644
 --- a/cosmos_framework/model/generator/mot/unified_mot.py
 +++ b/cosmos_framework/model/generator/mot/unified_mot.py
 @@ -11,9 +11,19 @@ import torch
@@ -967,7 +967,7 @@ index 2bdebfd..417e137 100644
      """
  
      # Create position embeddings (Qwen3 style) - squeeze once at model level
-@@ -909,14 +985,83 @@ def _impl_forward(
+@@ -909,14 +985,103 @@ def _impl_forward(
  
      hidden_states = pack
  
@@ -983,9 +983,14 @@ index 2bdebfd..417e137 100644
 +    _reasoner_offload = _offload_env_enabled("COSMOS3_REASONER_OFFLOAD")
 +    _layer_offload = _offload_env_enabled("COSMOS3_LAYER_OFFLOAD") or _reasoner_offload
 +
-+    def _move_layer_path(layer: torch.nn.Module, *, generator: bool, target: torch.device | str) -> int:
++    def _stage_layer_path_to_cuda(
++        layer: torch.nn.Module, *, generator: bool, target: torch.device | str
++    ) -> tuple[int, list[tuple[torch.Tensor, torch.Tensor]]]:
 +        target_device = torch.device(target)
++        if target_device.type != "cuda":
++            raise ValueError(f"Layer staging target must be CUDA, got {target_device}.")
 +        moved_bytes = 0
++        backups: list[tuple[torch.Tensor, torch.Tensor]] = []
 +
 +        def _is_on_target(tensor: torch.Tensor) -> bool:
 +            return tensor.device.type == target_device.type and (
@@ -994,13 +999,24 @@ index 2bdebfd..417e137 100644
 +
 +        for name, parameter in layer.named_parameters():
 +            if ("_moe_gen" in name) == generator and not _is_on_target(parameter):
++                cpu_master = parameter.data
 +                moved_bytes += parameter.numel() * parameter.element_size()
-+                parameter.data = parameter.data.to(target_device, non_blocking=True)
++                parameter.data = cpu_master.to(target_device, non_blocking=False)
++                backups.append((parameter, cpu_master))
 +        for name, buffer in layer.named_buffers():
 +            if ("_moe_gen" in name) == generator and not _is_on_target(buffer):
++                cpu_master = buffer.data
 +                moved_bytes += buffer.numel() * buffer.element_size()
-+                buffer.data = buffer.data.to(target_device, non_blocking=True)
-+        return moved_bytes
++                buffer.data = cpu_master.to(target_device, non_blocking=False)
++                backups.append((buffer, cpu_master))
++        return moved_bytes, backups
++
++    def _restore_layer_path_from_cpu_master(backups: list[tuple[torch.Tensor, torch.Tensor]]) -> int:
++        restored_bytes = 0
++        for tensor, cpu_master in reversed(backups):
++            restored_bytes += cpu_master.numel() * cpu_master.element_size()
++            tensor.data = cpu_master
++        return restored_bytes
 +
      # --- MemoryState: per-step init (outside compile) ---
      if memory is not None:
@@ -1021,6 +1037,7 @@ index 2bdebfd..417e137 100644
 +    reasoner_d2h_bytes = 0
 +    reasoner_h2d_layers = 0
 +    reasoner_d2h_layers = 0
++    reasoner_restore_layers = 0
 +    if _stream_reasoner_layers:
 +        for layer_idx, layer in enumerate(self.layers):
 +            for name, parameter in layer.named_parameters():
@@ -1041,8 +1058,11 @@ index 2bdebfd..417e137 100644
 +                        generator_cuda_bytes += size
  
      for i, decoder_layer in enumerate(self.layers):
++        reasoner_cpu_backups: list[tuple[torch.Tensor, torch.Tensor]] = []
 +        if _stream_reasoner_layers:
-+            moved_bytes = _move_layer_path(decoder_layer, generator=False, target=device)
++            moved_bytes, reasoner_cpu_backups = _stage_layer_path_to_cuda(
++                decoder_layer, generator=False, target=device
++            )
 +            reasoner_h2d_bytes += moved_bytes
 +            reasoner_h2d_layers += int(moved_bytes > 0)
 +        elif _stream_complete_layers:
@@ -1051,7 +1071,7 @@ index 2bdebfd..417e137 100644
          # MemoryState: produce read-only MemoryValue for this layer (outside compile)
          memory_value = memory.read_for_layer(i) if memory is not None else None
  
-@@ -927,8 +1072,20 @@ def _impl_forward(
+@@ -927,8 +1092,19 @@ def _impl_forward(
              natten_metadata=None if natten_metadata_list is None else natten_metadata_list[i],
              memory_value=memory_value,
              gen_only=memory_gen_only,
@@ -1059,9 +1079,8 @@ index 2bdebfd..417e137 100644
          )
  
 +        if _stream_reasoner_layers:
-+            moved_bytes = _move_layer_path(decoder_layer, generator=False, target="cpu")
-+            reasoner_d2h_bytes += moved_bytes
-+            reasoner_d2h_layers += int(moved_bytes > 0)
++            restored_bytes = _restore_layer_path_from_cpu_master(reasoner_cpu_backups)
++            reasoner_restore_layers += int(restored_bytes > 0)
 +        elif _stream_complete_layers:
 +            # During prefill, evict the complete mixed layer.  This guarantees
 +            # that each policy chunk has a true phase boundary: generator on
@@ -1072,7 +1091,7 @@ index 2bdebfd..417e137 100644
          # MemoryState: store K/V produced by this layer (outside compile)
          if kv_to_store is not None and memory is not None:
              memory.write_for_layer(i, kv_to_store)
-@@ -936,6 +1093,32 @@ def _impl_forward(
+@@ -936,6 +1112,33 @@ def _impl_forward(
          for pathway, lbl_metadata in lbl_metadata_dict.items():
              lbl_metadata_all[pathway].append(lbl_metadata)
  
@@ -1098,6 +1117,7 @@ index 2bdebfd..417e137 100644
 +            f"reasoner_h2d={reasoner_h2d_bytes / (1024**3):.2f} GiB "
 +            f"reasoner_d2h_layers={reasoner_d2h_layers} "
 +            f"reasoner_d2h={reasoner_d2h_bytes / (1024**3):.2f} GiB; "
++            f"reasoner_restore_layers={reasoner_restore_layers}; "
 +            f"generator placement unchanged with "
 +            f"{generator_cuda_bytes / (1024**3):.2f}/{generator_total_bytes / (1024**3):.2f} GiB on CUDA"
 +        )
@@ -1105,7 +1125,7 @@ index 2bdebfd..417e137 100644
      # Compute the load balancing loss across all layers. For dense models, final_lbl_metadata
      # will be an empty dictionary. For MoE models, it will be a dictionary with the stacked
      # load balancing loss metadata for each pathway.
-@@ -956,8 +1139,17 @@ def _impl_forward(
+@@ -956,8 +1159,17 @@ def _impl_forward(
              )
  
      hidden_states_out = zeros_like(hidden_states)
@@ -1125,7 +1145,7 @@ index 2bdebfd..417e137 100644
  
      return hidden_states_out, final_lbl_metadata
  
-@@ -1041,6 +1233,7 @@ class MoTDecoderLayer(nn.Module):
+@@ -1041,6 +1253,7 @@ class MoTDecoderLayer(nn.Module):
          natten_metadata: dict | None = None,
          memory_value: MemoryValue | None = None,
          gen_only: bool = False,
@@ -1133,7 +1153,7 @@ index 2bdebfd..417e137 100644
      ) -> tuple[SequencePack, dict[str, LBLMetadata], KVToStore | None]:
          """Forward pass with MoT routing and optional memory-augmented attention.
  
-@@ -1057,24 +1250,36 @@ class MoTDecoderLayer(nn.Module):
+@@ -1057,24 +1270,36 @@ class MoTDecoderLayer(nn.Module):
              natten_metadata: Optional NATTEN metadata for neighborhood attention.
              memory_value: Read-only tensor container from MemoryState.read_for_layer().
              gen_only: When True, skip the understanding pathway (und K/V come from cache).
@@ -1180,7 +1200,7 @@ index 2bdebfd..417e137 100644
              )
  
              # Build position embeddings whose und length matches gen_pack's
-@@ -1107,6 +1312,11 @@ class MoTDecoderLayer(nn.Module):
+@@ -1107,6 +1332,11 @@ class MoTDecoderLayer(nn.Module):
              residual_gen = get_gen_seq(input) + gen_attn_out
          else:
              # STANDARD PATH: Process both und and gen tokens
@@ -1192,7 +1212,7 @@ index 2bdebfd..417e137 100644
              pack_attn_out, kv_to_store = self.self_attn(
                  pack_norm_out,
                  attention_mask,
-@@ -1120,7 +1330,17 @@ class MoTDecoderLayer(nn.Module):
+@@ -1120,7 +1350,17 @@ class MoTDecoderLayer(nn.Module):
          # Pre-MLP layernorm and processing
          lbl_metadata_dict: dict[str, LBLMetadata] = dict()
  
@@ -1211,7 +1231,7 @@ index 2bdebfd..417e137 100644
              # gen_only: skip und, compute gen tokens only
              ln_out_und = residual_gen.new_empty(0, residual_gen.shape[-1])
              ln_out_gen = self.post_attention_layernorm_moe_gen(residual_gen)
-@@ -2049,6 +2269,7 @@ class Qwen3VLTextForCausalLM(Qwen3VLPreTrainedModel):
+@@ -2049,6 +2289,7 @@ class Qwen3VLTextForCausalLM(Qwen3VLPreTrainedModel):
          position_ids: torch.Tensor,
          natten_metadata_list: list | None = None,
          memory: MemoryState | None = None,
@@ -1219,7 +1239,7 @@ index 2bdebfd..417e137 100644
      ) -> tuple[SequencePack, dict[str, LBLMetadata]]:
          """Training forward pass — delegates to the dense text model."""
          outputs = self.model(
-@@ -2057,6 +2278,7 @@ class Qwen3VLTextForCausalLM(Qwen3VLPreTrainedModel):
+@@ -2057,6 +2298,7 @@ class Qwen3VLTextForCausalLM(Qwen3VLPreTrainedModel):
              position_ids=position_ids,
              natten_metadata_list=natten_metadata_list,
              memory=memory,
@@ -1227,7 +1247,7 @@ index 2bdebfd..417e137 100644
          )
          return outputs
  
-@@ -2188,6 +2410,7 @@ class Qwen3VLMoeTextForCausalLM(Qwen3VLMoePreTrainedModel):
+@@ -2188,6 +2430,7 @@ class Qwen3VLMoeTextForCausalLM(Qwen3VLMoePreTrainedModel):
          position_ids: torch.Tensor,
          natten_metadata_list: list | None = None,
          memory: MemoryState | None = None,
@@ -1235,7 +1255,7 @@ index 2bdebfd..417e137 100644
      ) -> tuple[SequencePack, dict[str, LBLMetadata]]:
          """Training forward pass — delegates to the MoE text model."""
  
-@@ -2197,6 +2420,7 @@ class Qwen3VLMoeTextForCausalLM(Qwen3VLMoePreTrainedModel):
+@@ -2197,6 +2440,7 @@ class Qwen3VLMoeTextForCausalLM(Qwen3VLMoePreTrainedModel):
              position_ids=position_ids,
              natten_metadata_list=natten_metadata_list,
              memory=memory,
@@ -1243,7 +1263,7 @@ index 2bdebfd..417e137 100644
          )
  
          return outputs
-@@ -2323,6 +2547,7 @@ class Nemotron3DenseVLTextForCausalLM(Nemotron3DenseVLPreTrainedModel):
+@@ -2323,6 +2567,7 @@ class Nemotron3DenseVLTextForCausalLM(Nemotron3DenseVLPreTrainedModel):
          position_ids: torch.Tensor,
          natten_metadata_list: list | None = None,
          memory: MemoryState | None = None,
@@ -1251,7 +1271,7 @@ index 2bdebfd..417e137 100644
      ) -> tuple[SequencePack, dict[str, LBLMetadata]]:
          return self.model(
              pack=pack,
-@@ -2330,6 +2555,7 @@ class Nemotron3DenseVLTextForCausalLM(Nemotron3DenseVLPreTrainedModel):
+@@ -2330,6 +2575,7 @@ class Nemotron3DenseVLTextForCausalLM(Nemotron3DenseVLPreTrainedModel):
              position_ids=position_ids,
              natten_metadata_list=natten_metadata_list,
              memory=memory,
@@ -1260,7 +1280,7 @@ index 2bdebfd..417e137 100644
  
      def generate_reasoner_text(
 diff --git a/cosmos_framework/model/generator/omni_mot_model.py b/cosmos_framework/model/generator/omni_mot_model.py
-index 6fed5de..ecaf691 100644
+index 6fed5de..771f1bb 100644
 --- a/cosmos_framework/model/generator/omni_mot_model.py
 +++ b/cosmos_framework/model/generator/omni_mot_model.py
 @@ -5,6 +5,7 @@ from __future__ import annotations
@@ -1445,7 +1465,7 @@ index 6fed5de..ecaf691 100644
          """
          pass
  
-@@ -665,6 +702,254 @@ class OmniMoTModel(ImaginaireModel):
+@@ -665,6 +702,255 @@ class OmniMoTModel(ImaginaireModel):
          """
          return None
  
@@ -1599,7 +1619,8 @@ index 6fed5de..ecaf691 100644
 +            if name.startswith(layer_prefix) and self._reasoner_generator_parameter_target(name) == "cpu":
 +                moved_to_cpu += _move_tensor(buffer, cpu_device)
 +        torch.cuda.synchronize()
-+        torch.cuda.empty_cache()
++        if _env_enabled("COSMOS3_REASONER_EMPTY_CACHE"):
++            torch.cuda.empty_cache()
 +
 +        for name, parameter in target.named_parameters():
 +            if self._reasoner_generator_parameter_target(name) == "cuda":
@@ -1700,7 +1721,7 @@ index 6fed5de..ecaf691 100644
      def pre_noise_memory_hook(
          self,
          packed_sequence: PackedSequence,
-@@ -1875,6 +2160,8 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1875,6 +2161,8 @@ class OmniMoTModel(ImaginaireModel):
          sequence_plans: list[SequencePlan],
          gen_data_clean: GenerationDataClean,
          skip_text_tokens: bool = False,
@@ -1709,7 +1730,7 @@ index 6fed5de..ecaf691 100644
      ) -> list[torch.Tensor]:
          """
          Compute velocity prediction for a single sampling step.
-@@ -1895,6 +2182,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1895,6 +2183,7 @@ class OmniMoTModel(ImaginaireModel):
              sequence_plans: Pre-computed sequence plans (from _prepare_inference_data)
              gen_data_clean: Pre-computed clean data (from _prepare_inference_data)
              skip_text_tokens: If True, skip text tokens (for CFG unconditional branch)
@@ -1717,7 +1738,7 @@ index 6fed5de..ecaf691 100644
  
          Returns:
              Stacked flattened velocity tensors (one per sample), each containing
-@@ -1998,7 +2286,13 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1998,7 +2287,13 @@ class OmniMoTModel(ImaginaireModel):
          out = self.denoise(
              net=net,
              data_batch_packed=packed_sequence,
@@ -1731,7 +1752,7 @@ index 6fed5de..ecaf691 100644
  
          # --- Apply velocity masks ---
          # Zero out velocity for conditioned parts (they don't change during sampling)
-@@ -2421,6 +2715,15 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2421,6 +2716,15 @@ class OmniMoTModel(ImaginaireModel):
              _dp_shard_group = None
              _align_device = None
  
@@ -1747,7 +1768,7 @@ index 6fed5de..ecaf691 100644
          def velocity_fn(noise_x: list[torch.Tensor], timestep: torch.Tensor) -> list[torch.Tensor]:
              # len(noise_x) == B, noise_x[i] is shape (D)
              # timestep is shape (B, 1)
-@@ -2432,7 +2735,12 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2432,7 +2736,12 @@ class OmniMoTModel(ImaginaireModel):
              # Expand timestep to (B, 1)
              timestep = timestep.repeat(len(noise_x), 1)
  
@@ -1761,7 +1782,7 @@ index 6fed5de..ecaf691 100644
                  return self._get_velocity(
                      net=net,
                      noise_x=noise_x,
-@@ -2441,6 +2749,8 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2441,6 +2750,8 @@ class OmniMoTModel(ImaginaireModel):
                      sequence_plans=sequence_plans,
                      gen_data_clean=gen_data_clean,
                      skip_text_tokens=skip_text_tokens,
@@ -1770,7 +1791,7 @@ index 6fed5de..ecaf691 100644
                  )
  
              needs_text_cfg = guidance != 1.0
-@@ -2449,6 +2759,31 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2449,6 +2760,31 @@ class OmniMoTModel(ImaginaireModel):
                  t_lo, t_hi = guidance_interval
                  needs_text_cfg = t_lo < timestep[0].item() < t_hi
  
@@ -1802,7 +1823,7 @@ index 6fed5de..ecaf691 100644
              # FSDP alignment: if ANY rank in the shard group needs text-CFG
              # this call, every rank must take the CFG path so the allgather
              # sequence stays aligned across ranks.
-@@ -2459,9 +2794,23 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2459,9 +2795,23 @@ class OmniMoTModel(ImaginaireModel):
              else:
                  _any_needs_text_cfg = needs_text_cfg
  
@@ -1827,7 +1848,7 @@ index 6fed5de..ecaf691 100644
  
              # Fast path: only text-CFG and no postprocess — preserve the
              # cfgp-parallel branch so two-rank CFG parallelism stays available.
-@@ -2470,29 +2819,37 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2470,29 +2820,37 @@ class OmniMoTModel(ImaginaireModel):
                      cond_tokens=cond_tokens,
                      uncond_tokens=uncond_tokens,
                      skip_text_tokens_for_cfg=skip_text_tokens_for_cfg,
@@ -1871,7 +1892,7 @@ index 6fed5de..ecaf691 100644
  
              v_pred = [u_i + guidance * (c_i - u_i) for c_i, u_i in zip(cond_v, uncond_v)]
  
-@@ -2502,7 +2859,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2502,7 +2860,7 @@ class OmniMoTModel(ImaginaireModel):
                      for v_i, c_i in zip(v_pred, cond_v)
                  ]
  
@@ -1880,7 +1901,7 @@ index 6fed5de..ecaf691 100644
  
          # Run sampler for all samples at once.
          sampler = sampler or self.sampler
-@@ -3795,6 +4152,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -3795,6 +4153,7 @@ class OmniMoTModel(ImaginaireModel):
          net: torch.nn.Module | None = None,
          data_batch_packed: PackedSequence | None = None,
          memory: MemoryState | None = None,
@@ -1888,7 +1909,7 @@ index 6fed5de..ecaf691 100644
      ) -> dict:
          """
          Runs the MoT network on a packed multi-modal sequence to predict velocity (v) targets.
-@@ -3803,6 +4161,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -3803,6 +4162,7 @@ class OmniMoTModel(ImaginaireModel):
              data_batch_packed: PackedSequence from `pack_input_sequence(...)`.
              memory: Optional pre-built MemoryState for autoregressive generation
                  or KV-cache training.
@@ -1896,7 +1917,7 @@ index 6fed5de..ecaf691 100644
  
          Returns:
              dict containing:
-@@ -3816,7 +4175,10 @@ class OmniMoTModel(ImaginaireModel):
+@@ -3816,7 +4176,10 @@ class OmniMoTModel(ImaginaireModel):
          out_net = net(
              packed_seq=data_batch_packed,
              memory=memory,
@@ -1907,7 +1928,7 @@ index 6fed5de..ecaf691 100644
          output_dict = dict()
          output_dict["preds_vision"] = out_net["preds_vision"]
          if self.config.action_gen and "preds_action" in out_net:
-@@ -4729,3 +5091,25 @@ def _is_reasoner_state_dict_key(key: str) -> bool:
+@@ -4729,3 +5092,25 @@ def _is_reasoner_state_dict_key(key: str) -> bool:
      if not key.startswith("language_model."):
          return False
      return "_moe_gen" not in key
@@ -1934,7 +1955,7 @@ index 6fed5de..ecaf691 100644
 +            return None
 +        return DiffusionKVCacheMemoryState(num_layers=self._num_decoder_layers())
 diff --git a/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py b/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
-index 0117a13..3410aa2 100644
+index 0117a13..2058cb7 100644
 --- a/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
 +++ b/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
 @@ -11,12 +11,12 @@ import torch.nn as nn
@@ -1966,24 +1987,29 @@ index 0117a13..3410aa2 100644
  
      return model
  
-@@ -1045,6 +1049,16 @@ class WanVAE:
+@@ -1045,6 +1049,21 @@ class WanVAE:
      ):
          self.dtype = dtype
          self.device = device
-+        # ---- VAE CPU offload anchor (4090 24GB) ----
-+        # Env-gated (COSMOS3_VAE_CPU_OFFLOAD): materialize the VAE on CPU at build so
-+        # it never co-resides with the DiT (fixes build OOM), and move it onto the
-+        # inference device only inside encode()/decode() (evicted back after). Off by
-+        # default; training/other paths are unaffected.
-+        import os
-+
-+        self._vae_offload = bool(os.environ.get("COSMOS3_VAE_CPU_OFFLOAD", ""))
++        # ---- VAE placement anchors (4090 24GB) ----
++        # COSMOS3_VAE_CPU_OFFLOAD keeps the VAE on CPU and swaps it around
++        # encode/decode. COSMOS3_VAE_GPU_RESIDENT explicitly overrides that
++        # path: build/load the VAE directly on GPU and keep it resident.
++        gpu_resident = os.environ.get("COSMOS3_VAE_GPU_RESIDENT", "").strip().lower() in {
++            "1",
++            "true",
++            "yes",
++            "on",
++        }
++        self._vae_offload = bool(os.environ.get("COSMOS3_VAE_CPU_OFFLOAD", "")) and not gpu_resident
 +        self._vae_gpu = torch.device(DEVICE)  # device the DiT runs on; VAE swaps onto it
 +        build_device = "cpu" if self._vae_offload else device
++        if gpu_resident:
++            log.info("WanVAE: COSMOS3_VAE_GPU_RESIDENT enabled; building VAE directly on GPU")
  
          # Wan 2.2 mean and std values (48 dimensions)
          mean = [
-@@ -1148,20 +1162,21 @@ class WanVAE:
+@@ -1148,20 +1167,21 @@ class WanVAE:
              0.7744,
          ]
  
@@ -2008,7 +2034,7 @@ index 0117a13..3410aa2 100644
          self.is_amp = is_amp
          if not is_amp:
              self.model = self.model.to(dtype=dtype)
-@@ -1172,6 +1187,19 @@ class WanVAE:
+@@ -1172,6 +1192,19 @@ class WanVAE:
      def count_param(self) -> int:
          return sum(p.numel() for p in self.model.parameters())
  
@@ -2028,7 +2054,7 @@ index 0117a13..3410aa2 100644
      @torch.no_grad()
      def encode(self, videos: torch.Tensor) -> torch.Tensor:
          """Encode a batch of videos.
-@@ -1187,12 +1215,16 @@ class WanVAE:
+@@ -1187,12 +1220,16 @@ class WanVAE:
          Returns:
              Tensor of shape ``[B, z_dim, T//4, H//16, W//16]``.
          """
@@ -2045,7 +2071,7 @@ index 0117a13..3410aa2 100644
          return latent
  
      @torch.no_grad()
-@@ -1206,12 +1238,16 @@ class WanVAE:
+@@ -1206,12 +1243,16 @@ class WanVAE:
          Returns:
              Tensor of shape ``[B, C, T, H, W]``.
          """
