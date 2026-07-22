@@ -24,6 +24,8 @@ DEFAULT_PROMPT = "Assemble the mouse's battery."
 
 
 class CosmosActionBackend(Protocol):
+    accepts_concat_view: bool
+
     def predict_policy(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         """Run one Cosmos policy prediction."""
 
@@ -277,6 +279,8 @@ def _profile_model_methods(
 class MockCosmosActionBackend:
     """Small deterministic backend for no-robot/no-GPU tests."""
 
+    accepts_concat_view = True
+
     def __init__(self, action_horizon: int, action_dim: int) -> None:
         self.action_horizon = int(action_horizon)
         self.action_dim = int(action_dim)
@@ -297,6 +301,8 @@ class LiberoActionServiceBackend:
     construction but fills row 0 with the incoming Piper14 state and returns only
     the predicted future rows.
     """
+
+    accepts_concat_view = True
 
     def __init__(self, config: CosmosPiper14PolicyConfig) -> None:
         if config.instruction_cache:
@@ -400,13 +406,10 @@ class LiberoActionServiceBackend:
         future_horizon = int(self.service.cfg.action_chunk_size)
         action_rows = future_horizon + 1
         with timer.measure("backend.video_repeat"):
-            video = (
-                torch.from_numpy(image.copy())
-                .permute(2, 0, 1)
-                .contiguous()
-                .unsqueeze(1)
-                .repeat(1, action_rows, 1, 1)
-            )
+            # image is C-contiguous, so from_numpy can share its RGB storage.
+            # The HWC->CHW conversion is the only required CPU allocation.
+            first_frame = torch.from_numpy(image).permute(2, 0, 1).contiguous().unsqueeze(1)
+            video = first_frame if self.config.condition_only_vae else first_frame.repeat(1, action_rows, 1, 1)
         with timer.measure("backend.sample_build"):
             action = torch.zeros((action_rows, PIPER14_RAW_ACTION_DIM), dtype=torch.float32)
             action[0, :PIPER14_RAW_ACTION_DIM] = torch.from_numpy(state)
@@ -419,6 +422,8 @@ class LiberoActionServiceBackend:
                 "domain_id": torch.tensor(get_domain_id(domain_name), dtype=torch.long),
                 "viewpoint": "concat_view",
             }
+            if self.config.condition_only_vae:
+                sample["inference_temporal_expand_after_resize"] = action_rows
         with timer.measure("backend.transform", synchronize_cuda):
             transformed = self.transform(sample, resolution=self.config.resolution)
         with timer.measure("backend.batch_build"):
@@ -555,16 +560,19 @@ class CosmosPiper14PolicyClient:
                 camera_height=self.config.camera_height,
                 camera_width=self.config.camera_width,
             )
-        with timer.measure("request.png_base64"):
-            encoded_image = encode_rgb_png_base64(concat_view)
-        return {
-            "image": encoded_image,
+        request = {
             "concat_view": concat_view,
             "prompt": observation.prompt,
             "domain_name": PIPER14_DOMAIN_NAME,
-            "image_size": int(concat_view.shape[0]),
             "state": observation.state.astype(np.float32, copy=True),
         }
+        # In-process backends consume concat_view directly. Unknown/official
+        # service backends retain the legacy PNG/base64 request contract.
+        if not bool(getattr(self.backend, "accepts_concat_view", False)):
+            with timer.measure("request.png_base64"):
+                request["image"] = encode_rgb_png_base64(concat_view)
+            request["image_size"] = int(concat_view.shape[0])
+        return request
 
     def _run_timed_inference(self, observation: Piper14Observation, timer: _SegmentedTimer) -> np.ndarray:
         self._timing_request_id += 1

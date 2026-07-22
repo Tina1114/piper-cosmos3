@@ -1,8 +1,78 @@
+diff --git a/cosmos_framework/data/generator/action/transforms.py b/cosmos_framework/data/generator/action/transforms.py
+index 6417a6e..f80dcb5 100644
+--- a/cosmos_framework/data/generator/action/transforms.py
++++ b/cosmos_framework/data/generator/action/transforms.py
+@@ -604,6 +604,27 @@ class ActionTransformPipeline:
+         # 1. Resize + reflection-pad spatial dimensions to the closest predefined target from ``VIDEO_RES_SIZE_INFO[resolution]``.
+         data_dict = self.video_resize(data_dict, resolution)
+ 
++        # Condition-only VAE inference spatially transforms the sole clean
++        # frame, then restores the logical temporal length as a zero-copy view.
++        # Subsequent prompt metadata and sequence planning therefore observe
++        # exactly the same [C,T,H,W] shape as the standard full-video path.
++        temporal_expand = data_dict.pop("inference_temporal_expand_after_resize", None)
++        if temporal_expand is not None:
++            temporal_expand = int(temporal_expand)
++            video = data_dict.get("video")
++            if not isinstance(video, torch.Tensor) or video.ndim != 4 or video.shape[1] != 1:
++                shape = None if not isinstance(video, torch.Tensor) else tuple(video.shape)
++                raise ValueError(
++                    "inference_temporal_expand_after_resize requires video shape [C,1,H,W], "
++                    f"got {shape}"
++                )
++            if temporal_expand < 1:
++                raise ValueError(
++                    "inference_temporal_expand_after_resize must be positive, "
++                    f"got {temporal_expand}"
++                )
++            data_dict["video"] = video.expand(-1, temporal_expand, -1, -1)
++
+         # 2. Format the caption as structured JSON when requested; otherwise run the legacy string appenders.
+         if self.prompt_json_formatter is not None:
+             data_dict = self.prompt_json_formatter(data_dict)
+diff --git a/cosmos_framework/data/generator/action/transforms_test.py b/cosmos_framework/data/generator/action/transforms_test.py
+index 93b62f0..02dd4e3 100644
+--- a/cosmos_framework/data/generator/action/transforms_test.py
++++ b/cosmos_framework/data/generator/action/transforms_test.py
+@@ -82,6 +82,33 @@ def test_video_padding_round_trips_to_unpadded_region() -> None:
+     torch.testing.assert_close(round_tripped, video)
+ 
+ 
++@pytest.mark.L0
++def test_condition_only_temporal_expand_matches_full_video_transform() -> None:
++    pipeline = ActionTransformPipeline(tokenizer_config=None, max_action_dim=4)
++    frame = torch.arange(3 * 4 * 5, dtype=torch.uint8).reshape(3, 1, 4, 5)
++    action = torch.zeros(5, 2)
++    common = {
++        "ai_caption": "Move the arm.",
++        "action": action,
++        "conditioning_fps": torch.tensor(5),
++        "mode": "policy",
++        "domain_id": torch.tensor(0),
++        "viewpoint": "concat_view",
++    }
++
++    fast = pipeline(
++        {**common, "video": frame.clone(), "inference_temporal_expand_after_resize": 6},
++        resolution="256",
++    )
++    standard = pipeline({**common, "video": frame.repeat(1, 6, 1, 1)}, resolution="256")
++
++    assert fast["video"].shape == standard["video"].shape
++    assert fast["ai_caption"] == standard["ai_caption"]
++    assert fast["sequence_plan"].as_dict() == standard["sequence_plan"].as_dict()
++    torch.testing.assert_close(fast["video"], standard["video"])
++    assert "inference_temporal_expand_after_resize" not in fast
++
++
+ @pytest.mark.L0
+ def test_action_prompt_json_formatter_drops_empty_fields() -> None:
+     formatter = ActionPromptJsonFormatter()
 diff --git a/cosmos_framework/model/generator/mot/attention.py b/cosmos_framework/model/generator/mot/attention.py
-index 7eb7fa6..82c725d 100644
+index f0d8766..d91566a 100644
 --- a/cosmos_framework/model/generator/mot/attention.py
 +++ b/cosmos_framework/model/generator/mot/attention.py
-@@ -307,6 +307,190 @@ def three_way_attention(
+@@ -267,6 +267,190 @@ def three_way_attention(
      return out_all
  
  
@@ -398,15 +468,16 @@ index 3924576..16c020d 100644
              parallel_dims=sequence_shard_parallel_dims,
 diff --git a/cosmos_framework/model/generator/mot/diffusion_kv_cache_test.py b/cosmos_framework/model/generator/mot/diffusion_kv_cache_test.py
 new file mode 100644
-index 0000000..26ea769
+index 0000000..8848e12
 --- /dev/null
 +++ b/cosmos_framework/model/generator/mot/diffusion_kv_cache_test.py
-@@ -0,0 +1,303 @@
+@@ -0,0 +1,359 @@
 +# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +# SPDX-License-Identifier: OpenMDW-1.1
 +
 +"""Regression tests for diffusion-step understanding KV reuse."""
 +
++import collections
 +import inspect
 +
 +import pytest
@@ -609,6 +680,61 @@ index 0000000..26ea769
 +    assert classify("language_model.lm_head.weight") == "cpu"
 +    assert classify("language_model.model.rotary_emb.inv_freq") is None
 +    assert classify("action2llm.linears.0.weight") is None
++
++
++@pytest.mark.L0
++def test_fixed_instruction_memory_cache_reuses_only_exact_token_identity(monkeypatch: pytest.MonkeyPatch):
++    model = OmniMoTModel.__new__(OmniMoTModel)
++    torch.nn.Module.__init__(model)
++    model.precision = torch.bfloat16
++    model.tensor_kwargs = {"device": torch.device("cpu"), "dtype": torch.bfloat16}
++    model._inference_reasoner_memory_cache = collections.OrderedDict()
++    monkeypatch.setenv("COSMOS3_REASONER_KVCACHE", "1")
++    monkeypatch.setattr(model, "_num_decoder_layers", lambda net=None: 2)
++    batch = {
++        "inference_instruction_cache": True,
++        "inference_instruction_cache_namespace": "checkpoint-a",
++        "inference_instruction_cache_max_entries": 4,
++    }
++
++    first, first_key = model._get_instruction_memory_state(
++        text_tokens=[[1, 2, 3]],
++        skip_text_tokens=False,
++        data_batch=batch,
++        net=None,
++    )
++    assert isinstance(first, DiffusionKVCacheMemoryState)
++    assert not first.is_gen_only()
++    first.init({}, torch.device("cpu"))
++    for layer_idx in range(2):
++        first.write_for_layer(layer_idx, tuple(torch.randn(1, 3, 2, 4) for _ in range(4)))
++    model._persist_instruction_memory(
++        cache_key=first_key,
++        memory=first,
++        text_tokens=[[1, 2, 3]],
++        skip_text_tokens=False,
++        data_batch=batch,
++        net=None,
++    )
++
++    second, second_key = model._get_instruction_memory_state(
++        text_tokens=[[1, 2, 3]],
++        skip_text_tokens=False,
++        data_batch=batch,
++        net=None,
++    )
++    changed, changed_key = model._get_instruction_memory_state(
++        text_tokens=[[1, 2, 4]],
++        skip_text_tokens=False,
++        data_batch=batch,
++        net=None,
++    )
++
++    assert second is first
++    assert second_key == first_key
++    assert changed is not first
++    assert changed_key != first_key
++    assert not changed.is_gen_only()
 +
 +
 +@pytest.mark.L0
@@ -1280,18 +1406,23 @@ index 2bdebfd..9b4421a 100644
  
      def generate_reasoner_text(
 diff --git a/cosmos_framework/model/generator/omni_mot_model.py b/cosmos_framework/model/generator/omni_mot_model.py
-index 6fed5de..771f1bb 100644
+index 656364b..55a4d14 100644
 --- a/cosmos_framework/model/generator/omni_mot_model.py
 +++ b/cosmos_framework/model/generator/omni_mot_model.py
-@@ -5,6 +5,7 @@ from __future__ import annotations
+@@ -4,9 +4,12 @@
+ from __future__ import annotations
  
  import collections
++import hashlib
  import json
 +import os
  import time
  from contextlib import contextmanager
++from pathlib import Path
  from typing import Any, Callable, Dict, Mapping, Optional, Tuple
-@@ -16,27 +17,31 @@ from einops import rearrange
+ 
+ import numpy as np
+@@ -16,27 +19,32 @@ from einops import rearrange
  from torch.distributed._composable.fsdp import FSDPModule
  from torch.nn.modules.module import _IncompatibleKeys
  
@@ -1329,10 +1460,11 @@ index 6fed5de..771f1bb 100644
  from cosmos_framework.model.generator.reasoner.qwen3_vl.utils import tokenize_caption
 +from cosmos_framework.model.generator.tokenizers.interface import VideoTokenizerInterface
 +from cosmos_framework.model.generator.upsampler.prompts import build_messages, clean_response
++from cosmos_framework.model.generator.utils.condition_only_vae import encode_first_condition_frame
  from cosmos_framework.model.generator.utils.data_and_condition import (
      GenerationDataClean,
      GenerationDataNoised,
-@@ -44,23 +49,20 @@ from cosmos_framework.model.generator.utils.data_and_condition import (
+@@ -44,23 +52,20 @@ from cosmos_framework.model.generator.utils.data_and_condition import (
      build_dense_sound_schedule,
      unwrap_and_densify,
  )
@@ -1363,15 +1495,19 @@ index 6fed5de..771f1bb 100644
  
  
  class OmniMoTModel(ImaginaireModel):
-@@ -72,6 +74,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -72,6 +77,11 @@ class OmniMoTModel(ImaginaireModel):
      def __init__(self, config: OmniMoTModelConfig):
          super().__init__()
          self.config = config
 +        self._reasoner_offload_complete = False
++        self._inference_text_token_cache: dict[str, tuple[list[list[int]], list[list[int]]]] = {}
++        self._inference_reasoner_memory_cache: collections.OrderedDict[
++            str, DiffusionKVCacheMemoryState
++        ] = collections.OrderedDict()
          log.info(f"OmniMoTModel: config {self.config}")
  
          # 0. Set up precision
-@@ -172,7 +175,6 @@ class OmniMoTModel(ImaginaireModel):
+@@ -172,7 +182,6 @@ class OmniMoTModel(ImaginaireModel):
          else:
              self.tokenizer_sound_gen = None
  
@@ -1379,7 +1515,7 @@ index 6fed5de..771f1bb 100644
      def build_net(self, dtype: torch.dtype, *, lora_enabled: bool | None = None) -> torch.nn.Module:
          # Build model network and parallelize it.
          lora_enabled = self.config.lora_enabled if lora_enabled is None else lora_enabled
-@@ -230,6 +232,19 @@ class OmniMoTModel(ImaginaireModel):
+@@ -230,6 +239,19 @@ class OmniMoTModel(ImaginaireModel):
  
          self.install_attention_dispatch(net)
  
@@ -1399,7 +1535,7 @@ index 6fed5de..771f1bb 100644
          net = parallelize_vfm_network(
              net,
              parallel_dims=self.parallel_dims,
-@@ -238,17 +253,31 @@ class OmniMoTModel(ImaginaireModel):
+@@ -238,17 +260,31 @@ class OmniMoTModel(ImaginaireModel):
              attention_io_layout=self.config.parallelism.attention_io_layout,
          )
  
@@ -1433,7 +1569,7 @@ index 6fed5de..771f1bb 100644
          return net
  
      def load_pretrained_model_if_needed(
-@@ -376,17 +405,25 @@ class OmniMoTModel(ImaginaireModel):
+@@ -376,17 +412,25 @@ class OmniMoTModel(ImaginaireModel):
          """Install a custom attention dispatch function on the network.
  
          Called during ``build_net()`` after the network is constructed but
@@ -1465,7 +1601,7 @@ index 6fed5de..771f1bb 100644
          """
          pass
  
-@@ -665,6 +702,255 @@ class OmniMoTModel(ImaginaireModel):
+@@ -669,6 +713,381 @@ class OmniMoTModel(ImaginaireModel):
          """
          return None
  
@@ -1478,6 +1614,132 @@ index 6fed5de..771f1bb 100644
 +        if not self._diffusion_kv_cache_enabled():
 +            return None
 +        return DiffusionKVCacheMemoryState(num_layers=self._num_decoder_layers(net))
++
++    @staticmethod
++    def _instruction_cache_digest(payload: Mapping[str, Any]) -> str:
++        encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
++        return hashlib.sha256(encoded).hexdigest()
++
++    def _instruction_memory_identity(
++        self,
++        *,
++        text_tokens: list[list[int]],
++        skip_text_tokens: bool,
++        namespace: str,
++        net: torch.nn.Module | None,
++    ) -> dict[str, Any]:
++        return {
++            "schema_version": 1,
++            "namespace": namespace,
++            "text_tokens": text_tokens,
++            "skip_text_tokens": bool(skip_text_tokens),
++            "num_layers": self._num_decoder_layers(net),
++            "precision": str(self.precision),
++        }
++
++    def _get_instruction_memory_state(
++        self,
++        *,
++        text_tokens: list[list[int]],
++        skip_text_tokens: bool,
++        data_batch: Mapping[str, Any],
++        net: torch.nn.Module | None,
++    ) -> tuple[MemoryState | None, str | None]:
++        """Get a prompt-specific Reasoner K/V cache from memory or disk."""
++        if not self._diffusion_kv_cache_enabled():
++            return None, None
++        if not bool(data_batch.get("inference_instruction_cache", False)):
++            return self.build_inference_memory_state(net=net), None
++
++        namespace = str(data_batch.get("inference_instruction_cache_namespace", ""))
++        identity = self._instruction_memory_identity(
++            text_tokens=text_tokens,
++            skip_text_tokens=skip_text_tokens,
++            namespace=namespace,
++            net=net,
++        )
++        cache_key = self._instruction_cache_digest(identity)
++        memory = self._inference_reasoner_memory_cache.get(cache_key)
++        if memory is not None:
++            self._inference_reasoner_memory_cache.move_to_end(cache_key)
++            log.info(f"OmniMoTModel: instruction Reasoner K/V memory cache hit ({cache_key[:12]})")
++            return memory, cache_key
++
++        cache_dir_raw = data_batch.get("inference_instruction_cache_dir")
++        disk_cache_allowed = cache_dir_raw is not None and bool(namespace)
++        if torch.distributed.is_initialized() and torch.distributed.get_world_size() > 1:
++            disk_cache_allowed = False
++        if disk_cache_allowed:
++            cache_path = Path(str(cache_dir_raw)).expanduser() / "reasoner_kv" / f"{cache_key}.pt"
++            if cache_path.is_file():
++                try:
++                    payload = torch.load(cache_path, map_location="cpu", weights_only=True)
++                    if not isinstance(payload, dict) or payload.get("identity") != identity:
++                        raise ValueError("cache identity does not match the active model/prompt")
++                    memory = DiffusionKVCacheMemoryState.from_cpu_payload(
++                        payload["memory"],
++                        device=self.tensor_kwargs["device"],
++                        expected_num_layers=self._num_decoder_layers(net),
++                    )
++                    self._remember_instruction_memory(cache_key, memory, data_batch)
++                    log.info(f"OmniMoTModel: instruction Reasoner K/V disk cache hit: {cache_path}")
++                    return memory, cache_key
++                except Exception as exc:
++                    log.warning(f"Ignoring invalid instruction Reasoner K/V cache {cache_path}: {exc}")
++
++        memory = self.build_inference_memory_state(net=net)
++        return memory, cache_key
++
++    def _remember_instruction_memory(
++        self,
++        cache_key: str,
++        memory: DiffusionKVCacheMemoryState,
++        data_batch: Mapping[str, Any],
++    ) -> None:
++        self._inference_reasoner_memory_cache[cache_key] = memory
++        self._inference_reasoner_memory_cache.move_to_end(cache_key)
++        max_entries = max(1, int(data_batch.get("inference_instruction_cache_max_entries", 8)))
++        while len(self._inference_reasoner_memory_cache) > max_entries:
++            self._inference_reasoner_memory_cache.popitem(last=False)
++
++    def _persist_instruction_memory(
++        self,
++        *,
++        cache_key: str | None,
++        memory: MemoryState | None,
++        text_tokens: list[list[int]],
++        skip_text_tokens: bool,
++        data_batch: Mapping[str, Any],
++        net: torch.nn.Module | None,
++    ) -> None:
++        if cache_key is None or not isinstance(memory, DiffusionKVCacheMemoryState) or not memory.is_gen_only():
++            return
++        self._remember_instruction_memory(cache_key, memory, data_batch)
++
++        cache_dir_raw = data_batch.get("inference_instruction_cache_dir")
++        namespace = str(data_batch.get("inference_instruction_cache_namespace", ""))
++        if cache_dir_raw is None or not namespace:
++            return
++        if torch.distributed.is_initialized() and torch.distributed.get_world_size() > 1:
++            return
++        identity = self._instruction_memory_identity(
++            text_tokens=text_tokens,
++            skip_text_tokens=skip_text_tokens,
++            namespace=namespace,
++            net=net,
++        )
++        if self._instruction_cache_digest(identity) != cache_key:
++            raise RuntimeError("Instruction Reasoner cache key changed during prefill.")
++
++        cache_dir = Path(str(cache_dir_raw)).expanduser() / "reasoner_kv"
++        cache_dir.mkdir(parents=True, exist_ok=True)
++        cache_path = cache_dir / f"{cache_key}.pt"
++        if cache_path.exists():
++            return
++        tmp_path = cache_dir / f".{cache_key}.{os.getpid()}.tmp"
++        torch.save({"identity": identity, "memory": memory.to_cpu_payload()}, tmp_path)
++        os.replace(tmp_path, cache_path)
++        log.info(f"OmniMoTModel: saved instruction Reasoner K/V cache: {cache_path}")
 +
 +    def _diffusion_kv_cache_enabled(self) -> bool:
 +        return _env_enabled("COSMOS3_REASONER_KVCACHE") or _env_enabled("COSMOS3_REASONER_OFFLOAD")
@@ -1721,7 +1983,118 @@ index 6fed5de..771f1bb 100644
      def pre_noise_memory_hook(
          self,
          packed_sequence: PackedSequence,
-@@ -1875,6 +2161,8 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1588,23 +2007,72 @@ class OmniMoTModel(ImaginaireModel):
+         :meth:`tokenize_text`) so there is a single source of truth for
+         how raw captions become token ids.
+         """
+-        use_system_prompt = self.vlm_config.use_system_prompt
++        use_system_prompt = bool(self.vlm_config.use_system_prompt)
+         system_prompt: str | None = data_batch.get("system_prompt")
+-
+-        cond_tokens = self._tokenize_captions(
+-            data_batch[self.input_caption_key],
+-            use_system_prompt=use_system_prompt,
+-            system_prompt=system_prompt,
+-            is_video=False,
+-        )
++        cond_captions = [str(caption) for caption in data_batch[self.input_caption_key]]
+ 
+         if has_negative_prompt:
+             neg_key = "neg_" + self.input_caption_key
+             if neg_key not in data_batch:
+                 raise ValueError(f"Negative prompt ({neg_key}) not found")
+-            uncond_captions = data_batch[neg_key]
++            uncond_captions = [str(caption) for caption in data_batch[neg_key]]
+         else:
+-            uncond_captions = [""] * len(cond_tokens)
++            uncond_captions = [""] * len(cond_captions)
++
++        tokenizer_identity = {
++            "class": type(self.vlm_tokenizer).__qualname__,
++            "name_or_path": str(getattr(self.vlm_tokenizer, "name_or_path", "")),
++            "vocab_size": int(getattr(self.vlm_tokenizer, "vocab_size", -1)),
++            "special_tokens_map": {
++                str(key): str(value) for key, value in getattr(self.vlm_tokenizer, "special_tokens_map", {}).items()
++            },
++        }
++        identity = {
++            "schema_version": 1,
++            "namespace": str(data_batch.get("inference_instruction_cache_namespace", "")),
++            "tokenizer": tokenizer_identity,
++            "use_system_prompt": use_system_prompt,
++            "system_prompt": system_prompt,
++            "is_video": False,
++            "conditional_captions": cond_captions,
++            "unconditional_captions": uncond_captions,
++        }
++        cache_key = self._instruction_cache_digest(identity)
++        cached = self._inference_text_token_cache.get(cache_key)
++        if cached is not None:
++            return cached
++
++        cache_dir_raw = data_batch.get("inference_instruction_cache_dir")
++        cache_path = (
++            Path(str(cache_dir_raw)).expanduser() / "text_tokens" / f"{cache_key}.json"
++            if cache_dir_raw is not None
++            else None
++        )
++        if cache_path is not None and cache_path.is_file():
++            try:
++                payload = json.loads(cache_path.read_text(encoding="utf-8"))
++                cond_tokens = payload["conditional_tokens"]
++                uncond_tokens = payload["unconditional_tokens"]
++                if payload.get("identity") != identity:
++                    raise ValueError("cache identity does not match the active tokenizer/prompt")
++                if not all(
++                    isinstance(row, list) and all(isinstance(token, int) for token in row)
++                    for row in [*cond_tokens, *uncond_tokens]
++                ):
++                    raise ValueError("cached token IDs must be lists of integers")
++                result = (cond_tokens, uncond_tokens)
++                self._inference_text_token_cache[cache_key] = result
++                log.info(f"OmniMoTModel: instruction text-token disk cache hit: {cache_path}")
++                return result
++            except Exception as exc:
++                log.warning(f"Ignoring invalid instruction text-token cache {cache_path}: {exc}")
++
++        cond_tokens = self._tokenize_captions(
++            cond_captions,
++            use_system_prompt=use_system_prompt,
++            system_prompt=system_prompt,
++            is_video=False,
++        )
+ 
+         uncond_tokens = self._tokenize_captions(
+             uncond_captions,
+@@ -1612,7 +2080,26 @@ class OmniMoTModel(ImaginaireModel):
+             system_prompt=system_prompt,
+             is_video=False,
+         )
+-        return cond_tokens, uncond_tokens
++        result = (cond_tokens, uncond_tokens)
++        self._inference_text_token_cache[cache_key] = result
++        if cache_path is not None:
++            cache_path.parent.mkdir(parents=True, exist_ok=True)
++            tmp_path = cache_path.parent / f".{cache_key}.{os.getpid()}.tmp"
++            tmp_path.write_text(
++                json.dumps(
++                    {
++                        "identity": identity,
++                        "conditional_tokens": cond_tokens,
++                        "unconditional_tokens": uncond_tokens,
++                    },
++                    ensure_ascii=False,
++                    indent=2,
++                ),
++                encoding="utf-8",
++            )
++            os.replace(tmp_path, cache_path)
++            log.info(f"OmniMoTModel: saved instruction text-token cache: {cache_path}")
++        return result
+ 
+     def _prepare_inference_data(
+         self,
+@@ -1874,6 +2361,8 @@ class OmniMoTModel(ImaginaireModel):
          sequence_plans: list[SequencePlan],
          gen_data_clean: GenerationDataClean,
          skip_text_tokens: bool = False,
@@ -1730,7 +2103,7 @@ index 6fed5de..771f1bb 100644
      ) -> list[torch.Tensor]:
          """
          Compute velocity prediction for a single sampling step.
-@@ -1895,6 +2183,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1894,6 +2383,7 @@ class OmniMoTModel(ImaginaireModel):
              sequence_plans: Pre-computed sequence plans (from _prepare_inference_data)
              gen_data_clean: Pre-computed clean data (from _prepare_inference_data)
              skip_text_tokens: If True, skip text tokens (for CFG unconditional branch)
@@ -1738,7 +2111,7 @@ index 6fed5de..771f1bb 100644
  
          Returns:
              Stacked flattened velocity tensors (one per sample), each containing
-@@ -1998,7 +2287,13 @@ class OmniMoTModel(ImaginaireModel):
+@@ -1997,7 +2487,13 @@ class OmniMoTModel(ImaginaireModel):
          out = self.denoise(
              net=net,
              data_batch_packed=packed_sequence,
@@ -1752,23 +2125,39 @@ index 6fed5de..771f1bb 100644
  
          # --- Apply velocity masks ---
          # Zero out velocity for conditioned parts (they don't change during sampling)
-@@ -2421,6 +2716,15 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2420,6 +2916,31 @@ class OmniMoTModel(ImaginaireModel):
              _dp_shard_group = None
              _align_device = None
  
-+        # A previous request may have offloaded the reasoner tower after its
-+        # diffusion prefill. Restore the non-layer reasoner tensors once here;
-+        # streamed decoder layers are restored immediately before each layer
-+        # runs and selectively evicted again by UnifiedMoT.
-+        self._prepare_reasoner_prefill(net)
++        cond_memory, cond_instruction_cache_key = self._get_instruction_memory_state(
++            text_tokens=cond_tokens,
++            skip_text_tokens=False,
++            data_batch=data_batch,
++            net=net,
++        )
++        if guidance != 1.0:
++            uncond_memory, uncond_instruction_cache_key = self._get_instruction_memory_state(
++                text_tokens=uncond_tokens,
++                skip_text_tokens=skip_text_tokens_for_cfg,
++                data_batch=data_batch,
++                net=net,
++            )
++        else:
++            uncond_memory, uncond_instruction_cache_key = None, None
 +
-+        cond_memory = self.build_inference_memory_state(net=net)
-+        uncond_memory = self.build_inference_memory_state(net=net)
++        # Restore/stream the reasoner only when at least one prompt branch was
++        # not found in the cross-request or disk cache. A full cache hit goes
++        # directly to the generation pathway.
++        needs_reasoner_prefill = (cond_memory is not None and not cond_memory.is_gen_only()) or (
++            guidance != 1.0 and uncond_memory is not None and not uncond_memory.is_gen_only()
++        )
++        if needs_reasoner_prefill:
++            self._prepare_reasoner_prefill(net)
 +
          def velocity_fn(noise_x: list[torch.Tensor], timestep: torch.Tensor) -> list[torch.Tensor]:
              # len(noise_x) == B, noise_x[i] is shape (D)
              # timestep is shape (B, 1)
-@@ -2432,7 +2736,12 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2431,7 +2952,12 @@ class OmniMoTModel(ImaginaireModel):
              # Expand timestep to (B, 1)
              timestep = timestep.repeat(len(noise_x), 1)
  
@@ -1782,7 +2171,7 @@ index 6fed5de..771f1bb 100644
                  return self._get_velocity(
                      net=net,
                      noise_x=noise_x,
-@@ -2441,6 +2750,8 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2440,6 +2966,8 @@ class OmniMoTModel(ImaginaireModel):
                      sequence_plans=sequence_plans,
                      gen_data_clean=gen_data_clean,
                      skip_text_tokens=skip_text_tokens,
@@ -1791,7 +2180,7 @@ index 6fed5de..771f1bb 100644
                  )
  
              needs_text_cfg = guidance != 1.0
-@@ -2449,6 +2760,31 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2448,6 +2976,47 @@ class OmniMoTModel(ImaginaireModel):
                  t_lo, t_hi = guidance_interval
                  needs_text_cfg = t_lo < timestep[0].item() < t_hi
  
@@ -1808,6 +2197,14 @@ index 6fed5de..771f1bb 100644
 +                    memory=cond_memory,
 +                    und_only=True,
 +                )
++                self._persist_instruction_memory(
++                    cache_key=cond_instruction_cache_key,
++                    memory=cond_memory,
++                    text_tokens=cond_tokens,
++                    skip_text_tokens=False,
++                    data_batch=data_batch,
++                    net=net,
++                )
 +                prefill_memories.append(cond_memory)
 +            if guidance != 1.0 and uncond_memory is not None and not uncond_memory.is_gen_only():
 +                _single_velocity_fn(
@@ -1816,6 +2213,14 @@ index 6fed5de..771f1bb 100644
 +                    memory=uncond_memory,
 +                    und_only=True,
 +                )
++                self._persist_instruction_memory(
++                    cache_key=uncond_instruction_cache_key,
++                    memory=uncond_memory,
++                    text_tokens=uncond_tokens,
++                    skip_text_tokens=skip_text_tokens_for_cfg,
++                    data_batch=data_batch,
++                    net=net,
++                )
 +                prefill_memories.append(uncond_memory)
 +            if prefill_memories:
 +                self._maybe_finalize_reasoner_offload(net=net, memories=prefill_memories)
@@ -1823,7 +2228,7 @@ index 6fed5de..771f1bb 100644
              # FSDP alignment: if ANY rank in the shard group needs text-CFG
              # this call, every rank must take the CFG path so the allgather
              # sequence stays aligned across ranks.
-@@ -2459,9 +2795,23 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2458,9 +3027,23 @@ class OmniMoTModel(ImaginaireModel):
              else:
                  _any_needs_text_cfg = needs_text_cfg
  
@@ -1848,7 +2253,7 @@ index 6fed5de..771f1bb 100644
  
              # Fast path: only text-CFG and no postprocess — preserve the
              # cfgp-parallel branch so two-rank CFG parallelism stays available.
-@@ -2470,29 +2820,37 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2469,29 +3052,37 @@ class OmniMoTModel(ImaginaireModel):
                      cond_tokens=cond_tokens,
                      uncond_tokens=uncond_tokens,
                      skip_text_tokens_for_cfg=skip_text_tokens_for_cfg,
@@ -1892,7 +2297,7 @@ index 6fed5de..771f1bb 100644
  
              v_pred = [u_i + guidance * (c_i - u_i) for c_i, u_i in zip(cond_v, uncond_v)]
  
-@@ -2502,7 +2860,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2501,7 +3092,7 @@ class OmniMoTModel(ImaginaireModel):
                      for v_i, c_i in zip(v_pred, cond_v)
                  ]
  
@@ -1901,7 +2306,51 @@ index 6fed5de..771f1bb 100644
  
          # Run sampler for all samples at once.
          sampler = sampler or self.sampler
-@@ -3795,6 +4153,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -2902,9 +3493,40 @@ class OmniMoTModel(ImaginaireModel):
+         self._normalize_video_databatch_inplace(data_batch)
+         self._augment_image_dim_inplace(data_batch)  # converts each image tensor to (1, C, 1, H, W)
+         raw_state_vision = data_batch[self.input_image_key if is_image_batch else self.input_video_key]
+-        x0_tokens_vision = [
+-            self.encode(raw_state_vision_i).contiguous().float() for raw_state_vision_i in raw_state_vision
+-        ]
++        condition_only_vae = data_batch.get("inference_condition_only_vae", False) is True
++        sequence_plans = data_batch.get("sequence_plan")
++        condition_only_vae_eligible = (
++            condition_only_vae
++            and not is_image_batch
++            and num_vision_items_per_sample is None
++            and isinstance(sequence_plans, list)
++            and len(sequence_plans) == len(raw_state_vision)
++            and all(getattr(plan, "condition_frame_indexes_vision", None) == [0] for plan in sequence_plans)
++        )
++        if condition_only_vae_eligible:
++            x0_tokens_vision = encode_first_condition_frame(
++                raw_state_vision,
++                tokenizer=self.tokenizer_vision_gen,
++                encode=self.encode,
++            )
++            if not getattr(self, "_condition_only_vae_logged", False):
++                pixel_frames = [int(item.shape[2]) for item in raw_state_vision]
++                latent_frames = [int(item.shape[2]) for item in x0_tokens_vision]
++                log.info(
++                    "OmniMoTModel: condition-only VAE fast path enabled; "
++                    f"encoded_pixel_frames={[1] * len(pixel_frames)} full_pixel_frames={pixel_frames} "
++                    f"latent_frames={latent_frames}"
++                )
++                self._condition_only_vae_logged = True
++        else:
++            if condition_only_vae:
++                log.warning(
++                    "OmniMoTModel: condition-only VAE fast path is not eligible for this batch; "
++                    "falling back to full vision encoding."
++                )
++            x0_tokens_vision = [
++                self.encode(raw_state_vision_i).contiguous().float() for raw_state_vision_i in raw_state_vision
++            ]
+ 
+         frame_size = data_batch.get("image_size", None)
+         if frame_size is not None:
+@@ -3663,6 +4285,7 @@ class OmniMoTModel(ImaginaireModel):
          net: torch.nn.Module | None = None,
          data_batch_packed: PackedSequence | None = None,
          memory: MemoryState | None = None,
@@ -1909,7 +2358,7 @@ index 6fed5de..771f1bb 100644
      ) -> dict:
          """
          Runs the MoT network on a packed multi-modal sequence to predict velocity (v) targets.
-@@ -3803,6 +4162,7 @@ class OmniMoTModel(ImaginaireModel):
+@@ -3671,6 +4294,7 @@ class OmniMoTModel(ImaginaireModel):
              data_batch_packed: PackedSequence from `pack_input_sequence(...)`.
              memory: Optional pre-built MemoryState for autoregressive generation
                  or KV-cache training.
@@ -1917,7 +2366,7 @@ index 6fed5de..771f1bb 100644
  
          Returns:
              dict containing:
-@@ -3816,7 +4176,10 @@ class OmniMoTModel(ImaginaireModel):
+@@ -3684,7 +4308,10 @@ class OmniMoTModel(ImaginaireModel):
          out_net = net(
              packed_seq=data_batch_packed,
              memory=memory,
@@ -1928,7 +2377,7 @@ index 6fed5de..771f1bb 100644
          output_dict = dict()
          output_dict["preds_vision"] = out_net["preds_vision"]
          if self.config.action_gen and "preds_action" in out_net:
-@@ -4729,3 +5092,25 @@ def _is_reasoner_state_dict_key(key: str) -> bool:
+@@ -4597,3 +5224,25 @@ def _is_reasoner_state_dict_key(key: str) -> bool:
      if not key.startswith("language_model."):
          return False
      return "_moe_gen" not in key
@@ -1955,7 +2404,7 @@ index 6fed5de..771f1bb 100644
 +            return None
 +        return DiffusionKVCacheMemoryState(num_layers=self._num_decoder_layers())
 diff --git a/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py b/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
-index 0117a13..2058cb7 100644
+index fea6320..344c0eb 100644
 --- a/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
 +++ b/cosmos_framework/model/generator/tokenizers/wan2pt2_vae_4x16x16.py
 @@ -11,12 +11,12 @@ import torch.nn as nn
@@ -2088,8 +2537,124 @@ index 0117a13..2058cb7 100644
          return video_recon
  
  
+diff --git a/cosmos_framework/model/generator/utils/condition_only_vae.py b/cosmos_framework/model/generator/utils/condition_only_vae.py
+new file mode 100644
+index 0000000..693b459
+--- /dev/null
++++ b/cosmos_framework/model/generator/utils/condition_only_vae.py
+@@ -0,0 +1,65 @@
++# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++# SPDX-License-Identifier: OpenMDW-1.1
++
++"""Inference helpers for encoding only clean vision condition frames."""
++
++from collections.abc import Callable, Sequence
++from typing import Protocol
++
++import torch
++
++
++class _VisionTokenizer(Protocol):
++    def get_latent_num_frames(self, num_pixel_frames: int) -> int: ...
++
++
++def encode_first_condition_frame(
++    raw_state_vision: Sequence[torch.Tensor],
++    *,
++    tokenizer: _VisionTokenizer,
++    encode: Callable[[torch.Tensor], torch.Tensor],
++) -> list[torch.Tensor]:
++    """Encode frame zero and allocate zero placeholders for generated frames.
++
++    Policy/image-to-video inference conditions only latent frame zero. Clean VAE
++    values for every later frame are multiplied by a zero condition mask before
++    sampling, so encoding those pixel frames is unnecessary. The zero placeholders
++    preserve the full latent shape used by sequence packing and noise generation.
++    """
++
++    latents: list[torch.Tensor] = []
++    for index, raw_state in enumerate(raw_state_vision):
++        if raw_state.ndim != 5:
++            raise ValueError(
++                "Condition-only VAE expects vision tensors shaped [B,C,T,H,W], "
++                f"got item {index} with shape {tuple(raw_state.shape)}."
++            )
++        num_pixel_frames = int(raw_state.shape[2])
++        if num_pixel_frames < 1:
++            raise ValueError(f"Condition-only VAE requires at least one pixel frame, got {num_pixel_frames}.")
++
++        num_latent_frames = int(tokenizer.get_latent_num_frames(num_pixel_frames))
++        if num_latent_frames < 1:
++            raise ValueError(
++                f"Vision tokenizer returned invalid latent frame count {num_latent_frames} "
++                f"for {num_pixel_frames} pixel frames."
++            )
++
++        first_latent = encode(raw_state[:, :, :1]).contiguous().float()
++        if first_latent.ndim != 5 or int(first_latent.shape[2]) != 1:
++            raise ValueError(
++                "Encoding one condition frame must produce one latent frame, "
++                f"got item {index} with shape {tuple(first_latent.shape)}."
++            )
++
++        if num_latent_frames == 1:
++            latents.append(first_latent)
++            continue
++
++        full_shape = list(first_latent.shape)
++        full_shape[2] = num_latent_frames
++        full_latent = first_latent.new_zeros(full_shape)
++        full_latent[:, :, :1].copy_(first_latent)
++        latents.append(full_latent)
++
++    return latents
+diff --git a/cosmos_framework/model/generator/utils/condition_only_vae_test.py b/cosmos_framework/model/generator/utils/condition_only_vae_test.py
+new file mode 100644
+index 0000000..1a90ca2
+--- /dev/null
++++ b/cosmos_framework/model/generator/utils/condition_only_vae_test.py
+@@ -0,0 +1,39 @@
++# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++# SPDX-License-Identifier: OpenMDW-1.1
++
++import pytest
++import torch
++
++from cosmos_framework.model.generator.utils.condition_only_vae import encode_first_condition_frame
++
++
++class _Tokenizer:
++    def get_latent_num_frames(self, num_pixel_frames: int) -> int:
++        return 1 + (num_pixel_frames - 1) // 4
++
++
++def test_encode_first_condition_frame_preserves_full_latent_shape() -> None:
++    raw_state = torch.arange(1 * 3 * 33 * 4 * 4, dtype=torch.float32).reshape(1, 3, 33, 4, 4)
++    encoded_temporal_lengths: list[int] = []
++
++    def encode(value: torch.Tensor) -> torch.Tensor:
++        encoded_temporal_lengths.append(int(value.shape[2]))
++        return value[:, :2, :, :2, :2] + 7
++
++    (latent,) = encode_first_condition_frame([raw_state], tokenizer=_Tokenizer(), encode=encode)
++
++    assert encoded_temporal_lengths == [1]
++    assert latent.shape == (1, 2, 9, 2, 2)
++    torch.testing.assert_close(latent[:, :, :1], raw_state[:, :2, :1, :2, :2] + 7)
++    assert torch.count_nonzero(latent[:, :, 1:]) == 0
++
++
++def test_encode_first_condition_frame_rejects_non_single_frame_latent() -> None:
++    raw_state = torch.zeros((1, 3, 33, 4, 4))
++
++    with pytest.raises(ValueError, match="must produce one latent frame"):
++        encode_first_condition_frame(
++            [raw_state],
++            tokenizer=_Tokenizer(),
++            encode=lambda value: value.repeat(1, 1, 2, 1, 1),
++        )
 diff --git a/cosmos_framework/model/generator/utils/memory.py b/cosmos_framework/model/generator/utils/memory.py
-index 115a8d3..a2b2033 100644
+index 115a8d3..3027267 100644
 --- a/cosmos_framework/model/generator/utils/memory.py
 +++ b/cosmos_framework/model/generator/utils/memory.py
 @@ -19,6 +19,7 @@ the caller can write them back into the cache outside the compile boundary.
@@ -2117,7 +2682,7 @@ index 115a8d3..a2b2033 100644
  class MemoryState(ABC):
      """Mutable persistent memory that lives outside ``torch.compile``.
  
-@@ -100,3 +111,80 @@ class MemoryState(ABC):
+@@ -100,3 +111,126 @@ class MemoryState(ABC):
          visibility itself return ``False``.
          """
          return True
@@ -2195,15 +2760,61 @@ index 115a8d3..a2b2033 100644
 +        self._device = None
 +        self._debug_und_input = None
 +
++    def to_cpu_payload(self) -> dict:
++        """Return a validated, device-independent representation for disk caching."""
++        if not self.is_gen_only():
++            raise RuntimeError("Cannot serialize an incomplete diffusion K/V cache.")
++        return {
++            "schema_version": 1,
++            "num_layers": self.num_layers,
++            "und_k": [tensor.detach().cpu() for tensor in self._und_k],
++            "und_v": [tensor.detach().cpu() for tensor in self._und_v],
++        }
++
++    @classmethod
++    def from_cpu_payload(
++        cls,
++        payload: dict,
++        *,
++        device: torch.device | str,
++        expected_num_layers: int,
++    ) -> "DiffusionKVCacheMemoryState":
++        """Restore a complete cache produced by :meth:`to_cpu_payload`."""
++        if payload.get("schema_version") != 1:
++            raise ValueError(f"Unsupported diffusion K/V cache schema: {payload.get('schema_version')!r}")
++        num_layers = int(payload.get("num_layers", -1))
++        if num_layers != expected_num_layers:
++            raise ValueError(
++                f"Diffusion K/V cache layer mismatch: cache={num_layers}, expected={expected_num_layers}"
++            )
++        und_k = payload.get("und_k")
++        und_v = payload.get("und_v")
++        if not isinstance(und_k, list) or not isinstance(und_v, list):
++            raise ValueError("Diffusion K/V cache must contain und_k and und_v tensor lists.")
++        if len(und_k) != num_layers or len(und_v) != num_layers:
++            raise ValueError(
++                f"Diffusion K/V cache tensor count mismatch: k={len(und_k)}, v={len(und_v)}, layers={num_layers}"
++            )
++        if not all(isinstance(tensor, torch.Tensor) for tensor in [*und_k, *und_v]):
++            raise ValueError("Diffusion K/V cache contains a non-tensor value.")
++
++        target_device = torch.device(device)
++        state = cls(num_layers=num_layers)
++        state._und_k = [tensor.to(target_device) for tensor in und_k]
++        state._und_v = [tensor.to(target_device) for tensor in und_v]
++        state._initialized = True
++        state._device = target_device
++        return state
++
 +    def _check_layer_idx(self, layer_idx: int) -> None:
 +        if not 0 <= layer_idx < self.num_layers:
 +            raise IndexError(f"layer_idx {layer_idx} out of range for {self.num_layers} layers")
 diff --git a/cosmos_framework/model/generator/utils/memory_test.py b/cosmos_framework/model/generator/utils/memory_test.py
 new file mode 100644
-index 0000000..7d1798d
+index 0000000..8187b3b
 --- /dev/null
 +++ b/cosmos_framework/model/generator/utils/memory_test.py
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,57 @@
 +# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +# SPDX-License-Identifier: OpenMDW-1.1
 +
@@ -2238,3 +2849,26 @@ index 0000000..7d1798d
 +
 +    state.reset()
 +    assert not state.is_gen_only()
++
++
++@pytest.mark.L0
++def test_diffusion_kv_cache_cpu_payload_round_trip():
++    state = DiffusionKVCacheMemoryState(num_layers=2)
++    state.init({}, torch.device("cpu"))
++    expected = []
++    for layer_idx in range(2):
++        kv = tuple(torch.randn(1, 3, 2, 4) for _ in range(4))
++        state.write_for_layer(layer_idx, kv)
++        expected.append((kv[2], kv[3]))
++
++    restored = DiffusionKVCacheMemoryState.from_cpu_payload(
++        state.to_cpu_payload(),
++        device="cpu",
++        expected_num_layers=2,
++    )
++
++    assert restored.is_gen_only()
++    for layer_idx, (expected_k, expected_v) in enumerate(expected):
++        value = restored.read_for_layer(layer_idx)
++        torch.testing.assert_close(value.und_k, expected_k)
++        torch.testing.assert_close(value.und_v, expected_v)
