@@ -1,4 +1,6 @@
+import io
 import unittest
+from contextlib import redirect_stdout
 
 import numpy as np
 
@@ -69,6 +71,38 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertEqual(action.shape, (5, 14))
         self.assertEqual(action.dtype, np.float32)
         self.assertTrue(np.isfinite(action).all())
+
+    def test_timing_records_policy_preprocessing_stages(self) -> None:
+        policy = CosmosPiper14PolicyClient(
+            CosmosPiper14PolicyConfig(
+                mock_backend=True,
+                timing=True,
+                camera_height=4,
+                camera_width=6,
+                action_horizon=3,
+            )
+        )
+        image = np.zeros((4, 6, 3), dtype=np.uint8)
+        obs = {
+            "images": {
+                "cam_high": image,
+                "cam_left_wrist": image,
+                "cam_right_wrist": image,
+            },
+            "state": np.zeros(14, dtype=np.float32),
+        }
+
+        output = io.StringIO()
+        with redirect_stdout(output):
+            policy.infer(obs)
+
+        self.assertIn("[cosmos-piper14-timing] request=1", output.getvalue())
+        self.assertIn("observation.coerce", policy.last_timing)
+        self.assertIn("request.concat_view", policy.last_timing)
+        self.assertIn("request.png_base64", policy.last_timing)
+        self.assertIn("backend.total", policy.last_timing)
+        self.assertIn("policy.action_validate", policy.last_timing)
+        self.assertIn("policy.total", policy.last_timing)
 
     def test_rejects_missing_camera(self) -> None:
         policy = CosmosPiper14PolicyClient(CosmosPiper14PolicyConfig(mock_backend=True))

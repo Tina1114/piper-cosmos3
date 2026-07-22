@@ -81,6 +81,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--instruction-cache-max-entries", type=int, default=4)
     parser.add_argument("--mock-backend", action="store_true")
+    parser.add_argument("--timing", action="store_true", help="Print synchronized per-stage inference timings.")
+    parser.add_argument("--cuda-memory", action="store_true", help="Print per-stage CUDA allocator usage.")
+    parser.add_argument(
+        "--cuda-memory-history",
+        default=None,
+        help="Dump one inference CUDA allocator history to this .pickle file.",
+    )
+    parser.add_argument("--cuda-memory-history-max-entries", type=int, default=200_000)
     return parser.parse_args()
 
 
@@ -112,6 +120,10 @@ def main() -> None:
         host=args.host,
         port=args.port,
         mock_backend=args.mock_backend,
+        timing=args.timing,
+        cuda_memory=args.cuda_memory,
+        cuda_memory_history=args.cuda_memory_history,
+        cuda_memory_history_max_entries=args.cuda_memory_history_max_entries,
     )
     serve_cosmos_piper14_policy(config, host=args.host, port=args.port, authkey=args.authkey)
 

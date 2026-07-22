@@ -52,5 +52,16 @@ reports/**/*.out
 reports/**/*.log
 reports/**/validation_prediction_export.json
 
+# inference profiling artifacts
+reports/cosmos3_piper14/profiling/
+*cuda_memory_snapshot*.pickle
+*memory_trace*.html
+*memory_segments*.html
+*.nsys-rep
+*.nsys-rep.sqlite
+torch_trace*.json
+chrome_trace*.json
+
 # system
 .DS_Store
+log/

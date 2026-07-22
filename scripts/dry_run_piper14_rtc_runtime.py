@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sleep", action="store_true", help="Sleep to match --control-hz during dry-run.")
     parser.add_argument("--loop", action="store_true", help="Loop the HDF5 episode if --steps exceeds episode length.")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--timing", action="store_true", help="Print RPC send/receive timings.")
     parser.add_argument("--report", type=Path, default=None)
     return parser.parse_args()
 
@@ -68,7 +69,12 @@ def main() -> None:
         debug=args.debug,
     )
 
-    with CosmosPiper14RemotePolicyClient(host=args.host, port=args.port, authkey=args.authkey) as policy:
+    with CosmosPiper14RemotePolicyClient(
+        host=args.host,
+        port=args.port,
+        authkey=args.authkey,
+        timing=args.timing,
+    ) as policy:
         metadata = policy.metadata()
         runtime = Piper14RTCRuntime(policy=policy, observation_source=source, action_sink=sink, config=config)
         report = runtime.run()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import traceback
+import time
 from multiprocessing.connection import Listener
 from typing import Any, Mapping
 
@@ -51,7 +52,18 @@ def _serve_connection(policy: CosmosPiper14PolicyClient, conn: Any) -> bool:
             elif op == "get_action":
                 conn.send({"ok": True, "action": policy.get_action().tolist()})
             elif op == "infer":
-                conn.send({"ok": True, "action": policy.infer(request["obs"]).tolist()})
+                dispatch_started = time.perf_counter()
+                action = policy.infer(request["obs"]).tolist()
+                dispatch_ms = (time.perf_counter() - dispatch_started) * 1000.0
+                send_started = time.perf_counter()
+                conn.send({"ok": True, "action": action})
+                send_ms = (time.perf_counter() - send_started) * 1000.0
+                if policy.config.timing:
+                    print(
+                        f"[cosmos-piper14-rpc-timing] op=infer "
+                        f"dispatch={dispatch_ms:.3f}ms send={send_ms:.3f}ms",
+                        flush=True,
+                    )
             elif op == "metadata":
                 conn.send({"ok": True, "metadata": policy.metadata()})
             elif op == "reset":

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+import time
 from multiprocessing.connection import Client as ConnectionClient
 from typing import Any, Mapping
 
@@ -11,9 +13,16 @@ import numpy as np
 class CosmosPiper14RemotePolicyClient:
     """Small trusted-network RPC client for Piper14 policy inference."""
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 8766, authkey: str | bytes = "cosmos-piper14"):
+    def __init__(
+        self,
+        host: str = "127.0.0.1",
+        port: int = 8766,
+        authkey: str | bytes = "cosmos-piper14",
+        timing: bool | None = None,
+    ):
         self.address = (host, int(port))
         self.authkey = authkey.encode("utf-8") if isinstance(authkey, str) else authkey
+        self.timing = _env_enabled("COSMOS_PIPER14_CLIENT_TIMING") if timing is None else bool(timing)
         self.conn = ConnectionClient(self.address, authkey=self.authkey)
 
     def close(self) -> None:
@@ -38,8 +47,20 @@ class CosmosPiper14RemotePolicyClient:
         self._request({"op": "shutdown"})
 
     def _request(self, payload: Mapping[str, Any]) -> dict[str, Any]:
+        started = time.perf_counter()
+        send_started = time.perf_counter()
         self.conn.send(dict(payload))
+        send_ms = (time.perf_counter() - send_started) * 1000.0
+        recv_started = time.perf_counter()
         response = self.conn.recv()
+        recv_ms = (time.perf_counter() - recv_started) * 1000.0
+        if getattr(self, "timing", False):
+            total_ms = (time.perf_counter() - started) * 1000.0
+            print(
+                f"[cosmos-piper14-client-timing] op={payload.get('op')} "
+                f"send={send_ms:.3f}ms recv_wait={recv_ms:.3f}ms total={total_ms:.3f}ms",
+                flush=True,
+            )
         if not isinstance(response, dict):
             raise RuntimeError(f"Invalid Cosmos Piper14 policy server response: {response!r}")
         if not response.get("ok", False):
@@ -60,3 +81,7 @@ class CosmosPiper14RemotePolicyClient:
 
     def __exit__(self, exc_type, exc, tb) -> None:
         self.close()
+
+
+def _env_enabled(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}

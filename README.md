@@ -44,4 +44,5 @@ python scripts/dry_run_piper14_rtc_runtime.py \
 docs/cosmos3_piper14_policy_deployment.md
 docs/inference_assets_manifest.md
 docs/instruction_cache_optimization_zh.md
+docs/cosmos3_piper14_inference_profiling.md
 ```

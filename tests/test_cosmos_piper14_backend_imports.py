@@ -5,10 +5,33 @@ from unittest.mock import patch
 
 import numpy as np
 
-from piper_cosmos.deployment.cosmos_piper14_policy import CosmosPiper14PolicyConfig, LiberoActionServiceBackend
+from piper_cosmos.deployment.cosmos_piper14_policy import (
+    CosmosPiper14PolicyConfig,
+    LiberoActionServiceBackend,
+    _profile_model_methods,
+    _SegmentedTimer,
+)
 
 
 class CosmosPiper14BackendImportsTest(unittest.TestCase):
+    def test_model_timing_wrappers_record_and_restore_methods(self) -> None:
+        class FakeModel:
+            def _get_velocity(self, *, und_only=False):
+                return und_only
+
+        model = FakeModel()
+        original_method = model._get_velocity.__func__
+        timer = _SegmentedTimer(True)
+
+        with _profile_model_methods(model, timer, synchronize_cuda=None):
+            self.assertTrue(model._get_velocity(und_only=True))
+            self.assertFalse(model._get_velocity(und_only=False))
+
+        result = timer.snapshot()
+        self.assertIn("model.reasoner.prefill", result)
+        self.assertIn("model.denoise.velocity", result)
+        self.assertIs(model._get_velocity.__func__, original_method)
+
     def test_libero_backend_uses_common_checkpoint_overrides_import(self) -> None:
         calls = {}
 
