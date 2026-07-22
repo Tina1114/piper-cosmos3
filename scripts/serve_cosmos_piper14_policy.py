@@ -30,7 +30,9 @@ def materialize_runtime_config(config_file: str | None, *, wan_vae_path: Path) -
     except (KeyError, TypeError) as exc:
         raise ValueError(f"Unsupported Cosmos config structure in {source}") from exc
 
-    tokenizer_config["vae_path"] = str(wan_vae_path.resolve())
+    # Keep the snapshot filename so easy_io can infer the .pth format. Resolving
+    # a Hugging Face snapshot symlink here produces an extensionless blob path.
+    tokenizer_config["vae_path"] = str(wan_vae_path.expanduser().absolute())
     # Keep the portable repository ID here. bootstrap_local_hf_assets patches
     # Cosmos' tokenizer resolver to map it to the validated local snapshot.
     vlm_tokenizer_config["pretrained_model_name"] = "Qwen/Qwen3-VL-8B-Instruct"
@@ -80,6 +82,18 @@ def parse_args() -> argparse.Namespace:
         help="Optional persistent cache directory. Omit it for safer process-local memory caching only.",
     )
     parser.add_argument("--instruction-cache-max-entries", type=int, default=4)
+    parser.add_argument(
+        "--gen-torch-compile",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Compile only the GEN decoder path after model loading.",
+    )
+    parser.add_argument(
+        "--gen-cuda-graphs",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Use torch.compile reduce-overhead CUDA Graph Trees for GEN denoising.",
+    )
     parser.add_argument("--mock-backend", action="store_true")
     parser.add_argument("--timing", action="store_true", help="Print synchronized per-stage inference timings.")
     parser.add_argument("--cuda-memory", action="store_true", help="Print per-stage CUDA allocator usage.")
@@ -117,6 +131,8 @@ def main() -> None:
         instruction_cache=args.instruction_cache,
         instruction_cache_dir=args.instruction_cache_dir,
         instruction_cache_max_entries=args.instruction_cache_max_entries,
+        gen_torch_compile=args.gen_torch_compile,
+        gen_cuda_graphs=args.gen_cuda_graphs,
         host=args.host,
         port=args.port,
         mock_backend=args.mock_backend,

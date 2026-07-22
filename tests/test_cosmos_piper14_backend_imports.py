@@ -1,6 +1,7 @@
 import sys
 import types
 import unittest
+from collections import OrderedDict
 from unittest.mock import patch
 
 import numpy as np
@@ -14,6 +15,82 @@ from piper_cosmos.deployment.cosmos_piper14_policy import (
 
 
 class CosmosPiper14BackendImportsTest(unittest.TestCase):
+    def test_gen_acceleration_compiles_only_gen_path_with_cuda_graph_mode(self) -> None:
+        compile_calls = []
+
+        class FakeLayer:
+            def __init__(self) -> None:
+                self.calls = []
+
+            def forward(self, value, **kwargs):
+                self.calls.append(kwargs)
+                return value
+
+        layer = FakeLayer()
+        net = types.SimpleNamespace(
+            language_model=types.SimpleNamespace(model=types.SimpleNamespace(layers=[layer])),
+            pad_for_cuda_graphs=False,
+        )
+        backend = LiberoActionServiceBackend.__new__(LiberoActionServiceBackend)
+        backend.config = CosmosPiper14PolicyConfig(gen_torch_compile=True, gen_cuda_graphs=True)
+        backend.service = types.SimpleNamespace(model=types.SimpleNamespace(net=net))
+
+        def fake_compile(function, **kwargs):
+            compile_calls.append(kwargs)
+
+            def compiled(*args, **call_kwargs):
+                compile_calls.append("called")
+                return function(*args, **call_kwargs)
+
+            return compiled
+
+        with patch("torch.compile", fake_compile):
+            backend._configure_gen_acceleration()
+            layer.forward("prefill", und_only=True, gen_only=False)
+            layer.forward("denoise", und_only=False, gen_only=True)
+
+        self.assertEqual(
+            compile_calls[0],
+            {"fullgraph": True, "dynamic": False, "mode": "reduce-overhead"},
+        )
+        self.assertEqual(compile_calls[1], "called")
+        self.assertEqual(layer.calls[0], {"und_only": True, "gen_only": False})
+        self.assertEqual(layer.calls[1], {"gen_only": True, "und_only": False})
+        self.assertTrue(net.pad_for_cuda_graphs)
+
+    def test_instruction_cache_reuses_cond_and_uncond_memory_across_chunks(self) -> None:
+        class FakeMemory:
+            def is_gen_only(self):
+                return True
+
+        class FakeModel:
+            def __init__(self) -> None:
+                self.created = []
+
+            def build_inference_memory_state(self):
+                memory = FakeMemory()
+                self.created.append(memory)
+                return memory
+
+        model = FakeModel()
+        backend = LiberoActionServiceBackend.__new__(LiberoActionServiceBackend)
+        backend.config = CosmosPiper14PolicyConfig(instruction_cache=True)
+        backend.service = types.SimpleNamespace(model=model)
+        backend._instruction_cache_namespace = "namespace"
+        backend._instruction_memory_cache = OrderedDict()
+        timer = _SegmentedTimer(True)
+
+        with backend._instruction_cache_scope("prompt", timer):
+            first = (model.build_inference_memory_state(), model.build_inference_memory_state())
+        with backend._instruction_cache_scope("prompt", timer):
+            second = (model.build_inference_memory_state(), model.build_inference_memory_state())
+
+        self.assertEqual(len(model.created), 2)
+        self.assertIs(first[0], second[0])
+        self.assertIs(first[1], second[1])
+        self.assertIn("model.reasoner.cache_miss", timer.snapshot())
+        self.assertIn("model.reasoner.cache_hit", timer.snapshot())
+
     def test_model_timing_wrappers_record_and_restore_methods(self) -> None:
         class FakeModel:
             def _get_velocity(self, *, und_only=False):

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import base64
+import functools
 import hashlib
 import io
 import json
 import os
 import time
+from collections import OrderedDict
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -52,6 +54,8 @@ class CosmosPiper14PolicyConfig:
     instruction_cache: bool = True
     instruction_cache_dir: str | None = None
     instruction_cache_max_entries: int = 4
+    gen_torch_compile: bool = False
+    gen_cuda_graphs: bool = False
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -341,6 +345,10 @@ class LiberoActionServiceBackend:
             max_action_dim=int(config.max_action_dim),
         )
         self.service = ActionModelService(args)
+        self._instruction_memory_cache: OrderedDict[
+            tuple[str, str], tuple[Any, Any]
+        ] = OrderedDict()
+        self._configure_gen_acceleration()
         self.transform = ActionTransformPipeline(
             tokenizer_config=None,
             cfg_dropout_rate=0.0,
@@ -442,15 +450,16 @@ class LiberoActionServiceBackend:
             timer.add("model.lock_wait", (time.perf_counter() - lock_started) * 1000.0)
             with torch.inference_mode():
                 with _profile_model_methods(self.service.model, timer, synchronize_cuda):
-                    with timer.measure("model.generate.total", synchronize_cuda):
-                        samples = self.service.model.generate_samples_from_batch(
-                            batch,
-                            guidance=float(self.config.guidance),
-                            seed=[int(self.config.seed)],
-                            num_steps=int(self.config.num_steps),
-                            shift=float(self.config.shift),
-                            has_negative_prompt=False,
-                        )
+                    with self._instruction_cache_scope(prompt, timer):
+                        with timer.measure("model.generate.total", synchronize_cuda):
+                            samples = self.service.model.generate_samples_from_batch(
+                                batch,
+                                guidance=float(self.config.guidance),
+                                seed=[int(self.config.seed)],
+                                num_steps=int(self.config.num_steps),
+                                shift=float(self.config.shift),
+                                has_negative_prompt=False,
+                            )
         with timer.measure("backend.action_output", synchronize_cuda):
             pred_action = samples["action"][0].float().squeeze(0)
             future = pred_action[1 : future_horizon + 1, :PIPER14_RAW_ACTION_DIM].detach().cpu().numpy()
@@ -459,6 +468,119 @@ class LiberoActionServiceBackend:
         if owns_timer:
             timer.log(request_id=0)
         return response
+
+    def _configure_gen_acceleration(self) -> None:
+        if not self.config.gen_torch_compile and not self.config.gen_cuda_graphs:
+            return
+        if self.config.gen_cuda_graphs and not self.config.gen_torch_compile:
+            raise ValueError("gen_cuda_graphs requires gen_torch_compile")
+
+        import torch
+
+        net = getattr(self.service.model, "net", None)
+        language_model = getattr(net, "language_model", None)
+        decoder = getattr(language_model, "model", None)
+        layers = getattr(decoder, "layers", None)
+        if layers is None:
+            raise RuntimeError("Could not locate Cosmos decoder layers for GEN-only compilation")
+
+        compile_mode = "reduce-overhead" if self.config.gen_cuda_graphs else None
+        compiled_layers = 0
+        for layer in layers:
+            eager_forward = layer.forward
+
+            @functools.wraps(eager_forward)
+            def gen_forward(
+                *args: Any,
+                __eager_forward: Callable[..., Any] = eager_forward,
+                **kwargs: Any,
+            ) -> Any:
+                return __eager_forward(*args, gen_only=True, und_only=False, **kwargs)
+
+            compiled_forward = torch.compile(
+                gen_forward,
+                fullgraph=True,
+                dynamic=False,
+                mode=compile_mode,
+            )
+
+            @functools.wraps(eager_forward)
+            def dispatch(
+                *args: Any,
+                __eager_forward: Callable[..., Any] = eager_forward,
+                __compiled_forward: Callable[..., Any] = compiled_forward,
+                **kwargs: Any,
+            ) -> Any:
+                if kwargs.get("gen_only", False) and not kwargs.get("und_only", False):
+                    compiled_kwargs = dict(kwargs)
+                    compiled_kwargs.pop("gen_only", None)
+                    compiled_kwargs.pop("und_only", None)
+                    return __compiled_forward(*args, **compiled_kwargs)
+                return __eager_forward(*args, **kwargs)
+
+            layer.forward = dispatch
+            compiled_layers += 1
+
+        if self.config.gen_cuda_graphs:
+            net.pad_for_cuda_graphs = True
+        print(
+            "[cosmos-piper14-compile] "
+            f"gen_layers={compiled_layers} torch_compile=on "
+            f"cuda_graphs={'on' if self.config.gen_cuda_graphs else 'off'}",
+            flush=True,
+        )
+
+    @contextmanager
+    def _instruction_cache_scope(self, prompt: str, timer: _SegmentedTimer) -> Iterator[None]:
+        if not self.config.instruction_cache:
+            yield
+            return
+
+        model = self.service.model
+        original = getattr(model, "build_inference_memory_state", None)
+        if original is None or not callable(original):
+            yield
+            return
+        had_instance_attribute = "build_inference_memory_state" in vars(model)
+        key = (self._instruction_cache_namespace, prompt)
+        cached = self._instruction_memory_cache.get(key)
+        memories: list[Any] = list(cached) if cached is not None else []
+        created: list[Any] = []
+        if cached is not None:
+            self._instruction_memory_cache.move_to_end(key)
+        timer.add("model.reasoner.cache_hit" if cached is not None else "model.reasoner.cache_miss", 0.0)
+        print(
+            f"[cosmos-piper14-instruction-cache] {'hit' if cached is not None else 'miss'} "
+            f"namespace={key[0][:12]} prompt_sha256={hashlib.sha256(prompt.encode('utf-8')).hexdigest()[:12]}",
+            flush=True,
+        )
+
+        def build_cached_memory(*args: Any, **kwargs: Any) -> Any:
+            if memories:
+                memory = memories.pop(0)
+            else:
+                memory = original(*args, **kwargs)
+            created.append(memory)
+            return memory
+
+        model.build_inference_memory_state = build_cached_memory
+        succeeded = False
+        try:
+            yield
+            succeeded = True
+        finally:
+            if had_instance_attribute:
+                model.build_inference_memory_state = original
+            else:
+                delattr(model, "build_inference_memory_state")
+            if succeeded and len(created) == 2 and all(
+                memory is not None and memory.is_gen_only() for memory in created
+            ):
+                self._instruction_memory_cache[key] = (created[0], created[1])
+                self._instruction_memory_cache.move_to_end(key)
+                max_entries = max(1, int(self.config.instruction_cache_max_entries))
+                while len(self._instruction_memory_cache) > max_entries:
+                    self._instruction_memory_cache.popitem(last=False)
 
     def _dump_cuda_memory_history(self, torch: Any) -> None:
         if not self.config.cuda_memory_history or self._cuda_memory_history_dumped:
@@ -541,6 +663,8 @@ class CosmosPiper14PolicyClient:
             "condition_only_vae": bool(self.config.condition_only_vae),
             "instruction_cache": bool(self.config.instruction_cache),
             "instruction_cache_dir": self.config.instruction_cache_dir,
+            "gen_torch_compile": bool(self.config.gen_torch_compile),
+            "gen_cuda_graphs": bool(self.config.gen_cuda_graphs),
         }
 
     def build_policy_request(
