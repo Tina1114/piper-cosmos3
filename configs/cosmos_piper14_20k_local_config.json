@@ -138,7 +138,7 @@
         "temporal_compression_factor": 4,
         "temporal_window": null,
         "use_streaming_encode": false,
-        "vae_path": "/home/agilex/World_Action_Model/physical_WM/checkpoints/Wan-AI/Wan2.2-TI2V-5B/Wan2.2_VAE.pth"
+        "vae_path": "../../checkpoints/Wan-AI/Wan2.2-TI2V-5B/Wan2.2_VAE.pth"
       },
       "video_temporal_causal": false,
       "vision_gen": true,
@@ -172,7 +172,7 @@
         "tokenizer": {
           "_target": "create_qwen2_tokenizer_with_download",
           "config_variant": "hf",
-          "pretrained_model_name": "/home/agilex/World_Action_Model/physical_WM/checkpoints/hf_home/hub/models--Qwen--Qwen3-VL-8B-Instruct/snapshots/0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
+          "pretrained_model_name": "Qwen/Qwen3-VL-8B-Instruct"
         },
         "use_system_prompt": false
       }

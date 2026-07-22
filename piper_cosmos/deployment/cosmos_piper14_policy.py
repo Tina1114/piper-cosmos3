@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import io
+import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Protocol
@@ -41,6 +44,10 @@ class CosmosPiper14PolicyConfig:
     shift: float = 5.0
     fps: int = 30
     seed: int = 0
+    condition_only_vae: bool = True
+    instruction_cache: bool = True
+    instruction_cache_dir: str | None = None
+    instruction_cache_max_entries: int = 4
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -88,6 +95,11 @@ class LiberoActionServiceBackend:
     """
 
     def __init__(self, config: CosmosPiper14PolicyConfig) -> None:
+        if config.instruction_cache:
+            # Attention dispatch must be installed while the Cosmos model is
+            # constructed, before the first policy request arrives.
+            os.environ["COSMOS3_REASONER_KVCACHE"] = "1"
+
         from cosmos_framework.inference.common.args import CheckpointOverrides
         from cosmos_framework.scripts.action_policy_server_libero import ActionModelService, ActionServerArgs
         from cosmos_framework.data.generator.action.transforms import ActionTransformPipeline
@@ -95,6 +107,7 @@ class LiberoActionServiceBackend:
         from piper_cosmos.cosmos3.domain import register_piper14_domain
 
         self.config = config
+        self._instruction_cache_namespace = build_instruction_cache_namespace(config)
         register_piper14_domain()
         checkpoint_kwargs = {"checkpoint_path": str(config.checkpoint)}
         if config.config_file:
@@ -164,6 +177,14 @@ class LiberoActionServiceBackend:
             "viewpoint": "concat_view",
         }
         batch = build_data_batch_from_sample(self.transform(sample, resolution=self.config.resolution))
+        batch["inference_condition_only_vae"] = bool(self.config.condition_only_vae)
+        batch["inference_instruction_cache"] = bool(self.config.instruction_cache)
+        batch["inference_instruction_cache_namespace"] = self._instruction_cache_namespace
+        batch["inference_instruction_cache_max_entries"] = int(self.config.instruction_cache_max_entries)
+        if self.config.instruction_cache_dir:
+            batch["inference_instruction_cache_dir"] = str(
+                Path(self.config.instruction_cache_dir).expanduser().resolve()
+            )
 
         with self.service._lock:
             with torch.inference_mode():
@@ -237,6 +258,9 @@ class CosmosPiper14PolicyClient:
             "num_steps": int(self.config.num_steps),
             "guidance": float(self.config.guidance),
             "shift": float(self.config.shift),
+            "condition_only_vae": bool(self.config.condition_only_vae),
+            "instruction_cache": bool(self.config.instruction_cache),
+            "instruction_cache_dir": self.config.instruction_cache_dir,
         }
 
     def build_policy_request(self, obs: Mapping[str, Any]) -> dict[str, Any]:
@@ -375,6 +399,36 @@ def build_data_batch_from_sample(sample: Mapping[str, Any]) -> dict[str, Any]:
         else:
             data_batch[key] = [value]
     return data_batch
+
+
+def build_instruction_cache_namespace(config: CosmosPiper14PolicyConfig) -> str:
+    """Fingerprint model/layout inputs that must match before K/V reuse."""
+
+    def path_identity(value: str | None) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        path = Path(value).expanduser().resolve()
+        identity: dict[str, Any] = {"path": str(path)}
+        try:
+            stat = path.stat()
+        except OSError:
+            identity["missing"] = True
+        else:
+            identity.update({"size": stat.st_size, "mtime_ns": stat.st_mtime_ns, "is_dir": path.is_dir()})
+        return identity
+
+    payload = {
+        "schema_version": 1,
+        "checkpoint": path_identity(config.checkpoint),
+        "config_file": path_identity(config.config_file),
+        "action_horizon": int(config.action_horizon),
+        "raw_action_dim": int(config.raw_action_dim),
+        "max_action_dim": int(config.max_action_dim),
+        "resolution": str(config.resolution),
+        "fps": int(config.fps),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def resolve_checkpoint(path: str | Path) -> str:

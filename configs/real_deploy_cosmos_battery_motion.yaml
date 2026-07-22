@@ -1,0 +1,85 @@
+# RTC-style FastWAM real-robot deployment config.
+#
+# Paths in this file are resolved relative to this config file by the new
+# FastWAMPolicyConfig loader.
+
+fastwam:
+  ckpt: "/home/agilex/World_Action_Model/physical_WM/checkpoints/ego_worse_pack3/step_020000.pt"  # model weights to load (step_xxxxxx.pt)
+  dataset_stats: "/home/agilex/World_Action_Model/physical_WM/checkpoints/ego_worse_pack3/dataset_stats.json"  # state/action normalization stats from training
+  task: "real_cleaning_uncond_3cam_384_1e-4"                                                      # Hydra task name (used only if train_config is null)
+  config_dir: "."                                                                                 # Hydra config root, relative to this yaml
+  train_config: "/home/agilex/World_Action_Model/physical_WM/checkpoints/ego_worse_pack3/config_infer.yaml"  # saved training config (14-dim/dual, must match the loaded ckpt); if set, bypasses Hydra compose
+  device: "cuda:0"                                                                                # device for model inference
+  mixed_precision: "bf16"                                                                         # model dtype: "no" | "fp16" | "bf16"
+  prompt: "Assemble the mouse's battery."
+  context_cache_dir: "/home/agilex/World_Action_Model/physical_WM/data/text_embeds_cache/stack_3_cups_gen"  # dir of precomputed T5 embeddings (<sha256>.t5_lenN.<enc>.pt)
+  use_text_encoder: false                                                                         # false=read from cache; true=run T5 inline (slow + needs T5 in VRAM)
+  action_horizon: 32                                                                              # # of future actions predicted per inference call (chunk length)
+  num_inference_steps: 10                                                                         # flow-matching denoising steps; smaller = faster, lower quality
+  seed: 42                                                                                        # RNG seed for noise sampling
+  rand_device: "cpu"                                                                              # device for noise tensor (cpu for reproducibility)
+
+policy_server:
+  host: "127.0.0.1"                                                                               # RPC server bind address
+  port: 8765                                                                                      # RPC server port (runtime must match)
+  authkey: "fastwam"                                                                              # shared secret between server and runtime
+
+runtime:
+  arm_mode: "dual"  # "dual" (14-dim, both arms) | "right" | "left" (7-dim single arm). MUST match the served checkpoint's action dim. CLI: --arm-mode/--arm-side override this.
+  action_chunk_size: 32                                                                           # # of actions kept from each predicted chunk for execution
+  exp_weight_factor: 0.2                                                                   # RTC temporal-ensembling weight; higher = trust new chunks more
+  rtc_debug: false                                                                                # print verbose RTC buffer logs
+  rospy_rate: 100                                                                      # control loop frequency (Hz); arm receives one command every 1/rate s
+  execute_actions: False                                                                         # true=actually move Piper; false=dry-run (predict only)
+  move_to_initial: True                                                                        # move arms to left/right_init_position before inference; safe default false, opt in via --move-to-initial
+  max_steps: null                                                                                 # max control steps; null = run until Ctrl+C or safety stop
+  save_rollout: false                                                                             # persist full rollout (currently saves selected_actions only)
+  save_inference_chunks: true                                                                     # also save raw per-inference action chunks (pre-RTC) -> inference_chunks.npz for visualization/cat10
+  output_dir: "./output_actions"                                                                  # where rtc_selected_actions.npy, inference_chunks.npz and rollouts are written
+
+robot:
+  left_channel: "can_left"                                                                        # physical left arm CAN interface
+  right_channel: "can_right"                                                                      # physical right arm CAN interface
+  bitrate: 1000000                                                                                # CAN bus bitrate (1 Mbit/s)
+  speed_pct: 15                                                                                   # joint command speed scaling 0-100 (%)
+  max_linear_vel: 0.5                                                                             # chassis linear velocity cap (m/s) - unused if no base motion
+  max_angular_vel: 0.1                                                                            # chassis angular velocity cap (rad/s)
+  max_linear_acc: 0.1                                                                             # chassis linear acceleration cap (m/s^2)
+  max_angular_acc: 0.05                                                                           # chassis angular acceleration cap (rad/s^2)
+  action_safety_threshold: 1.5                                                                    # abort if mean|action - last_action| > this (jump guard)
+  state_safety_threshold: 0.3                                                                     # abort if mean|current_state - last_action| > this (state-tracking guard; code: robot_runtime.py:439)
+  # left_init_position: [0.07692804, 0.7056796, -0.08251012, 0.08059128, 0.04542417, 0.13731916, 0.0793]
+  # right_init_position: [0.15575747, 0.60794085, -0.568343, 0.21675915, 1.1470476, 0.06770016, -0.0026]
+  #left_init_position:  [-0.3079215, 1.2350178, -0.45439875, -0.09330796, -0.15022773, 0.04931419, -0.0049]   # 7-dim [j0..j5, gripper] for left Piper, position for pick_number
+  #right_init_position: [0.60563827, 0.67733306, -0.4182199, -0.23146443, 0.10942622, 0.11945651, -0.0024]    # 7-dim [j0..j5, gripper] for right Piper, position for pick_number
+  # left_init_position:  [-0.4073, 0.7073, -0.5687, 0.1449, 1.0449, -0.1613, 0.0005]  # 7-dim [j0..j5, gripper] for left Piper, position for pick_1_cup
+  # right_init_position: [0.5243, 1.1371, -0.7563, 0.0920, 1.1579, 0.0547, -0.0003] # 7-dim [j0..j5, gripper] for right Piper, position for pick_1_cup
+  #old::left_init_position:  [-0.5809, 1.1930, -0.7952, 0.0561, 0.9992, 0.0890, 0.0540]  # 7-dim [j0..j5, gripper] for left Piper, position for pack_3_objects_plus
+  #old::right_init_position: [0.4674, 1.1181, -0.7530, 0.1715, 1.0439, -0.1321, 0.0456]  # 7-dim [j0..j5, gripper] for right Piper, position for pack_3_objects_plus
+  # left_init_position:  [-0.5185, 1.2758, -0.8406, 0.0315, 1.0872, 0.1147, 0.0593]  # 7-dim [j0..j5, gripper] for left Piper, position for pack_3_objects_plus
+  # right_init_position: [0.4801, 1.1595, -0.7810, 0.0920, 1.1126, -0.0512, 0.0515]  # 7-dim [j0..j5, gripper] for right Piper, position for pack_3_objects_plus
+  left_init_position:  [-0.4582, 1.2142, -0.8490, 0.0574, 0.9980, 0.1302, 0.0650]  # battery_assemble
+  right_init_position: [0.4609, 1.2258, -0.9031, 0.1171, 1.0770, -0.1122, 0.0560]  # battery_assemble
+  # left_init_position:  [-0.4582, 1.2142, -0.8490, 0.0574, 0.9980, 0.1302, 0.0650]  # 7-dim [j0..j5, gripper] for left Piper, position for battery_assemble
+  # right_init_position: [0.4609, 1.2258, -0.9031, 0.1171, 1.0770, -0.1122, 0.0560]  # 7-dim [j0..j5, gripper] for right Piper, position for battery_assemble
+  # left_init_position:  [-0.6764, 1.1192, -0.5885, 0.1928, 0.8329, -0.0072, 0.0903]  # 7-dim [j0..j5, gripper] for left Piper, position for battery_assemble_long
+  # right_init_position: [0.6574, 1.2307, -0.7056, 0.0587, 1.1171, 0.0217, 0.0884]    # 7-dim [j0..j5, gripper] for right Piper, position for battery_assemble_long
+
+
+cameras:
+  use_front: true                                                                                 # subscribe head camera color stream
+  use_wrist: true                                                                                 # master switch for wrist cameras (overridden by below if needed)
+  use_left_wrist: true                                                                            # subscribe left-wrist camera
+  use_right_wrist: true                                                                           # subscribe right-wrist camera
+  use_depth_image: false                                                                          # subscribe depth streams too (current model is RGB-only)
+  front_camera_name: "cam_high"                                                                   # observation key fed to model for head cam
+  left_wrist_camera_name: "cam_left_wrist"                                                        # observation key for left wrist cam
+  right_wrist_camera_name: "cam_right_wrist"                                                      # observation key for right wrist cam
+
+ros_topics_dual:
+  img_front_topic: "/camera_h/color/image_raw"                                                    # head camera RGB ROS topic
+  img_left_topic: "/camera_l/color/image_raw"                                                     # left-wrist camera RGB ROS topic
+  img_right_topic: "/camera_r/color/image_raw"                                                    # right-wrist camera RGB ROS topic
+  img_front_depth_topic: "/camera_h/depth/image_raw"                                              # head camera depth (only used if use_depth_image=true)
+  img_left_depth_topic: "/camera_l/depth/image_raw"                                               # left-wrist camera depth
+  img_right_depth_topic: "/camera_r/depth/image_raw"                                              # right-wrist camera depth
