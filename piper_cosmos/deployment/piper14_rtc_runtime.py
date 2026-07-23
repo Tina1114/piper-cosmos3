@@ -33,8 +33,8 @@ class ObservationSource(Protocol):
 
 
 class ActionSink(Protocol):
-    def send_action(self, t: int, action: np.ndarray) -> None:
-        """Consume one selected action for control step ``t``."""
+    def send_action(self, t: int, action: np.ndarray) -> float | None:
+        """Consume one action and optionally return its dispatch timestamp."""
 
 
 class RealTimeChunkingBuffer:
@@ -137,9 +137,10 @@ class RecordingActionSink:
     def __init__(self) -> None:
         self.records: list[tuple[int, np.ndarray]] = []
 
-    def send_action(self, t: int, action: np.ndarray) -> None:
+    def send_action(self, t: int, action: np.ndarray) -> float | None:
         action = np.asarray(action, dtype=np.float32)
         self.records.append((int(t), np.ascontiguousarray(action.copy())))
+        return None
 
     @property
     def actions(self) -> np.ndarray:
@@ -171,12 +172,14 @@ class Piper14RTCRuntime:
         self.selected_actions: list[np.ndarray] = []
         self.inference_chunks: list[tuple[int, np.ndarray, float]] = []
         self.starved_steps = 0
+        self._pending_vision_registration: tuple[Mapping[str, Any], Mapping[str, Any], int] | None = None
 
     def run(self) -> dict[str, Any]:
         self.buffer.clear()
         self.selected_actions = []
         self.inference_chunks = []
         self.starved_steps = 0
+        self._pending_vision_registration = None
 
         max_steps = max(int(self.config.max_steps), 0)
         period = 1.0 / max(float(self.config.control_hz), 1e-6)
@@ -201,7 +204,12 @@ class Piper14RTCRuntime:
             self.starved_steps += 1
             raise RuntimeError(f"No RTC action available at control step {t}")
         action = self._validate_action(action, t)
-        self.action_sink.send_action(t, action)
+        action_dispatch_time_s = self.action_sink.send_action(t, action)
+        self._register_or_record_vision_action(
+            t=t,
+            action=action,
+            action_dispatch_time_s=action_dispatch_time_s,
+        )
         self.selected_actions.append(action.copy())
         return action
 
@@ -236,18 +244,63 @@ class Piper14RTCRuntime:
         chunk = chunk[: self.config.chunk_size]
         if self.buffer.enqueue(chunk, cursor=cursor, generation=generation):
             self.inference_chunks.append((int(cursor), chunk.copy(), float(latency)))
-            register = getattr(self.observation_source, "register_vision_prediction", None)
             metadata = getattr(self.policy, "last_inference_metadata", {})
-            if callable(register) and isinstance(metadata, Mapping):
+            if isinstance(metadata, Mapping) and isinstance(metadata.get("vision_artifact"), Mapping):
+                self._pending_vision_registration = (dict(metadata), obs, int(cursor))
+
+    def _register_or_record_vision_action(
+        self,
+        *,
+        t: int,
+        action: np.ndarray,
+        action_dispatch_time_s: float | None,
+    ) -> None:
+        if action_dispatch_time_s is None:
+            if self._pending_vision_registration is not None:
+                print(
+                    "[cosmos-vision-real] action sink did not provide a ROS dispatch timestamp; "
+                    "skip action-aligned vision registration.",
+                    flush=True,
+                )
+                self._pending_vision_registration = None
+            return
+
+        dispatch_time_s = float(action_dispatch_time_s)
+        pending = self._pending_vision_registration
+        if pending is not None:
+            metadata, observation, cursor = pending
+            self._pending_vision_registration = None
+            register = getattr(self.observation_source, "register_vision_prediction", None)
+            if callable(register):
                 try:
-                    register(metadata, obs)
+                    register(
+                        metadata,
+                        observation,
+                        action_start_time_s=dispatch_time_s,
+                        action_start_step=cursor,
+                    )
                 except Exception as exc:
                     print(
                         f"[cosmos-vision-real] registration failed; "
                         f"continuing control without this comparison: {type(exc).__name__}: {exc}",
                         flush=True,
                     )
-                self._poll_vision_comparisons()
+
+        record_action = getattr(self.observation_source, "record_vision_action_execution", None)
+        if callable(record_action):
+            try:
+                record_action(
+                    control_step=int(t),
+                    action_dispatch_time_s=dispatch_time_s,
+                    action=np.asarray(action, dtype=np.float32),
+                )
+            except Exception as exc:
+                print(
+                    f"[cosmos-vision-real] action timestamp recording failed; "
+                    f"continuing control: {type(exc).__name__}: {exc}",
+                    flush=True,
+                )
+        self._poll_vision_comparisons()
 
     def _poll_vision_comparisons(self) -> None:
         poll = getattr(self.observation_source, "poll_pending_vision_comparisons", None)

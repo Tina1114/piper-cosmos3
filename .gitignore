@@ -65,3 +65,5 @@ chrome_trace*.json
 # system
 .DS_Store
 log/
+
+experiments/

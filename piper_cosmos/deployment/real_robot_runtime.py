@@ -13,7 +13,7 @@ import json
 import time
 from collections import deque
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 import numpy as np
 from PIL import Image
@@ -170,12 +170,20 @@ class RealPiper14RosObservationSource:
             camera_timestamps_s[image_name] = float(message.header.stamp.to_sec())
         return images, camera_timestamps_s
 
+    def current_ros_time_s(self) -> float:
+        """Return a timestamp in the same ROS clock domain as camera messages."""
+
+        return float(self.rospy.Time.now().to_sec())
+
     def register_vision_prediction(
         self,
         inference_metadata: Mapping[str, Any],
         conditioning_observation: Mapping[str, Any],
+        *,
+        action_start_time_s: float,
+        action_start_step: int,
     ) -> None:
-        """Register predicted frame times and save frame 0's real observation."""
+        """Register one prediction when its first action is dispatched."""
 
         artifact = inference_metadata.get("vision_artifact")
         if not isinstance(artifact, Mapping) or self.vision_experiment_dir is None:
@@ -203,6 +211,9 @@ class RealPiper14RosObservationSource:
         output_dir = self.vision_experiment_dir / artifact_id
         output_dir.mkdir(parents=True, exist_ok=False)
         t0 = float(t0_value)
+        ta = float(action_start_time_s)
+        if not np.isfinite(ta) or ta < t0:
+            raise ValueError(f"Invalid action start time ta={ta}; expected a finite ROS time >= t0={t0}")
         reported_server_dir = artifact.get("server_artifact_dir")
         server_dir_candidates = [
             Path(str(reported_server_dir)) if reported_server_dir else None,
@@ -223,8 +234,20 @@ class RealPiper14RosObservationSource:
             "fps": fps,
             "predicted_frame_count": frame_count,
             "t0_ros_s": t0,
-            "time_rule": "predicted frame k is compared with the nearest real frame at t0_ros_s + k / fps",
+            "action_start_ros_s": ta,
+            "action_start_step": int(action_start_step),
+            "conditioning_to_action_delay_s": ta - t0,
+            "time_rule": (
+                "predicted frame 0 is the conditioning observation at t0_ros_s; "
+                "predicted frame k>=1 is compared with the nearest real frame at "
+                "action_start_ros_s + k / fps"
+            ),
+            "action_time_rule": (
+                "executed action j is expected at action_start_ros_s + j / fps and "
+                "drives the interval ending at predicted frame j+1"
+            ),
             "frames": [],
+            "executed_actions": [],
             "_output_dir": output_dir,
             "_remaining": list(range(1, frame_count)),
         }
@@ -239,13 +262,45 @@ class RealPiper14RosObservationSource:
         self._write_vision_comparison_manifest(record)
         self.poll_pending_vision_comparisons()
 
+    def record_vision_action_execution(
+        self,
+        *,
+        control_step: int,
+        action_dispatch_time_s: float,
+        action: np.ndarray,
+    ) -> None:
+        """Attach one actually dispatched action to every matching prediction."""
+
+        dispatch_time_s = float(action_dispatch_time_s)
+        action_values = np.asarray(action, dtype=np.float32).reshape(-1)
+        for record in self._pending_vision_comparisons:
+            action_index = int(control_step) - int(record["action_start_step"])
+            expected_count = int(record["predicted_frame_count"]) - 1
+            if action_index < 0 or action_index >= expected_count:
+                continue
+            if any(item["action_index"] == action_index for item in record["executed_actions"]):
+                continue
+            target_time_s = float(record["action_start_ros_s"]) + action_index / float(record["fps"])
+            record["executed_actions"].append(
+                {
+                    "action_index": action_index,
+                    "control_step": int(control_step),
+                    "dispatch_time_s": dispatch_time_s,
+                    "nominal_dispatch_time_s": target_time_s,
+                    "dispatch_time_error_ms": (dispatch_time_s - target_time_s) * 1000.0,
+                    "action": action_values.tolist(),
+                }
+            )
+            record["executed_actions"].sort(key=lambda item: item["action_index"])
+            self._write_vision_comparison_manifest(record)
+
     def poll_pending_vision_comparisons(self) -> int:
         """Save all pending target frames whose ROS timestamps are now available."""
 
         saved = 0
         for record in list(self._pending_vision_comparisons):
             for frame_idx in list(record["_remaining"]):
-                target_time_s = float(record["t0_ros_s"]) + frame_idx / float(record["fps"])
+                target_time_s = float(record["action_start_ros_s"]) + frame_idx / float(record["fps"])
                 selected = self._nearest_camera_messages(target_time_s)
                 if selected is None:
                     # Targets are chronological, so later targets cannot be ready.
@@ -376,6 +431,10 @@ class RealPiper14RosObservationSource:
         payload = {key: value for key, value in record.items() if not key.startswith("_")}
         payload["complete"] = not bool(record["_remaining"])
         payload["remaining_frame_indices"] = list(record["_remaining"])
+        payload["actions_complete"] = len(record.get("executed_actions", [])) >= max(
+            int(record["predicted_frame_count"]) - 1,
+            0,
+        )
         (output_dir / "comparison_manifest.json").write_text(
             json.dumps(payload, ensure_ascii=False, indent=2),
             encoding="utf-8",
@@ -554,13 +613,20 @@ class Piper14RobotController:
 class RealPiper14ActionSink:
     """Validate RTC-selected actions and optionally send them to both Pipers."""
 
-    def __init__(self, robot: Piper14RobotController, *, execute_actions: bool = False):
+    def __init__(
+        self,
+        robot: Piper14RobotController,
+        *,
+        execute_actions: bool = False,
+        timestamp_fn: Callable[[], float] | None = None,
+    ):
         self.robot = robot
         self.execute_actions = bool(execute_actions)
+        self.timestamp_fn = timestamp_fn or time.time
         self.records: list[tuple[int, np.ndarray]] = []
         self.last_action = robot.get_status_and_state()
 
-    def send_action(self, t: int, action: np.ndarray) -> None:
+    def send_action(self, t: int, action: np.ndarray) -> float | None:
         action = np.asarray(action, dtype=np.float32).reshape(-1)
         if action.shape != (PIPER14_ACTION_DIM,):
             raise ValueError(f"Expected action [{PIPER14_ACTION_DIM}], got {action.shape} at step {t}")
@@ -596,10 +662,16 @@ class RealPiper14ActionSink:
         )
         self.records.append((int(t), action.copy()))
         if self.execute_actions:
+            action_dispatch_time_s = float(self.timestamp_fn())
             self.robot.move(action)
         elif self.robot.no_robot:
+            action_dispatch_time_s = float(self.timestamp_fn())
             self.robot.move(action)
+        else:
+            self.last_action = action.copy()
+            return None
         self.last_action = action.copy()
+        return action_dispatch_time_s
 
     @property
     def actions(self) -> np.ndarray:
@@ -646,7 +718,11 @@ def run_real_cosmos_piper14_runtime(config: Mapping[str, Any]) -> dict[str, Any]
         # create files below a container-owned server directory.
         vision_experiment_dir=output_dir / "vision_experiments_real",
     )
-    sink = RealPiper14ActionSink(robot, execute_actions=execute_actions)
+    sink = RealPiper14ActionSink(
+        robot,
+        execute_actions=execute_actions,
+        timestamp_fn=obs_source.current_ros_time_s,
+    )
     rtc_config = Piper14RTCRuntimeConfig(
         action_dim=PIPER14_ACTION_DIM,
         chunk_size=int(runtime_cfg.get("action_chunk_size", fastwam_cfg.get("action_horizon", 32))),
