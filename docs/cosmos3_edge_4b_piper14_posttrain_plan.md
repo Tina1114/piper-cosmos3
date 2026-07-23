@@ -626,3 +626,135 @@ shift: 5.0（第一轮固定）
 | [Edge vision SFT config](https://github.com/NVIDIA/cosmos-framework/blob/main/cosmos_framework/configs/base/experiment/sft/vision_sft_edge.py) | `EDGE_MODEL_CONFIG`、`k_norm_und_for_gen`、4-GPU 可行性参考 | 纯视觉 optimizer 直接用于 action SFT |
 
 最终建议是先完成一个**可审计、与 Nano 20k 可对照的 Edge-base + fresh Piper head baseline**，再分别做 optimizer、prompt 和 Edge-DROID transfer ablation。这样任何性能变化都能定位原因，而不是一次同时改 backbone、action 语义、prompt、FPS 和训练规模。
+
+## 15. 基于 master 创建 Edge 分支后的实施计划
+
+### 15.1 分支起点和边界
+
+从已提交的外层 `master` 创建：
+
+```bash
+git worktree add \
+  /project/peilab/wam/cosmos3_cy_edge \
+  -b cosmos3-edge-piper14 \
+  master
+```
+
+新分支会继承本项目已提交的 Piper14 代码、配置、测试和 patch，但不会自动
+复制以下内容：
+
+- 外层工作区尚未提交的修改；
+- `external/cosmos` 的当前工作状态；
+- 被 `external/cosmos/.gitignore` 忽略的 `packages/cosmos3`；
+- checkpoint、venv、cache 和训练输出。
+
+因此，Edge 工作区还要一次性建立独立的 cookbook/framework checkout，并把
+两者 commit 写入 Edge dependency lock。优先从现有本地仓库创建 Git
+worktree；只拉取缺失对象，不必重新下载完整 Git 历史。
+
+### 15.2 当前已有、需要适配和缺失项
+
+| 状态 | 内容 | 文件或目标 |
+|---|---|---|
+| 已有，可直接复用 | Piper14 domain、14D action 语义 | `piper_cosmos/cosmos3/domain.py` |
+| 已有，可直接复用 | Battery HDF5、30 FPS、三相机 `concat_view`、policy chunk | `piper_cosmos/cosmos3/piper14_hdf5_action_dataset.py` |
+| 已有，可作为基线 | Generator + fresh action head、action 5× LR、20k schedule | `piper_cosmos/cosmos3/action_policy_piper14_nano.py` |
+| 已有，可作为骨架 | Slurm、readiness、preflight、DCP 验证 | `scripts/*cosmos3_piper14*`、`scripts/verify_cosmos3_dcp.py` |
+| 已有，可作为骨架 | policy server、RTC、14D 输出裁剪 | `piper_cosmos/deployment/cosmos_piper14_policy.py` 等 |
+| 需要适配 | 旧 `data.vfm` import | 改为新版 `data.generator`，或增加受测兼容层 |
+| 需要适配 | Nano/Qwen 本地资产 bootstrap | 改为 Edge processor/reasoner 资产解析 |
+| 需要适配 | plain prompt 和旧部署 import | 训练、推理统一 Edge JSON prompt |
+| 缺失 | Edge framework 工作目录 | 固定官方 `f734253` 或后续经审计的明确 commit |
+| 缺失 | Edge HF checkpoint 和 DCP | `Cosmos3-Edge`、`Cosmos3-Edge-DCP` |
+| 缺失 | Edge experiment/config/train wrapper | 见 15.3 |
+| 缺失 | Edge conversion/submit/readiness | 见 15.3 |
+| 缺失 | Edge cpuset 修复提交和 patch | 从 Nano patch 做两处小型移植 |
+| 缺失 | Edge smoke、pilot、离线和真机结果 | 按 15.4 gate 产生 |
+
+“已有”不表示 Nano 文件可以原样执行 Edge。尤其 Nano hidden size 为 4096，
+Edge 为 2048；Piper action-head 结构和 14D 语义可以复用，但 Nano 20k 的
+投影权重不能直接加载到 Edge，第一版使用 fresh domain-21 head。
+
+### 15.3 必须落地的文件
+
+第一批新增：
+
+```text
+configs/dependencies/cosmos3_edge.lock.yaml
+piper_cosmos/cosmos3/action_policy_piper14_edge.py
+piper_cosmos/cosmos3/train_action_policy_piper14_edge.py
+piper_cosmos/cosmos3/local_edge_assets.py
+configs/cosmos3/sft/action_policy_piper14_edge.toml
+scripts/convert_cosmos3_edge_to_dcp_offline.py
+scripts/run_convert_cosmos3_edge_dcp_slurm.sh
+scripts/submit_convert_cosmos3_edge_dcp.sh
+scripts/run_cosmos3_edge_piper14_sft_slurm.sh
+scripts/submit_cosmos3_edge_piper14_sft.sh
+scripts/cosmos3_edge_piper14_readiness.py
+```
+
+第一批修改：
+
+```text
+piper_cosmos/cosmos3/domain.py
+piper_cosmos/cosmos3/piper14_hdf5_action_dataset.py
+piper_cosmos/deployment/cosmos_piper14_policy.py
+```
+
+Edge framework 内部修改：
+
+```text
+cosmos_framework/utils/device.py
+cosmos_framework/utils/distributed.py
+cosmos_framework/utils/distributed_test.py
+```
+
+framework 修改必须在第三层独立分支提交，并在外层
+`patches/cosmos-framework/` 保存 Edge 专用 `format-patch`。不能让 Edge
+framework 只保持为 dirty working tree。
+
+### 15.4 按依赖排序的执行阶段
+
+1. **工作区固定**
+   - 创建外层 `cosmos3-edge-piper14` worktree；
+   - 建立独立 cookbook/framework checkout；
+   - 固定 URL、commit、Python/CUDA/PyTorch 和资产路径。
+2. **Framework gate**
+   - 验证 `EDGE_MODEL_CONFIG`、Nemotron Dense VL、SigLIP2 和新 namespace；
+   - 移植 cpuset 修复；
+   - 保留官方 Gloo/NCCL 与 CPU checkpoint conversion；
+   - 通过 affinity 和官方 distributed 单测。
+3. **资产 gate**
+   - 下载并校验官方 `Cosmos3-Edge`；
+   - 用同一固定 framework 转换为 DCP；
+   - 保存转换命令、metadata、文件清单和校验报告。
+4. **Piper integration gate**
+   - 实现 Edge experiment、TOML、train wrapper 和本地资产 helper；
+   - 验证 domain 21、14D 顺序、33 帧/32 action、480 tier 和 JSON prompt；
+   - 验证 Reasoner/VAE 冻结，Generator/action head 可训练；
+   - 验证 base load 明确跳过 fresh Piper head。
+5. **训练 gate**
+   - 单样本 forward/backward；
+   - 4-GPU 100-step smoke；
+   - 2k/5k pilot 和 held-out 离线比较；
+   - gate 全部通过后才启动 20k。
+6. **部署 gate**
+   - 离线 sweep `steps={4,8}`、`guidance={1,2,3}`；
+   - replay/shadow、限位和 RTC 延迟测试；
+   - 最后才进入低速真机闭环。
+
+### 15.5 “可以开始训练”的最低完成定义
+
+只有同时满足以下条件，才把 Edge 分支标记为可训练：
+
+- dependency lock 能唯一还原三层代码和运行环境；
+- Edge HF → DCP 转换可重复，readiness 报告通过；
+- dataset 单测证明相机顺序、FPS、horizon、14D 和 mask 未漂移；
+- checkpoint load 日志证明 fresh Piper head，没有静默 shape mismatch；
+- trainable parameter 清单只包含预期 Generator、Edge
+  `k_norm_und_for_gen` 和 action head；
+- cpuset、单卡单样本和 4-GPU 100-step smoke 全部通过；
+- 输出目录、W&B、checkpoint interval 和 resume 行为已经验证。
+
+在这些条件完成前，分支状态应标为“Edge 接入中”，不能因为
+`EDGE_MODEL_CONFIG` 能 import 就认为后训练链路已经打通。
