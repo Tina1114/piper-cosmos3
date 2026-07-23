@@ -30,6 +30,11 @@ def test_edge_experiment_matches_audited_baseline() -> None:
     assert action_policy_piper14_edge["job"]["wandb_mode"] == "online"
     assert model["vlm_config"]["model_name"] == "nvidia/Cosmos3-Edge-Reasoner"
     assert model["resolution"] == "480"
+    reasoner_json = Path(
+        model["vlm_config"]["model_instance"]["config"]["base_config"]["json_file"]
+    )
+    assert reasoner_json.is_absolute()
+    assert reasoner_json.is_file()
     assert model["tokenizer"]["encode_exact_durations"] == [33]
     assert model["rectified_flow_training_config"]["action_loss_weight"] == 10.0
     assert "k_norm_und_for_gen" in action_policy_piper14_edge["optimizer"]["keys_to_select"]

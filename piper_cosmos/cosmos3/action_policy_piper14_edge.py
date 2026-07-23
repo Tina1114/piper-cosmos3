@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import copy
+from pathlib import Path
 
+import cosmos_framework
 from hydra.core.config_store import ConfigStore
 
 from cosmos_framework.configs.base.experiment.action.posttrain_config.action_policy_droid_nano import (
@@ -88,6 +90,11 @@ action_policy_piper14_edge["dataloader_train"] = L(PackingDataLoader)(
 )
 
 edge_model_config = action_policy_piper14_edge["model"]["config"]
+framework_package_root = Path(cosmos_framework.__file__).resolve().parent
+edge_model_config["vlm_config"]["model_instance"]["config"]["base_config"]["json_file"] = str(
+    framework_package_root
+    / "model/generator/reasoner/nemotron_3_dense_vl/configs/Nemotron-2B-Dense-VL.json"
+)
 edge_model_config["action_gen"] = True
 edge_model_config["vision_gen"] = True
 edge_model_config["sound_gen"] = False
