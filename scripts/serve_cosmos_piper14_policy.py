@@ -105,6 +105,16 @@ def parse_args() -> argparse.Namespace:
             "under this directory. Disabled by default."
         ),
     )
+    parser.add_argument(
+        "--gen-hidden-state-profile",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help=(
+            "Save per-block adjacent latent-frame hidden-state differences and "
+            "spatially pooled hidden states. Requires --vision-experiment-dir and "
+            "forces the Cosmos model to use eager execution."
+        ),
+    )
     parser.add_argument("--mock-backend", action="store_true")
     parser.add_argument("--timing", action="store_true", help="Print synchronized per-stage inference timings.")
     parser.add_argument("--cuda-memory", action="store_true", help="Print per-stage CUDA allocator usage.")
@@ -145,6 +155,7 @@ def main() -> None:
         gen_torch_compile=args.gen_torch_compile,
         gen_cuda_graphs=args.gen_cuda_graphs,
         vision_experiment_dir=args.vision_experiment_dir,
+        gen_hidden_state_profile=args.gen_hidden_state_profile,
         host=args.host,
         port=args.port,
         mock_backend=args.mock_backend,

@@ -20,6 +20,7 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertTrue(config.instruction_cache)
         self.assertFalse(config.gen_torch_compile)
         self.assertFalse(config.gen_cuda_graphs)
+        self.assertFalse(config.gen_hidden_state_profile)
 
     def test_composes_training_style_concat_view(self) -> None:
         policy = CosmosPiper14PolicyClient(

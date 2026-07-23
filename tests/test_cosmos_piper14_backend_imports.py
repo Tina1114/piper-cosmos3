@@ -13,7 +13,9 @@ from piper_cosmos.deployment.cosmos_piper14_policy import (
     CosmosPiper14PolicyConfig,
     LiberoActionServiceBackend,
     _ExplicitCudaGraphCallable,
+    _GenHiddenStateCollector,
     _profile_model_methods,
+    _save_gen_hidden_state_profile,
     _save_vision_experiment,
     _SegmentedTimer,
 )
@@ -86,6 +88,137 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
             self.assertTrue((output_dir / "pred_video.pt").is_file())
             self.assertEqual(metadata["predicted_frame_count"], 5)
             self.assertEqual(metadata["observation_time_s"], 123.0)
+
+    def test_gen_hidden_state_profile_captures_adjacent_latent_frames(self) -> None:
+        import torch
+
+        class FakeLayer(torch.nn.Module):
+            def __init__(self, scale):
+                super().__init__()
+                self.scale = float(scale)
+
+            def forward(self, pack, **kwargs):
+                del kwargs
+                output = dict(pack)
+                output["full_only_seq"] = pack["full_only_seq"] * self.scale
+                return output, {}, None
+
+        class FakeNet(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                layers = torch.nn.ModuleList([FakeLayer(1.0), FakeLayer(2.0)])
+                self.language_model = types.SimpleNamespace(
+                    model=types.SimpleNamespace(layers=layers)
+                )
+                self.config = types.SimpleNamespace(temporal_compression_factor_vision=4)
+
+            def forward(self, packed_sequence, memory=None, und_only=False):
+                del memory
+                pack = {
+                    "causal_seq": torch.zeros((1, 2)),
+                    "full_only_seq": packed_sequence.full_hidden.clone(),
+                    "_num_causal_tokens": 1,
+                    "_num_full_tokens": packed_sequence.full_hidden.shape[0],
+                }
+                if und_only:
+                    return pack
+                for layer in self.language_model.model.layers:
+                    pack, _, _ = layer(pack, gen_only=True, und_only=False)
+                return pack
+
+        vision_hidden = torch.tensor(
+            [
+                [1.0, 0.0],
+                [1.0, 0.0],
+                [2.0, 0.0],
+                [2.0, 0.0],
+                [4.0, 0.0],
+                [4.0, 0.0],
+                [0.0, 0.0],
+                [0.0, 0.0],
+            ]
+        )
+        packed = types.SimpleNamespace(
+            vision=types.SimpleNamespace(
+                token_shapes=[(3, 1, 2)],
+                sequence_indexes=torch.arange(1, 7),
+                timesteps=torch.full((4,), 0.5),
+            ),
+            attn_modes=["causal", "full"],
+            split_lens=[1, 8],
+            full_hidden=vision_hidden,
+        )
+        net = FakeNet()
+        collector = _GenHiddenStateCollector(torch=torch, net=net, guidance=3.0)
+        with collector:
+            net(packed)
+            net(packed)
+        profile = collector.to_cpu_profile()
+
+        self.assertEqual(profile["num_forward_calls"], 2)
+        self.assertEqual(profile["num_layers"], 2)
+        self.assertEqual(profile["latent_shape_thw"], [3, 1, 2])
+        self.assertEqual(
+            tuple(profile["frame_mean_hidden"].shape),
+            (2, 2, 3, 2),
+        )
+        torch.testing.assert_close(
+            profile["adjacent_mse"][0, 0],
+            torch.tensor([0.5, 2.0]),
+        )
+        torch.testing.assert_close(
+            profile["adjacent_mse"][0, 1],
+            torch.tensor([2.0, 8.0]),
+        )
+        torch.testing.assert_close(
+            profile["adjacent_cosine_similarity"][0, 0],
+            torch.ones(2),
+        )
+        torch.testing.assert_close(
+            profile["adjacent_relative_l2"][0, 0],
+            torch.ones(2),
+        )
+        self.assertEqual(
+            profile["cfg_branch_by_call"],
+            ["conditional", "unconditional"],
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            summary = _save_gen_hidden_state_profile(
+                torch=torch,
+                output_dir=Path(tmp),
+                profile=profile,
+                predicted_frame_count=9,
+            )
+            self.assertTrue((Path(tmp) / "gen_hidden_state_profile.pt").is_file())
+            self.assertTrue((Path(tmp) / "gen_hidden_state_adjacent.csv").is_file())
+            self.assertTrue((Path(tmp) / "gen_hidden_state_profile.json").is_file())
+            loaded = torch.load(
+                Path(tmp) / "gen_hidden_state_profile.pt",
+                weights_only=True,
+            )
+            self.assertEqual(
+                tuple(loaded["frame_mean_hidden"].shape),
+                (2, 2, 3, 2),
+            )
+            self.assertEqual(
+                summary["decoded_frame_ranges_by_latent_frame"],
+                [[0, 0], [1, 4], [5, 8]],
+            )
+
+    def test_gen_hidden_state_profile_rejects_acceleration_and_missing_output(self) -> None:
+        with self.assertRaisesRegex(ValueError, "requires --vision-experiment-dir"):
+            LiberoActionServiceBackend(
+                CosmosPiper14PolicyConfig(gen_hidden_state_profile=True)
+            )
+        with self.assertRaisesRegex(ValueError, "requires eager GEN execution"):
+            LiberoActionServiceBackend(
+                CosmosPiper14PolicyConfig(
+                    gen_hidden_state_profile=True,
+                    vision_experiment_dir="/tmp/profile",
+                    gen_torch_compile=True,
+                )
+            )
 
     def test_gen_acceleration_compiles_only_gen_path_and_wraps_cuda_graph_core(self) -> None:
         compile_calls = []
@@ -261,12 +394,20 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
         }
 
         with patch.dict(sys.modules, fake_modules):
-            LiberoActionServiceBackend(CosmosPiper14PolicyConfig(checkpoint="/tmp/fake-ckpt"))
+            LiberoActionServiceBackend(
+                CosmosPiper14PolicyConfig(
+                    checkpoint="/tmp/fake-ckpt",
+                    vision_experiment_dir="/tmp/profile",
+                    gen_hidden_state_profile=True,
+                )
+            )
 
         self.assertEqual(calls["checkpoint_kwargs"], {"checkpoint_path": "/tmp/fake-ckpt"})
         self.assertIsInstance(calls["server_args"]["checkpoint"], FakeCheckpointOverrides)
         self.assertIsInstance(calls["service_args"], FakeActionServerArgs)
         self.assertFalse(calls["guardrails"])
+        self.assertFalse(calls["setup_before_service"].use_torch_compile)
+        self.assertFalse(calls["setup_before_service"].use_cuda_graphs)
 
     def test_predict_policy_uses_action_transform_pipeline_record(self) -> None:
         calls = {}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import copy
+import csv
 import functools
 import hashlib
 import io
@@ -11,7 +12,7 @@ import json
 import os
 import time
 from collections import OrderedDict
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from dataclasses import dataclass, field, fields, is_dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Protocol
@@ -58,6 +59,7 @@ class CosmosPiper14PolicyConfig:
     gen_torch_compile: bool = False
     gen_cuda_graphs: bool = False
     vision_experiment_dir: str | None = None
+    gen_hidden_state_profile: bool = False
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -97,6 +99,7 @@ def _save_vision_experiment(
     fps: int,
     observation_time_s: float | None,
     camera_timestamps_s: Mapping[str, float],
+    gen_hidden_state_profile: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Persist raw denoised latents and decoded prediction frames for one request."""
 
@@ -158,11 +161,431 @@ def _save_vision_experiment(
         "decoded_tensor_file": "pred_video.pt",
         "predicted_frames_dir": "predicted_frames",
     }
+    if gen_hidden_state_profile is not None:
+        metadata["gen_hidden_state_profile"] = _save_gen_hidden_state_profile(
+            torch=torch,
+            output_dir=output_dir,
+            profile=gen_hidden_state_profile,
+            predicted_frame_count=int(frames.shape[0]),
+        )
     (output_dir / "metadata.json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     return metadata
+
+
+class _GenHiddenStateCollector:
+    """Collect frame-level GEN activations without retaining full token states."""
+
+    def __init__(self, *, torch: Any, net: Any, guidance: float) -> None:
+        self.torch = torch
+        self.net = net
+        self.guidance = float(guidance)
+        language_model = getattr(net, "language_model", None)
+        decoder = getattr(language_model, "model", None)
+        self.layers = getattr(decoder, "layers", None)
+        if self.layers is None:
+            raise RuntimeError("Could not locate Cosmos decoder layers for hidden-state profiling")
+        self.layers = list(self.layers)
+        self.temporal_compression_factor = int(
+            getattr(getattr(net, "config", None), "temporal_compression_factor_vision", 4)
+        )
+        self._handles: list[Any] = []
+        self._current: dict[str, Any] | None = None
+        self._forward_call_index = 0
+        self._records: list[dict[str, Any]] = []
+
+    def __enter__(self) -> "_GenHiddenStateCollector":
+        self._handles.append(
+            self.net.register_forward_pre_hook(self._network_pre_hook, with_kwargs=True)
+        )
+        self._handles.append(
+            self.net.register_forward_hook(self._network_post_hook, with_kwargs=True)
+        )
+        for layer_index, layer in enumerate(self.layers):
+            self._handles.append(
+                layer.register_forward_hook(
+                    self._make_layer_hook(layer_index),
+                    with_kwargs=True,
+                )
+            )
+        return self
+
+    def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> None:
+        for handle in reversed(self._handles):
+            handle.remove()
+        self._handles.clear()
+        self._current = None
+
+    def _network_pre_hook(
+        self,
+        module: Any,
+        args: tuple[Any, ...],
+        kwargs: Mapping[str, Any],
+    ) -> None:
+        del module
+        und_only = bool(kwargs.get("und_only", args[2] if len(args) > 2 else False))
+        if und_only:
+            self._current = None
+            return
+        packed_sequence = args[0] if args else kwargs.get("packed_seq")
+        vision = getattr(packed_sequence, "vision", None)
+        token_shapes = getattr(vision, "token_shapes", None)
+        sequence_indexes = getattr(vision, "sequence_indexes", None)
+        if vision is None or not token_shapes or not self.torch.is_tensor(sequence_indexes):
+            raise RuntimeError("GEN hidden-state profile requires packed vision tokens")
+        if len(token_shapes) != 1:
+            raise RuntimeError(
+                "GEN hidden-state profile currently requires exactly one vision item per request; "
+                f"got {len(token_shapes)}"
+            )
+
+        latent_frames, patch_height, patch_width = map(int, token_shapes[0])
+        tokens_per_frame = patch_height * patch_width
+        vision_indexes = [int(value) for value in sequence_indexes.detach().cpu().tolist()]
+        expected_tokens = latent_frames * tokens_per_frame
+        if len(vision_indexes) != expected_tokens:
+            raise RuntimeError(
+                "Vision token geometry mismatch while profiling hidden states: "
+                f"indexes={len(vision_indexes)} expected={expected_tokens} "
+                f"shape={(latent_frames, patch_height, patch_width)}"
+            )
+
+        full_indexes: list[int] = []
+        offset = 0
+        for mode, split_len in zip(
+            packed_sequence.attn_modes,
+            packed_sequence.split_lens,
+            strict=True,
+        ):
+            split_len = int(split_len)
+            if mode == "full":
+                full_indexes.extend(range(offset, offset + split_len))
+            offset += split_len
+        full_position = {original: position for position, original in enumerate(full_indexes)}
+        try:
+            vision_positions = tuple(full_position[index] for index in vision_indexes)
+        except KeyError as exc:
+            raise RuntimeError(
+                f"Vision token {int(exc.args[0])} is not in the GEN/full-attention sequence"
+            ) from exc
+
+        timesteps = getattr(vision, "timesteps", None)
+        timestep = None
+        if self.torch.is_tensor(timesteps) and timesteps.numel() > 0:
+            timestep = timesteps.reshape(-1)[0].detach()
+        call_index = self._forward_call_index
+        self._forward_call_index += 1
+        self._current = {
+            "forward_call_index": call_index,
+            "vision_positions": vision_positions,
+            "latent_frames": latent_frames,
+            "patch_height": patch_height,
+            "patch_width": patch_width,
+            "tokens_per_frame": tokens_per_frame,
+            "timestep": timestep,
+            "positions_by_device": {},
+        }
+
+    def _network_post_hook(
+        self,
+        module: Any,
+        args: tuple[Any, ...],
+        kwargs: Mapping[str, Any],
+        output: Any,
+    ) -> None:
+        del module, args, kwargs, output
+        self._current = None
+
+    def _make_layer_hook(self, layer_index: int) -> Callable[..., None]:
+        def capture(
+            module: Any,
+            args: tuple[Any, ...],
+            kwargs: Mapping[str, Any],
+            output: Any,
+        ) -> None:
+            del module, args, kwargs
+            current = self._current
+            if current is None:
+                return
+            output_pack = output[0] if isinstance(output, tuple) else output
+            if not isinstance(output_pack, Mapping) or "full_only_seq" not in output_pack:
+                raise RuntimeError(
+                    f"Transformer block {layer_index} did not return a SequencePack"
+                )
+            gen_hidden = output_pack["full_only_seq"]
+            if not self.torch.is_tensor(gen_hidden) or gen_hidden.ndim != 2:
+                raise RuntimeError(
+                    f"Transformer block {layer_index} GEN hidden state must be [tokens, hidden], "
+                    f"got {getattr(gen_hidden, 'shape', None)}"
+                )
+            actual_tokens = int(output_pack.get("_num_full_tokens", gen_hidden.shape[0]))
+            vision_positions = current["vision_positions"]
+            if not vision_positions or max(vision_positions) >= actual_tokens:
+                raise RuntimeError(
+                    f"Transformer block {layer_index} vision positions exceed GEN token count "
+                    f"{actual_tokens}"
+                )
+            device_key = str(gen_hidden.device)
+            positions = current["positions_by_device"].get(device_key)
+            if positions is None:
+                positions = self.torch.tensor(
+                    vision_positions,
+                    dtype=self.torch.long,
+                    device=gen_hidden.device,
+                )
+                current["positions_by_device"][device_key] = positions
+            frame_hidden = gen_hidden.index_select(0, positions).reshape(
+                current["latent_frames"],
+                current["tokens_per_frame"],
+                gen_hidden.shape[-1],
+            )
+
+            frame_means = []
+            frame_rms = []
+            for frame in frame_hidden.unbind(0):
+                frame_means.append(frame.mean(dim=0, dtype=self.torch.float32))
+                frame_rms.append(
+                    (frame.square().mean(dtype=self.torch.float32)).sqrt()
+                )
+
+            adjacent_mse = []
+            adjacent_cosine = []
+            adjacent_relative_l2 = []
+            for previous, following in zip(
+                frame_hidden[:-1].unbind(0),
+                frame_hidden[1:].unbind(0),
+                strict=True,
+            ):
+                difference = following - previous
+                difference_sq = difference.square().sum(dtype=self.torch.float32)
+                previous_sq = previous.square().sum(dtype=self.torch.float32)
+                following_sq = following.square().sum(dtype=self.torch.float32)
+                adjacent_mse.append(difference_sq / difference.numel())
+                adjacent_cosine.append(
+                    (previous * following).sum(dtype=self.torch.float32)
+                    / (previous_sq * following_sq).sqrt().clamp_min(1e-12)
+                )
+                adjacent_relative_l2.append(
+                    (difference_sq / previous_sq.clamp_min(1e-12)).sqrt()
+                )
+
+            self._records.append(
+                {
+                    "forward_call_index": int(current["forward_call_index"]),
+                    "layer_index": int(layer_index),
+                    "timestep": current["timestep"],
+                    "frame_mean_hidden": self.torch.stack(frame_means)
+                    .to(dtype=self.torch.float16)
+                    .detach(),
+                    "frame_rms": self.torch.stack(frame_rms).detach(),
+                    "adjacent_mse": self.torch.stack(adjacent_mse).detach(),
+                    "adjacent_cosine_similarity": self.torch.stack(adjacent_cosine).detach(),
+                    "adjacent_relative_l2": self.torch.stack(adjacent_relative_l2).detach(),
+                    "latent_shape_thw": (
+                        int(current["latent_frames"]),
+                        int(current["patch_height"]),
+                        int(current["patch_width"]),
+                    ),
+                }
+            )
+
+        return capture
+
+    def to_cpu_profile(self) -> dict[str, Any]:
+        if not self._records:
+            raise RuntimeError("GEN hidden-state profiler captured no transformer block outputs")
+        num_layers = len(self.layers)
+        num_calls = max(record["forward_call_index"] for record in self._records) + 1
+        by_position = {
+            (record["forward_call_index"], record["layer_index"]): record
+            for record in self._records
+        }
+        expected = num_calls * num_layers
+        if len(by_position) != expected:
+            raise RuntimeError(
+                "Incomplete GEN hidden-state profile: "
+                f"captured={len(by_position)} expected={expected} "
+                f"calls={num_calls} layers={num_layers}"
+            )
+        ordered = [
+            by_position[(call_index, layer_index)]
+            for call_index in range(num_calls)
+            for layer_index in range(num_layers)
+        ]
+
+        tensor_fields = (
+            "frame_mean_hidden",
+            "frame_rms",
+            "adjacent_mse",
+            "adjacent_cosine_similarity",
+            "adjacent_relative_l2",
+        )
+        profile: dict[str, Any] = {
+            "schema_version": 1,
+            "num_forward_calls": num_calls,
+            "num_layers": num_layers,
+            "latent_shape_thw": list(ordered[0]["latent_shape_thw"]),
+            "temporal_compression_factor": self.temporal_compression_factor,
+            "cfg_branch_by_call": [
+                (
+                    "conditional"
+                    if self.guidance == 1.0 or call_index % 2 == 0
+                    else "unconditional"
+                )
+                for call_index in range(num_calls)
+            ],
+            "sampler_step_by_call": [
+                call_index if self.guidance == 1.0 else call_index // 2
+                for call_index in range(num_calls)
+            ],
+        }
+        for field_name in tensor_fields:
+            stacked = self.torch.stack([record[field_name] for record in ordered])
+            profile[field_name] = stacked.reshape(
+                num_calls,
+                num_layers,
+                *stacked.shape[1:],
+            ).cpu()
+
+        timesteps = []
+        for call_index in range(num_calls):
+            value = by_position[(call_index, 0)]["timestep"]
+            if value is None:
+                timesteps.append(float("nan"))
+            else:
+                timesteps.append(float(value.detach().float().cpu()))
+        profile["timestep_by_call"] = self.torch.tensor(timesteps, dtype=self.torch.float32)
+        return profile
+
+
+def _save_gen_hidden_state_profile(
+    *,
+    torch: Any,
+    output_dir: Path,
+    profile: Mapping[str, Any],
+    predicted_frame_count: int,
+) -> dict[str, Any]:
+    tensor_file = "gen_hidden_state_profile.pt"
+    csv_file = "gen_hidden_state_adjacent.csv"
+    summary_file = "gen_hidden_state_profile.json"
+    torch.save(dict(profile), output_dir / tensor_file)
+
+    num_calls = int(profile["num_forward_calls"])
+    num_layers = int(profile["num_layers"])
+    latent_frames, patch_height, patch_width = map(int, profile["latent_shape_thw"])
+    timestep_by_call = profile["timestep_by_call"]
+    branches = list(profile["cfg_branch_by_call"])
+    sampler_steps = list(profile["sampler_step_by_call"])
+    with (output_dir / csv_file).open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "forward_call_index",
+                "sampler_step",
+                "cfg_branch",
+                "timestep",
+                "layer_index",
+                "previous_latent_frame",
+                "latent_frame",
+                "mse",
+                "cosine_similarity",
+                "relative_l2",
+                "previous_frame_rms",
+                "frame_rms",
+            ],
+        )
+        writer.writeheader()
+        for call_index in range(num_calls):
+            for layer_index in range(num_layers):
+                for frame_index in range(1, latent_frames):
+                    writer.writerow(
+                        {
+                            "forward_call_index": call_index,
+                            "sampler_step": sampler_steps[call_index],
+                            "cfg_branch": branches[call_index],
+                            "timestep": float(timestep_by_call[call_index]),
+                            "layer_index": layer_index,
+                            "previous_latent_frame": frame_index - 1,
+                            "latent_frame": frame_index,
+                            "mse": float(
+                                profile["adjacent_mse"][
+                                    call_index, layer_index, frame_index - 1
+                                ]
+                            ),
+                            "cosine_similarity": float(
+                                profile["adjacent_cosine_similarity"][
+                                    call_index, layer_index, frame_index - 1
+                                ]
+                            ),
+                            "relative_l2": float(
+                                profile["adjacent_relative_l2"][
+                                    call_index, layer_index, frame_index - 1
+                                ]
+                            ),
+                            "previous_frame_rms": float(
+                                profile["frame_rms"][
+                                    call_index, layer_index, frame_index - 1
+                                ]
+                            ),
+                            "frame_rms": float(
+                                profile["frame_rms"][
+                                    call_index, layer_index, frame_index
+                                ]
+                            ),
+                        }
+                    )
+
+    temporal_compression_factor = int(profile["temporal_compression_factor"])
+    decoded_frame_ranges = [[0, 0]]
+    for latent_index in range(1, latent_frames):
+        start = (latent_index - 1) * temporal_compression_factor + 1
+        end = min(
+            latent_index * temporal_compression_factor,
+            predicted_frame_count - 1,
+        )
+        decoded_frame_ranges.append([start, end])
+    summary = {
+        "schema_version": 1,
+        "scope": "GEN transformer block outputs during denoising",
+        "num_forward_calls": num_calls,
+        "num_layers": num_layers,
+        "latent_shape_thw": [latent_frames, patch_height, patch_width],
+        "hidden_size": int(profile["frame_mean_hidden"].shape[-1]),
+        "temporal_compression_factor": temporal_compression_factor,
+        "decoded_frame_ranges_by_latent_frame": decoded_frame_ranges,
+        "cfg_branch_by_call": branches,
+        "sampler_step_by_call": sampler_steps,
+        "timestep_by_call": [float(value) for value in timestep_by_call],
+        "tensor_shapes": {
+            key: list(profile[key].shape)
+            for key in (
+                "frame_mean_hidden",
+                "frame_rms",
+                "adjacent_mse",
+                "adjacent_cosine_similarity",
+                "adjacent_relative_l2",
+            )
+        },
+        "formulas": {
+            "mse": "mean((H[t]-H[t-1])^2) over spatial tokens and hidden channels",
+            "cosine_similarity": "dot(H[t],H[t-1])/(norm(H[t])*norm(H[t-1])) after flattening",
+            "relative_l2": "norm(H[t]-H[t-1])/norm(H[t-1])",
+            "frame_mean_hidden": "mean(H[t]) over spatial tokens; stored as float16",
+            "frame_rms": "sqrt(mean(H[t]^2)) over spatial tokens and hidden channels",
+        },
+        "files": {
+            "tensor": tensor_file,
+            "adjacent_csv": csv_file,
+            "summary": summary_file,
+        },
+    }
+    (output_dir / summary_file).write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return summary
 
 
 def _cuda_graph_tree_signature(torch: Any, value: Any) -> Any:
@@ -592,6 +1015,18 @@ class LiberoActionServiceBackend:
     accepts_concat_view = True
 
     def __init__(self, config: CosmosPiper14PolicyConfig) -> None:
+        if config.gen_hidden_state_profile and not config.vision_experiment_dir:
+            raise ValueError(
+                "--gen-hidden-state-profile requires --vision-experiment-dir "
+                "so each profile can be associated with its generated video"
+            )
+        if config.gen_hidden_state_profile and (
+            config.gen_torch_compile or config.gen_cuda_graphs
+        ):
+            raise ValueError(
+                "--gen-hidden-state-profile requires eager GEN execution; disable "
+                "--gen-torch-compile and --gen-cuda-graphs"
+            )
         if config.instruction_cache:
             # Attention dispatch must be installed while the Cosmos model is
             # constructed, before the first policy request arrives.
@@ -615,6 +1050,9 @@ class LiberoActionServiceBackend:
             def build_setup_overrides(self):
                 setup_overrides = super().build_setup_overrides()
                 setup_overrides.guardrails = False
+                if config.gen_hidden_state_profile:
+                    setup_overrides.use_torch_compile = False
+                    setup_overrides.use_cuda_graphs = False
                 return setup_overrides
 
         args = Piper14ActionServerArgs(
@@ -730,20 +1168,37 @@ class LiberoActionServiceBackend:
                 )
 
         lock_started = time.perf_counter()
+        hidden_state_profile = None
         with self.service._lock:
             timer.add("model.lock_wait", (time.perf_counter() - lock_started) * 1000.0)
             with torch.inference_mode():
                 with _profile_model_methods(self.service.model, timer, synchronize_cuda):
                     with self._instruction_cache_scope(prompt, timer):
-                        with timer.measure("model.generate.total", synchronize_cuda):
-                            samples = self.service.model.generate_samples_from_batch(
-                                batch,
+                        collector = (
+                            _GenHiddenStateCollector(
+                                torch=torch,
+                                net=self.service.model.net,
                                 guidance=float(self.config.guidance),
-                                seed=[int(self.config.seed)],
-                                num_steps=int(self.config.num_steps),
-                                shift=float(self.config.shift),
-                                has_negative_prompt=False,
                             )
+                            if self.config.gen_hidden_state_profile
+                            else None
+                        )
+                        with timer.measure("model.generate.total", synchronize_cuda):
+                            with collector if collector is not None else nullcontext():
+                                samples = self.service.model.generate_samples_from_batch(
+                                    batch,
+                                    guidance=float(self.config.guidance),
+                                    seed=[int(self.config.seed)],
+                                    num_steps=int(self.config.num_steps),
+                                    shift=float(self.config.shift),
+                                    has_negative_prompt=False,
+                                )
+                        if collector is not None:
+                            with timer.measure(
+                                "model.hidden_profile.collect",
+                                synchronize_cuda,
+                            ):
+                                hidden_state_profile = collector.to_cpu_profile()
                     pred_video = None
                     if self.config.vision_experiment_dir:
                         with timer.measure("model.vision.decode", synchronize_cuda):
@@ -770,6 +1225,7 @@ class LiberoActionServiceBackend:
                     fps=int(self.config.fps),
                     observation_time_s=request.get("_observation_time_s"),
                     camera_timestamps_s=request.get("_camera_timestamps_s", {}),
+                    gen_hidden_state_profile=hidden_state_profile,
                 )
             response["inference_metadata"] = {"vision_artifact": vision_metadata}
             print(
@@ -777,6 +1233,15 @@ class LiberoActionServiceBackend:
                 f"frames={vision_metadata['predicted_frame_count']}",
                 flush=True,
             )
+            if hidden_state_profile is not None:
+                print(
+                    f"[cosmos-piper14-hidden-profile] "
+                    f"artifact={vision_metadata['server_artifact_dir']} "
+                    f"calls={hidden_state_profile['num_forward_calls']} "
+                    f"layers={hidden_state_profile['num_layers']} "
+                    f"latent_shape={hidden_state_profile['latent_shape_thw']}",
+                    flush=True,
+                )
         self._dump_cuda_memory_history(torch)
         if owns_timer:
             timer.log(request_id=0)
@@ -991,6 +1456,7 @@ class CosmosPiper14PolicyClient:
             "gen_torch_compile": bool(self.config.gen_torch_compile),
             "gen_cuda_graphs": bool(self.config.gen_cuda_graphs),
             "vision_experiment_dir": self.config.vision_experiment_dir,
+            "gen_hidden_state_profile": bool(self.config.gen_hidden_state_profile),
         }
 
     def build_policy_request(
