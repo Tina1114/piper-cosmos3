@@ -1,0 +1,83 @@
+From b4795a984416b3441970d9fc3485aaac4984f3cf Mon Sep 17 00:00:00 2001
+From: chenying <2607154942@qq.com>
+Date: Fri, 24 Jul 2026 01:21:02 +0800
+Subject: [PATCH] fix: respect Slurm cpuset for CPU affinity
+
+---
+ cosmos_framework/utils/device.py      | 16 ++++++++++++++++
+ cosmos_framework/utils/distributed.py | 18 ++++++++++++++++--
+ 2 files changed, 32 insertions(+), 2 deletions(-)
+
+diff --git a/cosmos_framework/utils/device.py b/cosmos_framework/utils/device.py
+index 7bc2f88..b12c555 100644
+--- a/cosmos_framework/utils/device.py
++++ b/cosmos_framework/utils/device.py
+@@ -4,6 +4,8 @@
+ import gc
+ import math
+ import os
++from collections.abc import Container
++from collections.abc import Iterable
+ from functools import wraps
+ 
+ import pynvml
+@@ -104,6 +106,20 @@ class Device:
+         return [i for i, e in enumerate(affinity_list) if e != 0]
+ 
+ 
++def resolve_cpu_affinity(requested_cpus: Iterable[int], allowed_cpus: Container[int] | None = None) -> list[int]:
++    requested = list(dict.fromkeys(requested_cpus))
++    if allowed_cpus is None:
++        return requested
++
++    allowed = sorted(dict.fromkeys(allowed_cpus))
++    if not requested:
++        return allowed
++
++    allowed_set = set(allowed)
++    filtered = [cpu for cpu in requested if cpu in allowed_set]
++    return filtered or allowed
++
++
+ def with_torch_device(device):
+     """
+     Decorator factory that wraps a function to execute within a specific torch device context.
+diff --git a/cosmos_framework/utils/distributed.py b/cosmos_framework/utils/distributed.py
+index 64e0de7..d2491d9 100644
+--- a/cosmos_framework/utils/distributed.py
++++ b/cosmos_framework/utils/distributed.py
+@@ -19,6 +19,7 @@ from torch.distributed import get_process_group_ranks
+ 
+ from cosmos_framework.utils.flags import INTERNAL
+ from cosmos_framework.utils.device import Device
++from cosmos_framework.utils.device import resolve_cpu_affinity
+ 
+ if dist.is_available():
+     from torch.distributed.distributed_c10d import _get_default_group
+@@ -40,8 +41,21 @@ def init() -> int | None:
+     local_rank = int(os.getenv("LOCAL_RANK", 0))
+     try:
+         device = Device(local_rank)
+-        os.sched_setaffinity(0, device.get_cpu_affinity())
+-    except pynvml.NVMLError as e:
++        requested_affinity = device.get_cpu_affinity()
++        allowed_affinity = os.sched_getaffinity(0) if hasattr(os, "sched_getaffinity") else None
++        target_affinity = resolve_cpu_affinity(requested_affinity, allowed_affinity)
++        if requested_affinity != target_affinity:
++            log.warning(
++                "Adjusted CPU affinity for local rank "
++                f"{local_rank}: requested {len(requested_affinity)} CPUs, "
++                f"allowed {len(allowed_affinity) if allowed_affinity is not None else 'unknown'}, "
++                f"using {len(target_affinity)} CPUs."
++            )
++        if target_affinity:
++            os.sched_setaffinity(0, target_affinity)
++        else:
++            log.warning(f"Skipping device affinity for local rank {local_rank}: no valid CPUs available in current cpuset.")
++    except (pynvml.NVMLError, OSError) as e:
+         log.warning(f"Failed to set device affinity: {e}")
+     # Set up NCCL communication.
+     os.environ["TORCH_NCCL_BLOCKING_WAIT"] = "0"
+-- 
+2.34.1
+

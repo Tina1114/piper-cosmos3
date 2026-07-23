@@ -64,6 +64,91 @@
 - 根因：请求 affinity 时没有和当前 Slurm 作业允许的 cpuset 取交集。
 - 结论：affinity 逻辑必须限制在当前作业可用 cpuset 内；完全不相交时要回退到 allowed cpuset。
 
+### 8.1 Edge framework 仍需要移植这项修复
+
+2026-07-24 已重新拉取并检查 NVIDIA 官方
+`cosmos-framework` 的 `origin/main`：
+
+- 官方最新检查点：
+  `f734253f0f6af3e268372402f44435c38f55ef3e`
+  （`Export Cosmos3 Edge scheduler metadata (#130)`，2026-07-23）。
+- 最新
+  `cosmos_framework/utils/device.py::Device.get_cpu_affinity()`
+  仍然只返回 NVML 给出的 CPU 列表，没有与进程当前允许的 cpuset
+  求交集。
+- 最新
+  `cosmos_framework/utils/distributed.py::init()`
+  仍然直接执行
+  `os.sched_setaffinity(0, device.get_cpu_affinity())`，并且只捕获
+  `pynvml.NVMLError`，没有处理 cpuset 不匹配产生的 `OSError`。
+- 官方新增的
+  `cosmos_framework/utils/distributed_test.py`
+  只验证 CPU checkpoint conversion 选择 Gloo backend，没有覆盖
+  Slurm/cgroup cpuset 不相交的情况。
+
+因此，这不是已经被 Edge 官方 framework 替代的旧补丁。对于本项目使用
+Slurm/cgroup 资源隔离的多 GPU 后训练，仍建议保留；否则 Edge 训练仍可能在
+进入 NCCL 初始化之前就因为 CPU affinity 非法而退出。
+
+### 8.2 从 Nano framework 移植到 Edge framework 的最小范围
+
+Nano 修复已经保存在：
+
+- 外层可追踪补丁：
+  `patches/cosmos-framework/0001-fix-respect-Slurm-cpuset-for-CPU-affinity.patch`
+- Nano framework 本地分支：
+  `local/slurm-cpuset-affinity`
+- Nano framework 修复提交：
+  `b4795a9`
+- 修复基线：
+  `90cd348877c37b888942c988b631eb1611bf2950`
+
+Edge framework 不应直接强行应用旧 patch。新版
+`cosmos_framework/utils/distributed.py` 已经加入 CPU checkpoint conversion
+所需的 Gloo backend 逻辑，旧 patch 的上下文与新版代码不再完全一致。正确的
+小型移植只有两处：
+
+1. 在 Edge 的
+   `cosmos_framework/utils/device.py`
+   中移植 `resolve_cpu_affinity()`：
+   去重 NVML 请求列表，与 `os.sched_getaffinity(0)` 返回的 allowed cpuset
+   求交集；请求为空或完全不相交时回退到 allowed cpuset。
+2. 在 Edge 的
+   `cosmos_framework/utils/distributed.py::init()`
+   中只替换“Set GPU affinity”代码块：
+   先读取 requested/allowed affinity，再调用
+   `resolve_cpu_affinity()`，仅在结果非空时调用
+   `os.sched_setaffinity()`，并同时捕获
+   `pynvml.NVMLError` 和 `OSError`。
+
+以下 Edge 官方逻辑必须原样保留，不能被 Nano patch 覆盖：
+
+- `COSMOS_DEVICE=cuda` 使用 NCCL；
+- `COSMOS_DEVICE=cpu` 使用 Gloo；
+- CPU checkpoint conversion 依赖 Gloo 同步 CPU 上的 tokenizer/model
+  tensor；
+- 新版 process-group timeout 和初始化日志。
+
+### 8.3 Edge 移植后的验证门槛
+
+移植完成后至少做三层验证：
+
+1. 复用
+   `tests/test_device_cpu_affinity.py`
+   的四种情况：请求完全合法、部分相交、完全不相交、allowed cpuset
+   不可获取。
+2. 为 Edge 的
+   `cosmos_framework/utils/distributed_test.py`
+   增加一项测试，确认 `sched_setaffinity()` 收到的是过滤后的 CPU
+   集合，同时保留现有 Gloo backend 测试。
+3. 在正式 Edge 后训练前运行一次 2/4 GPU Slurm smoke test，确认日志已经
+   越过 affinity、process-group 初始化、dataset 首批读取和第一次
+   forward/backward。
+
+只有单元测试通过还不足以证明集群拓扑正确；最终应以真实 Slurm
+作业中的 `os.sched_getaffinity(0)`、过滤后的 target affinity 和多进程初始化
+结果为准。
+
 ## 当前保留结论
 
 - 当前正式链路是：
