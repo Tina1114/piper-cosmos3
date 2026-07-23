@@ -184,6 +184,10 @@ class EdgeTrainingAuditCallback(Callback):
             raise RuntimeError(f"expected a 2-D action sample, got {tuple(action.shape)}")
         raw_action_dim = _first_int(self.last_data_batch["raw_action_dim"])
         action = action[:, :raw_action_dim]
+        # Whole-clip policy generation preserves the current state/action as
+        # conditioning row 0. The deployable horizon is future rows 1..32.
+        if action.shape[0] == 33:
+            action = action[1:33]
         finite = bool(torch.isfinite(action).all().item())
         if tuple(action.shape) != (32, 14) or not finite:
             raise RuntimeError(

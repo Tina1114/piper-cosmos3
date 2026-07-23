@@ -32,7 +32,7 @@ case "${RUN_STAGE}" in
     # Reuse the smoke job name so DCP resolves and resumes its latest local
     # checkpoint. One extra optimizer step plus action sampling proves reload.
     RUN_NAME="battery_piper14_cosmos3_edge_base_fresh_head_smoke100"
-    STAGE_OVERRIDES="job.name=${RUN_NAME} trainer.max_iter=101 scheduler.cycle_lengths=[101] checkpoint.save_iter=50"
+    STAGE_OVERRIDES="job.name=${RUN_NAME} trainer.max_iter=102 scheduler.cycle_lengths=[102] checkpoint.save_iter=50"
     SLURM_TIME="${SLURM_TIME:-08:00:00}"
     REQUIRE_GATE=0
     EDGE_AUDIT_INFERENCE=1

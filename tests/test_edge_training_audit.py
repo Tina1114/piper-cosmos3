@@ -23,7 +23,7 @@ class _AuditModel(torch.nn.Module):
 
     def generate_samples_from_batch(self, data_batch, **kwargs):
         del data_batch, kwargs
-        return {"action": [torch.ones(32, 64)]}
+        return {"action": [torch.ones(33, 64)]}
 
 
 def _callback(tmp_path) -> EdgeTrainingAuditCallback:
