@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "domain_name": "piper14",
+    "raw_action_dim": 14,
+    "action_horizon": 32,
+    "image_keys": [
+      "cam_high",
+      "cam_left_wrist",
+      "cam_right_wrist"
+    ],
+    "action_type": "absolute_joint_position_command",
+    "checkpoint": "/project/peilab/wam/cosmos3_cy/cosmos_battery/20k",
+    "prompt": "Assemble the mouse's battery.",
+    "mock_backend": false,
+    "camera_height": 480,
+    "camera_width": 640,
+    "resolution": "480",
+    "num_steps": 4,
+    "guidance": 3.0,
+    "shift": 5.0
+  },
+  "episode": "/project/peilab/wam/physical_WM/data/battery_assemble/perfect/episode_1.hdf5",
+  "data_config": "configs/dataset_configs/battery_assemble_hdf5.yaml",
+  "steps": 8,
+  "num_inferences": 1,
+  "starved_steps": 0,
+  "control_hz": 30.0,
+  "chunk_size": 32,
+  "replan_interval": 8,
+  "selected_actions": {
+    "shape": [
+      8,
+      14
+    ],
+    "dtype": "float32",
+    "finite": true,
+    "min": -0.8428082466125488,
+    "max": 1.1031520366668701,
+    "mean": 0.20178911089897156,
+    "std": 0.6232014298439026
+  },
+  "inference_latency_s": {
+    "count": 1,
+    "min": 28.423694610595703,
+    "max": 28.423694610595703,
+    "mean": 28.423694610595703,
+    "std": 0.0
+  }
+}
