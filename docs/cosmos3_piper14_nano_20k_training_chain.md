@@ -3,7 +3,8 @@
 > 审计对象：`/project/peilab/wam/cosmos3_cy/reports/cosmos3_piper14/cosmos3_action/battery_piper14/battery_piper14_cosmos3_nano_20000step_4gpu_b8_acc1_offline/checkpoints/iter_000020000`  
 > 仓库根目录：`/project/peilab/wam/cosmos3_cy`  
 > 审计日期：2026-07-23  
-> 本地 Cosmos Framework 版本：`external/cosmos` commit `60b94f685cbe8f5e0ef4209be79514d07db1566f`
+> 本地 `NVIDIA/cosmos` cookbook 仓库：`external/cosmos` commit `60b94f685cbe8f5e0ef4209be79514d07db1566f`
+> 实际训练使用的 `NVIDIA/cosmos-framework`：`external/cosmos/packages/cosmos3` commit `90cd348877c37b888942c988b631eb1611bf2950`；当前该 checkout 的 `cosmos_framework/utils/device.py`、`distributed.py` 有本地修改，复现时还必须保留或显式导出这两处 patch
 
 ## 1. 结论先行
 
