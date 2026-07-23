@@ -208,8 +208,12 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
 
             def __call__(self, sample, resolution):
                 calls["resolution"] = resolution
-                calls["sample"] = sample
                 sample = dict(sample)
+                temporal_expand = sample.pop("inference_temporal_expand_after_resize", None)
+                if temporal_expand is not None:
+                    video = sample["video"]
+                    sample["video"] = video.expand(-1, temporal_expand, -1, -1)
+                calls["sample"] = sample
                 sample["action_processing_record"] = "record"
                 sample["raw_action_dim"] = FakeTensor(())
                 sample["sequence_plan"] = "sequence-plan"
@@ -259,6 +263,9 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
 
             def repeat(self, *repeats):
                 return FakeTensor(tuple(size * repeats[idx] for idx, size in enumerate(self.shape)))
+
+            def expand(self, *sizes):
+                return FakeTensor(tuple(self.shape[idx] if size == -1 else size for idx, size in enumerate(sizes)))
 
             def float(self):
                 return self
@@ -341,6 +348,7 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
         self.assertEqual(calls["transform_kwargs"]["max_action_dim"], 64)
         self.assertEqual(calls["resolution"], "480")
         self.assertEqual(calls["sample"]["action"].shape, (5, 14))
+        self.assertEqual(calls["sample"]["video"].shape[1], 5)
         self.assertIn("action_processing_record", calls["batch"])
         self.assertEqual(calls["batch"]["action_processing_record"], ["record"])
         self.assertIs(calls["batch"]["inference_condition_only_vae"], True)

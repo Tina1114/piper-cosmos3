@@ -224,10 +224,15 @@ class Piper14RobotController:
             return False
 
     def _enable_arm(self, arm: Any) -> bool:
-        for _ in range(5):
-            if arm.enable():
-                return True
+        # pyAgxArm's enable() return value only reflects the command call and
+        # is not a reliable indication that every motor accepted the command.
+        # Always verify the joint feedback before allowing real motion.
+        for _ in range(10):
+            arm.enable()
             time.sleep(0.5)
+            enabled = arm.get_joints_enable_status_list()
+            if enabled is not None and len(enabled) >= 6 and all(enabled[:6]):
+                return True
         return False
 
     def get_status_and_state(self) -> np.ndarray:
@@ -267,6 +272,28 @@ class Piper14RobotController:
             self.right_arm.move_js(right_traj[i].tolist())
             self.right_gripper.move_gripper_m(value=right_gripper, force=1.0)
             time.sleep(0.02)
+
+        tolerance = float(self.robot.get("initial_position_tolerance", 0.05))
+        timeout = float(self.robot.get("initial_move_timeout", 30.0))
+        deadline = time.monotonic() + timeout
+        while True:
+            left = self._current_joints(self.left_arm, self.left_init_position[:6])
+            right = self._current_joints(self.right_arm, self.right_init_position[:6])
+            left_error = float(np.max(np.abs(left - self.left_init_position[:6])))
+            right_error = float(np.max(np.abs(right - self.right_init_position[:6])))
+            if left_error <= tolerance and right_error <= tolerance:
+                print(
+                    "[cosmos-runtime] initial position reached: "
+                    f"left_linf={left_error:.3f} right_linf={right_error:.3f}"
+                )
+                return
+            if time.monotonic() >= deadline:
+                raise RuntimeError(
+                    "Initial-position timeout: "
+                    f"left_linf={left_error:.3f} right_linf={right_error:.3f} "
+                    f"tolerance={tolerance:.3f} timeout={timeout:.1f}s"
+                )
+            time.sleep(0.1)
 
     def _current_joints(self, arm: Any, fallback: np.ndarray) -> np.ndarray:
         ja = arm.get_joint_angles()

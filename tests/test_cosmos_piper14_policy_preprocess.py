@@ -47,8 +47,29 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertTrue(np.all(concat[:4, :, :] == np.array([255, 0, 0], dtype=np.uint8)))
         self.assertTrue(np.all(concat[4:, :3, :] == np.array([0, 255, 0], dtype=np.uint8)))
         self.assertTrue(np.all(concat[4:, 3:, :] == np.array([0, 0, 255], dtype=np.uint8)))
-        self.assertEqual(request["image_size"], 6)
+        self.assertNotIn("image", request)
+        self.assertNotIn("image_size", request)
         self.assertEqual(request["domain_name"], "piper14")
+
+    def test_keeps_png_for_backend_without_concat_view_capability(self) -> None:
+        class OfficialBackend:
+            def predict_policy(self, request):
+                return {"action": np.zeros((3, 14), dtype=np.float32).tolist()}
+
+        policy = CosmosPiper14PolicyClient(
+            CosmosPiper14PolicyConfig(mock_backend=True, camera_height=4, camera_width=6, action_horizon=3),
+            backend=OfficialBackend(),
+        )
+        image = np.zeros((4, 6, 3), dtype=np.uint8)
+        request = policy.build_policy_request(
+            {
+                "images": {"cam_high": image, "cam_left_wrist": image, "cam_right_wrist": image},
+                "state": np.zeros(14, dtype=np.float32),
+            }
+        )
+
+        self.assertIn("image", request)
+        self.assertEqual(request["image_size"], 6)
 
     def test_accepts_qpos_alias_and_returns_action_chunk(self) -> None:
         policy = CosmosPiper14PolicyClient(
@@ -102,7 +123,7 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertIn("[cosmos-piper14-timing] request=1", output.getvalue())
         self.assertIn("observation.coerce", policy.last_timing)
         self.assertIn("request.concat_view", policy.last_timing)
-        self.assertIn("request.png_base64", policy.last_timing)
+        self.assertNotIn("request.png_base64", policy.last_timing)
         self.assertIn("backend.total", policy.last_timing)
         self.assertIn("policy.action_validate", policy.last_timing)
         self.assertIn("policy.total", policy.last_timing)
