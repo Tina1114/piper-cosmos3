@@ -42,11 +42,16 @@ action_policy_piper14_edge["trainer"]["grad_accum_iter"] = 1
 action_policy_piper14_edge["trainer"]["logging_iter"] = 10
 action_policy_piper14_edge["trainer"]["max_iter"] = 20_000
 action_policy_piper14_edge["checkpoint"]["save_iter"] = 500
-action_policy_piper14_edge["trainer"]["callbacks"]["edge_runtime_audit"] = L(EdgeTrainingAuditCallback)(
-    report_path="${oc.env:EDGE_TRAIN_AUDIT_REPORT,/tmp/cosmos3_edge_training_audit.json}",
-    selected_keys="${optimizer.keys_to_select}",
-    action_head_keys=list(ACTION_HEAD_KEYS),
-)
+action_policy_piper14_edge["trainer"]["callbacks"] = {
+    # Write fail-closed evidence before W&B's on_train_end flush, which can be
+    # slow on restricted cluster egress.
+    "edge_runtime_audit": L(EdgeTrainingAuditCallback)(
+        report_path="${oc.env:EDGE_TRAIN_AUDIT_REPORT,/tmp/cosmos3_edge_training_audit.json}",
+        selected_keys="${optimizer.keys_to_select}",
+        action_head_keys=list(ACTION_HEAD_KEYS),
+    ),
+    **action_policy_piper14_edge["trainer"]["callbacks"],
+}
 action_policy_piper14_edge["dataloader_train"] = L(PackingDataLoader)(
     audio_sample_rate=48_000,
     dataset_name="action_piper14_edge",
