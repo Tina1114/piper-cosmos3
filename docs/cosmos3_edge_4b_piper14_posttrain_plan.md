@@ -215,7 +215,63 @@ python -m cosmos_framework.scripts.convert_model_to_dcp \
 
 ## 7. 哪些文件必须新增或改写
 
-当前 `external/cosmos` commit `60b94f685cbe8f5e0ef4209be79514d07db1566f` 早于 Edge 发布，并没有新版 `EDGE_MODEL_CONFIG`。因此只把 TOML 中 `load_path` 改成 Edge 是不够的。
+当前环境实际有三层 Git 边界：
+
+```text
+cosmos3_cy                                      # 本项目，master
+└── external/cosmos                            # NVIDIA/cosmos @ 60b94f...
+    └── packages/cosmos3                       # NVIDIA/cosmos-framework @ 90cd348...
+```
+
+真正提供 `cosmos_framework.*` 训练代码的是第三层 `external/cosmos/packages/cosmos3`，不是第二层 cookbook 仓库。当前外层仓库把 `external/cosmos` 记录为 gitlink，但没有 `.gitmodules`；第二层 `external/cosmos/.gitignore` 又忽略了整个 `packages/`，所以最外层 Git **不会自动记录 framework 的 commit 或本地修改**。Nano 的 CPU-affinity 修复现已提交到 framework 本地分支，并另存到外层可追踪 patch：
+
+```text
+framework branch: local/slurm-cpuset-affinity
+framework commit: b4795a9
+outer patch: patches/cosmos-framework/0001-fix-respect-Slurm-cpuset-for-CPU-affinity.patch
+```
+
+这意味着只在最外层建立 Edge branch，不能自动隔离或锁定 framework；只在 framework 内建立 Edge branch，又不能管理本项目的 Edge config、dataset adapter 和启动脚本。两层都需要明确管理。
+
+当前 cookbook commit `60b94f685cbe8f5e0ef4209be79514d07db1566f` 和 framework commit `90cd348877c37b888942c988b631eb1611bf2950` 都早于 Edge 发布，并没有完整的新版 Edge 训练支持。因此只把 TOML 中 `load_path` 改成 Edge 是不够的。
+
+### 推荐的可维护布局
+
+不要在同一个物理目录里反复切换 Nano/Edge 的三层 branch。推荐使用外层 Git worktree：
+
+```text
+/project/peilab/wam/cosmos3_cy
+  ├── 外层 branch: master
+  ├── external/cosmos: 固定 Nano cookbook commit
+  └── external/cosmos/packages/cosmos3: 固定 Nano framework commit + 已审计 patch
+
+/project/peilab/wam/cosmos3_cy_edge
+  ├── 外层 branch: feature/cosmos3-edge-piper14
+  ├── external/cosmos: 固定支持 Edge 的 cookbook commit
+  └── external/cosmos/packages/cosmos3: 固定支持 Edge 的 framework commit
+```
+
+外层 Edge branch 从 `master` 创建，但 Git branch 只复制提交历史指针，不会复制 checkpoint 大文件。两个 worktree 共享最外层 Git object database，却拥有各自工作目录，因此 Nano 和 Edge 的 framework、venv、配置不会在切 branch 时互相覆盖。
+
+每个外层 branch 还应提交一个依赖锁定文件，例如：
+
+```text
+configs/dependencies/cosmos3_nano.lock.yaml
+configs/dependencies/cosmos3_edge.lock.yaml
+```
+
+至少记录：
+
+- `NVIDIA/cosmos` URL + commit；
+- `NVIDIA/cosmos-framework` URL + commit；
+- Python/CUDA/PyTorch 版本；
+- 本地 framework patch 的文件和 hash；
+- checkpoint、Wan VAE 和 processor 的版本/路径。
+
+本次核查已确认 Edge 仍需要 cpuset 小型移植。因此第三层应从固定的官方
+Edge commit 建本地修复分支，并把最终 Edge patch 保存在本项目的
+`patches/cosmos-framework/`；不要只留下无法追踪的第三层 dirty working
+tree。
 
 ### 7.1 必须先升级并固定 framework
 
@@ -227,6 +283,21 @@ python -m cosmos_framework.scripts.convert_model_to_dcp \
 - `cosmos_framework/model/generator/reasoner/nemotron_3_dense_vl/vision_siglip2.py`
 - 新版 Edge processor/checkpoint conversion
 - 新 `data.generator` / `model.generator` namespace
+
+Edge checkout 固定到官方新版后，还要做一次很小的 Slurm cpuset 移植：
+
+1. 将 Nano patch 中的 `resolve_cpu_affinity()` 移到 Edge
+   `cosmos_framework/utils/device.py`。
+2. 在 Edge `cosmos_framework/utils/distributed.py::init()` 中，只替换
+   GPU-affinity 小块：把 NVML 请求与 `os.sched_getaffinity(0)` 求交集，
+   并捕获 `pynvml.NVMLError` 和 `OSError`。
+3. 保留 Edge 新增的 `COSMOS_DEVICE`、Gloo/NCCL 和 CPU checkpoint
+   conversion 逻辑，不能用 Nano 文件整体覆盖。
+4. 复用 `tests/test_device_cpu_affinity.py`，再跑一次 2/4 GPU Slurm
+   smoke test；确认后为 Edge 重新生成独立 patch。
+
+必要性和官方 `f734253` 代码证据见
+`reports/cosmos3_piper14/2026-06-30_training_pitfalls_brief_zh.md` 第 8 节。
 
 ### 7.2 建议新增的文件
 
@@ -408,9 +479,9 @@ global batch upper bound=32
 
 ### Stage 2：2k/5k pilot
 
-- 每 500 iter 保存；
+- 每 1000 iter 保存；
 - 固定离线 held-out episode，而不是只看 train loss；
-- 比较 `iter_500/1000/2000/5000` 的 action MAE、速度/加速度平滑性、关节限位越界、短 horizon rollout；
+- 比较 `iter_1000/2000/5000` 的 action MAE、速度/加速度平滑性、关节限位越界、短 horizon rollout；
 - 与 Nano 20k 用相同数据、seed、preprocess 和推理参数对照。
 
 ### Stage 3：20k full run
