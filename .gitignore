@@ -3,7 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.so
 .ipynb_checkpoints/
+build/
 
 # environments
 .env
@@ -65,3 +67,9 @@ chrome_trace*.json
 # system
 .DS_Store
 log/
+
+# Torch JIT/CUDA extension build cache
+/.torch_extensions*/
+
+# Generated profiling result containing machine-local paths
+/reports/cosmos3_piper14/profile_*.json

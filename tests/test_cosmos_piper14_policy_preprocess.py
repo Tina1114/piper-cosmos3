@@ -17,6 +17,9 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertEqual(config.num_steps, 4)
         self.assertEqual(config.guidance, 3.0)
         self.assertEqual(config.shift, 5.0)
+        self.assertTrue(config.instruction_cache)
+        self.assertFalse(config.gen_torch_compile)
+        self.assertFalse(config.gen_cuda_graphs)
 
     def test_composes_training_style_concat_view(self) -> None:
         policy = CosmosPiper14PolicyClient(

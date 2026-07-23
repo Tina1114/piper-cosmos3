@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 import base64
+import functools
 import hashlib
 import io
 import json
 import os
 import time
+from collections import OrderedDict
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Protocol
 
@@ -50,6 +52,12 @@ class CosmosPiper14PolicyConfig:
     instruction_cache: bool = True
     instruction_cache_dir: str | None = None
     instruction_cache_max_entries: int = 4
+    gen_torch_compile: bool = False
+    gen_cuda_graphs: bool = False
+    quant_algo: str = "rtn"
+    quant_backend: str = "fakequant"
+    require_quantized_checkpoint: bool = False
+    quant_artifact_checkpoint: str | None = None
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -335,6 +343,29 @@ class LiberoActionServiceBackend:
             max_action_dim=int(config.max_action_dim),
         )
         self.service = ActionModelService(args)
+        from piper_cosmos.quantization.runtime import prepare_quantized_checkpoint
+
+        quantized_checkpoint = prepare_quantized_checkpoint(
+            config.quant_artifact_checkpoint or config.checkpoint,
+            algo=config.quant_algo,
+            backend=config.quant_backend,
+            required=config.require_quantized_checkpoint,
+        )
+        self.quantization_metadata = quantized_checkpoint.metadata()
+        if quantized_checkpoint.active:
+            runtime_metadata = quantized_checkpoint.prepare_model(self.service.model)
+            self.quantization_metadata.update(runtime_metadata)
+            print(
+                "[cosmos-piper14-quantization-runtime] "
+                f"module_type={runtime_metadata['module_type']} "
+                f"replaced_linear_modules={runtime_metadata['replaced_linear_modules']} "
+                f"activation_quantization={runtime_metadata['activation_quantization']}",
+                flush=True,
+            )
+        self._instruction_memory_cache: OrderedDict[
+            tuple[str, str], tuple[Any, Any]
+        ] = OrderedDict()
+        self._configure_gen_acceleration()
         self.transform = ActionTransformPipeline(
             tokenizer_config=None,
             cfg_dropout_rate=0.0,
@@ -437,15 +468,16 @@ class LiberoActionServiceBackend:
             timer.add("model.lock_wait", (time.perf_counter() - lock_started) * 1000.0)
             with torch.inference_mode():
                 with _profile_model_methods(self.service.model, timer, synchronize_cuda):
-                    with timer.measure("model.generate.total", synchronize_cuda):
-                        samples = self.service.model.generate_samples_from_batch(
-                            batch,
-                            guidance=float(self.config.guidance),
-                            seed=[int(self.config.seed)],
-                            num_steps=int(self.config.num_steps),
-                            shift=float(self.config.shift),
-                            has_negative_prompt=False,
-                        )
+                    with self._instruction_cache_scope(prompt, timer):
+                        with timer.measure("model.generate.total", synchronize_cuda):
+                            samples = self.service.model.generate_samples_from_batch(
+                                batch,
+                                guidance=float(self.config.guidance),
+                                seed=[int(self.config.seed)],
+                                num_steps=int(self.config.num_steps),
+                                shift=float(self.config.shift),
+                                has_negative_prompt=False,
+                            )
         with timer.measure("backend.action_output", synchronize_cuda):
             pred_action = samples["action"][0].float().squeeze(0)
             future = pred_action[1 : future_horizon + 1, :PIPER14_RAW_ACTION_DIM].detach().cpu().numpy()
@@ -454,6 +486,119 @@ class LiberoActionServiceBackend:
         if owns_timer:
             timer.log(request_id=0)
         return response
+
+    def _configure_gen_acceleration(self) -> None:
+        if not self.config.gen_torch_compile and not self.config.gen_cuda_graphs:
+            return
+        if self.config.gen_cuda_graphs and not self.config.gen_torch_compile:
+            raise ValueError("gen_cuda_graphs requires gen_torch_compile")
+
+        import torch
+
+        net = getattr(self.service.model, "net", None)
+        language_model = getattr(net, "language_model", None)
+        decoder = getattr(language_model, "model", None)
+        layers = getattr(decoder, "layers", None)
+        if layers is None:
+            raise RuntimeError("Could not locate Cosmos decoder layers for GEN-only compilation")
+
+        compile_mode = "reduce-overhead" if self.config.gen_cuda_graphs else None
+        compiled_layers = 0
+        for layer in layers:
+            eager_forward = layer.forward
+
+            @functools.wraps(eager_forward)
+            def gen_forward(
+                *args: Any,
+                __eager_forward: Callable[..., Any] = eager_forward,
+                **kwargs: Any,
+            ) -> Any:
+                return __eager_forward(*args, gen_only=True, und_only=False, **kwargs)
+
+            compiled_forward = torch.compile(
+                gen_forward,
+                fullgraph=True,
+                dynamic=False,
+                mode=compile_mode,
+            )
+
+            @functools.wraps(eager_forward)
+            def dispatch(
+                *args: Any,
+                __eager_forward: Callable[..., Any] = eager_forward,
+                __compiled_forward: Callable[..., Any] = compiled_forward,
+                **kwargs: Any,
+            ) -> Any:
+                if kwargs.get("gen_only", False) and not kwargs.get("und_only", False):
+                    compiled_kwargs = dict(kwargs)
+                    compiled_kwargs.pop("gen_only", None)
+                    compiled_kwargs.pop("und_only", None)
+                    return __compiled_forward(*args, **compiled_kwargs)
+                return __eager_forward(*args, **kwargs)
+
+            layer.forward = dispatch
+            compiled_layers += 1
+
+        if self.config.gen_cuda_graphs:
+            net.pad_for_cuda_graphs = True
+        print(
+            "[cosmos-piper14-compile] "
+            f"gen_layers={compiled_layers} torch_compile=on "
+            f"cuda_graphs={'on' if self.config.gen_cuda_graphs else 'off'}",
+            flush=True,
+        )
+
+    @contextmanager
+    def _instruction_cache_scope(self, prompt: str, timer: _SegmentedTimer) -> Iterator[None]:
+        if not self.config.instruction_cache:
+            yield
+            return
+
+        model = self.service.model
+        original = getattr(model, "build_inference_memory_state", None)
+        if original is None or not callable(original):
+            yield
+            return
+        had_instance_attribute = "build_inference_memory_state" in vars(model)
+        key = (self._instruction_cache_namespace, prompt)
+        cached = self._instruction_memory_cache.get(key)
+        memories: list[Any] = list(cached) if cached is not None else []
+        created: list[Any] = []
+        if cached is not None:
+            self._instruction_memory_cache.move_to_end(key)
+        timer.add("model.reasoner.cache_hit" if cached is not None else "model.reasoner.cache_miss", 0.0)
+        print(
+            f"[cosmos-piper14-instruction-cache] {'hit' if cached is not None else 'miss'} "
+            f"namespace={key[0][:12]} prompt_sha256={hashlib.sha256(prompt.encode('utf-8')).hexdigest()[:12]}",
+            flush=True,
+        )
+
+        def build_cached_memory(*args: Any, **kwargs: Any) -> Any:
+            if memories:
+                memory = memories.pop(0)
+            else:
+                memory = original(*args, **kwargs)
+            created.append(memory)
+            return memory
+
+        model.build_inference_memory_state = build_cached_memory
+        succeeded = False
+        try:
+            yield
+            succeeded = True
+        finally:
+            if had_instance_attribute:
+                model.build_inference_memory_state = original
+            else:
+                delattr(model, "build_inference_memory_state")
+            if succeeded and len(created) == 2 and all(
+                memory is not None and memory.is_gen_only() for memory in created
+            ):
+                self._instruction_memory_cache[key] = (created[0], created[1])
+                self._instruction_memory_cache.move_to_end(key)
+                max_entries = max(1, int(self.config.instruction_cache_max_entries))
+                while len(self._instruction_memory_cache) > max_entries:
+                    self._instruction_memory_cache.popitem(last=False)
 
     def _dump_cuda_memory_history(self, torch: Any) -> None:
         if not self.config.cuda_memory_history or self._cuda_memory_history_dumped:
@@ -475,8 +620,36 @@ class CosmosPiper14PolicyClient:
         config: CosmosPiper14PolicyConfig | Mapping[str, Any],
         backend: CosmosActionBackend | None = None,
     ) -> None:
-        self.config = (
+        config_value = (
             config if isinstance(config, CosmosPiper14PolicyConfig) else CosmosPiper14PolicyConfig.from_mapping(config)
+        )
+        from piper_cosmos.quantization.runtime import prepare_quantized_checkpoint
+
+        self.quantized_checkpoint = prepare_quantized_checkpoint(
+            config_value.checkpoint,
+            algo=config_value.quant_algo,
+            backend=config_value.quant_backend,
+            required=config_value.require_quantized_checkpoint,
+        )
+        if self.quantized_checkpoint.active:
+            quantization = self.quantized_checkpoint.metadata()
+            print(
+                "[cosmos-piper14-quantization] "
+                f"artifact={self.quantized_checkpoint.artifact_checkpoint} "
+                f"loader_checkpoint={self.quantized_checkpoint.checkpoint} "
+                f"algo={quantization['algo']} backend={quantization['backend']} "
+                f"bits={quantization['bits']} group_size={quantization['group_size']} "
+                f"storage_format={quantization['storage_format']}",
+                flush=True,
+            )
+        self.config = replace(
+            config_value,
+            checkpoint=self.quantized_checkpoint.checkpoint,
+            quant_artifact_checkpoint=(
+                self.quantized_checkpoint.artifact_checkpoint
+                if self.quantized_checkpoint.active
+                else config_value.quant_artifact_checkpoint
+            ),
         )
         if self.config.raw_action_dim != PIPER14_RAW_ACTION_DIM:
             raise ValueError(f"Piper14 raw_action_dim must be 14, got {self.config.raw_action_dim}")
@@ -515,6 +688,10 @@ class CosmosPiper14PolicyClient:
         self.observation = None
 
     def metadata(self) -> dict[str, Any]:
+        quantization = self.quantized_checkpoint.metadata()
+        backend_quantization = getattr(self.backend, "quantization_metadata", None)
+        if isinstance(backend_quantization, Mapping):
+            quantization.update(backend_quantization)
         return {
             "domain_name": PIPER14_DOMAIN_NAME,
             "raw_action_dim": int(self.config.raw_action_dim),
@@ -536,6 +713,9 @@ class CosmosPiper14PolicyClient:
             "condition_only_vae": bool(self.config.condition_only_vae),
             "instruction_cache": bool(self.config.instruction_cache),
             "instruction_cache_dir": self.config.instruction_cache_dir,
+            "gen_torch_compile": bool(self.config.gen_torch_compile),
+            "gen_cuda_graphs": bool(self.config.gen_cuda_graphs),
+            "quantization": quantization,
         }
 
     def build_policy_request(
