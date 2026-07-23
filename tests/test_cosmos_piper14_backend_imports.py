@@ -1,7 +1,10 @@
 import sys
+import tempfile
 import types
 import unittest
 from collections import OrderedDict
+from dataclasses import dataclass
+from pathlib import Path
 from unittest.mock import patch
 
 import numpy as np
@@ -9,13 +12,82 @@ import numpy as np
 from piper_cosmos.deployment.cosmos_piper14_policy import (
     CosmosPiper14PolicyConfig,
     LiberoActionServiceBackend,
+    _ExplicitCudaGraphCallable,
     _profile_model_methods,
+    _save_vision_experiment,
     _SegmentedTimer,
 )
 
 
 class CosmosPiper14BackendImportsTest(unittest.TestCase):
-    def test_gen_acceleration_compiles_only_gen_path_with_cuda_graph_mode(self) -> None:
+    def test_explicit_cuda_graph_replays_with_new_tensor_values(self) -> None:
+        import torch
+
+        if not torch.cuda.is_available():
+            self.skipTest("CUDA is unavailable")
+
+        @dataclass
+        class Conditioning:
+            bias: object
+            frame_idx: int = 1
+
+        def generator_core(value, *, conditioning):
+            return {"value": value.square() + conditioning.bias + conditioning.frame_idx}
+
+        graphed = _ExplicitCudaGraphCallable(
+            generator_core,
+            torch=torch,
+            name="test_generator_core",
+            warmup_iterations=1,
+        )
+        first_input = torch.tensor([2.0, 3.0], device="cuda")
+        first_bias = torch.tensor([1.0, 1.0], device="cuda")
+        first = graphed(first_input, conditioning=Conditioning(first_bias))["value"].clone()
+        second_input = torch.tensor([4.0, 5.0], device="cuda")
+        second_bias = torch.tensor([2.0, 3.0], device="cuda")
+        second = graphed(
+            second_input,
+            conditioning=Conditioning(second_bias, frame_idx=2),
+        )["value"].clone()
+        third_input = torch.tensor([6.0, 7.0], device="cuda")
+        third_bias = torch.tensor([0.0, 0.0], device="cuda")
+        third = graphed(third_input, conditioning=Conditioning(third_bias))["value"].clone()
+        torch.cuda.synchronize()
+
+        torch.testing.assert_close(first, torch.tensor([6.0, 11.0], device="cuda"))
+        torch.testing.assert_close(second, torch.tensor([20.0, 30.0], device="cuda"))
+        torch.testing.assert_close(third, torch.tensor([37.0, 50.0], device="cuda"))
+
+    def test_vision_experiment_saves_raw_future_latents_and_decoded_frames(self) -> None:
+        import torch
+
+        latent = torch.arange(1 * 4 * 3 * 2 * 2, dtype=torch.float32).reshape(1, 4, 3, 2, 2)
+        pred_video = torch.linspace(-1.0, 1.0, 3 * 5 * 2 * 2).reshape(3, 5, 2, 2)
+        conditioning = np.zeros((4, 6, 3), dtype=np.uint8)
+        with tempfile.TemporaryDirectory() as tmp:
+            metadata = _save_vision_experiment(
+                torch=torch,
+                output_root=Path(tmp),
+                artifact_id="request-1",
+                vision_latent=latent,
+                pred_video=pred_video,
+                conditioning_image=conditioning,
+                fps=30,
+                observation_time_s=123.0,
+                camera_timestamps_s={"cam_high": 123.0},
+            )
+            output_dir = Path(tmp) / "request-1"
+            raw = torch.load(output_dir / "denoised_vision_latent.pt", weights_only=True)
+            future = torch.load(output_dir / "future_vision_latent.pt", weights_only=True)
+
+            self.assertTrue(torch.equal(raw, latent))
+            self.assertTrue(torch.equal(future, latent[:, :, 1:]))
+            self.assertEqual(len(list((output_dir / "predicted_frames").glob("frame_*.png"))), 5)
+            self.assertTrue((output_dir / "pred_video.pt").is_file())
+            self.assertEqual(metadata["predicted_frame_count"], 5)
+            self.assertEqual(metadata["observation_time_s"], 123.0)
+
+    def test_gen_acceleration_compiles_only_gen_path_and_wraps_cuda_graph_core(self) -> None:
         compile_calls = []
 
         class FakeLayer:
@@ -27,8 +99,12 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
                 return value
 
         layer = FakeLayer()
+        decoder = types.SimpleNamespace(
+            layers=[layer],
+            gen_only_forward=lambda value: value,
+        )
         net = types.SimpleNamespace(
-            language_model=types.SimpleNamespace(model=types.SimpleNamespace(layers=[layer])),
+            language_model=types.SimpleNamespace(model=decoder),
             pad_for_cuda_graphs=False,
         )
         backend = LiberoActionServiceBackend.__new__(LiberoActionServiceBackend)
@@ -51,11 +127,40 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
 
         self.assertEqual(
             compile_calls[0],
-            {"fullgraph": True, "dynamic": False, "mode": "reduce-overhead"},
+            {"fullgraph": True, "dynamic": False, "mode": None},
         )
         self.assertEqual(compile_calls[1], "called")
         self.assertEqual(layer.calls[0], {"und_only": True, "gen_only": False})
         self.assertEqual(layer.calls[1], {"gen_only": True, "und_only": False})
+        self.assertTrue(net.pad_for_cuda_graphs)
+        self.assertIsInstance(decoder.gen_only_forward, _ExplicitCudaGraphCallable)
+
+    def test_cuda_graphs_can_be_enabled_without_torch_compile(self) -> None:
+        class FakeLayer:
+            def forward(self, value, **kwargs):
+                return value
+
+        layer = FakeLayer()
+        decoder = types.SimpleNamespace(
+            layers=[layer],
+            gen_only_forward=lambda value: value,
+        )
+        net = types.SimpleNamespace(
+            language_model=types.SimpleNamespace(model=decoder),
+            pad_for_cuda_graphs=False,
+        )
+        backend = LiberoActionServiceBackend.__new__(LiberoActionServiceBackend)
+        backend.config = CosmosPiper14PolicyConfig(
+            gen_torch_compile=False,
+            gen_cuda_graphs=True,
+        )
+        backend.service = types.SimpleNamespace(model=types.SimpleNamespace(net=net))
+
+        with patch("torch.compile") as compile_mock:
+            backend._configure_gen_acceleration()
+
+        compile_mock.assert_not_called()
+        self.assertIsInstance(decoder.gen_only_forward, _ExplicitCudaGraphCallable)
         self.assertTrue(net.pad_for_cuda_graphs)
 
     def test_instruction_cache_reuses_cond_and_uncond_memory_across_chunks(self) -> None:

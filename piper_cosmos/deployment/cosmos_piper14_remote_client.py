@@ -24,6 +24,7 @@ class CosmosPiper14RemotePolicyClient:
         self.authkey = authkey.encode("utf-8") if isinstance(authkey, str) else authkey
         self.timing = _env_enabled("COSMOS_PIPER14_CLIENT_TIMING") if timing is None else bool(timing)
         self.conn = ConnectionClient(self.address, authkey=self.authkey)
+        self.last_inference_metadata: dict[str, Any] = {}
 
     def close(self) -> None:
         self.conn.close()
@@ -32,16 +33,21 @@ class CosmosPiper14RemotePolicyClient:
         self._request({"op": "update_observation", "obs": dict(obs)})
 
     def get_action(self):
-        return self._action_from_response(self._request({"op": "get_action"}))
+        response = self._request({"op": "get_action"})
+        self._record_inference_metadata(response)
+        return self._action_from_response(response)
 
     def infer(self, obs: Mapping[str, Any]):
-        return self._action_from_response(self._request({"op": "infer", "obs": dict(obs)}))
+        response = self._request({"op": "infer", "obs": dict(obs)})
+        self._record_inference_metadata(response)
+        return self._action_from_response(response)
 
     def metadata(self) -> dict[str, Any]:
         return self._request({"op": "metadata"})["metadata"]
 
     def reset(self) -> None:
         self._request({"op": "reset"})
+        self.last_inference_metadata = {}
 
     def shutdown_server(self) -> None:
         self._request({"op": "shutdown"})
@@ -75,6 +81,10 @@ class CosmosPiper14RemotePolicyClient:
         if action.ndim != 2:
             raise RuntimeError(f"Invalid action shape from Cosmos Piper14 policy server: {action.shape}")
         return np.ascontiguousarray(action)
+
+    def _record_inference_metadata(self, response: Mapping[str, Any]) -> None:
+        metadata = response.get("inference_metadata", {})
+        self.last_inference_metadata = dict(metadata) if isinstance(metadata, Mapping) else {}
 
     def __enter__(self) -> "CosmosPiper14RemotePolicyClient":
         return self

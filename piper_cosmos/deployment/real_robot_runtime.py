@@ -9,13 +9,16 @@ the smaller interfaces used by ``Piper14RTCRuntime``:
 
 from __future__ import annotations
 
+import json
 import time
 from collections import deque
 from pathlib import Path
 from typing import Any, Mapping
 
 import numpy as np
+from PIL import Image
 
+from piper_cosmos.deployment.cosmos_piper14_policy import compose_concat_view
 from piper_cosmos.deployment.cosmos_piper14_remote_client import CosmosPiper14RemotePolicyClient
 from piper_cosmos.deployment.piper14_rtc_runtime import Piper14RTCRuntime, Piper14RTCRuntimeConfig
 
@@ -59,7 +62,13 @@ def load_mapping_config(path: str | Path) -> dict[str, Any]:
 class RealPiper14RosObservationSource:
     """Read synchronized RGB frames and Piper14 qpos for Cosmos policy input."""
 
-    def __init__(self, config: Mapping[str, Any], robot: "Piper14RobotController", prompt: str | None = None):
+    def __init__(
+        self,
+        config: Mapping[str, Any],
+        robot: "Piper14RobotController",
+        prompt: str | None = None,
+        vision_experiment_dir: Path | str | None = None,
+    ):
         import rospy
         from cv_bridge import CvBridge
         from sensor_msgs.msg import Image
@@ -81,6 +90,10 @@ class RealPiper14RosObservationSource:
             "left_wrist": self.cameras.get("left_wrist_camera_name", "cam_left_wrist"),
             "right_wrist": self.cameras.get("right_wrist_camera_name", "cam_right_wrist"),
         }
+        self.vision_experiment_dir = (
+            None if vision_experiment_dir is None else Path(vision_experiment_dir).expanduser()
+        )
+        self._pending_vision_comparisons: list[dict[str, Any]] = []
         self._validate_camera_config()
         self._init_ros()
 
@@ -119,31 +132,254 @@ class RealPiper14RosObservationSource:
         )
 
     def read_observation(self, t: int) -> Mapping[str, Any]:
-        images = self._read_synchronized_images()
+        images, camera_timestamps_s = self._read_synchronized_images()
         state = self.robot.get_status_and_state()
         if state.shape != (PIPER14_ACTION_DIM,):
             raise ValueError(f"Expected Piper14 state [{PIPER14_ACTION_DIM}], got {state.shape} at step {t}")
         if not np.isfinite(state).all():
             raise ValueError(f"Non-finite Piper14 state at step {t}")
-        return {"images": images, "state": np.ascontiguousarray(state), "prompt": self.prompt}
+        return {
+            "images": images,
+            "state": np.ascontiguousarray(state),
+            "prompt": self.prompt,
+            # Use the earliest member of the synchronized triplet as the
+            # reference t0, while retaining every camera's exact ROS stamp.
+            "observation_time_s": min(camera_timestamps_s.values()),
+            "camera_timestamps_s": camera_timestamps_s,
+        }
 
-    def _read_synchronized_images(self) -> dict[str, np.ndarray]:
+    def _read_synchronized_images(self) -> tuple[dict[str, np.ndarray], dict[str, float]]:
         if any(len(image_deque) == 0 for image_deque in self.deques.values()):
             raise RuntimeError("Waiting for synchronized ROS RGB frames.")
 
         frame_time = min(image_deque[-1].header.stamp.to_sec() for image_deque in self.deques.values())
         images: dict[str, np.ndarray] = {}
+        camera_timestamps_s: dict[str, float] = {}
         for camera_key, image_deque in self.deques.items():
             while image_deque and image_deque[0].header.stamp.to_sec() < frame_time:
                 image_deque.popleft()
             if not image_deque:
                 raise RuntimeError("Synchronized ROS frame queue was exhausted.")
-            image = self.bridge.imgmsg_to_cv2(image_deque.popleft(), "passthrough")
+            message = image_deque.popleft()
+            image = self.bridge.imgmsg_to_cv2(message, "passthrough")
             image = np.asarray(image)
             if image.ndim != 3 or image.shape[-1] != 3:
                 raise ValueError(f"{camera_key} RGB image must be [H,W,3], got {image.shape}")
-            images[str(self.camera_names[camera_key])] = np.ascontiguousarray(image.astype(np.uint8, copy=False))
-        return images
+            image_name = str(self.camera_names[camera_key])
+            images[image_name] = np.ascontiguousarray(image.astype(np.uint8, copy=False))
+            camera_timestamps_s[image_name] = float(message.header.stamp.to_sec())
+        return images, camera_timestamps_s
+
+    def register_vision_prediction(
+        self,
+        inference_metadata: Mapping[str, Any],
+        conditioning_observation: Mapping[str, Any],
+    ) -> None:
+        """Register predicted frame times and save frame 0's real observation."""
+
+        artifact = inference_metadata.get("vision_artifact")
+        if not isinstance(artifact, Mapping) or self.vision_experiment_dir is None:
+            return
+        artifact_id = str(artifact.get("artifact_id", "")).strip()
+        frame_count = int(artifact.get("predicted_frame_count", 0))
+        fps = float(artifact.get("fps", 0))
+        t0_value = conditioning_observation.get("observation_time_s")
+        images = conditioning_observation.get("images")
+        timestamps = conditioning_observation.get("camera_timestamps_s")
+        if (
+            not artifact_id
+            or frame_count <= 0
+            or fps <= 0
+            or t0_value is None
+            or not isinstance(images, Mapping)
+            or not isinstance(timestamps, Mapping)
+        ):
+            print(
+                f"[cosmos-vision-real] skip invalid artifact metadata: {dict(artifact)}",
+                flush=True,
+            )
+            return
+
+        output_dir = self.vision_experiment_dir / artifact_id
+        output_dir.mkdir(parents=True, exist_ok=False)
+        t0 = float(t0_value)
+        reported_server_dir = artifact.get("server_artifact_dir")
+        server_dir_candidates = [
+            Path(str(reported_server_dir)) if reported_server_dir else None,
+            self.vision_experiment_dir.parent / "vision_experiments" / "server" / artifact_id,
+        ]
+        accessible_server_dir = next(
+            (candidate for candidate in server_dir_candidates if candidate is not None and candidate.is_dir()),
+            None,
+        )
+        record: dict[str, Any] = {
+            "artifact_id": artifact_id,
+            "server_artifact_dir": (
+                str(accessible_server_dir)
+                if accessible_server_dir is not None
+                else reported_server_dir
+            ),
+            "reported_server_artifact_dir": reported_server_dir,
+            "fps": fps,
+            "predicted_frame_count": frame_count,
+            "t0_ros_s": t0,
+            "time_rule": "predicted frame k is compared with the nearest real frame at t0_ros_s + k / fps",
+            "frames": [],
+            "_output_dir": output_dir,
+            "_remaining": list(range(1, frame_count)),
+        }
+        self._save_real_frame_set(
+            record,
+            frame_idx=0,
+            target_time_s=t0,
+            images={str(key): np.asarray(value) for key, value in images.items()},
+            camera_timestamps_s={str(key): float(value) for key, value in timestamps.items()},
+        )
+        self._pending_vision_comparisons.append(record)
+        self._write_vision_comparison_manifest(record)
+        self.poll_pending_vision_comparisons()
+
+    def poll_pending_vision_comparisons(self) -> int:
+        """Save all pending target frames whose ROS timestamps are now available."""
+
+        saved = 0
+        for record in list(self._pending_vision_comparisons):
+            for frame_idx in list(record["_remaining"]):
+                target_time_s = float(record["t0_ros_s"]) + frame_idx / float(record["fps"])
+                selected = self._nearest_camera_messages(target_time_s)
+                if selected is None:
+                    # Targets are chronological, so later targets cannot be ready.
+                    break
+                images: dict[str, np.ndarray] = {}
+                timestamps: dict[str, float] = {}
+                for camera_key, message in selected.items():
+                    image = np.asarray(self.bridge.imgmsg_to_cv2(message, "passthrough"))
+                    if image.ndim != 3 or image.shape[-1] != 3:
+                        raise ValueError(f"{camera_key} RGB image must be [H,W,3], got {image.shape}")
+                    image_name = str(self.camera_names[camera_key])
+                    images[image_name] = np.ascontiguousarray(image.astype(np.uint8, copy=False))
+                    timestamps[image_name] = float(message.header.stamp.to_sec())
+                self._save_real_frame_set(
+                    record,
+                    frame_idx=frame_idx,
+                    target_time_s=target_time_s,
+                    images=images,
+                    camera_timestamps_s=timestamps,
+                )
+                record["_remaining"].remove(frame_idx)
+                saved += 1
+            self._write_vision_comparison_manifest(record)
+            if not record["_remaining"]:
+                self._pending_vision_comparisons.remove(record)
+                print(
+                    f"[cosmos-vision-real] complete artifact={record['artifact_id']} "
+                    f"frames={record['predicted_frame_count']}",
+                    flush=True,
+                )
+        return saved
+
+    def _nearest_camera_messages(self, target_time_s: float) -> dict[str, Any] | None:
+        selected: dict[str, Any] = {}
+        for camera_key, image_deque in self.deques.items():
+            messages = list(image_deque)
+            if not messages or float(messages[-1].header.stamp.to_sec()) < target_time_s:
+                return None
+            selected[camera_key] = min(
+                messages,
+                key=lambda message: abs(float(message.header.stamp.to_sec()) - target_time_s),
+            )
+        return selected
+
+    def _save_real_frame_set(
+        self,
+        record: dict[str, Any],
+        *,
+        frame_idx: int,
+        target_time_s: float,
+        images: Mapping[str, np.ndarray],
+        camera_timestamps_s: Mapping[str, float],
+    ) -> None:
+        frame_dir = record["_output_dir"] / "real_frames" / f"frame_{frame_idx:03d}"
+        frame_dir.mkdir(parents=True, exist_ok=False)
+        normalized_images: dict[str, np.ndarray] = {}
+        for image_name in ("cam_high", "cam_left_wrist", "cam_right_wrist"):
+            image = np.ascontiguousarray(np.asarray(images[image_name], dtype=np.uint8))
+            normalized_images[image_name] = image
+            Image.fromarray(image).save(frame_dir / f"{image_name}.png")
+
+        high_h, high_w = normalized_images["cam_high"].shape[:2]
+        concat_view = compose_concat_view(
+            normalized_images["cam_high"],
+            normalized_images["cam_left_wrist"],
+            normalized_images["cam_right_wrist"],
+            camera_height=int(high_h),
+            camera_width=int(high_w),
+        )
+        Image.fromarray(concat_view).save(frame_dir / "concat_view.png")
+
+        timestamps = {key: float(value) for key, value in camera_timestamps_s.items()}
+        server_artifact_dir = record.get("server_artifact_dir")
+        predicted_frame_path = (
+            Path(str(server_artifact_dir)) / "predicted_frames" / f"frame_{frame_idx:03d}.png"
+            if server_artifact_dir
+            else None
+        )
+        similarity = None
+        if predicted_frame_path is not None and predicted_frame_path.is_file():
+            predicted = np.asarray(Image.open(predicted_frame_path).convert("RGB"), dtype=np.uint8)
+            actual = concat_view
+            if actual.shape[:2] != predicted.shape[:2]:
+                actual = np.asarray(
+                    Image.fromarray(actual).resize(
+                        (predicted.shape[1], predicted.shape[0]),
+                        resample=Image.Resampling.BILINEAR,
+                    ),
+                    dtype=np.uint8,
+                )
+            similarity = self._pixel_similarity(predicted, actual)
+        record["frames"].append(
+            {
+                "frame_index": int(frame_idx),
+                "target_time_s": float(target_time_s),
+                "camera_timestamps_s": timestamps,
+                "camera_time_error_ms": {
+                    key: (value - float(target_time_s)) * 1000.0 for key, value in timestamps.items()
+                },
+                "real_frame_dir": str(frame_dir.relative_to(record["_output_dir"])),
+                "predicted_frame": None if predicted_frame_path is None else str(predicted_frame_path),
+                "pixel_similarity": similarity,
+            }
+        )
+        record["frames"].sort(key=lambda item: item["frame_index"])
+
+    @staticmethod
+    def _pixel_similarity(predicted: np.ndarray, actual: np.ndarray) -> dict[str, float | None | list[int]]:
+        predicted_f = np.asarray(predicted, dtype=np.float32) / 255.0
+        actual_f = np.asarray(actual, dtype=np.float32) / 255.0
+        diff = predicted_f - actual_f
+        mse = float(np.mean(diff * diff))
+        pred_flat = predicted_f.reshape(-1)
+        actual_flat = actual_f.reshape(-1)
+        denominator = float(np.linalg.norm(pred_flat) * np.linalg.norm(actual_flat))
+        cosine = None if denominator == 0.0 else float(np.dot(pred_flat, actual_flat) / denominator)
+        psnr = None if mse == 0.0 else float(10.0 * np.log10(1.0 / mse))
+        return {
+            "mse_0_1": mse,
+            "psnr_db": psnr,
+            "cosine_similarity": cosine,
+            "evaluation_shape_hwc": list(predicted.shape),
+        }
+
+    @staticmethod
+    def _write_vision_comparison_manifest(record: Mapping[str, Any]) -> None:
+        output_dir = Path(record["_output_dir"])
+        payload = {key: value for key, value in record.items() if not key.startswith("_")}
+        payload["complete"] = not bool(record["_remaining"])
+        payload["remaining_frame_indices"] = list(record["_remaining"])
+        (output_dir / "comparison_manifest.json").write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
 
 
 class Piper14RobotController:
@@ -393,6 +629,7 @@ def run_real_cosmos_piper14_runtime(config: Mapping[str, Any]) -> dict[str, Any]
     fastwam_cfg = _section(config, "fastwam")
     no_robot = _bool(runtime_cfg.get("no_robot", False))
     execute_actions = _bool(runtime_cfg.get("execute_actions", False))
+    output_dir = Path(str(runtime_cfg.get("output_dir", "./output_actions"))).expanduser()
 
     robot = Piper14RobotController(config, no_robot=no_robot)
     if not robot.connect():
@@ -404,6 +641,10 @@ def run_real_cosmos_piper14_runtime(config: Mapping[str, Any]) -> dict[str, Any]
         config,
         robot,
         prompt=str(fastwam_cfg.get("prompt", DEFAULT_PROMPT)),
+        # The policy server may run in a container under a different UID.
+        # Keep the host writer in a sibling directory so it never needs to
+        # create files below a container-owned server directory.
+        vision_experiment_dir=output_dir / "vision_experiments_real",
     )
     sink = RealPiper14ActionSink(robot, execute_actions=execute_actions)
     rtc_config = Piper14RTCRuntimeConfig(
@@ -431,7 +672,6 @@ def run_real_cosmos_piper14_runtime(config: Mapping[str, Any]) -> dict[str, Any]
         report = runtime.run()
         policy.reset()
 
-    output_dir = Path(str(runtime_cfg.get("output_dir", "./output_actions"))).expanduser()
     if sink.records:
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path = output_dir / "cosmos_rtc_selected_actions.npy"

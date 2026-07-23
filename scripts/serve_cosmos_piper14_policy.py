@@ -92,7 +92,18 @@ def parse_args() -> argparse.Namespace:
         "--gen-cuda-graphs",
         action=argparse.BooleanOptionalAction,
         default=False,
-        help="Use torch.compile reduce-overhead CUDA Graph Trees for GEN denoising.",
+        help=(
+            "Explicitly capture/replay the fixed-shape GEN decoder core with CUDA Graphs. "
+            "Independent of --gen-torch-compile."
+        ),
+    )
+    parser.add_argument(
+        "--vision-experiment-dir",
+        default=None,
+        help=(
+            "Save each denoised vision latent, decoded video tensor, and predicted PNG frames "
+            "under this directory. Disabled by default."
+        ),
     )
     parser.add_argument("--mock-backend", action="store_true")
     parser.add_argument("--timing", action="store_true", help="Print synchronized per-stage inference timings.")
@@ -133,6 +144,7 @@ def main() -> None:
         instruction_cache_max_entries=args.instruction_cache_max_entries,
         gen_torch_compile=args.gen_torch_compile,
         gen_cuda_graphs=args.gen_cuda_graphs,
+        vision_experiment_dir=args.vision_experiment_dir,
         host=args.host,
         port=args.port,
         mock_backend=args.mock_backend,

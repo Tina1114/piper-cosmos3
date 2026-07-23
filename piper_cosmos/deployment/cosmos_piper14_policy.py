@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import copy
 import functools
 import hashlib
 import io
@@ -11,7 +12,7 @@ import os
 import time
 from collections import OrderedDict
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field, fields, is_dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Protocol
 
@@ -56,6 +57,7 @@ class CosmosPiper14PolicyConfig:
     instruction_cache_max_entries: int = 4
     gen_torch_compile: bool = False
     gen_cuda_graphs: bool = False
+    vision_experiment_dir: str | None = None
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -80,6 +82,287 @@ class Piper14Observation:
     cam_right_wrist: np.ndarray
     state: np.ndarray
     prompt: str
+    observation_time_s: float | None = None
+    camera_timestamps_s: dict[str, float] = field(default_factory=dict)
+
+
+def _save_vision_experiment(
+    *,
+    torch: Any,
+    output_root: Path,
+    artifact_id: str,
+    vision_latent: Any,
+    pred_video: Any,
+    conditioning_image: np.ndarray,
+    fps: int,
+    observation_time_s: float | None,
+    camera_timestamps_s: Mapping[str, float],
+) -> dict[str, Any]:
+    """Persist raw denoised latents and decoded prediction frames for one request."""
+
+    output_dir = output_root / artifact_id
+    output_dir.mkdir(parents=True, exist_ok=False)
+
+    latent_cpu = vision_latent.detach().cpu()
+    video_cpu = pred_video.detach().cpu()
+    torch.save(latent_cpu, output_dir / "denoised_vision_latent.pt")
+    # Cosmos' causal video VAE keeps the conditioning frame at temporal
+    # latent index 0. Preserve the exact sampler output above and also export
+    # the future-only temporal slice requested by the experiment.
+    future_latent_cpu = latent_cpu[:, :, 1:].contiguous() if latent_cpu.ndim == 5 else latent_cpu
+    torch.save(future_latent_cpu, output_dir / "future_vision_latent.pt")
+    torch.save(video_cpu, output_dir / "pred_video.pt")
+
+    # Keep conversion explicit here instead of relying on Cosmos' private
+    # visualization helpers so this deployment wrapper remains importable alone.
+    frame_tensor = video_cpu.float()
+    if frame_tensor.ndim == 5 and frame_tensor.shape[0] == 1:
+        frame_tensor = frame_tensor.squeeze(0)
+    if frame_tensor.ndim != 4 or frame_tensor.shape[0] != 3:
+        raise ValueError(f"Decoded vision must have shape [C,T,H,W], got {tuple(frame_tensor.shape)}")
+    if float(frame_tensor.min()) < 0.0:
+        frame_tensor = (frame_tensor + 1.0) / 2.0
+    frames = (
+        (frame_tensor.clamp(0.0, 1.0) * 255.0)
+        .round()
+        .to(torch.uint8)
+        .permute(1, 2, 3, 0)
+        .contiguous()
+        .numpy()
+    )
+
+    frames_dir = output_dir / "predicted_frames"
+    frames_dir.mkdir()
+    for frame_idx, frame in enumerate(frames):
+        Image.fromarray(frame).save(frames_dir / f"frame_{frame_idx:03d}.png")
+    Image.fromarray(ensure_rgb_uint8(conditioning_image, "conditioning_image")).save(
+        output_dir / "conditioning_observation.png"
+    )
+
+    metadata = {
+        "artifact_id": artifact_id,
+        "server_artifact_dir": str(output_dir.resolve()),
+        "fps": int(fps),
+        "predicted_frame_count": int(frames.shape[0]),
+        "vision_latent_shape": list(latent_cpu.shape),
+        "future_vision_latent_shape": list(future_latent_cpu.shape),
+        "vision_latent_dtype": str(latent_cpu.dtype),
+        "pred_video_shape": list(video_cpu.shape),
+        "pred_video_dtype": str(video_cpu.dtype),
+        "observation_time_s": None if observation_time_s is None else float(observation_time_s),
+        "camera_timestamps_s": {key: float(value) for key, value in camera_timestamps_s.items()},
+        "frame_time_rule": "predicted frame k corresponds to observation_time_s + k / fps",
+        "denoised_latent_file": "denoised_vision_latent.pt",
+        "future_latent_file": "future_vision_latent.pt",
+        "future_latent_rule": "temporal latent index 0 (conditioning frame) is excluded",
+        "decoded_tensor_file": "pred_video.pt",
+        "predicted_frames_dir": "predicted_frames",
+    }
+    (output_dir / "metadata.json").write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return metadata
+
+
+def _cuda_graph_tree_signature(torch: Any, value: Any) -> Any:
+    if torch.is_tensor(value):
+        return (
+            "tensor",
+            tuple(value.shape),
+            tuple(value.stride()),
+            str(value.dtype),
+            str(value.device),
+        )
+    if isinstance(value, dict):
+        return (
+            "dict",
+            type(value),
+            tuple((key, _cuda_graph_tree_signature(torch, item)) for key, item in value.items()),
+        )
+    if isinstance(value, list):
+        return ("list", tuple(_cuda_graph_tree_signature(torch, item) for item in value))
+    if isinstance(value, tuple):
+        return (
+            "tuple",
+            type(value),
+            tuple(_cuda_graph_tree_signature(torch, item) for item in value),
+        )
+    if is_dataclass(value) and not isinstance(value, type):
+        return (
+            "dataclass",
+            type(value),
+            tuple(
+                (item.name, _cuda_graph_tree_signature(torch, getattr(value, item.name)))
+                for item in fields(value)
+            ),
+        )
+    if hasattr(value, "__dict__"):
+        return (
+            "object",
+            type(value),
+            tuple(
+                (key, _cuda_graph_tree_signature(torch, item))
+                for key, item in vars(value).items()
+            ),
+        )
+    return ("static", type(value), repr(value))
+
+
+def _clone_cuda_graph_tree(torch: Any, value: Any, tensor_leaves: list[Any]) -> Any:
+    if torch.is_tensor(value):
+        if value.device.type != "cuda":
+            raise RuntimeError(
+                f"Explicit CUDA Graph inputs must all be CUDA tensors, got {value.device}."
+            )
+        static = torch.empty_strided(
+            tuple(value.shape),
+            tuple(value.stride()),
+            dtype=value.dtype,
+            device=value.device,
+        )
+        static.copy_(value)
+        tensor_leaves.append(static)
+        return static
+    if isinstance(value, dict):
+        return type(value)(
+            (key, _clone_cuda_graph_tree(torch, item, tensor_leaves))
+            for key, item in value.items()
+        )
+    if isinstance(value, list):
+        return [_clone_cuda_graph_tree(torch, item, tensor_leaves) for item in value]
+    if isinstance(value, tuple):
+        cloned = [_clone_cuda_graph_tree(torch, item, tensor_leaves) for item in value]
+        if hasattr(value, "_fields"):
+            return type(value)(*cloned)
+        return tuple(cloned)
+    if is_dataclass(value) and not isinstance(value, type):
+        cloned = copy.copy(value)
+        for item in fields(value):
+            object.__setattr__(
+                cloned,
+                item.name,
+                _clone_cuda_graph_tree(torch, getattr(value, item.name), tensor_leaves),
+            )
+        return cloned
+    if hasattr(value, "__dict__"):
+        cloned = copy.copy(value)
+        for key, item in vars(value).items():
+            setattr(cloned, key, _clone_cuda_graph_tree(torch, item, tensor_leaves))
+        return cloned
+    return value
+
+
+def _flatten_cuda_graph_tensors(torch: Any, value: Any, tensor_leaves: list[Any]) -> None:
+    if torch.is_tensor(value):
+        tensor_leaves.append(value)
+        return
+    if isinstance(value, dict):
+        for item in value.values():
+            _flatten_cuda_graph_tensors(torch, item, tensor_leaves)
+        return
+    if isinstance(value, (list, tuple)):
+        for item in value:
+            _flatten_cuda_graph_tensors(torch, item, tensor_leaves)
+        return
+    if is_dataclass(value) and not isinstance(value, type):
+        for item in fields(value):
+            _flatten_cuda_graph_tensors(torch, getattr(value, item.name), tensor_leaves)
+        return
+    if hasattr(value, "__dict__"):
+        for item in vars(value).values():
+            _flatten_cuda_graph_tensors(torch, item, tensor_leaves)
+
+
+class _ExplicitCudaGraphCallable:
+    """Lazily capture one fixed-shape callable and replay it with copied inputs."""
+
+    def __init__(
+        self,
+        function: Callable[..., Any],
+        *,
+        torch: Any,
+        name: str,
+        warmup_iterations: int = 3,
+        max_graphs: int = 2,
+    ) -> None:
+        self.function = function
+        self.torch = torch
+        self.name = name
+        self.warmup_iterations = max(1, int(warmup_iterations))
+        self.max_graphs = max(1, int(max_graphs))
+        self._records: dict[Any, tuple[list[Any], Any, Any]] = {}
+        self._pool: Any = None
+
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        signature = (
+            _cuda_graph_tree_signature(self.torch, args),
+            _cuda_graph_tree_signature(self.torch, kwargs),
+        )
+        record = self._records.get(signature)
+        if record is None:
+            if len(self._records) >= self.max_graphs:
+                raise RuntimeError(
+                    f"{self.name} CUDA Graph saw more than {self.max_graphs} input signatures. "
+                    "The deployment path reserves one graph each for conditional and "
+                    "unconditional CFG. Keep prompt/resolution/token buckets fixed or "
+                    "restart the policy server."
+                )
+            return self._capture(args, kwargs, signature)
+
+        static_tensors, graph, output = record
+        live_tensors: list[Any] = []
+        _flatten_cuda_graph_tensors(self.torch, args, live_tensors)
+        _flatten_cuda_graph_tensors(self.torch, kwargs, live_tensors)
+        if len(live_tensors) != len(static_tensors):
+            raise RuntimeError(
+                f"{self.name} CUDA Graph tensor leaf count changed: "
+                f"captured={len(static_tensors)} current={len(live_tensors)}."
+            )
+        for static, live in zip(static_tensors, live_tensors):
+            static.copy_(live, non_blocking=True)
+        graph.replay()
+        return output
+
+    def _capture(self, args: tuple[Any, ...], kwargs: dict[str, Any], signature: Any) -> Any:
+        torch = self.torch
+        static_tensors: list[Any] = []
+        static_args = _clone_cuda_graph_tree(torch, args, static_tensors)
+        static_kwargs = _clone_cuda_graph_tree(torch, kwargs, static_tensors)
+        if not static_tensors:
+            raise RuntimeError(f"{self.name} CUDA Graph capture received no tensor inputs.")
+        devices = {tensor.device for tensor in static_tensors}
+        if len(devices) != 1:
+            raise RuntimeError(
+                f"{self.name} CUDA Graph requires one CUDA device, got {sorted(map(str, devices))}."
+            )
+        device = next(iter(devices))
+        current_stream = torch.cuda.current_stream(device=device)
+        capture_stream = torch.cuda.Stream(device=device)
+        capture_stream.wait_stream(current_stream)
+        with torch.cuda.stream(capture_stream):
+            for _ in range(self.warmup_iterations):
+                self.function(*static_args, **static_kwargs)
+        current_stream.wait_stream(capture_stream)
+        torch.cuda.synchronize(device=device)
+
+        if self._pool is None:
+            self._pool = torch.cuda.graph_pool_handle()
+        graph = torch.cuda.CUDAGraph()
+        with torch.cuda.graph(graph, pool=self._pool, stream=capture_stream):
+            output = self.function(*static_args, **static_kwargs)
+        current_stream.wait_stream(capture_stream)
+        graph.replay()
+        torch.cuda.synchronize(device=device)
+
+        self._records[signature] = (static_tensors, graph, output)
+        print(
+            f"[cosmos-piper14-cudagraph] captured={self.name} "
+            f"graph={len(self._records)}/{self.max_graphs} "
+            f"tensor_inputs={len(static_tensors)}",
+            flush=True,
+        )
+        return output
 
 
 class _SegmentedTimer:
@@ -348,6 +631,7 @@ class LiberoActionServiceBackend:
         self._instruction_memory_cache: OrderedDict[
             tuple[str, str], tuple[Any, Any]
         ] = OrderedDict()
+        self._vision_experiment_request_id = 0
         self._configure_gen_acceleration()
         self.transform = ActionTransformPipeline(
             tokenizer_config=None,
@@ -460,10 +744,39 @@ class LiberoActionServiceBackend:
                                 shift=float(self.config.shift),
                                 has_negative_prompt=False,
                             )
+                    pred_video = None
+                    if self.config.vision_experiment_dir:
+                        with timer.measure("model.vision.decode", synchronize_cuda):
+                            pred_video = self.service.model.decode(samples["vision"][0]).squeeze(0)
         with timer.measure("backend.action_output", synchronize_cuda):
             pred_action = samples["action"][0].float().squeeze(0)
             future = pred_action[1 : future_horizon + 1, :PIPER14_RAW_ACTION_DIM].detach().cpu().numpy()
             response = {"action": future.astype(np.float32, copy=False).tolist()}
+        if self.config.vision_experiment_dir:
+            if pred_video is None:
+                raise RuntimeError("Vision experiment was enabled but decoded vision is unavailable.")
+            self._vision_experiment_request_id += 1
+            artifact_id = (
+                f"{time.time_ns()}_req{self._vision_experiment_request_id:06d}"
+            )
+            with timer.measure("backend.vision_dump", synchronize_cuda):
+                vision_metadata = _save_vision_experiment(
+                    torch=torch,
+                    output_root=Path(self.config.vision_experiment_dir).expanduser(),
+                    artifact_id=artifact_id,
+                    vision_latent=samples["vision"][0],
+                    pred_video=pred_video,
+                    conditioning_image=image,
+                    fps=int(self.config.fps),
+                    observation_time_s=request.get("_observation_time_s"),
+                    camera_timestamps_s=request.get("_camera_timestamps_s", {}),
+                )
+            response["inference_metadata"] = {"vision_artifact": vision_metadata}
+            print(
+                f"[cosmos-piper14-vision] artifact={vision_metadata['server_artifact_dir']} "
+                f"frames={vision_metadata['predicted_frame_count']}",
+                flush=True,
+            )
         self._dump_cuda_memory_history(torch)
         if owns_timer:
             timer.log(request_id=0)
@@ -472,8 +785,6 @@ class LiberoActionServiceBackend:
     def _configure_gen_acceleration(self) -> None:
         if not self.config.gen_torch_compile and not self.config.gen_cuda_graphs:
             return
-        if self.config.gen_cuda_graphs and not self.config.gen_torch_compile:
-            raise ValueError("gen_cuda_graphs requires gen_torch_compile")
 
         import torch
 
@@ -482,51 +793,63 @@ class LiberoActionServiceBackend:
         decoder = getattr(language_model, "model", None)
         layers = getattr(decoder, "layers", None)
         if layers is None:
-            raise RuntimeError("Could not locate Cosmos decoder layers for GEN-only compilation")
+            raise RuntimeError("Could not locate Cosmos decoder layers for GEN-only acceleration")
 
-        compile_mode = "reduce-overhead" if self.config.gen_cuda_graphs else None
         compiled_layers = 0
-        for layer in layers:
-            eager_forward = layer.forward
+        if self.config.gen_torch_compile:
+            for layer in layers:
+                eager_forward = layer.forward
 
-            @functools.wraps(eager_forward)
-            def gen_forward(
-                *args: Any,
-                __eager_forward: Callable[..., Any] = eager_forward,
-                **kwargs: Any,
-            ) -> Any:
-                return __eager_forward(*args, gen_only=True, und_only=False, **kwargs)
+                @functools.wraps(eager_forward)
+                def gen_forward(
+                    *args: Any,
+                    __eager_forward: Callable[..., Any] = eager_forward,
+                    **kwargs: Any,
+                ) -> Any:
+                    return __eager_forward(*args, gen_only=True, und_only=False, **kwargs)
 
-            compiled_forward = torch.compile(
-                gen_forward,
-                fullgraph=True,
-                dynamic=False,
-                mode=compile_mode,
-            )
+                compiled_forward = torch.compile(
+                    gen_forward,
+                    fullgraph=True,
+                    dynamic=False,
+                    mode=None,
+                )
 
-            @functools.wraps(eager_forward)
-            def dispatch(
-                *args: Any,
-                __eager_forward: Callable[..., Any] = eager_forward,
-                __compiled_forward: Callable[..., Any] = compiled_forward,
-                **kwargs: Any,
-            ) -> Any:
-                if kwargs.get("gen_only", False) and not kwargs.get("und_only", False):
-                    compiled_kwargs = dict(kwargs)
-                    compiled_kwargs.pop("gen_only", None)
-                    compiled_kwargs.pop("und_only", None)
-                    return __compiled_forward(*args, **compiled_kwargs)
-                return __eager_forward(*args, **kwargs)
+                @functools.wraps(eager_forward)
+                def dispatch(
+                    *args: Any,
+                    __eager_forward: Callable[..., Any] = eager_forward,
+                    __compiled_forward: Callable[..., Any] = compiled_forward,
+                    **kwargs: Any,
+                ) -> Any:
+                    if kwargs.get("gen_only", False) and not kwargs.get("und_only", False):
+                        compiled_kwargs = dict(kwargs)
+                        compiled_kwargs.pop("gen_only", None)
+                        compiled_kwargs.pop("und_only", None)
+                        return __compiled_forward(*args, **compiled_kwargs)
+                    return __eager_forward(*args, **kwargs)
 
-            layer.forward = dispatch
-            compiled_layers += 1
+                layer.forward = dispatch
+                compiled_layers += 1
 
         if self.config.gen_cuda_graphs:
+            gen_only_forward = getattr(decoder, "gen_only_forward", None)
+            if gen_only_forward is None or not callable(gen_only_forward):
+                raise RuntimeError(
+                    "Cosmos decoder does not expose the read-only-KV gen_only_forward "
+                    "required for explicit CUDA Graph capture."
+                )
+            decoder.gen_only_forward = _ExplicitCudaGraphCallable(
+                gen_only_forward,
+                torch=torch,
+                name="gen_decoder_core",
+            )
             net.pad_for_cuda_graphs = True
         print(
-            "[cosmos-piper14-compile] "
-            f"gen_layers={compiled_layers} torch_compile=on "
-            f"cuda_graphs={'on' if self.config.gen_cuda_graphs else 'off'}",
+            "[cosmos-piper14-acceleration] "
+            f"torch_compile={'on' if self.config.gen_torch_compile else 'off'} "
+            f"compiled_gen_layers={compiled_layers} "
+            f"cuda_graph={'gen_decoder_core' if self.config.gen_cuda_graphs else 'off'}",
             flush=True,
         )
 
@@ -615,6 +938,7 @@ class CosmosPiper14PolicyClient:
         self.backend = backend or self._build_backend()
         self.observation: Piper14Observation | None = None
         self.last_timing: dict[str, dict[str, float | int]] = {}
+        self.last_inference_metadata: dict[str, Any] = {}
         self._timing_request_id = 0
 
     def _build_backend(self) -> CosmosActionBackend:
@@ -640,6 +964,7 @@ class CosmosPiper14PolicyClient:
 
     def reset(self) -> None:
         self.observation = None
+        self.last_inference_metadata = {}
 
     def metadata(self) -> dict[str, Any]:
         return {
@@ -665,6 +990,7 @@ class CosmosPiper14PolicyClient:
             "instruction_cache_dir": self.config.instruction_cache_dir,
             "gen_torch_compile": bool(self.config.gen_torch_compile),
             "gen_cuda_graphs": bool(self.config.gen_cuda_graphs),
+            "vision_experiment_dir": self.config.vision_experiment_dir,
         }
 
     def build_policy_request(
@@ -690,6 +1016,10 @@ class CosmosPiper14PolicyClient:
             "domain_name": PIPER14_DOMAIN_NAME,
             "state": observation.state.astype(np.float32, copy=True),
         }
+        if observation.observation_time_s is not None:
+            request["_observation_time_s"] = float(observation.observation_time_s)
+        if observation.camera_timestamps_s:
+            request["_camera_timestamps_s"] = dict(observation.camera_timestamps_s)
         # In-process backends consume concat_view directly. Unknown/official
         # service backends retain the legacy PNG/base64 request contract.
         if not bool(getattr(self.backend, "accepts_concat_view", False)):
@@ -716,12 +1046,16 @@ class CosmosPiper14PolicyClient:
                 },
                 "state": observation.state,
                 "prompt": observation.prompt,
+                "observation_time_s": observation.observation_time_s,
+                "camera_timestamps_s": observation.camera_timestamps_s,
             },
             _timing=timer,
         )
         request["_timing"] = timer
         with timer.measure("backend.total"):
             response = self.backend.predict_policy(request)
+        metadata = response.get("inference_metadata", {})
+        self.last_inference_metadata = dict(metadata) if isinstance(metadata, Mapping) else {}
         with timer.measure("policy.action_validate"):
             action = np.asarray(response.get("action", []), dtype=np.float32)
             if action.ndim == 1:
@@ -762,12 +1096,25 @@ class CosmosPiper14PolicyClient:
         if state.size != PIPER14_RAW_ACTION_DIM:
             raise ValueError(f"Expected state/qpos dim 14, got {state.size}")
 
+        observation_time_value = obs.get("observation_time_s")
+        observation_time_s = None if observation_time_value is None else float(observation_time_value)
+        raw_camera_timestamps = obs.get("camera_timestamps_s", {})
+        if raw_camera_timestamps is None:
+            raw_camera_timestamps = {}
+        if not isinstance(raw_camera_timestamps, Mapping):
+            raise ValueError("camera_timestamps_s must be a mapping when provided.")
+        camera_timestamps_s = {
+            str(key): float(value) for key, value in raw_camera_timestamps.items()
+        }
+
         return Piper14Observation(
             cam_high=ensure_rgb_uint8(images["cam_high"], "images.cam_high"),
             cam_left_wrist=ensure_rgb_uint8(images["cam_left_wrist"], "images.cam_left_wrist"),
             cam_right_wrist=ensure_rgb_uint8(images["cam_right_wrist"], "images.cam_right_wrist"),
             state=np.ascontiguousarray(state),
             prompt=str(obs.get("prompt", self.config.prompt)),
+            observation_time_s=observation_time_s,
+            camera_timestamps_s=camera_timestamps_s,
         )
 
 

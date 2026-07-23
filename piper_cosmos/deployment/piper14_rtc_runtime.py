@@ -186,10 +186,12 @@ class Piper14RTCRuntime:
             if self.config.sleep:
                 elapsed = time.perf_counter() - started
                 time.sleep(max(0.0, period - elapsed))
+        self._poll_vision_comparisons()
         return self.report()
 
     def step(self, t: int) -> np.ndarray:
         t = int(t)
+        self._poll_vision_comparisons()
         self.buffer.set_control_time(t)
         if self._should_replan(t):
             self._infer_and_enqueue(t)
@@ -234,6 +236,30 @@ class Piper14RTCRuntime:
         chunk = chunk[: self.config.chunk_size]
         if self.buffer.enqueue(chunk, cursor=cursor, generation=generation):
             self.inference_chunks.append((int(cursor), chunk.copy(), float(latency)))
+            register = getattr(self.observation_source, "register_vision_prediction", None)
+            metadata = getattr(self.policy, "last_inference_metadata", {})
+            if callable(register) and isinstance(metadata, Mapping):
+                try:
+                    register(metadata, obs)
+                except Exception as exc:
+                    print(
+                        f"[cosmos-vision-real] registration failed; "
+                        f"continuing control without this comparison: {type(exc).__name__}: {exc}",
+                        flush=True,
+                    )
+                self._poll_vision_comparisons()
+
+    def _poll_vision_comparisons(self) -> None:
+        poll = getattr(self.observation_source, "poll_pending_vision_comparisons", None)
+        if callable(poll):
+            try:
+                poll()
+            except Exception as exc:
+                print(
+                    f"[cosmos-vision-real] polling failed; "
+                    f"continuing control: {type(exc).__name__}: {exc}",
+                    flush=True,
+                )
 
     def _validate_chunk(self, chunk: np.ndarray, cursor: int) -> np.ndarray:
         if chunk.ndim != 2 or chunk.shape[1] != int(self.config.action_dim):

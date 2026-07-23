@@ -50,13 +50,26 @@ def _serve_connection(policy: CosmosPiper14PolicyClient, conn: Any) -> bool:
                 policy.update_observation(request["obs"])
                 conn.send({"ok": True})
             elif op == "get_action":
-                conn.send({"ok": True, "action": policy.get_action().tolist()})
+                action = policy.get_action().tolist()
+                conn.send(
+                    {
+                        "ok": True,
+                        "action": action,
+                        "inference_metadata": policy.last_inference_metadata,
+                    }
+                )
             elif op == "infer":
                 dispatch_started = time.perf_counter()
                 action = policy.infer(request["obs"]).tolist()
                 dispatch_ms = (time.perf_counter() - dispatch_started) * 1000.0
                 send_started = time.perf_counter()
-                conn.send({"ok": True, "action": action})
+                conn.send(
+                    {
+                        "ok": True,
+                        "action": action,
+                        "inference_metadata": policy.last_inference_metadata,
+                    }
+                )
                 send_ms = (time.perf_counter() - send_started) * 1000.0
                 if policy.config.timing:
                     print(

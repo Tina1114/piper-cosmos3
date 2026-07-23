@@ -128,6 +128,52 @@ class CosmosPiper14PolicyPreprocessTest(unittest.TestCase):
         self.assertIn("policy.action_validate", policy.last_timing)
         self.assertIn("policy.total", policy.last_timing)
 
+    def test_forwards_camera_timestamps_and_retains_artifact_metadata(self) -> None:
+        class ArtifactBackend:
+            accepts_concat_view = True
+
+            def __init__(self) -> None:
+                self.request = None
+
+            def predict_policy(self, request):
+                self.request = request
+                return {
+                    "action": np.zeros((3, 14), dtype=np.float32).tolist(),
+                    "inference_metadata": {"vision_artifact": {"artifact_id": "request-1"}},
+                }
+
+        backend = ArtifactBackend()
+        policy = CosmosPiper14PolicyClient(
+            CosmosPiper14PolicyConfig(
+                mock_backend=True,
+                camera_height=4,
+                camera_width=6,
+                action_horizon=3,
+            ),
+            backend=backend,
+        )
+        image = np.zeros((4, 6, 3), dtype=np.uint8)
+        policy.infer(
+            {
+                "images": {
+                    "cam_high": image,
+                    "cam_left_wrist": image,
+                    "cam_right_wrist": image,
+                },
+                "state": np.zeros(14, dtype=np.float32),
+                "observation_time_s": 100.0,
+                "camera_timestamps_s": {
+                    "cam_high": 100.0,
+                    "cam_left_wrist": 100.001,
+                    "cam_right_wrist": 100.002,
+                },
+            }
+        )
+
+        self.assertEqual(backend.request["_observation_time_s"], 100.0)
+        self.assertEqual(backend.request["_camera_timestamps_s"]["cam_right_wrist"], 100.002)
+        self.assertEqual(policy.last_inference_metadata["vision_artifact"]["artifact_id"], "request-1")
+
     def test_rejects_missing_camera(self) -> None:
         policy = CosmosPiper14PolicyClient(CosmosPiper14PolicyConfig(mock_backend=True))
 
