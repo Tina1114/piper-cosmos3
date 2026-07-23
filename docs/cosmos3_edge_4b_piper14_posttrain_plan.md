@@ -631,14 +631,25 @@ shift: 5.0（第一轮固定）
 
 ### 15.1 分支起点和边界
 
-从已提交的外层 `master` 创建：
+外层不要重新 clone。先刷新远端，再用现有仓库直接创建 Edge branch 和独立
+工作目录：
 
 ```bash
+cd /project/peilab/wam/cosmos3_cy
+git fetch origin
+
 git worktree add \
   /project/peilab/wam/cosmos3_cy_edge \
   -b cosmos3-edge-piper14 \
-  master
+  origin/master
+
+git -C /project/peilab/wam/cosmos3_cy_edge \
+  push -u origin cosmos3-edge-piper14
 ```
+
+执行后，`cosmos3_cy/` 固定用于 Nano，`cosmos3_cy_edge/` 固定用于
+Edge；两个目录共享外层 Git objects/history，但各自有独立工作文件，因此
+后续不需要在同一目录来回 `git switch`。
 
 新分支会继承本项目已提交的 Piper14 代码、配置、测试和 patch，但不会自动
 复制以下内容：
@@ -651,6 +662,42 @@ git worktree add \
 因此，Edge 工作区还要一次性建立独立的 cookbook/framework checkout，并把
 两者 commit 写入 Edge dependency lock。优先从现有本地仓库创建 Git
 worktree；只拉取缺失对象，不必重新下载完整 Git 历史。
+
+具体顺序是：
+
+1. 在现有 `external/cosmos` 中 fetch 并审计支持 Edge 的 cookbook
+   commit，记为 `<EDGE_COSMOS_COMMIT>`。
+2. 从现有 cookbook Git 仓库为
+   `/project/peilab/wam/cosmos3_cy_edge/external/cosmos`
+   建立独立 worktree，并固定到 `<EDGE_COSMOS_COMMIT>`。
+3. 在现有 `external/cosmos/packages/cosmos3` 中 fetch 官方
+   `cosmos-framework`，把经审计的 Edge commit 记为
+   `<EDGE_FRAMEWORK_COMMIT>`。
+4. 从现有 framework Git 仓库为 Edge 路径建立独立 worktree，并同时创建
+   本地修复分支：
+
+   ```bash
+   git -C /project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3 \
+     worktree add \
+     -b edge-piper14-cpuset \
+     /project/peilab/wam/cosmos3_cy_edge/external/cosmos/packages/cosmos3 \
+     <EDGE_FRAMEWORK_COMMIT>
+   ```
+
+5. 在 `edge-piper14-cpuset` 中完成 cpuset 小型移植、测试和提交，再把
+   `format-patch` 保存到 Edge 外层分支的
+   `patches/cosmos-framework/`。
+
+外层仓库没有可用的 `.gitmodules` 自动初始化链路，所以不能把以上步骤替换
+成一次外层 `git pull`。执行嵌套 worktree 命令前，应确认目标 gitlink
+placeholder 为空且目标路径没有用户文件；若不满足，先检查目录内容，不要
+直接强制覆盖。
+
+checkpoint 也不会因为 worktree 自动共享。Nano 20k checkpoint 保持在原
+路径；Edge 使用官方 Edge HF checkpoint 和转换后的 Edge DCP。若要避免重复
+大文件，应把不可变模型资产放到明确的共享绝对路径，并在
+`configs/dependencies/cosmos3_edge.lock.yaml` 记录真实路径和校验值，而不是
+把 checkpoint 提交进 Git。
 
 ### 15.2 当前已有、需要适配和缺失项
 
