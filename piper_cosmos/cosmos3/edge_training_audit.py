@@ -53,6 +53,7 @@ class EdgeTrainingAuditCallback(Callback):
         self.load_iteration = 0
         self.load_checkpoint_path: str | None = None
         self.last_data_batch: dict[str, Any] | None = None
+        self.last_batch_size = 1
 
     @staticmethod
     def _net(model: torch.nn.Module) -> torch.nn.Module:
@@ -152,6 +153,7 @@ class EdgeTrainingAuditCallback(Callback):
             self.action_losses.append(float(output_batch["flow_matching_loss_action"].detach().float().item()))
         if "flow_matching_loss_vision" in output_batch:
             self.vision_losses.append(float(output_batch["flow_matching_loss_vision"].detach().float().item()))
+        self.last_batch_size = int(output_batch.get("batch_size", 1))
         self.last_data_batch = data_batch
 
     def _run_action_inference(self, model: torch.nn.Module) -> dict[str, Any] | None:
@@ -167,7 +169,8 @@ class EdgeTrainingAuditCallback(Callback):
                 samples = model.generate_samples_from_batch(
                     self.last_data_batch,
                     guidance=1.0,
-                    seed=[17],
+                    seed=[17 + index for index in range(self.last_batch_size)],
+                    n_sample=self.last_batch_size,
                     num_steps=int(os.environ.get("EDGE_AUDIT_INFERENCE_STEPS", "2")),
                     has_negative_prompt=False,
                 )
