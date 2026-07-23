@@ -1,0 +1,358 @@
+{
+  "status": "ready",
+  "ready_for_sft": true,
+  "failed_checks": [],
+  "checks": [
+    {
+      "id": "offline_assets",
+      "status": "passed",
+      "details": {
+        "paths": {
+          "nvidia/Cosmos3-Edge": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge",
+          "Wan-AI/Wan2.2-TI2V-5B": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/hf_home/hub/models--Wan-AI--Wan2.2-TI2V-5B/snapshots/921dbaf3f1674a56f47e83fb80a34bac8a8f203e/Wan2.2_VAE.pth"
+        }
+      }
+    },
+    {
+      "id": "cosmos_commit",
+      "status": "passed",
+      "details": {
+        "actual": "7c22d8aa2e97adcd7857399d1ff1b088be1ff401"
+      }
+    },
+    {
+      "id": "framework_base",
+      "status": "passed",
+      "details": {
+        "actual_commit": "6abdc2e544a0fc0490cd5eb2a420b3f81b563622",
+        "merge_base": "f734253f0f6af3e268372402f44435c38f55ef3e"
+      }
+    },
+    {
+      "id": "framework_clean",
+      "status": "passed",
+      "details": {
+        "status": ""
+      }
+    },
+    {
+      "id": "edge_hidden_size",
+      "status": "passed",
+      "details": {
+        "hidden_size": 2048
+      }
+    },
+    {
+      "id": "domain_21_collision",
+      "status": "passed",
+      "details": {
+        "collisions": {}
+      }
+    },
+    {
+      "id": "fresh_action_head",
+      "status": "passed",
+      "details": {
+        "actual": [
+          "action2llm",
+          "action_modality_embed",
+          "action_pos_embed",
+          "llm2action",
+          "net_ema."
+        ]
+      }
+    },
+    {
+      "id": "trainable_allowlist",
+      "status": "passed",
+      "details": {
+        "actual": [
+          "action2llm",
+          "action_modality_embed",
+          "k_norm_und_for_gen",
+          "llm2action",
+          "llm2vae",
+          "moe_gen",
+          "time_embedder",
+          "vae2llm"
+        ]
+      }
+    },
+    {
+      "id": "model_contract",
+      "status": "passed",
+      "details": {
+        "action_gen": true,
+        "vision_gen": true,
+        "sound_gen": false,
+        "resolution": "480"
+      }
+    },
+    {
+      "id": "nano20k_control_variables",
+      "status": "passed",
+      "details": {
+        "job": {
+          "task": "vfm",
+          "experiment": "action_policy_piper14_edge",
+          "project": "cosmos_battery",
+          "group": "edge_piper14",
+          "name": "battery_piper14_cosmos3_edge_base_fresh_head_20k",
+          "wandb_mode": "online"
+        },
+        "trainer": {
+          "max_iter": 20000,
+          "logging_iter": 10,
+          "grad_accum_iter": 1
+        },
+        "scheduler": {
+          "cycle_lengths": [
+            20000
+          ],
+          "f_max": [
+            0.4
+          ],
+          "f_min": [
+            0.0
+          ],
+          "f_start": [
+            0.0
+          ],
+          "warm_up_steps": [
+            0
+          ]
+        }
+      }
+    },
+    {
+      "id": "real_dataset_contract",
+      "status": "passed",
+      "details": {
+        "episodes": 138,
+        "windows": 121195,
+        "raw_video_shape": [
+          3,
+          33,
+          720,
+          640
+        ],
+        "raw_action_shape": [
+          33,
+          14
+        ],
+        "transformed_video_shape": [
+          3,
+          33,
+          640,
+          640
+        ],
+        "transformed_action_shape": [
+          33,
+          64
+        ],
+        "sequence_plan": {
+          "has_text": true,
+          "has_vision": true,
+          "has_action": true,
+          "has_sound": false,
+          "condition_frame_indexes_vision": [
+            0
+          ],
+          "condition_frame_indexes_action": [
+            0
+          ],
+          "condition_frame_indexes_sound": [],
+          "share_vision_temporal_positions": false
+        }
+      }
+    },
+    {
+      "id": "generic_preflight",
+      "status": "passed",
+      "details": {
+        "report": {
+          "status": "ready",
+          "checks": [
+            {
+              "id": "python_bin",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy/external/cosmos/packages/cosmos3/.venv/bin/python",
+                "exists": true,
+                "executable": true,
+                "fastwam_path": false,
+                "expected_default": "external/cosmos/packages/cosmos3/.venv/bin/python"
+              }
+            },
+            {
+              "id": "toml",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy_edge/configs/cosmos3/sft/action_policy_piper14_edge.toml",
+                "provided": true,
+                "exists": true,
+                "is_file": true
+              }
+            },
+            {
+              "id": "battery_data",
+              "status": "passed",
+              "details": {
+                "data_root": "/project/peilab/wam/physical_WM/data/battery_assemble/perfect",
+                "exists": true,
+                "is_dir": true,
+                "hdf5_files": 138
+              }
+            },
+            {
+              "id": "data_config",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy_edge/configs/dataset_configs/battery_assemble_hdf5.yaml",
+                "provided": true,
+                "exists": true,
+                "is_file": true
+              }
+            },
+            {
+              "id": "base_checkpoint",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP",
+                "provided": true,
+                "exists": true,
+                "is_dir": true,
+                "model_dir": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP/model",
+                "has_model_dir": true,
+                "has_metadata": true,
+                "distcp_files": 2
+              }
+            },
+            {
+              "id": "wan_vae",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy/external/cosmos/checkpoints/hf_home/hub/models--Wan-AI--Wan2.2-TI2V-5B/snapshots/921dbaf3f1674a56f47e83fb80a34bac8a8f203e/Wan2.2_VAE.pth",
+                "provided": true,
+                "exists": true,
+                "is_file": true,
+                "wan_vae_resolved_from_candidate": false
+              }
+            },
+            {
+              "id": "output_root",
+              "status": "passed",
+              "details": {
+                "path": "/project/peilab/wam/cosmos3_cy_edge/reports/cosmos3_edge_piper14",
+                "exists": true,
+                "is_dir": true,
+                "will_create": false,
+                "nearest_existing_parent": "/project/peilab/wam/cosmos3_cy_edge/reports",
+                "parent_writable": true,
+                "writable": true
+              }
+            },
+            {
+              "id": "slurm_account",
+              "status": "passed",
+              "details": {
+                "required": true,
+                "BATTERY_SLURM_ACCOUNT_set": true,
+                "sbatch": "/cm/shared/apps/slurm/current/bin/sbatch"
+              }
+            },
+            {
+              "id": "wandb_auth",
+              "status": "passed",
+              "details": {
+                "wandb_mode": "online",
+                "wandb_mode_source": "toml",
+                "batch_home": "/home/joshmiao",
+                "WANDB_API_KEY_set": false,
+                "WANDB_API_KEY_FILE": "",
+                "WANDB_API_KEY_FILE_exists": false,
+                "WANDB_API_KEY_FILE_nonempty": false,
+                "netrc_path": "/home/joshmiao/.netrc",
+                "netrc_exists": true
+              }
+            }
+          ],
+          "failed_checks": []
+        }
+      }
+    },
+    {
+      "id": "edge_dcp",
+      "status": "passed",
+      "details": {
+        "report": {
+          "status": "passed",
+          "path": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP",
+          "model_dir": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP/model",
+          "has_metadata": true,
+          "distcp_files": 2,
+          "checkpoint_json": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP/checkpoint.json",
+          "has_checkpoint_json": false,
+          "checkpoint_json_required": false,
+          "model_config": "/project/peilab/wam/cosmos3_cy_edge/external/cosmos/checkpoints/Cosmos3-Edge-DCP/model/config.json",
+          "has_model_config": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "id": "edge_dcp_action_shapes",
+      "status": "passed",
+      "details": {
+        "expected": {
+          "net.action_modality_embed": [
+            2048
+          ],
+          "net.action2llm.fc.weight": [
+            32,
+            131072
+          ],
+          "net.action2llm.bias.weight": [
+            32,
+            2048
+          ],
+          "net.llm2action.fc.weight": [
+            32,
+            131072
+          ],
+          "net.llm2action.bias.weight": [
+            32,
+            64
+          ]
+        },
+        "actual": {
+          "net.action_modality_embed": [
+            2048
+          ],
+          "net.action2llm.fc.weight": [
+            32,
+            131072
+          ],
+          "net.action2llm.bias.weight": [
+            32,
+            2048
+          ],
+          "net.llm2action.fc.weight": [
+            32,
+            131072
+          ],
+          "net.llm2action.bias.weight": [
+            32,
+            64
+          ]
+        }
+      }
+    }
+  ],
+  "audit": {
+    "edge_revision": "6f58f6b4c91288838e60b6bcb2cc45d997e961de",
+    "cosmos_commit": "7c22d8aa2e97adcd7857399d1ff1b088be1ff401",
+    "framework_commit": "6abdc2e544a0fc0490cd5eb2a420b3f81b563622",
+    "toml_sha256": "bc238db755d5039d1121ba8cb157f7dae068634ceb7acbe8c38477866ddffd6a"
+  }
+}

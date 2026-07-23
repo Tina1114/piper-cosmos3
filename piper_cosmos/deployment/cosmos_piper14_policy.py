@@ -27,7 +27,10 @@ class CosmosActionBackend(Protocol):
 class CosmosPiper14PolicyConfig:
     """Configuration for the Piper14 deployment policy wrapper."""
 
-    checkpoint: str = "/project/peilab/wam/cosmos3_cy/cosmos_battery/20k"
+    checkpoint: str = (
+        "/project/peilab/wam/cosmos3_cy_edge/reports/cosmos3_edge_piper14/"
+        "cosmos_battery/edge_piper14/battery_piper14_cosmos3_edge_base_fresh_head_20k"
+    )
     config_file: str | None = None
     prompt: str = DEFAULT_PROMPT
     action_horizon: int = 32
@@ -41,6 +44,7 @@ class CosmosPiper14PolicyConfig:
     shift: float = 5.0
     fps: int = 30
     seed: int = 0
+    format_prompt_as_json: bool = True
     host: str = "127.0.0.1"
     port: int = 8766
     mock_backend: bool = False
@@ -90,7 +94,11 @@ class LiberoActionServiceBackend:
     def __init__(self, config: CosmosPiper14PolicyConfig) -> None:
         from cosmos_framework.inference.common.args import CheckpointOverrides
         from cosmos_framework.scripts.action_policy_server_libero import ActionModelService, ActionServerArgs
-        from cosmos_framework.data.vfm.action.transforms import ActionTransformPipeline
+
+        try:
+            from cosmos_framework.data.generator.action.transforms import ActionTransformPipeline
+        except ModuleNotFoundError:
+            from cosmos_framework.data.vfm.action.transforms import ActionTransformPipeline
 
         from piper_cosmos.cosmos3.domain import register_piper14_domain
 
@@ -126,12 +134,16 @@ class LiberoActionServiceBackend:
             append_duration_fps_timestamps=True,
             append_resolution_info=True,
             append_idle_frames=False,
+            format_prompt_as_json=bool(config.format_prompt_as_json),
         )
 
     def predict_policy(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         import torch
 
-        from cosmos_framework.data.vfm.action.domain_utils import get_domain_id
+        try:
+            from cosmos_framework.data.generator.action.domain_utils import get_domain_id
+        except ModuleNotFoundError:
+            from cosmos_framework.data.vfm.action.domain_utils import get_domain_id
 
         concat_view = request.get("concat_view")
         if concat_view is None:
@@ -162,6 +174,11 @@ class LiberoActionServiceBackend:
             "mode": "policy",
             "domain_id": torch.tensor(get_domain_id(domain_name), dtype=torch.long),
             "viewpoint": "concat_view",
+            "additional_view_description": (
+                "The fixed overhead camera is on top; the left wrist camera is bottom-left; "
+                "the right wrist camera is bottom-right."
+            ),
+            "idle_frames": torch.tensor(0, dtype=torch.long),
         }
         batch = build_data_batch_from_sample(self.transform(sample, resolution=self.config.resolution))
 
@@ -237,6 +254,7 @@ class CosmosPiper14PolicyClient:
             "num_steps": int(self.config.num_steps),
             "guidance": float(self.config.guidance),
             "shift": float(self.config.shift),
+            "format_prompt_as_json": bool(self.config.format_prompt_as_json),
         }
 
     def build_policy_request(self, obs: Mapping[str, Any]) -> dict[str, Any]:
@@ -366,7 +384,10 @@ def encode_rgb_png_base64(image: np.ndarray) -> str:
 
 
 def build_data_batch_from_sample(sample: Mapping[str, Any]) -> dict[str, Any]:
-    from cosmos_framework.data.vfm.joint_dataloader import IterativeJointDataLoader
+    try:
+        from cosmos_framework.data.generator.joint_dataloader import IterativeJointDataLoader
+    except ModuleNotFoundError:
+        from cosmos_framework.data.vfm.joint_dataloader import IterativeJointDataLoader
 
     data_batch: dict[str, Any] = {}
     for key, value in sample.items():

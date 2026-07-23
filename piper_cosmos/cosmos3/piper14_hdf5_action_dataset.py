@@ -97,6 +97,10 @@ class Piper14HDF5ActionDataset(Dataset):
             "mode": self.mode,
             "domain_id": torch.tensor(PIPER14_DOMAIN_ID, dtype=torch.long),
             "viewpoint": self.viewpoint,
+            "additional_view_description": (
+                "The fixed overhead camera is on top; the left wrist camera is bottom-left; "
+                "the right wrist camera is bottom-right."
+            ),
             "idle_frames": torch.tensor(0, dtype=torch.long),
         }
 
@@ -152,6 +156,7 @@ def get_piper14_hdf5_sft_dataset(
     max_action_dim: int = 64,
     tokenizer_config: dict | None = None,
     cfg_dropout_rate: float = 0.1,
+    format_prompt_as_json: bool = False,
     iterable_shuffle: bool = False,
     episode_shuffle_seed: int = 42,
     stride: int = 1,
@@ -161,11 +166,18 @@ def get_piper14_hdf5_sft_dataset(
 
     if action_normalization is not None:
         raise NotImplementedError("Piper14 first integration uses raw absolute joint targets.")
-    from cosmos_framework.data.vfm.action.datasets.action_sft_dataset import (
-        ActionIterableShuffleDataset,
-        ActionSFTDataset,
-    )
-    from cosmos_framework.data.vfm.action.transforms import ActionTransformPipeline
+    try:
+        from cosmos_framework.data.generator.action.datasets.action_sft_dataset import (
+            ActionIterableShuffleDataset,
+            ActionSFTDataset,
+        )
+        from cosmos_framework.data.generator.action.transforms import ActionTransformPipeline
+    except ModuleNotFoundError:
+        from cosmos_framework.data.vfm.action.datasets.action_sft_dataset import (
+            ActionIterableShuffleDataset,
+            ActionSFTDataset,
+        )
+        from cosmos_framework.data.vfm.action.transforms import ActionTransformPipeline
 
     raw = Piper14HDF5ActionDataset(
         root=root,
@@ -185,9 +197,9 @@ def get_piper14_hdf5_sft_dataset(
         append_duration_fps_timestamps=True,
         append_resolution_info=True,
         append_idle_frames=False,
+        format_prompt_as_json=format_prompt_as_json,
     )
     sft = ActionSFTDataset(raw, transform, resolution)
     if iterable_shuffle:
         return ActionIterableShuffleDataset(sft, seed=episode_shuffle_seed)
     return sft
-

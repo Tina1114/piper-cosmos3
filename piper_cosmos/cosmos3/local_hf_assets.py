@@ -125,7 +125,10 @@ def local_download_tokenizer_files(model_name: str, config_variant: str) -> str:
 
 def patch_qwen_tokenizer_loader() -> None:
     from cosmos_framework.configs.base import defaults
-    from cosmos_framework.configs.base.defaults import vlm
+    try:
+        from cosmos_framework.configs.base.defaults import vlm
+    except ImportError:
+        from cosmos_framework.configs.base.defaults import reasoner as vlm
 
     global _ORIGINAL_DOWNLOAD_TOKENIZER_FILES
 
@@ -134,7 +137,10 @@ def patch_qwen_tokenizer_loader() -> None:
 
     _ORIGINAL_DOWNLOAD_TOKENIZER_FILES = vlm.download_tokenizer_files
     local_download_tokenizer_files._cosmos3_local_hf_patched = True  # type: ignore[attr-defined]
-    defaults.vlm.download_tokenizer_files = local_download_tokenizer_files
+    if hasattr(defaults, "vlm"):
+        defaults.vlm.download_tokenizer_files = local_download_tokenizer_files
+    if hasattr(defaults, "reasoner"):
+        defaults.reasoner.download_tokenizer_files = local_download_tokenizer_files
     vlm.download_tokenizer_files = local_download_tokenizer_files
 
 

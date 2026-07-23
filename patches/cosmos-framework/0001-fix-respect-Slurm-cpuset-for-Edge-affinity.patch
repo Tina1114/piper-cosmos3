@@ -1,0 +1,143 @@
+From 6abdc2e544a0fc0490cd5eb2a420b3f81b563622 Mon Sep 17 00:00:00 2001
+From: chenying <2607154942@qq.com>
+Date: Fri, 24 Jul 2026 02:22:04 +0800
+Subject: [PATCH] fix: respect Slurm cpuset for Edge affinity
+
+---
+ cosmos_framework/utils/device.py           | 17 +++++++++++++++++
+ cosmos_framework/utils/device_test.py      | 20 ++++++++++++++++++++
+ cosmos_framework/utils/distributed.py      | 19 ++++++++++++++++---
+ cosmos_framework/utils/distributed_test.py |  7 +++++--
+ 4 files changed, 58 insertions(+), 5 deletions(-)
+ create mode 100644 cosmos_framework/utils/device_test.py
+
+diff --git a/cosmos_framework/utils/device.py b/cosmos_framework/utils/device.py
+index 7bc2f88..5319b48 100644
+--- a/cosmos_framework/utils/device.py
++++ b/cosmos_framework/utils/device.py
+@@ -4,6 +4,7 @@
+ import gc
+ import math
+ import os
++from collections.abc import Container, Iterable
+ from functools import wraps
+ 
+ import pynvml
+@@ -104,6 +105,22 @@ class Device:
+         return [i for i, e in enumerate(affinity_list) if e != 0]
+ 
+ 
++def resolve_cpu_affinity(requested_cpus: Iterable[int], allowed_cpus: Container[int] | None = None) -> list[int]:
++    """Constrain NVML's requested CPU set to the current Slurm/cgroup cpuset."""
++
++    requested = list(dict.fromkeys(requested_cpus))
++    if allowed_cpus is None:
++        return requested
++
++    allowed = sorted(dict.fromkeys(allowed_cpus))
++    if not requested:
++        return allowed
++
++    allowed_set = set(allowed)
++    filtered = [cpu for cpu in requested if cpu in allowed_set]
++    return filtered or allowed
++
++
+ def with_torch_device(device):
+     """
+     Decorator factory that wraps a function to execute within a specific torch device context.
+diff --git a/cosmos_framework/utils/device_test.py b/cosmos_framework/utils/device_test.py
+new file mode 100644
+index 0000000..08f4eee
+--- /dev/null
++++ b/cosmos_framework/utils/device_test.py
+@@ -0,0 +1,20 @@
++# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++# SPDX-License-Identifier: OpenMDW-1.1
++
++from cosmos_framework.utils.device import resolve_cpu_affinity
++
++
++def test_resolve_cpu_affinity_keeps_valid_request() -> None:
++    assert resolve_cpu_affinity([8, 9, 10], {0, 8, 9, 10, 11}) == [8, 9, 10]
++
++
++def test_resolve_cpu_affinity_intersects_partial_request() -> None:
++    assert resolve_cpu_affinity([24, 25, 26, 27], {25, 27, 40}) == [25, 27]
++
++
++def test_resolve_cpu_affinity_falls_back_when_disjoint() -> None:
++    assert resolve_cpu_affinity([48, 49], {0, 1, 2, 3}) == [0, 1, 2, 3]
++
++
++def test_resolve_cpu_affinity_keeps_request_when_cpuset_unknown() -> None:
++    assert resolve_cpu_affinity([4, 5], None) == [4, 5]
+diff --git a/cosmos_framework/utils/distributed.py b/cosmos_framework/utils/distributed.py
+index 40b26bd..208b98a 100644
+--- a/cosmos_framework/utils/distributed.py
++++ b/cosmos_framework/utils/distributed.py
+@@ -17,8 +17,8 @@ import torch
+ import torch.distributed as dist
+ from torch.distributed import get_process_group_ranks
+ 
++from cosmos_framework.utils.device import Device, resolve_cpu_affinity
+ from cosmos_framework.utils.flags import INTERNAL
+-from cosmos_framework.utils.device import Device
+ 
+ if dist.is_available():
+     from torch.distributed.distributed_c10d import _get_default_group
+@@ -40,8 +40,21 @@ def init() -> int | None:
+     local_rank = int(os.getenv("LOCAL_RANK", 0))
+     try:
+         device = Device(local_rank)
+-        os.sched_setaffinity(0, device.get_cpu_affinity())
+-    except pynvml.NVMLError as e:
++        requested_affinity = device.get_cpu_affinity()
++        allowed_affinity = os.sched_getaffinity(0) if hasattr(os, "sched_getaffinity") else None
++        target_affinity = resolve_cpu_affinity(requested_affinity, allowed_affinity)
++        if requested_affinity != target_affinity:
++            log.warning(
++                "Adjusted CPU affinity for local rank "
++                f"{local_rank}: requested {len(requested_affinity)} CPUs, "
++                f"allowed {len(allowed_affinity) if allowed_affinity is not None else 'unknown'}, "
++                f"using {len(target_affinity)} CPUs."
++            )
++        if target_affinity:
++            os.sched_setaffinity(0, target_affinity)
++        else:
++            log.warning(f"Skipping device affinity for local rank {local_rank}: no valid CPUs available in current cpuset.")
++    except (pynvml.NVMLError, OSError) as e:
+         log.warning(f"Failed to set device affinity: {e}")
+     # Set up distributed communication. CPU checkpoint conversion needs Gloo
+     # because NCCL cannot synchronize CPU-resident tokenizer or model tensors.
+diff --git a/cosmos_framework/utils/distributed_test.py b/cosmos_framework/utils/distributed_test.py
+index 0cadb4c..0d996c8 100644
+--- a/cosmos_framework/utils/distributed_test.py
++++ b/cosmos_framework/utils/distributed_test.py
+@@ -11,6 +11,7 @@ from cosmos_framework.utils import distributed
+ 
+ def test_init_uses_gloo_backend_for_cpu(monkeypatch: pytest.MonkeyPatch) -> None:
+     init_process_group = Mock()
++    sched_setaffinity = Mock()
+     monkeypatch.setenv("COSMOS_DEVICE", "cpu")
+     monkeypatch.setenv("TORCH_NCCL_BLOCKING_WAIT", "0")
+     monkeypatch.setenv("TORCH_NCCL_ASYNC_ERROR_HANDLING", "1")
+@@ -22,11 +23,13 @@ def test_init_uses_gloo_backend_for_cpu(monkeypatch: pytest.MonkeyPatch) -> None
+     monkeypatch.setattr(
+         distributed,
+         "Device",
+-        lambda _local_rank: SimpleNamespace(get_cpu_affinity=lambda: [0]),
++        lambda _local_rank: SimpleNamespace(get_cpu_affinity=lambda: [0, 8]),
+     )
+-    monkeypatch.setattr(distributed.os, "sched_setaffinity", lambda _pid, _affinity: None)
++    monkeypatch.setattr(distributed.os, "sched_getaffinity", lambda _pid: {8, 9})
++    monkeypatch.setattr(distributed.os, "sched_setaffinity", sched_setaffinity)
+     monkeypatch.setattr(distributed.torch.cuda, "set_device", lambda _local_rank: None)
+ 
+     distributed.init()
+ 
+     assert init_process_group.call_args.kwargs["backend"] == "gloo"
++    sched_setaffinity.assert_called_once_with(0, [8])
+-- 
+2.34.1
+

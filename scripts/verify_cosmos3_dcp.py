@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 
-def verify_dcp(path: Path) -> dict[str, Any]:
+def verify_dcp(path: Path, *, require_checkpoint_json: bool = True) -> dict[str, Any]:
     model_dir = path / "model"
     metadata = model_dir / ".metadata"
     checkpoint_json = path / "checkpoint.json"
@@ -25,7 +25,7 @@ def verify_dcp(path: Path) -> dict[str, Any]:
         missing.append("model_metadata")
     if not distcp_files:
         missing.append("distcp_shards")
-    if not checkpoint_json.is_file():
+    if require_checkpoint_json and not checkpoint_json.is_file():
         missing.append("checkpoint_json")
     if not model_config.is_file():
         missing.append("model_config")
@@ -38,6 +38,7 @@ def verify_dcp(path: Path) -> dict[str, Any]:
         "distcp_files": len(distcp_files),
         "checkpoint_json": str(checkpoint_json),
         "has_checkpoint_json": checkpoint_json.is_file(),
+        "checkpoint_json_required": require_checkpoint_json,
         "model_config": str(model_config),
         "has_model_config": model_config.is_file(),
         "missing": missing,
@@ -55,12 +56,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--path", type=Path, default=Path("external/cosmos/checkpoints/Cosmos3-Nano-DCP"))
     parser.add_argument("--report", type=Path)
+    parser.add_argument(
+        "--allow-missing-checkpoint-json",
+        action="store_true",
+        help="Allow Edge conversions whose safetensors source does not ship checkpoint.json.",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    report = verify_dcp(args.path)
+    report = verify_dcp(args.path, require_checkpoint_json=not args.allow_missing_checkpoint_json)
     if args.report:
         write_json(args.report, report)
     print(json.dumps(report, indent=2))

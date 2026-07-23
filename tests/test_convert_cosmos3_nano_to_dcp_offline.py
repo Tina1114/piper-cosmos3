@@ -55,7 +55,10 @@ class LocalHfAssetsTest(unittest.TestCase):
 
             bootstrap_local_hf_assets(qwen_snapshot=qwen_snapshot, wan_vae_path=wan_vae)
 
-            from cosmos_framework.configs.base.defaults import vlm
+            try:
+                from cosmos_framework.configs.base.defaults import vlm
+            except ImportError:
+                from cosmos_framework.configs.base.defaults import reasoner as vlm
 
             self.assertEqual(vlm.download_tokenizer_files(QWEN_REPOSITORY, "hf"), str(qwen_snapshot))
             processor = vlm.create_qwen2_tokenizer_with_download(QWEN_REPOSITORY, "hf")

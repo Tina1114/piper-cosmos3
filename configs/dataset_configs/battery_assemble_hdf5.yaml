@@ -57,8 +57,8 @@ observation:
 training:
   observation_index: t
   target_action_index: t
-  action_horizon: 16
-  history_frames: 2
+  action_horizon: 32
+  history_frames: 1
   stride: 1
   ignore_base_action: true
 

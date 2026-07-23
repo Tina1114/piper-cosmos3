@@ -35,9 +35,9 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
         libero = types.ModuleType("cosmos_framework.scripts.action_policy_server_libero")
         libero.ActionServerArgs = FakeActionServerArgs
         libero.ActionModelService = FakeActionModelService
-        transforms = types.ModuleType("cosmos_framework.data.vfm.action.transforms")
+        transforms = types.ModuleType("cosmos_framework.data.generator.action.transforms")
         transforms.ActionTransformPipeline = lambda **_: object()
-        domain_utils = types.ModuleType("cosmos_framework.data.vfm.action.domain_utils")
+        domain_utils = types.ModuleType("cosmos_framework.data.generator.action.domain_utils")
         domain_utils.EMBODIMENT_TO_DOMAIN_ID = {}
         domain_utils.EMBODIMENT_TO_RAW_ACTION_DIM = {}
 
@@ -49,10 +49,10 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
             "cosmos_framework.scripts": types.ModuleType("cosmos_framework.scripts"),
             "cosmos_framework.scripts.action_policy_server_libero": libero,
             "cosmos_framework.data": types.ModuleType("cosmos_framework.data"),
-            "cosmos_framework.data.vfm": types.ModuleType("cosmos_framework.data.vfm"),
-            "cosmos_framework.data.vfm.action": types.ModuleType("cosmos_framework.data.vfm.action"),
-            "cosmos_framework.data.vfm.action.transforms": transforms,
-            "cosmos_framework.data.vfm.action.domain_utils": domain_utils,
+            "cosmos_framework.data.generator": types.ModuleType("cosmos_framework.data.generator"),
+            "cosmos_framework.data.generator.action": types.ModuleType("cosmos_framework.data.generator.action"),
+            "cosmos_framework.data.generator.action.transforms": transforms,
+            "cosmos_framework.data.generator.action.domain_utils": domain_utils,
         }
 
         with patch.dict(sys.modules, fake_modules):
@@ -200,11 +200,11 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
         libero = types.ModuleType("cosmos_framework.scripts.action_policy_server_libero")
         libero.ActionServerArgs = FakeActionServerArgs
         libero.ActionModelService = FakeActionModelService
-        transforms = types.ModuleType("cosmos_framework.data.vfm.action.transforms")
+        transforms = types.ModuleType("cosmos_framework.data.generator.action.transforms")
         transforms.ActionTransformPipeline = FakeActionTransformPipeline
-        joint_dataloader = types.ModuleType("cosmos_framework.data.vfm.joint_dataloader")
+        joint_dataloader = types.ModuleType("cosmos_framework.data.generator.joint_dataloader")
         joint_dataloader.IterativeJointDataLoader = types.SimpleNamespace(_MULTI_ITEM_KEYS={"video", "action"})
-        domain_utils = types.ModuleType("cosmos_framework.data.vfm.action.domain_utils")
+        domain_utils = types.ModuleType("cosmos_framework.data.generator.action.domain_utils")
         domain_utils.EMBODIMENT_TO_DOMAIN_ID = {}
         domain_utils.EMBODIMENT_TO_RAW_ACTION_DIM = {}
         domain_utils.get_domain_id = lambda name: 21
@@ -218,11 +218,11 @@ class CosmosPiper14BackendImportsTest(unittest.TestCase):
             "cosmos_framework.scripts": types.ModuleType("cosmos_framework.scripts"),
             "cosmos_framework.scripts.action_policy_server_libero": libero,
             "cosmos_framework.data": types.ModuleType("cosmos_framework.data"),
-            "cosmos_framework.data.vfm": types.ModuleType("cosmos_framework.data.vfm"),
-            "cosmos_framework.data.vfm.action": types.ModuleType("cosmos_framework.data.vfm.action"),
-            "cosmos_framework.data.vfm.action.transforms": transforms,
-            "cosmos_framework.data.vfm.action.domain_utils": domain_utils,
-            "cosmos_framework.data.vfm.joint_dataloader": joint_dataloader,
+            "cosmos_framework.data.generator": types.ModuleType("cosmos_framework.data.generator"),
+            "cosmos_framework.data.generator.action": types.ModuleType("cosmos_framework.data.generator.action"),
+            "cosmos_framework.data.generator.action.transforms": transforms,
+            "cosmos_framework.data.generator.action.domain_utils": domain_utils,
+            "cosmos_framework.data.generator.joint_dataloader": joint_dataloader,
         }
 
         with patch.dict(sys.modules, fake_modules):
